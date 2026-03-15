@@ -17,6 +17,7 @@ export interface LeadAgent {
   quote: string;
   commandsLed: string[];
   phasesActive: number[];
+  powerLevel: number; // 1-10
 }
 
 export interface SubAgent {
@@ -58,6 +59,7 @@ export const leadAgents: LeadAgent[] = [
       "Even the smallest pixel can change the course of a user's journey.",
     commandsLed: ["/ux"],
     phasesActive: [3, 4, 5, 8, 10],
+    powerLevel: 9,
   },
   {
     slug: "stark",
@@ -70,6 +72,7 @@ export const leadAgents: LeadAgent[] = [
     quote: "I am the API. And the API is iron.",
     commandsLed: [],
     phasesActive: [1, 2, 3, 4, 5, 6, 7],
+    powerLevel: 10,
   },
   {
     slug: "batman",
@@ -82,6 +85,7 @@ export const leadAgents: LeadAgent[] = [
     quote: "I'm not testing the code. I'm testing every assumption behind it.",
     commandsLed: ["/qa", "/test"],
     phasesActive: [5, 9],
+    powerLevel: 9,
   },
   {
     slug: "kenobi",
@@ -95,6 +99,7 @@ export const leadAgents: LeadAgent[] = [
       "These aren't the vulnerabilities you're looking for. Because I already patched them.",
     commandsLed: ["/security"],
     phasesActive: [3, 6, 11],
+    powerLevel: 9,
   },
   {
     slug: "picard",
@@ -107,6 +112,7 @@ export const leadAgents: LeadAgent[] = [
     quote: "Make it so — but make it maintainable.",
     commandsLed: ["/review", "/architect"],
     phasesActive: [0, 7],
+    powerLevel: 8,
   },
   {
     slug: "kusanagi",
@@ -119,6 +125,7 @@ export const leadAgents: LeadAgent[] = [
     quote: "The net is vast and infinite. Your uptime should be too.",
     commandsLed: ["/devops"],
     phasesActive: [1, 2, 12],
+    powerLevel: 8,
   },
   {
     slug: "coulson",
@@ -131,6 +138,7 @@ export const leadAgents: LeadAgent[] = [
     quote: "The release process isn't glamorous. That's why I love it.",
     commandsLed: ["/git"],
     phasesActive: [13],
+    powerLevel: 6,
   },
   {
     slug: "bombadil",
@@ -144,6 +152,7 @@ export const leadAgents: LeadAgent[] = [
       "Old Tom Bombadil keeps the methodology bright. Ring could not bind him, nor bugs in the night.",
     commandsLed: ["/void"],
     phasesActive: [],
+    powerLevel: 7,
   },
   {
     slug: "chani",
@@ -156,6 +165,7 @@ export const leadAgents: LeadAgent[] = [
     quote: "Tell me of your project, Usul. I will ride the worm for you.",
     commandsLed: ["/thumper"],
     phasesActive: [],
+    powerLevel: 7,
   },
   {
     slug: "fury",
@@ -169,6 +179,7 @@ export const leadAgents: LeadAgent[] = [
       "I'm here because you need to be reminded that there was an idea to bring together a group of remarkable agents.",
     commandsLed: ["/assemble"],
     phasesActive: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+    powerLevel: 10,
   },
 ];
 
