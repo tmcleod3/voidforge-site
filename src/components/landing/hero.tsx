@@ -16,7 +16,7 @@ export function Hero() {
 
       <div className="relative z-10 text-center max-w-4xl mx-auto">
         <motion.h1
-          className="font-[family-name:var(--font-bangers)] text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-wider gradient-text leading-tight mb-6"
+          className="font-[family-name:var(--font-bangers)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl tracking-wider gradient-text leading-tight mb-6"
           initial={shouldReduceMotion ? {} : { x: -200, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}

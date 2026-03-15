@@ -40,7 +40,7 @@ export function CopyButton({ text, className, trackAs }: CopyButtonProps) {
       type="button"
       onClick={handleCopy}
       className={cn(
-        "inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]",
+        "inline-flex items-center gap-1.5 px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-0 text-xs font-bold uppercase tracking-wider transition-all duration-200 rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]",
         copied
           ? "text-[var(--vf-neon-green)]"
           : "text-[var(--vf-text-muted)] hover:text-[var(--vf-text)]",

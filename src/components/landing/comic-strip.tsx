@@ -49,6 +49,10 @@ export function ComicStrip() {
                   src={panel.image}
                   alt={panel.title}
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  width={400}
+                  height={400}
+                  decoding="async"
                 />
               </div>
 
