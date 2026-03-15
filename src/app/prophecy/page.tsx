@@ -4,6 +4,41 @@ import { SpeechBubble } from "@/components/speech-bubble";
 import { AccordionItem } from "@/components/accordion";
 import { ProphecyTracker } from "@/components/prophecy-tracker";
 
+// Agent name → image path for avatar extraction
+const agentAvatars: Record<string, string> = {
+  Galadriel: "/images/agents/galadriel.webp",
+  Stark: "/images/agents/stark.webp",
+  Batman: "/images/agents/batman.webp",
+  Kenobi: "/images/agents/kenobi.webp",
+  Picard: "/images/agents/picard.webp",
+  Kusanagi: "/images/agents/kusanagi.webp",
+  Coulson: "/images/agents/coulson.webp",
+  Bombadil: "/images/agents/bombadil.webp",
+  Chani: "/images/agents/chani.webp",
+  Fury: "/images/agents/fury.webp",
+  Sisko: "/images/agents/sisko.webp",
+  Celebrimbor: "/images/agents/celebrimbor.webp",
+  Bashir: "/images/agents/bashir.webp",
+  Thanos: "/images/agents/thanos.webp",
+  Haku: "/images/agents/subs/haku.webp",
+  Gimli: "/images/agents/subs/gimli.webp",
+  Éowyn: "/images/agents/subs/éowyn.webp",
+};
+
+function extractAgents(text: string): string[] {
+  return Object.keys(agentAvatars).filter((name) => text.includes(name));
+}
+
+function groupByMajor(releases: typeof shipped) {
+  const groups: Record<string, typeof shipped> = {};
+  for (const r of releases) {
+    const major = r.version.match(/^v(\d+)/)?.[1] ?? "0";
+    if (!groups[major]) groups[major] = [];
+    groups[major].push(r);
+  }
+  return Object.entries(groups);
+}
+
 export const metadata: Metadata = {
   title: "Prophecy",
   description:
@@ -259,50 +294,72 @@ export default function ProphecyPage() {
             SHIPPED
           </h2>
 
-          <div className="space-y-3 mb-16">
-            {shipped.map((release) => (
-              <div key={release.version}>
-              <ProphecyTracker version={release.version} />
+          <div className="space-y-6 mb-16">
+            {groupByMajor(shipped).map(([major, releases]) => (
               <AccordionItem
+                key={`v${major}`}
+                defaultOpen={major === String(Math.max(...groupByMajor(shipped).map(([m]) => Number(m))))}
                 title={
-                  <div className="flex items-center gap-3 flex-wrap">
-                    <span className="font-[family-name:var(--font-space-mono)] text-[var(--vf-neon-green)] font-bold text-sm">
-                      {release.version}
+                  <div className="flex items-center gap-3">
+                    <span className="font-[family-name:var(--font-bangers)] text-2xl tracking-wider text-[var(--vf-forge-yellow)]">
+                      V{major}
                     </span>
-                    <span className="font-[family-name:var(--font-bangers)] text-lg tracking-wider text-[var(--vf-text)]">
-                      {release.title}
-                    </span>
-                    <span className="px-2 py-0.5 bg-[var(--vf-forge-yellow)]/10 text-[var(--vf-forge-yellow)] text-xs font-bold rounded">
-                      SHIPPED
+                    <span className="text-xs text-[var(--vf-text-muted)]">
+                      {releases.length} release{releases.length !== 1 ? "s" : ""}
                     </span>
                   </div>
                 }
               >
-                <div className="pt-3">
-                  <p className="text-sm text-[var(--vf-text-muted)] italic mb-3">
-                    {release.headline}
-                  </p>
-                  <p className="text-xs text-[var(--vf-text-muted)] mb-3">
-                    {release.date}
-                  </p>
-                  <ul className="space-y-1.5">
-                    {release.items.map((item) => (
-                      <li
-                        key={item}
-                        className="text-sm text-[var(--vf-text-muted)] flex items-start gap-2"
-                      >
-                        <span className="text-[var(--vf-neon-green)] mt-0.5 flex-shrink-0">
-                          &#10003;
-                        </span>
-                        <span className="line-through decoration-[var(--vf-text-muted)]/30">
-                          {item}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="pt-3 space-y-3">
+                  {releases.map((release) => {
+                    const allText = [release.title, release.headline, ...release.items].join(" ");
+                    const agents = extractAgents(allText);
+                    return (
+                      <div key={release.version} className="border-l-2 border-[var(--vf-border)] pl-4">
+                        <ProphecyTracker version={release.version} />
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <span className="font-[family-name:var(--font-space-mono)] text-[var(--vf-neon-green)] font-bold text-xs">
+                            {release.version}
+                          </span>
+                          <span className="font-[family-name:var(--font-bangers)] text-base tracking-wider text-[var(--vf-text)]">
+                            {release.title}
+                          </span>
+                          {agents.length > 0 && (
+                            <div className="flex -space-x-1.5 ml-auto">
+                              {agents.slice(0, 4).map((name) => (
+                                /* eslint-disable-next-line @next/next/no-img-element */
+                                <img
+                                  key={name}
+                                  src={agentAvatars[name]}
+                                  alt={name}
+                                  title={name}
+                                  className="w-6 h-6 rounded-full border border-[var(--vf-border)] object-cover"
+                                />
+                              ))}
+                              {agents.length > 4 && (
+                                <span className="w-6 h-6 rounded-full bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] flex items-center justify-center text-[9px] text-[var(--vf-text-muted)]">
+                                  +{agents.length - 4}
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                        <p className="text-xs text-[var(--vf-text-muted)] italic mb-2">
+                          {release.headline}
+                        </p>
+                        <ul className="space-y-1">
+                          {release.items.map((item) => (
+                            <li key={item} className="text-xs text-[var(--vf-text-muted)] flex items-start gap-1.5">
+                              <span className="text-[var(--vf-neon-green)] mt-0.5 flex-shrink-0">&#10003;</span>
+                              <span className="line-through decoration-[var(--vf-text-muted)]/30">{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
                 </div>
               </AccordionItem>
-              </div>
             ))}
           </div>
 
