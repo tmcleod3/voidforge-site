@@ -387,6 +387,10 @@ button:focus-visible {
   -webkit-backface-visibility: hidden;
 }
 
+.rotate-y-2 {
+  transform: rotateY(3deg) scale(1.02);
+}
+
 .rotate-y-180 {
   transform: rotateY(180deg);
 }

@@ -84,12 +84,11 @@ export function TradingCard({
         )}
       >
         {/* ===== FRONT ===== */}
-        <div className="absolute inset-0 backface-hidden" style={{ transform: "rotateY(5deg)" }}>
+        <div className="absolute inset-0 backface-hidden transition-transform duration-300 group-hover:rotate-y-2">
           <div
-            className="h-full flex flex-col p-6 overflow-hidden rounded-md border border-[var(--vf-border)]"
+            className="h-full comic-panel flex flex-col p-6 overflow-hidden"
             style={{
-              background: `linear-gradient(160deg, ${color}18 0%, var(--vf-surface-raised) 40%, rgba(26,26,46,0.85) 100%)`,
-              backdropFilter: "blur(8px)",
+              background: `linear-gradient(160deg, ${color}18 0%, var(--vf-surface-raised) 40%, var(--vf-surface-raised) 100%)`,
             }}
           >
             {/* Universe badge */}
