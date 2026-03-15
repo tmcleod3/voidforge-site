@@ -249,6 +249,22 @@ export const commands: Command[] = [
     ],
     badge: "NEW in v4.4",
   },
+  {
+    slug: "gauntlet",
+    name: "/gauntlet",
+    lead: "Thanos",
+    description:
+      "The ultimate test. 5 rounds, 30+ agents across 6 universes, escalating from discovery to adversarial warfare. Review-only — no build. If your project survives the snap, it's ready for anything.",
+    usage: "/gauntlet",
+    whatHappens: [
+      "Round 1: Discovery — all agents read the codebase in parallel",
+      "Round 2: Domain audits — QA, UX, Security, Architecture, DevOps each run full passes",
+      "Round 3: Adversarial — agents attack each other's domains (Batman tests Galadriel's work, Kenobi tests Stark's)",
+      "Round 4: Crossfire — agents challenge each other's findings",
+      "Round 5: Convergence — all leads vote, final council, ship or no-ship",
+    ],
+    badge: "NEW in v5.5",
+  },
 ];
 
 export function getCommand(slug: string): Command | undefined {

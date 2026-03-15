@@ -7,7 +7,7 @@ import { commands } from "@/data/commands";
 export const metadata: Metadata = {
   title: "Commands",
   description:
-    "15 slash commands: /build, /qa, /test, /security, /ux, /review, /devops, /architect, /git, /void, /thumper, /assemble, /campaign, /imagine, /debrief.",
+    "16 slash commands: /build, /qa, /test, /security, /ux, /review, /devops, /architect, /git, /void, /thumper, /assemble, /campaign, /imagine, /debrief, /gauntlet.",
 };
 
 export default function CommandsPage() {
@@ -15,7 +15,7 @@ export default function CommandsPage() {
     <>
       <PageHeader
         title="MISSION BRIEFING"
-        subtitle="15 slash commands. Type one. Watch the agents mobilize."
+        subtitle="16 slash commands. Type one. Watch the agents mobilize."
       />
 
       <section className="px-4 pb-12">

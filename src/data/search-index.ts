@@ -30,7 +30,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "Launch", description: "Phase 13: Final verification and go-live", path: "/protocol/launch", category: "Protocol" },
 
   // Agents
-  { title: "The Council", description: "All 13 lead agents with universe breakdowns", path: "/agents", category: "Agents" },
+  { title: "The Council", description: "All 14 lead agents with universe breakdowns", path: "/agents", category: "Agents" },
   { title: "Galadriel", description: "Frontend & UX lead — Tolkien universe", path: "/agents/galadriel", category: "Agents" },
   { title: "Stark", description: "Backend engineer — Marvel universe", path: "/agents/stark", category: "Agents" },
   { title: "Batman", description: "QA & testing — DC universe", path: "/agents/batman", category: "Agents" },
@@ -44,9 +44,10 @@ export const searchIndex: SearchEntry[] = [
   { title: "Sisko", description: "Campaign commander — Star Trek universe", path: "/agents/sisko", category: "Agents" },
   { title: "Celebrimbor", description: "Forge artist, image generation — Tolkien universe", path: "/agents/celebrimbor", category: "Agents" },
   { title: "Bashir", description: "Field medic, post-mortem analysis — Star Trek universe", path: "/agents/bashir", category: "Agents" },
+  { title: "Thanos", description: "The Gauntlet — comprehensive 5-round review — Marvel universe", path: "/agents/thanos", category: "Agents" },
 
   // Commands
-  { title: "Commands", description: "All 15 slash commands with usage and examples", path: "/commands", category: "Commands" },
+  { title: "Commands", description: "All 16 slash commands with usage and examples", path: "/commands", category: "Commands" },
   { title: "/build", description: "Execute the full 13-phase build protocol", path: "/commands/build", category: "Commands" },
   { title: "/qa", description: "Batman's full QA pass with double-pass verification", path: "/commands/qa", category: "Commands" },
   { title: "/test", description: "Batman's test-writing mode — coverage analysis and test architecture", path: "/commands/test", category: "Commands" },
@@ -62,6 +63,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/campaign", description: "Sisko's War Room — read the PRD, pick missions, finish the fight", path: "/commands/campaign", category: "Commands" },
   { title: "/imagine", description: "Celebrimbor's Forge — AI image generation from PRD descriptions", path: "/commands/imagine", category: "Commands" },
   { title: "/debrief", description: "Bashir's Field Report — post-mortem analysis and upstream feedback", path: "/commands/debrief", category: "Commands" },
+  { title: "/gauntlet", description: "Thanos's Comprehensive Review — 5 rounds, 30+ agents, every domain", path: "/commands/gauntlet", category: "Commands" },
 
   // Patterns
   { title: "Patterns", description: "7 code patterns with framework implementations", path: "/patterns", category: "Patterns" },

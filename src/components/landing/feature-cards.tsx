@@ -24,13 +24,13 @@ const features = [
     icon: Users,
     title: "170+ NAMED AGENTS",
     description:
-      "13 lead agents from Tolkien, Marvel, DC, Star Wars, Star Trek, Dune, and Anime. Each with a personality, a methodology, and opinions about your code.",
+      "14 lead agents from Tolkien, Marvel, DC, Star Wars, Star Trek, Dune, and Anime. Each with a personality, a methodology, and opinions about your code.",
     href: "/agents",
     color: "var(--vf-forge-orange)",
   },
   {
     icon: Terminal,
-    title: "15 SLASH COMMANDS",
+    title: "16 SLASH COMMANDS",
     description:
       "Type /build and watch the forge ignite. /qa summons Batman. /security wakes Kenobi. /imagine generates art. /campaign runs the war. Sisko's orders.",
     href: "/commands",
