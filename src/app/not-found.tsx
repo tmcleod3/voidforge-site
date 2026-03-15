@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <div className="flex items-center justify-center min-h-[60vh] px-4">
       <div className="text-center max-w-lg">
-        <h1 className="font-[family-name:var(--font-bangers)] text-6xl tracking-wider text-[var(--vf-forge-orange)] mb-4">
+        <h1 className="font-[family-name:var(--font-bangers)] text-4xl sm:text-5xl md:text-6xl tracking-wider text-[var(--vf-forge-orange)] mb-4">
           404
         </h1>
         <h2 className="font-[family-name:var(--font-bangers)] text-2xl tracking-wider text-[var(--vf-text)] mb-6">

@@ -69,7 +69,7 @@ function LeadAgentPage({ agent }: { agent: (typeof leadAgents)[number] }) {
           >
             {universeLabels[agent.universe]}
           </span>
-          <h1 className="font-[family-name:var(--font-bangers)] text-6xl tracking-wider gradient-text mb-2">
+          <h1 className="font-[family-name:var(--font-bangers)] text-4xl sm:text-5xl md:text-6xl tracking-wider gradient-text mb-2">
             {agent.name.toUpperCase()}
           </h1>
           <p className="text-[var(--vf-text-muted)] italic">
