@@ -271,13 +271,16 @@ const shipped = [
   {
     version: "v5.5.0",
     date: "2026-03-15",
-    title: "The Optimization Release",
-    headline: "The forge gets lean. Gimli optimizes every image. Sisko orders complexity-first. The methodology heals from its own field reports.",
+    title: "The Reckoning",
+    headline: "Thanos arrives. The Gauntlet tests everything. Gimli optimizes every image. The forge heals from its own field reports — and then puts itself through hell.",
     items: [
+      "/gauntlet — Thanos's Comprehensive Review: 5 rounds, 30+ agents, every domain tested",
+      "Thanos (The Mad Titan) joins as 14th lead agent",
+      "16 total slash commands",
       "Gimli's image optimization — Step 5.5 in /imagine: resize, WebP, <200KB per image",
       "Complexity-first mission ordering in /campaign — hard features first",
-      "Field report integration — Issues #4, #5, #6 implemented upstream",
-      "Updated /build, /assemble, /debrief, /void, QA, DevOps, Frontend methods",
+      "Éowyn's Enchantment Review — Step 1.75 in /ux for delight and micro-interactions",
+      "Field report integration — Issues #4, #5, #6, #8, #9 implemented upstream",
     ],
   },
 ];
