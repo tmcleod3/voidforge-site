@@ -36,7 +36,7 @@ export default function AboutPage() {
             </div>
             <p className="text-[var(--vf-text-muted)] mb-4">
               Father. Husband. American University graduate. Santa Monica, California.
-              Four companies founded and exited — <strong className="text-[var(--vf-text)]">PageLime</strong>,{" "}
+              Four companies founded and exited: <strong className="text-[var(--vf-text)]">PageLime</strong>,{" "}
               <strong className="text-[var(--vf-text)]">LolConnect</strong>,{" "}
               <strong className="text-[var(--vf-text)]">Omni</strong>,{" "}
               and{" "}
@@ -58,10 +58,11 @@ export default function AboutPage() {
               Every exit left behind a lesson. PageLime taught him that developers
               will pay for tools that respect their time. Omni taught him that
               infrastructure is invisible until it breaks. Arkive taught him that
-              the best products feel inevitable in hindsight. And somewhere between
-              the fourth exit and the next idea, he started talking to an AI and
-              realized it could build — but only if you gave it a <em>protocol</em>,
-              not a <em>prayer</em>.
+              great products need great storytelling, because the best technology
+              in the world doesn&apos;t matter if nobody understands why it exists.
+              And somewhere between the fourth exit and the next idea, he started
+              talking to an AI and realized it could build, but only if you gave
+              it a <em>protocol</em>, not a <em>prayer</em>.
             </p>
             <p className="text-[var(--vf-text-muted)] mb-6">
               VoidForge is what happened next. A set of personal notes turned into
