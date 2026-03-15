@@ -150,32 +150,24 @@ export function TradingCard({
 
         {/* ===== BACK ===== */}
         <div className="absolute inset-0 backface-hidden rotate-y-180">
-          <div className="h-full comic-panel flex flex-col p-5 bg-[var(--vf-surface-raised)]" style={{ overflow: "auto" }}>
+          <div className="h-full comic-panel flex flex-col p-5 bg-[var(--vf-surface-raised)]" style={{ overflow: "hidden" }}>
             {/* Header */}
-            <div className="flex items-center gap-2 mb-3">
+            <div className="flex items-center gap-2 mb-2">
               <span
                 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider"
                 style={{ color }}
               >
                 {name.toUpperCase()}
               </span>
-              <span className="text-xs text-[var(--vf-text-muted)]">
-                {domain}
-              </span>
             </div>
 
-            {/* Description */}
-            <p className="text-sm text-[var(--vf-text-muted)] mb-3 leading-relaxed">
-              {description}
+            {/* Description + inline quote */}
+            <p className="text-[13px] text-[var(--vf-text-muted)] mb-3 leading-relaxed">
+              {description}{" "}
+              <span className="italic" style={{ color }}>
+                &ldquo;{quote}&rdquo;
+              </span>
             </p>
-
-            {/* Quote */}
-            <blockquote
-              className="text-xs italic border-l-2 pl-3 mb-4"
-              style={{ borderColor: color, color }}
-            >
-              &ldquo;{quote}&rdquo;
-            </blockquote>
 
             {/* Commands */}
             {commandsLed.length > 0 && (
@@ -196,37 +188,15 @@ export function TradingCard({
               </div>
             )}
 
-            {/* Active Phases */}
-            {phasesActive.length > 0 && (
-              <div className="mb-3">
-                <p className="font-[family-name:var(--font-bangers)] text-xs tracking-wider text-[var(--vf-forge-orange)] mb-1">
-                  ACTIVE IN PHASES
-                </p>
-                <div className="flex gap-1 flex-wrap">
-                  {phasesActive.map((p) => (
-                    <span
-                      key={p}
-                      className="w-6 h-6 flex items-center justify-center text-xs rounded bg-[var(--vf-surface-overlay)] text-[var(--vf-text-muted)] border border-[var(--vf-border)]"
-                    >
-                      {p}
-                    </span>
-                  ))}
-                </div>
+            {/* Power level — compact single line */}
+            <div className="mt-auto flex items-center gap-2">
+              <span className="font-[family-name:var(--font-bangers)] text-xs tracking-wider text-[var(--vf-text-muted)]">
+                PWR
+              </span>
+              <div className="flex-1">
+                <PowerBar level={powerLevel} />
               </div>
-            )}
-
-            {/* Power level (back only) */}
-            <div className="pt-3">
-              <p className="font-[family-name:var(--font-bangers)] text-xs tracking-wider text-[var(--vf-text-muted)] mb-1">
-                POWER LEVEL
-              </p>
-              <PowerBar level={powerLevel} />
             </div>
-
-            {/* Flip hint */}
-            <p className="text-[10px] text-[var(--vf-text-muted)] text-center mt-2 opacity-60">
-              FLIP BACK
-            </p>
           </div>
         </div>
       </div>
