@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   description:
     "The complete guide to building production apps with 170+ AI agents across 7 fictional universes. Drop in a PRD, run /build, ship to production.",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://voidforge.dev"
+    process.env.NEXT_PUBLIC_SITE_URL || "https://voidforge.build"
   ),
   openGraph: {
     type: "website",

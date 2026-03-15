@@ -38,7 +38,7 @@ hostname: "voidforge.build"
 
 - **Name:** VoidForge.build (alternate candidates considered: ForgeManual.dev, VoidForgeHQ.com, VoidForge.dev — VoidForge.build selected as the canonical brand domain)
 - **One-liner:** The complete guide to building production apps with 170+ AI agents.
-- **What it does:** VoidForge.build is the landing page, tutorial hub, and reference manual for the VoidForge open-source methodology framework. It teaches developers how to install VoidForge, understand the 13-phase build protocol, use all 15 slash commands, and leverage a roster of 170+ named AI agents (13 leads) across 7 fictional universes to ship full-stack applications from a single Product Requirements Document. The site is itself built by VoidForge — a self-referential proof of the system's capability.
+- **What it does:** VoidForge.build is the landing page, tutorial hub, and reference manual for the VoidForge open-source methodology framework. It teaches developers how to install VoidForge, understand the 13-phase build protocol, use all 16 slash commands, and leverage a roster of 170+ named AI agents (14 leads) across 7 fictional universes to ship full-stack applications from a single Product Requirements Document. The site is itself built by VoidForge — a self-referential proof of the system's capability.
 - **Who it's for:** Developers and technical founders who use Claude Code (or want to start) and want a structured, repeatable process for turning a PRD into a deployed production application. They're comfortable on the command line, they've probably cloned a GitHub repo before, and they want their AI coding workflow to go from "vibes" to "protocol."
 - **Brand personality:** Kooky, mythic, irreverent. Think pulp sci-fi novel covers from the 1950s colliding with 90s comic book action panels and Tolkien's maps. The vibe is Roy Lichtenstein painting a starship bridge while Gandalf debugs the warp core. It is NOT corporate. It is NOT minimalist. It is NOT a typical developer docs site. It is loud, colorful, character-driven, and FUN — but the content underneath is dead serious and production-grade.
 
@@ -89,7 +89,7 @@ hostname: "voidforge.build"
 /agents                     → The Council: all 13 lead agents with universe breakdowns
 /agents/[universe-slug]     → Universe detail page (7 pages: tolkien, marvel, dc, star-wars, star-trek, dune, anime)
 /agents/[agent-slug]        → Individual agent profile page (13 leads: galadriel, stark, batman, kenobi, picard, kusanagi, coulson, bombadil, chani, fury, sisko, celebrimbor, bashir)
-/commands                   → All 15 slash commands with usage, examples, agent assignments
+/commands                   → All 16 slash commands with usage, examples, agent assignments
 /commands/[command-slug]    → Individual command page (15 pages: build, qa, test, security, ux, review, devops, architect, git, void, thumper, assemble, campaign, imagine, debrief)
 /patterns                   → 7 code patterns overview with framework tabs
 /patterns/[pattern-slug]    → Individual pattern page (7 pages: api-route, service, component, middleware, error-handling, job-queue, multi-tenant)
@@ -301,7 +301,7 @@ type SubAgent = {
 
 **User flow:**
 1. User navigates to /commands
-2. Sees all 15 slash commands in a table: command name, lead agent, and 1-sentence description
+2. Sees all 16 slash commands in a table: command name, lead agent, and 1-sentence description
 3. Each row links to /commands/[command-slug]
 4. Individual command pages show: full usage instructions, which agent leads it, what happens when you run it (step-by-step), example terminal output (styled as a retro CRT terminal with green-on-black text and scanline overlay), related commands, and tips
 
