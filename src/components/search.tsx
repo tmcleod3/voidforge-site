@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Search as SearchIcon, X } from "lucide-react";
 import Fuse, { type FuseResult } from "fuse.js";
@@ -124,8 +125,8 @@ export function Search() {
         </kbd>
       </button>
 
-      {/* Modal overlay */}
-      {open && (
+      {/* Modal — portaled to body to escape header stacking context */}
+      {open && createPortal(
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-4"
           onClick={close}
@@ -224,7 +225,8 @@ export function Search() {
               </span>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
