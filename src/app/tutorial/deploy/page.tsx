@@ -40,7 +40,7 @@ export default function DeployPage() {
         <img
           src="/images/tutorials/tutorial-deploy.webp"
           alt="Deploy — a rocket on a launchpad with deploy target indicators"
-          className="w-full rounded-lg comic-panel mb-8 float-gentle"
+          className="w-full rounded-lg comic-panel mb-8 "
         />
 
         <TableOfContents items={tocItems} />
