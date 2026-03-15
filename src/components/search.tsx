@@ -127,7 +127,7 @@ export function Search() {
       {/* Modal overlay */}
       {open && (
         <div
-          className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-start justify-center pt-[15vh]"
+          className="fixed inset-0 z-[100] flex items-center justify-center"
           onClick={close}
           role="presentation"
         >
