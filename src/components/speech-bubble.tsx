@@ -2,20 +2,20 @@ import { cn } from "@/lib/cn";
 import { universeColors, type Universe } from "@/data/agents";
 
 const agentImageMap: Record<string, string> = {
-  Galadriel: "/images/agents/galadriel.png",
-  Stark: "/images/agents/stark.png",
-  Batman: "/images/agents/batman.png",
-  Kenobi: "/images/agents/kenobi.png",
-  Picard: "/images/agents/picard.png",
-  Kusanagi: "/images/agents/kusanagi.png",
-  Coulson: "/images/agents/coulson.png",
-  Bombadil: "/images/agents/bombadil.png",
-  Chani: "/images/agents/chani.png",
-  Fury: "/images/agents/fury.png",
-  Sisko: "/images/agents/sisko.png",
-  Bilbo: "/images/agents/bilbo.png",
-  Celebrimbor: "/images/agents/celebrimbor.png",
-  Bashir: "/images/agents/bashir.png",
+  Galadriel: "/images/agents/galadriel.webp",
+  Stark: "/images/agents/stark.webp",
+  Batman: "/images/agents/batman.webp",
+  Kenobi: "/images/agents/kenobi.webp",
+  Picard: "/images/agents/picard.webp",
+  Kusanagi: "/images/agents/kusanagi.webp",
+  Coulson: "/images/agents/coulson.webp",
+  Bombadil: "/images/agents/bombadil.webp",
+  Chani: "/images/agents/chani.webp",
+  Fury: "/images/agents/fury.webp",
+  Sisko: "/images/agents/sisko.webp",
+  Bilbo: "/images/agents/bilbo.webp",
+  Celebrimbor: "/images/agents/celebrimbor.webp",
+  Bashir: "/images/agents/bashir.webp",
 };
 
 interface SpeechBubbleProps {

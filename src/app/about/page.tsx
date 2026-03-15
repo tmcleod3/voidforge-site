@@ -21,7 +21,7 @@ export default function AboutPage() {
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/thomas-mcleod.png"
+                src="/images/thomas-mcleod.webp"
                 alt="Thomas McLeod — creator of VoidForge"
                 className="w-32 h-32 rounded-full border-4 border-[var(--vf-forge-orange)] object-cover flex-shrink-0"
               />
@@ -149,7 +149,7 @@ export default function AboutPage() {
             <div className="comic-panel overflow-hidden mb-8">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/about-build-strip.png"
+                src="/images/about-build-strip.webp"
                 alt="The build sequence: PRD → Picard Orients → Stark + Galadriel Build → Batman Tests → Kenobi Secures → Kusanagi Deploys → You're Here"
                 className="w-full"
               />

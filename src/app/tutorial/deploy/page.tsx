@@ -38,7 +38,7 @@ export default function DeployPage() {
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/tutorials/tutorial-deploy.png"
+          src="/images/tutorials/tutorial-deploy.webp"
           alt="Deploy — a rocket on a launchpad with deploy target indicators"
           className="w-full rounded-lg comic-panel mb-8"
         />

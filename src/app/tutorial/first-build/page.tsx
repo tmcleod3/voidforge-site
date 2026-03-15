@@ -29,7 +29,7 @@ export default function FirstBuildPage() {
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/tutorials/tutorial-build.png"
+          src="/images/tutorials/tutorial-build.webp"
           alt="First Build — a blueprint being fed into a code-generating machine"
           className="w-full rounded-lg comic-panel mb-8"
         />

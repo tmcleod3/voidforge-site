@@ -29,7 +29,7 @@ export default function InstallPage() {
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/tutorials/tutorial-install.png"
+          src="/images/tutorials/tutorial-install.webp"
           alt="Install — a toolbox opening with glowing developer tools"
           className="w-full rounded-lg comic-panel mb-8"
         />

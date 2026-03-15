@@ -4,21 +4,21 @@ import { motion, useReducedMotion } from "framer-motion";
 
 const panels = [
   {
-    image: "/images/panels/panel-prd.png",
+    image: "/images/panels/panel-prd.webp",
     title: "DROP IN A PRD",
     description: "Write what you want to build. VoidForge reads it.",
     color: "var(--vf-electric-blue)",
     bg: "from-blue-900/30 to-blue-950/30",
   },
   {
-    image: "/images/panels/panel-agents.png",
+    image: "/images/panels/panel-agents.webp",
     title: "170+ AGENTS BUILD IT",
     description: "13 leads. 7 universes. One 13-phase protocol.",
     color: "var(--vf-forge-orange)",
     bg: "from-orange-900/30 to-orange-950/30",
   },
   {
-    image: "/images/panels/panel-ship.png",
+    image: "/images/panels/panel-ship.webp",
     title: "SHIP TO PRODUCTION",
     description: "Tested. Secured. Deployed. Done.",
     color: "var(--vf-neon-green)",

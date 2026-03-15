@@ -84,11 +84,11 @@ export function TradingCard({
         )}
       >
         {/* ===== FRONT ===== */}
-        <div className="absolute inset-0 backface-hidden">
+        <div className="absolute inset-0 backface-hidden" style={{ transform: "rotateY(5deg)" }}>
           <div
-            className="h-full comic-panel flex flex-col p-6 overflow-hidden"
+            className="h-full flex flex-col p-6 overflow-hidden rounded-md border border-[var(--vf-border)]/30"
             style={{
-              background: `linear-gradient(160deg, ${color}15 0%, var(--vf-surface-raised) 40%, var(--vf-surface-raised) 100%)`,
+              background: `linear-gradient(160deg, ${color}08 0%, transparent 50%)`,
             }}
           >
             {/* Universe badge */}
@@ -109,7 +109,7 @@ export function TradingCard({
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`/images/agents/${slug}.png`}
+                src={`/images/agents/${slug}.webp`}
                 alt={`${name} portrait`}
                 className="w-full h-full object-cover"
               />

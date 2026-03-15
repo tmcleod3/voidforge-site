@@ -4,6 +4,22 @@ import { AccordionItem } from "@/components/accordion";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { phases } from "@/data/protocol";
 
+const agentLore: Record<string, { slug: string; line: string }> = {
+  Picard: { slug: "picard", line: "Make it architecture." },
+  Stark: { slug: "stark", line: "Build the engine." },
+  Galadriel: { slug: "galadriel", line: "The light of the Forge." },
+  Batman: { slug: "batman", line: "Every edge case." },
+  Kenobi: { slug: "kenobi", line: "The high ground is security." },
+  Kusanagi: { slug: "kusanagi", line: "Target acquired." },
+  Coulson: { slug: "coulson", line: "The paperwork is handled." },
+  Fury: { slug: "fury", line: "I didn't ask." },
+  Sisko: { slug: "sisko", line: "One mission at a time." },
+  Celebrimbor: { slug: "celebrimbor", line: "The greatest craftsman." },
+  Bashir: { slug: "bashir", line: "The diagnosis is in." },
+  Bombadil: { slug: "bombadil", line: "Old Tom keeps the tune." },
+  Chani: { slug: "chani", line: "The desert remembers." },
+};
+
 export const metadata: Metadata = {
   title: "Protocol",
   description:
@@ -75,23 +91,37 @@ export default function ProtocolPage() {
                         {phase.summary}
                       </p>
 
-                      {/* Agents */}
+                      {/* Agents with headshots */}
                       <div>
-                        <h3 className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                        <h3 className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-forge-orange)] mb-3">
                           AGENTS ON DECK
                         </h3>
-                        <div className="flex flex-wrap gap-2">
-                          <span className="px-3 py-1 bg-[var(--vf-forge-orange)]/10 border border-[var(--vf-forge-orange)]/30 rounded text-sm text-[var(--vf-forge-orange)]">
-                            {phase.lead} (lead)
-                          </span>
-                          {phase.supporting.map((agent) => (
-                            <span
-                              key={agent}
-                              className="px-3 py-1 bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] rounded text-sm text-[var(--vf-text-muted)]"
-                            >
-                              {agent}
-                            </span>
-                          ))}
+                        <div className="flex flex-wrap gap-3">
+                          {[phase.lead, ...phase.supporting].map((name, i) => {
+                            const info = agentLore[name];
+                            return (
+                              <div key={name} className="flex items-center gap-2">
+                                {info && (
+                                  /* eslint-disable-next-line @next/next/no-img-element */
+                                  <img
+                                    src={`/images/agents/${info.slug}.webp`}
+                                    alt={name}
+                                    className="w-7 h-7 rounded-full border border-[var(--vf-border)] object-cover flex-shrink-0"
+                                  />
+                                )}
+                                <div className="min-w-0">
+                                  <span className={`text-sm ${i === 0 ? "text-[var(--vf-forge-orange)] font-medium" : "text-[var(--vf-text-muted)]"}`}>
+                                    {name}{i === 0 ? " (lead)" : ""}
+                                  </span>
+                                  {info && (
+                                    <p className="text-[10px] text-[var(--vf-text-muted)] italic">
+                                      {info.line}
+                                    </p>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
                       </div>
 
