@@ -4,20 +4,44 @@ import { AccordionItem } from "@/components/accordion";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { phases } from "@/data/protocol";
 
-const agentLore: Record<string, { slug: string; line: string }> = {
-  Picard: { slug: "picard", line: "Make it architecture." },
-  Stark: { slug: "stark", line: "Build the engine." },
-  Galadriel: { slug: "galadriel", line: "The light of the Forge." },
-  Batman: { slug: "batman", line: "Every edge case." },
-  Kenobi: { slug: "kenobi", line: "The high ground is security." },
-  Kusanagi: { slug: "kusanagi", line: "Target acquired." },
-  Coulson: { slug: "coulson", line: "The paperwork is handled." },
-  Fury: { slug: "fury", line: "I didn't ask." },
-  Sisko: { slug: "sisko", line: "One mission at a time." },
-  Celebrimbor: { slug: "celebrimbor", line: "The greatest craftsman." },
-  Bashir: { slug: "bashir", line: "The diagnosis is in." },
-  Bombadil: { slug: "bombadil", line: "Old Tom keeps the tune." },
-  Chani: { slug: "chani", line: "The desert remembers." },
+const agentLore: Record<string, { img: string; line: string }> = {
+  // Leads
+  Picard: { img: "/images/agents/picard.webp", line: "Make it architecture." },
+  Stark: { img: "/images/agents/stark.webp", line: "Build the engine." },
+  Galadriel: { img: "/images/agents/galadriel.webp", line: "The light of the Forge." },
+  Batman: { img: "/images/agents/batman.webp", line: "Every edge case." },
+  Kenobi: { img: "/images/agents/kenobi.webp", line: "The high ground is security." },
+  Kusanagi: { img: "/images/agents/kusanagi.webp", line: "Target acquired." },
+  Coulson: { img: "/images/agents/coulson.webp", line: "The paperwork is handled." },
+  Fury: { img: "/images/agents/fury.webp", line: "I didn't ask." },
+  Sisko: { img: "/images/agents/sisko.webp", line: "One mission at a time." },
+  Celebrimbor: { img: "/images/agents/celebrimbor.webp", line: "The greatest craftsman." },
+  Bashir: { img: "/images/agents/bashir.webp", line: "The diagnosis is in." },
+  Bombadil: { img: "/images/agents/bombadil.webp", line: "Old Tom keeps the tune." },
+  Chani: { img: "/images/agents/chani.webp", line: "The desert remembers." },
+  // Sub-agents that appear in protocol phases
+  Banner: { img: "/images/agents/subs/banner.webp", line: "Database administration." },
+  Romanoff: { img: "/images/agents/subs/romanoff.webp", line: "External API integrations." },
+  Oracle: { img: "/images/agents/subs/oracle.webp", line: "Test coverage analysis." },
+  "Red Hood": { img: "/images/agents/subs/red-hood.webp", line: "Error path testing." },
+  Alfred: { img: "/images/agents/subs/alfred.webp", line: "Code quality, linting." },
+  Deathstroke: { img: "/images/agents/subs/deathstroke.webp", line: "Authorization boundary testing." },
+  Constantine: { img: "/images/agents/subs/constantine.webp", line: "Config and environment testing." },
+  Elrond: { img: "/images/agents/subs/elrond.webp", line: "Design system architecture." },
+  Arwen: { img: "/images/agents/subs/arwen.webp", line: "Visual design, theming." },
+  Samwise: { img: "/images/agents/subs/samwise.webp", line: "Accessibility audit." },
+  Bilbo: { img: "/images/agents/subs/bilbo.webp", line: "Narrative copy, brand voice." },
+  Legolas: { img: "/images/agents/subs/legolas.webp", line: "Performance optimization." },
+  Gimli: { img: "/images/agents/subs/gimli.webp", line: "Build tooling, bundling." },
+  Gandalf: { img: "/images/agents/subs/gandalf.webp", line: "Edge case handling." },
+  Leia: { img: "/images/agents/subs/leia.webp", line: "Auth flow audit." },
+  Chewie: { img: "/images/agents/subs/chewie.webp", line: "Dependency audit." },
+  Rex: { img: "/images/agents/subs/rex.webp", line: "Input validation audit." },
+  Maul: { img: "/images/agents/subs/maul.webp", line: "Red-team penetration testing." },
+  Yoda: { img: "/images/agents/subs/yoda.webp", line: "Threat modeling." },
+  Windu: { img: "/images/agents/subs/windu.webp", line: "CSP and header review." },
+  Ahsoka: { img: "/images/agents/subs/ahsoka.webp", line: "Secrets management audit." },
+  "Padmé": { img: "/images/agents/subs/padmé.webp", line: "Compliance review." },
 };
 
 export const metadata: Metadata = {
@@ -98,20 +122,26 @@ export default function ProtocolPage() {
                         </h3>
                         <div className="flex flex-wrap gap-3">
                           {[phase.lead, ...phase.supporting].map((name, i) => {
-                            const info = agentLore[name];
+                            const baseName = name.replace(/\s*\(.*\)/, "");
+                            const suffix = name.includes("(") ? name.replace(/^[^(]*/, "") : "";
+                            const info = agentLore[baseName];
                             return (
                               <div key={name} className="flex items-center gap-2">
-                                {info && (
+                                {info ? (
                                   /* eslint-disable-next-line @next/next/no-img-element */
                                   <img
-                                    src={`/images/agents/${info.slug}.webp`}
-                                    alt={name}
+                                    src={info.img}
+                                    alt={baseName}
                                     className="w-7 h-7 rounded-full border border-[var(--vf-border)] object-cover flex-shrink-0"
                                   />
+                                ) : (
+                                  <span className="w-7 h-7 rounded-full bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] flex items-center justify-center text-[10px] text-[var(--vf-text-muted)] flex-shrink-0">
+                                    {baseName[0]}
+                                  </span>
                                 )}
                                 <div className="min-w-0">
                                   <span className={`text-sm ${i === 0 ? "text-[var(--vf-forge-orange)] font-medium" : "text-[var(--vf-text-muted)]"}`}>
-                                    {name}{i === 0 ? " (lead)" : ""}
+                                    {baseName}{i === 0 ? " (lead)" : ""}{suffix ? ` ${suffix}` : ""}
                                   </span>
                                   {info && (
                                     <p className="text-[10px] text-[var(--vf-text-muted)] italic">
