@@ -210,7 +210,7 @@ export function TradingCard({
             )}
 
             {/* Power level */}
-            <div className="mt-auto pt-2">
+            <div className="pt-3">
               <p className="font-[family-name:var(--font-bangers)] text-xs tracking-wider text-[var(--vf-text-muted)] mb-1">
                 POWER LEVEL
               </p>
