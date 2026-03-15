@@ -2,6 +2,49 @@
 
 All notable changes to the VoidForge Marketing Site.
 
+## [0.4.0] — 2026-03-15
+
+### Added
+- Thanos (14th lead agent) + /gauntlet command (16th command) — 5-round comprehensive review
+- Celebrimbor (12th lead) + /imagine command — AI image generation pipeline via DALL-E 3
+- Bashir (13th lead) + /debrief command — post-mortem analysis with upstream GitHub issue filing
+- 50 character portraits (14 leads + 36 sub-agents) in pulp sci-fi comic style
+- Sub-agent gallery on agents page — 42 agents grouped by universe with hover tooltips
+- Unique Golden Age exclamations per trading card (SHINE!, CLANG!, WHAM!, etc.)
+- Lore taglines on card fronts replacing power level bars
+- Agent headshots + lore one-liners on protocol phase accordions
+- Prophecy page grouped by major version (V1-V5) with era titles, quotes, and agent avatars
+- Hero "FORGE YOUR FIRST APP" CTA button
+- "RECOMMENDED" badge on Full tier install
+- Tutorial breadcrumbs ("← Tutorial Hub")
+- Feature card "EXPLORE →" link indicators
+
+### Changed
+- Images optimized: 180MB PNG → 5.5MB WebP (97% reduction via resize + format conversion)
+- Trading cards: responsive height (340-420px), hover tilt + scale micro-interaction
+- Card backs condensed: phases removed, quote inline, power bar compact
+- Protocol phases updated with Éowyn, Celebrimbor, Bashir, Coulson, Sisko assignments
+- Prophecy v5.5.0: added Thanos, /gauntlet, Éowyn, 16 total commands
+- Strange renamed to Haku (Spirited Away) across all references
+- Hero title scaled down for mobile (text-5xl → text-9xl responsive chain)
+- Copy button feedback extended to 5 seconds with 44px mobile touch target
+- Portal rupture animation paused by default, plays on hover
+- About page bio rewritten with lore tone, Substack as primary CTA
+
+### Fixed
+- Search modal: portaled to body (escaped header stacking context), focus trap, return focus on keyboard close
+- Color contrast: --vf-text-muted #8888a0 → #9696b0 (WCAG AA)
+- Sub-agent avatars: .png → .webp after format conversion
+- Card back overflow: inline style override for comic-panel overflow:hidden
+- Text-6xl overflow on agent, 404, error pages (added mobile breakpoints)
+- CSP: restored 'unsafe-inline' after Gauntlet removal broke hydration
+
+### Security
+- CSP hardening attempted (unsafe-inline removal) — reverted due to Next.js hydration dependency
+- All external links verified rel="noopener noreferrer"
+- Zero npm vulnerabilities
+- Hardcoded voidforge.dev fallbacks → voidforge.build
+
 ## [0.3.0] — 2026-03-14
 
 ### Added
