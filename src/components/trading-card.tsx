@@ -144,7 +144,7 @@ export function TradingCard({
 
         {/* ===== BACK ===== */}
         <div className="absolute inset-0 backface-hidden rotate-y-180">
-          <div className="h-full comic-panel flex flex-col p-5 overflow-y-auto bg-[var(--vf-surface-raised)]">
+          <div className="h-full comic-panel flex flex-col p-5 bg-[var(--vf-surface-raised)]" style={{ overflow: "auto" }}>
             {/* Header */}
             <div className="flex items-center gap-2 mb-3">
               <span
