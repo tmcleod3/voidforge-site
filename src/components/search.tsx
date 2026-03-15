@@ -24,6 +24,8 @@ export function Search() {
   const [results, setResults] = useState<FuseResult<SearchEntry>[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const close = useCallback(() => {
@@ -31,6 +33,8 @@ export function Search() {
     setQuery("");
     setResults([]);
     setSelectedIndex(0);
+    // Return focus to trigger button
+    setTimeout(() => triggerRef.current?.focus(), 10);
   }, []);
 
   // Keyboard shortcut: Cmd/Ctrl + K
@@ -48,11 +52,30 @@ export function Search() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [open, close]);
 
-  // Focus input when opened
+  // Focus input when opened + trap focus in modal
   useEffect(() => {
-    if (open) {
-      setTimeout(() => inputRef.current?.focus(), 50);
+    if (!open) return;
+    setTimeout(() => inputRef.current?.focus(), 50);
+
+    function handleTab(e: KeyboardEvent) {
+      if (e.key !== "Tab" || !modalRef.current) return;
+      const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+        'input, button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     }
+
+    document.addEventListener("keydown", handleTab);
+    return () => document.removeEventListener("keydown", handleTab);
   }, [open]);
 
   function handleSearch(value: string) {
@@ -88,6 +111,7 @@ export function Search() {
     <>
       {/* Trigger button */}
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen(true)}
         className="flex items-center gap-2 px-3 py-1.5 text-sm text-[var(--vf-text-muted)] bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] rounded-md hover:border-[var(--vf-forge-orange)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
@@ -108,9 +132,11 @@ export function Search() {
           role="presentation"
         >
           <div
+            ref={modalRef}
             className="w-full max-w-lg mx-4 bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] rounded-lg shadow-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
+            aria-modal="true"
             aria-label="Site search"
           >
             {/* Search input */}

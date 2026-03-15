@@ -71,7 +71,7 @@ export function Header() {
           {/* Mobile menu button */}
           <button
             type="button"
-            className="md:hidden p-2 text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
+            className="md:hidden p-3 text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav"
@@ -108,6 +108,7 @@ export function Header() {
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-3 py-2 text-base font-medium text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] hover:bg-[var(--vf-surface-raised)] rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
             aria-label="View source on GitHub (opens in new tab)"
+            onClick={() => trackEvent("github_click", { location: "nav" })}
           >
             <Github className="h-5 w-5" />
             GitHub

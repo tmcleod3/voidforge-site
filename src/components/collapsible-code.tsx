@@ -45,6 +45,7 @@ export function CollapsibleCode({
           <button
             type="button"
             onClick={() => setExpanded(!expanded)}
+            aria-expanded={expanded}
             className="flex items-center gap-1 text-xs text-[var(--vf-text-muted)] hover:text-[var(--vf-forge-orange)] transition-colors"
           >
             <ChevronDown

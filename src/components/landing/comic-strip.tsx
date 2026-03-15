@@ -14,7 +14,7 @@ const panels = [
   {
     icon: Users,
     title: "170+ AGENTS BUILD IT",
-    description: "9 leads. 7 universes. One 13-phase protocol.",
+    description: "11 leads. 7 universes. One 13-phase protocol.",
     color: "var(--vf-forge-orange)",
     bg: "from-orange-900/30 to-orange-950/30",
   },

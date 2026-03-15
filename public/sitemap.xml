@@ -35,6 +35,7 @@
   <url><loc>https://voidforge.dev/agents/bombadil</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.dev/agents/chani</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.dev/agents/fury</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.dev/agents/sisko</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.dev/agents/tolkien</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.dev/agents/marvel</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.dev/agents/dc</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
@@ -54,6 +55,7 @@
   <url><loc>https://voidforge.dev/commands/void</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.dev/commands/thumper</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.dev/commands/assemble</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.dev/commands/campaign</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.dev/patterns/api-route</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.dev/patterns/service</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.dev/patterns/component</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>

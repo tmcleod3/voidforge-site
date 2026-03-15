@@ -51,6 +51,7 @@ export function FrameworkTabs({
             key={impl.framework}
             type="button"
             role="tab"
+            id={`tab-${patternSlug}-${impl.framework}`}
             aria-selected={active === impl.framework}
             onClick={() => handleTabClick(impl.framework)}
             className={cn(
@@ -66,7 +67,7 @@ export function FrameworkTabs({
         ))}
       </div>
       {current && (
-        <div role="tabpanel" aria-label={`${current.label} implementation`}>
+        <div role="tabpanel" aria-labelledby={`tab-${patternSlug}-${current.framework}`}>
           <CollapsibleCode
             code={current.code}
             language={current.language}

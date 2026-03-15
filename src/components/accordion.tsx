@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useId } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/cn";
 
@@ -18,6 +18,7 @@ export function AccordionItem({
   defaultOpen = false,
 }: AccordionItemProps) {
   const [open, setOpen] = useState(defaultOpen);
+  const contentId = useId();
 
   return (
     <div className="comic-panel bg-[var(--vf-surface-raised)] overflow-visible">
@@ -26,6 +27,7 @@ export function AccordionItem({
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between p-5 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)] rounded-sm"
         aria-expanded={open}
+        aria-controls={contentId}
       >
         <div className="flex items-center gap-3 flex-wrap flex-1 min-w-0">
           {title}
@@ -39,7 +41,7 @@ export function AccordionItem({
         />
       </button>
       {open && (
-        <div className="px-5 pb-5 border-t border-[var(--vf-border)]">
+        <div id={contentId} className="px-5 pb-5 border-t border-[var(--vf-border)]">
           {children}
         </div>
       )}
