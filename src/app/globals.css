@@ -308,7 +308,9 @@ button:focus-visible {
   pointer-events: none;
 }
 
-/* starburst text set via data-text attribute in component */
+.card-starburst-custom::after {
+  content: attr(data-text);
+}
 
 *:hover > .card-starburst-custom,
 *:focus-visible > .card-starburst-custom {
@@ -369,26 +371,6 @@ button:focus-visible {
 @keyframes portal-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
-
-/* --- Tutorial Image Float --- */
-.float-gentle {
-  animation: float-gentle 6s ease-in-out infinite;
-}
-
-@keyframes float-gentle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-
-/* --- FLIP CARD Pulse Hint --- */
-.flip-hint-pulse {
-  animation: flip-hint-pulse 2s ease-in-out 3;
-}
-
-@keyframes flip-hint-pulse {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; color: #ff6b35; }
 }
 
 /* --- 3D Card Flip --- */
