@@ -29,13 +29,18 @@ export function Search() {
   const modalRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
+  const closeViaKeyboard = useRef(false);
+
   const close = useCallback(() => {
     setOpen(false);
     setQuery("");
     setResults([]);
     setSelectedIndex(0);
-    // Return focus to trigger button
-    setTimeout(() => triggerRef.current?.focus(), 10);
+    // Only return focus to trigger when closed via keyboard
+    if (closeViaKeyboard.current) {
+      setTimeout(() => triggerRef.current?.focus(), 10);
+      closeViaKeyboard.current = false;
+    }
   }, []);
 
   // Keyboard shortcut: Cmd/Ctrl + K
@@ -46,6 +51,7 @@ export function Search() {
         setOpen(true);
       }
       if (e.key === "Escape" && open) {
+        closeViaKeyboard.current = true;
         close();
       }
     }
