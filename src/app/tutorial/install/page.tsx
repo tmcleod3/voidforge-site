@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { CopyButton } from "@/components/copy-button";
 import { TutorialNav } from "@/components/tutorial-nav";
+import { TableOfContents } from "@/components/table-of-contents";
 
 export const metadata: Metadata = {
   title: "Install",
@@ -10,11 +11,18 @@ export const metadata: Metadata = {
     "Install VoidForge: prerequisites, three tiers, and troubleshooting.",
 };
 
+const tocItems = [
+  { id: "prerequisites", label: "Prerequisites" },
+  { id: "three-tiers", label: "The Three Tiers" },
+];
+
 export default function InstallPage() {
   return (
     <div className="px-4 py-16">
       <div className="mx-auto max-w-3xl">
         <PageHeader title="INSTALL" subtitle="Step 1 of 3" />
+
+        <TableOfContents items={tocItems} />
 
         <SpeechBubble agent="Galadriel" universe="tolkien">
           Welcome, builder. Before you can forge, you need the tools. Node.js 18
@@ -23,7 +31,11 @@ export default function InstallPage() {
         </SpeechBubble>
 
         <section className="mt-12">
-          <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
+          <h2
+            id="prerequisites"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
             PREREQUISITES
           </h2>
           <ul className="space-y-3 text-[var(--vf-text-muted)]">
@@ -56,7 +68,11 @@ export default function InstallPage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
+          <h2
+            id="three-tiers"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
             THE THREE TIERS
           </h2>
 

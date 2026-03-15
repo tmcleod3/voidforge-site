@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/page-header";
 import { TrackView } from "@/components/track-view";
+import { FrameworkTabs } from "@/components/framework-tabs";
 import { patterns, getPattern } from "@/data/patterns";
 
 interface PatternPageProps {
@@ -62,21 +63,28 @@ export default async function PatternPage({ params }: PatternPageProps) {
           <p className="text-[var(--vf-text-muted)]">{pattern.whenToUse}</p>
         </section>
 
-        {/* Code */}
+        {/* Quick preview */}
         <section className="mb-8">
           <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-text)] mb-3">
-            REFERENCE IMPLEMENTATION
+            AT A GLANCE
           </h2>
           <div className="crt-terminal !p-4 text-sm">
             <pre className="whitespace-pre-wrap">{pattern.preview}</pre>
           </div>
-          <p className="mt-3 text-xs text-[var(--vf-text-muted)]">
-            Full implementation available in{" "}
-            <code className="text-[var(--vf-electric-blue)]">
-              /docs/patterns/{pattern.name}
-            </code>
-          </p>
         </section>
+
+        {/* Framework implementations */}
+        {pattern.frameworks.length > 0 && (
+          <section className="mb-8">
+            <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-text)] mb-3">
+              FRAMEWORK IMPLEMENTATIONS
+            </h2>
+            <FrameworkTabs
+              implementations={pattern.frameworks}
+              patternSlug={pattern.slug}
+            />
+          </section>
+        )}
 
         <Link
           href="/patterns"

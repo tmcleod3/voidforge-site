@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { TutorialNav } from "@/components/tutorial-nav";
+import { TableOfContents } from "@/components/table-of-contents";
 
 export const metadata: Metadata = {
   title: "Deploy",
@@ -18,11 +19,19 @@ const deployTargets = [
   { name: "Static", description: "HTML export, serve from any CDN" },
 ] as const;
 
+const tocItems = [
+  { id: "deploy-targets", label: "6 Deploy Targets" },
+  { id: "how-it-works", label: "How It Works" },
+  { id: "health-check", label: "Health Check" },
+];
+
 export default function DeployPage() {
   return (
     <div className="px-4 py-16">
       <div className="mx-auto max-w-3xl">
         <PageHeader title="DEPLOY" subtitle="Step 3 of 3" />
+
+        <TableOfContents items={tocItems} />
 
         <SpeechBubble agent="Kusanagi" universe="anime">
           Target acquired. I deploy to all six. Tell me which one and
@@ -32,7 +41,11 @@ export default function DeployPage() {
         </SpeechBubble>
 
         <section className="mt-12">
-          <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
+          <h2
+            id="deploy-targets"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
             6 DEPLOY TARGETS
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -53,7 +66,11 @@ export default function DeployPage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
+          <h2
+            id="how-it-works"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
             HOW IT WORKS
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
@@ -75,7 +92,11 @@ export default function DeployPage() {
         </section>
 
         <section className="mt-12">
-          <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
+          <h2
+            id="health-check"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
             HEALTH CHECK
           </h2>
           <p className="text-[var(--vf-text-muted)]">

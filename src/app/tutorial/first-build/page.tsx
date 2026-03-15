@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { TutorialNav } from "@/components/tutorial-nav";
+import { TableOfContents } from "@/components/table-of-contents";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -10,11 +11,19 @@ export const metadata: Metadata = {
     "Write your first PRD, run /build, and watch the 13-phase protocol in action.",
 };
 
+const tocItems = [
+  { id: "write-your-prd", label: "Write Your PRD" },
+  { id: "run-build", label: "Run /build" },
+  { id: "build-journal", label: "The Build Journal" },
+];
+
 export default function FirstBuildPage() {
   return (
     <div className="px-4 py-16">
       <div className="mx-auto max-w-3xl">
         <PageHeader title="FIRST BUILD" subtitle="Step 2 of 3" />
+
+        <TableOfContents items={tocItems} />
 
         <SpeechBubble agent="Picard" universe="star-trek">
           Before you build, you need a plan. The PRD is your plan. It tells the
@@ -24,7 +33,11 @@ export default function FirstBuildPage() {
         </SpeechBubble>
 
         <section className="mt-12">
-          <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
+          <h2
+            id="write-your-prd"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
             WRITE YOUR PRD
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
@@ -69,7 +82,11 @@ deploy: "vercel"
         </section>
 
         <section className="mt-12">
-          <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
+          <h2
+            id="run-build"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
             RUN /BUILD
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
@@ -87,7 +104,11 @@ deploy: "vercel"
         </section>
 
         <section className="mt-12">
-          <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
+          <h2
+            id="build-journal"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
             THE BUILD JOURNAL
           </h2>
           <p className="text-[var(--vf-text-muted)]">
