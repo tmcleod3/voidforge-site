@@ -97,7 +97,7 @@ export default function DeployPage() {
             full deployment sequence for your target.
           </p>
           <p className="text-[var(--vf-text-muted)]">
-            For the Full tier, the Strange wizard handles provisioning
+            For the Full tier, the Haku wizard handles provisioning
             interactively. For Scaffold and Core tiers, you configure deployment
             manually following Kusanagi&apos;s instructions in the build log.
           </p>

@@ -43,7 +43,7 @@ const shipped = [
     headline: "Interactive wizards. Encrypted vault. Real cloud provisioning. The forge can build AND deploy.",
     items: [
       "Merlin's setup wizard — browser-based onboarding with PRD generation",
-      "Strange's deploy wizard — 6 targets (Docker, AWS VPS, Vercel, Railway, Cloudflare, Static)",
+      "Haku's deploy wizard — 6 targets (Docker, AWS VPS, Vercel, Railway, Cloudflare, Static)",
       "AES-256-GCM encrypted credential vault",
       "Auto-provisioning: EC2, RDS, ElastiCache, S3",
       "/git command — Coulson's release management with semver and changelog",
@@ -119,13 +119,13 @@ const shipped = [
   {
     version: "v3.8.0",
     date: "2026-03-14",
-    title: "Strange's Last Mile",
+    title: "Haku's Last Mile",
     headline: "End-to-end deploy. Every target. No hand-holding required.",
     items: [
       "End-to-end deploy automation for all 6 targets",
       "GitHub integration for CI/CD workflows",
       "SSH deploy with rollback capability",
-      "Strange's deploy wizard handles the full lifecycle",
+      "Haku's deploy wizard handles the full lifecycle",
     ],
   },
   {

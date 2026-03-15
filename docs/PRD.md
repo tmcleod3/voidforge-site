@@ -83,7 +83,7 @@ hostname: "voidforge.build"
 /tutorial                   → Step-by-step tutorial: install → first project → deploy (The Forge walkthrough)
 /tutorial/install           → Installation deep-dive: 3 tiers, prerequisites, troubleshooting
 /tutorial/first-build       → First build walkthrough: writing a PRD, running /build, what happens
-/tutorial/deploy            → Deployment walkthrough: Strange wizard, 6 targets, going live
+/tutorial/deploy            → Deployment walkthrough: Haku wizard, 6 targets, going live
 /protocol                   → The 13-phase build protocol explained phase-by-phase
 /protocol/[phase-slug]      → Individual phase detail page (13 pages: orient, scaffold, infrastructure, auth, core-feature, supporting, integrations, admin, marketing, qa, ux, security, deploy, launch)
 /agents                     → The Council: all 13 lead agents with universe breakdowns
@@ -193,7 +193,7 @@ This is a static site. There are no backend services. All content is compiled at
 3. Each waypoint links to its deep-dive page
 4. /tutorial/install covers: prerequisites (Node.js 18+, Claude Code), the 3 tiers (Full, Scaffold, Core) with exact install commands, what each tier includes, and troubleshooting for common install issues
 5. /tutorial/first-build covers: writing your first PRD (with the PRD template shown inline with annotations), running `/build`, what happens during each of the 13 phases (abbreviated), reading the build journal, and session recovery
-6. /tutorial/deploy covers: the Strange wizard (Full tier), manual deploy for Scaffold/Core, all 6 deploy targets with exact commands, health check verification
+6. /tutorial/deploy covers: the Haku wizard (Full tier), manual deploy for Scaffold/Core, all 6 deploy targets with exact commands, health check verification
 
 **Data model:** None — MDX content files.
 
