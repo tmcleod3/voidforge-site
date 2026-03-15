@@ -15,6 +15,8 @@ export interface LeadAgent {
   domain: string;
   description: string;
   quote: string;
+  tagline: string;
+  exclamation: string;
   commandsLed: string[];
   phasesActive: number[];
   powerLevel: number; // 1-10
@@ -57,6 +59,8 @@ export const leadAgents: LeadAgent[] = [
       "Commands the frontend with elvish precision. Accessibility is law, not suggestion. Every component has four states: loading, empty, error, success.",
     quote:
       "Even the smallest pixel can change the course of a user's journey.",
+    tagline: "The light of the Forge.",
+    exclamation: "SHINE!",
     commandsLed: ["/ux"],
     phasesActive: [3, 4, 5, 8, 10],
     powerLevel: 9,
@@ -70,6 +74,8 @@ export const leadAgents: LeadAgent[] = [
     description:
       "Builds the engine. API routes, services, database schemas, business logic. Every service is typed, tested, and owns its errors.",
     quote: "I am the API. And the API is iron.",
+    tagline: "Build the engine. Break the limits.",
+    exclamation: "CLANG!",
     commandsLed: [],
     phasesActive: [1, 2, 3, 4, 5, 6, 7],
     powerLevel: 10,
@@ -83,6 +89,8 @@ export const leadAgents: LeadAgent[] = [
     description:
       "The detective. Finds bugs before users do. Runs the double-pass review cycle. Writes the tests everyone else forgot.",
     quote: "I'm not testing the code. I'm testing every assumption behind it.",
+    tagline: "Every edge case. Every time.",
+    exclamation: "WHAM!",
     commandsLed: ["/qa", "/test"],
     phasesActive: [5, 9],
     powerLevel: 9,
@@ -97,6 +105,8 @@ export const leadAgents: LeadAgent[] = [
       "Guards every door. Auth, injection, secrets, CSP, dependencies. Reviews every integration. OWASP Top 10 is his morning checklist.",
     quote:
       "These aren't the vulnerabilities you're looking for. Because I already patched them.",
+    tagline: "The high ground is security.",
+    exclamation: "SLASH!",
     commandsLed: ["/security"],
     phasesActive: [3, 6, 11],
     powerLevel: 9,
@@ -110,6 +120,8 @@ export const leadAgents: LeadAgent[] = [
     description:
       "Makes the big decisions. Schema design, scaling strategy, ADRs. Reviews code for pattern compliance and long-term maintainability.",
     quote: "Make it so — but make it maintainable.",
+    tagline: "Make it architecture.",
+    exclamation: "ZAP!",
     commandsLed: ["/review", "/architect"],
     phasesActive: [0, 7],
     powerLevel: 8,
@@ -123,6 +135,8 @@ export const leadAgents: LeadAgent[] = [
     description:
       "Deploys to six targets. Provisions, monitors, backs up. DNS, SSL, CI/CD, health checks. Efficient. Relentless. Precise.",
     quote: "The net is vast and infinite. Your uptime should be too.",
+    tagline: "Target acquired. Deploying.",
+    exclamation: "BLITZ!",
     commandsLed: ["/devops"],
     phasesActive: [1, 2, 12],
     powerLevel: 8,
@@ -136,6 +150,8 @@ export const leadAgents: LeadAgent[] = [
     description:
       "Version bumps, changelogs, commits, release tags. The quiet professional who makes sure everything ships clean.",
     quote: "The release process isn't glamorous. That's why I love it.",
+    tagline: "The paperwork is handled.",
+    exclamation: "SNAP!",
     commandsLed: ["/git"],
     phasesActive: [13],
     powerLevel: 6,
@@ -150,6 +166,8 @@ export const leadAgents: LeadAgent[] = [
       "Keeps VoidForge itself up to date. Syncs methodology changes across branches. Maintains the three-tier branch structure.",
     quote:
       "Old Tom Bombadil keeps the methodology bright. Ring could not bind him, nor bugs in the night.",
+    tagline: "Old Tom keeps the forge in tune.",
+    exclamation: "POP!",
     commandsLed: ["/void"],
     phasesActive: [],
     powerLevel: 7,
@@ -163,6 +181,8 @@ export const leadAgents: LeadAgent[] = [
     description:
       "Rides the sandworm. Commands VoidForge from anywhere via Telegram with Gom Jabbar authentication. Watches from the desert.",
     quote: "Tell me of your project, Usul. I will ride the worm for you.",
+    tagline: "The desert remembers everything.",
+    exclamation: "BOOM!",
     commandsLed: ["/thumper"],
     phasesActive: [],
     powerLevel: 7,
@@ -177,6 +197,8 @@ export const leadAgents: LeadAgent[] = [
       "Assembles every agent into one devastating pipeline. Architect, build, triple review, UX, double security, devops, QA, test, crossfire, council. One command. No mercy. No shortcuts.",
     quote:
       "I'm here because you need to be reminded that there was an idea to bring together a group of remarkable agents.",
+    tagline: "I didn't ask. I'm telling.",
+    exclamation: "POW!",
     commandsLed: ["/assemble"],
     phasesActive: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
     powerLevel: 10,
@@ -191,6 +213,8 @@ export const leadAgents: LeadAgent[] = [
       "The Emissary. Reads the PRD, identifies every mission, and executes them one by one until the product is complete. No mission left behind. No feature forgotten. The Prophets showed him the path — he walks it.",
     quote:
       "I am not Picard. I don't plan the architecture — I win the war. One mission at a time.",
+    tagline: "One mission at a time.",
+    exclamation: "KAPOW!",
     commandsLed: ["/campaign"],
     phasesActive: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
     powerLevel: 10,
@@ -205,6 +229,8 @@ export const leadAgents: LeadAgent[] = [
       "The greatest craftsman the elves ever produced. His name means 'Hand of Silver' — and that hand shapes visual assets from nothing but prose descriptions. Illustrations, portraits, OG images, hero art. If the PRD describes it and code can't generate it, Celebrimbor forges it.",
     quote:
       "I am the greatest craftsman that ever lived. I forged the Three Rings. I can certainly forge a PNG.",
+    tagline: "The greatest craftsman who ever lived.",
+    exclamation: "FORGE!",
     commandsLed: ["/imagine"],
     phasesActive: [8],
     powerLevel: 8,
@@ -219,6 +245,8 @@ export const leadAgents: LeadAgent[] = [
       "DS9's chief medical officer — genetically enhanced, sees patterns others miss. His real gift is diagnosis. He doesn't just treat the symptom, he traces it back to the root cause. When a mission goes sideways, Bashir examines the wounded and writes the report that prevents it from happening again.",
     quote:
       "I'm not just cataloguing injuries — I'm figuring out why the battle plan failed.",
+    tagline: "The diagnosis is in.",
+    exclamation: "CRACK!",
     commandsLed: ["/debrief"],
     phasesActive: [9, 10, 11],
     powerLevel: 7,

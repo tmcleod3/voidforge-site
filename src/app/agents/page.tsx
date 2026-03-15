@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { TradingCard } from "@/components/trading-card";
 import { AccordionItem } from "@/components/accordion";
+import { SubAgentAvatar } from "@/components/sub-agent-avatar";
 import {
   Sword,
   Shield,
@@ -143,6 +144,8 @@ export default function AgentsPage() {
                 domain={agent.domain}
                 description={agent.description}
                 quote={agent.quote}
+                tagline={agent.tagline}
+                exclamation={agent.exclamation}
                 commandsLed={agent.commandsLed}
                 phasesActive={agent.phasesActive}
                 powerLevel={agent.powerLevel}
@@ -152,16 +155,63 @@ export default function AgentsPage() {
         </div>
       </section>
 
-      {/* Universe rosters */}
+      {/* Sub-agent gallery — grouped by universe */}
       <section className="px-4 pb-24">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-8 text-center">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-3 text-center">
             THE FULL ROSTER
           </h2>
-          <div className="space-y-3">
-            {universes.map((universe) => (
-              <UniverseRoster key={universe} universe={universe} />
-            ))}
+          <p className="text-center text-sm text-[var(--vf-text-muted)] mb-10">
+            170+ sub-agents across 7 universes. The specialists behind the leads.
+          </p>
+
+          <div className="space-y-10">
+            {universes.map((universe) => {
+              const subs = subAgents.filter((a) => a.universe === universe);
+              const uColor = universeColors[universe];
+              if (subs.length === 0) return null;
+              return (
+                <div key={universe}>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span
+                      className="w-8 h-8 rounded-full flex items-center justify-center border-2"
+                      style={{ borderColor: uColor, color: uColor, backgroundColor: `${uColor}15` }}
+                    >
+                      {universeEmblems[universe]}
+                    </span>
+                    <h3
+                      className="font-[family-name:var(--font-bangers)] text-xl tracking-wider"
+                      style={{ color: uColor }}
+                    >
+                      {universeLabels[universe].toUpperCase()}
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                    {subs.map((agent) => (
+                      <div
+                        key={agent.name}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[var(--vf-surface-raised)] border border-[var(--vf-border)]"
+                      >
+                        <div
+                          className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 border-2 overflow-hidden"
+                          style={{ borderColor: `${uColor}60`, backgroundColor: `${uColor}10` }}
+                        >
+                          <SubAgentAvatar name={agent.name} color={uColor} />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-sm font-medium text-[var(--vf-text)] truncate">
+                            {agent.name}
+                          </p>
+                          <p className="text-[11px] text-[var(--vf-text-muted)] truncate">
+                            {agent.role}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

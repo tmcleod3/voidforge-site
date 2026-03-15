@@ -281,25 +281,21 @@ button:focus-visible {
 }
 
 /* --- Starburst Hover (Trading Cards) --- */
-.card-starburst {
-  position: relative;
-}
-
-.card-starburst::before {
-  content: "BAM!";
+.card-starburst-custom {
   position: absolute;
   top: 8px;
   right: 8px;
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-bangers);
-  font-size: 11px;
+  font-size: 10px;
+  font-weight: bold;
   letter-spacing: 0.05em;
   color: #000;
-  background: var(--vf-forge-yellow);
+  background: var(--card-color, var(--vf-forge-yellow));
   clip-path: polygon(
     50% 0%, 63% 25%, 90% 15%, 78% 40%, 100% 50%,
     78% 60%, 90% 85%, 63% 75%, 50% 100%, 37% 75%,
@@ -312,14 +308,18 @@ button:focus-visible {
   pointer-events: none;
 }
 
-.card-starburst:hover::before,
-.card-starburst:focus-visible::before {
+.card-starburst-custom::after {
+  content: attr(data-text);
+}
+
+*:hover > .card-starburst-custom,
+*:focus-visible > .card-starburst-custom {
   opacity: 1;
   transform: scale(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card-starburst::before {
+  .card-starburst-custom {
     transition: none;
   }
   .portal-rupture::before {

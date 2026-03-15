@@ -12,9 +12,11 @@ interface TradingCardProps {
   domain: string;
   description: string;
   quote: string;
+  tagline: string;
+  exclamation: string;
   commandsLed: string[];
   phasesActive: number[];
-  powerLevel: number; // 1-10
+  powerLevel: number;
 }
 
 function PowerBar({ level, max = 10 }: { level: number; max?: number }) {
@@ -48,6 +50,8 @@ export function TradingCard({
   domain,
   description,
   quote,
+  tagline,
+  exclamation,
   commandsLed,
   phasesActive,
   powerLevel,
@@ -57,7 +61,7 @@ export function TradingCard({
 
   return (
     <div
-      className="group perspective-1000 h-[340px] sm:h-[380px] lg:h-[420px] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)] rounded-md card-starburst"
+      className="group perspective-1000 h-[340px] sm:h-[380px] lg:h-[420px] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)] rounded-md"
       onClick={() => setFlipped(!flipped)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -68,7 +72,11 @@ export function TradingCard({
       role="button"
       tabIndex={0}
       aria-label={`${name} trading card. ${flipped ? "Showing back. Press to flip to front." : "Press to flip and see details."}`}
+      style={{ "--card-color": color } as React.CSSProperties}
     >
+      {/* Starburst */}
+      <div className="card-starburst-custom" data-text={exclamation} />
+
       <div
         className={cn(
           "relative w-full h-full transition-transform duration-500 transform-3d",
@@ -97,9 +105,7 @@ export function TradingCard({
             {/* Agent portrait */}
             <div
               className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden border-3"
-              style={{
-                borderColor: color,
-              }}
+              style={{ borderColor: color }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -127,13 +133,13 @@ export function TradingCard({
               {domain}
             </p>
 
-            {/* Power level */}
-            <div className="mt-auto">
-              <p className="font-[family-name:var(--font-bangers)] text-xs tracking-wider text-[var(--vf-text-muted)] mb-1">
-                POWER LEVEL
-              </p>
-              <PowerBar level={powerLevel} />
-            </div>
+            {/* Tagline (replaces power bar on front) */}
+            <p
+              className="mt-auto text-center text-sm italic font-medium"
+              style={{ color }}
+            >
+              &ldquo;{tagline}&rdquo;
+            </p>
 
             {/* Flip hint */}
             <p className="text-[10px] text-[var(--vf-text-muted)] text-center mt-3 opacity-60">
@@ -209,7 +215,7 @@ export function TradingCard({
               </div>
             )}
 
-            {/* Power level */}
+            {/* Power level (back only) */}
             <div className="pt-3">
               <p className="font-[family-name:var(--font-bangers)] text-xs tracking-wider text-[var(--vf-text-muted)] mb-1">
                 POWER LEVEL
