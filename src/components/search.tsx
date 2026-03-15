@@ -134,7 +134,7 @@ export function Search() {
         >
           <div
             ref={modalRef}
-            className="w-full max-w-lg bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] rounded-lg shadow-2xl shadow-black/50 overflow-hidden"
+            className="w-full max-w-lg bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] rounded-lg shadow-2xl shadow-black/50 overflow-hidden outline-none"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
