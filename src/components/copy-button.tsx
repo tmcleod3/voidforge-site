@@ -51,7 +51,7 @@ export function CopyButton({ text, className, trackAs }: CopyButtonProps) {
       {copied ? (
         <>
           <Check className="h-3.5 w-3.5" />
-          <span role="status" aria-live="polite">COPIED!</span>
+          <span role="status" aria-live="polite">COPIED! ⚡</span>
         </>
       ) : (
         <>

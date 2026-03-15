@@ -6,7 +6,7 @@ export function Hero() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden px-4">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4">
       {/* Starburst background */}
       <div className="absolute inset-0 starburst opacity-30" aria-hidden="true" />
 

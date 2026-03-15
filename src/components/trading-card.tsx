@@ -55,7 +55,7 @@ export function TradingCard({
 
   return (
     <div
-      className="group perspective-1000 h-[420px] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)] rounded-md"
+      className="group perspective-1000 h-[420px] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)] rounded-md card-starburst"
       onClick={() => setFlipped(!flipped)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {

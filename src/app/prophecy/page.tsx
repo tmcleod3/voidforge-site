@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { AccordionItem } from "@/components/accordion";
+import { ProphecyTracker } from "@/components/prophecy-tracker";
 
 export const metadata: Metadata = {
   title: "Prophecy",
@@ -203,8 +204,9 @@ export default function ProphecyPage() {
 
           <div className="space-y-3 mb-16">
             {shipped.map((release) => (
+              <div key={release.version}>
+              <ProphecyTracker version={release.version} />
               <AccordionItem
-                key={release.version}
                 title={
                   <div className="flex items-center gap-3 flex-wrap">
                     <span className="font-[family-name:var(--font-space-mono)] text-[var(--vf-neon-green)] font-bold text-sm">
@@ -243,6 +245,7 @@ export default function ProphecyPage() {
                   </ul>
                 </div>
               </AccordionItem>
+              </div>
             ))}
           </div>
 
@@ -253,7 +256,12 @@ export default function ProphecyPage() {
 
           <div className="space-y-3">
             {future.map((release) => (
-              <div key={release.version} style={{ opacity: release.opacity }}>
+              <div
+                key={release.version}
+                style={{ opacity: release.opacity }}
+                className={release.version === "v4.0" ? "portal-rupture p-1" : ""}
+              >
+              <ProphecyTracker version={release.version} />
                 <AccordionItem
                   title={
                     <div className="flex items-center gap-3">
@@ -263,6 +271,11 @@ export default function ProphecyPage() {
                       <span className="font-[family-name:var(--font-bangers)] text-lg tracking-wider text-[var(--vf-text)]">
                         {release.title}
                       </span>
+                      {release.version === "v4.0" && (
+                        <span className="px-2 py-0.5 text-xs font-bold rounded bg-[var(--vf-deep-purple)]/20 text-[var(--vf-deep-purple)]">
+                          MULTIVERSE
+                        </span>
+                      )}
                     </div>
                   }
                 >

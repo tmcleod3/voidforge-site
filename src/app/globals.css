@@ -280,6 +280,84 @@ button:focus-visible {
   -webkit-text-fill-color: transparent;
 }
 
+/* --- Starburst Hover (Trading Cards) --- */
+.card-starburst {
+  position: relative;
+}
+
+.card-starburst::before {
+  content: "BAM!";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-bangers);
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: #000;
+  background: var(--vf-forge-yellow);
+  clip-path: polygon(
+    50% 0%, 63% 25%, 90% 15%, 78% 40%, 100% 50%,
+    78% 60%, 90% 85%, 63% 75%, 50% 100%, 37% 75%,
+    10% 85%, 22% 60%, 0% 50%, 22% 40%, 10% 15%, 37% 25%
+  );
+  z-index: 10;
+  opacity: 0;
+  transform: scale(0);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+}
+
+.card-starburst:hover::before,
+.card-starburst:focus-visible::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --- Portal Rupture (Prophecy v4) --- */
+.portal-rupture {
+  position: relative;
+  border: 2px solid var(--vf-deep-purple);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.portal-rupture::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    var(--vf-deep-purple),
+    var(--vf-electric-blue),
+    var(--vf-forge-orange),
+    var(--vf-comic-pink),
+    var(--vf-deep-purple)
+  );
+  border-radius: 10px;
+  z-index: -1;
+  animation: portal-spin 6s linear infinite;
+  opacity: 0.6;
+}
+
+.portal-rupture::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: var(--vf-surface-raised);
+  border-radius: 6px;
+  z-index: -1;
+}
+
+@keyframes portal-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* --- 3D Card Flip --- */
 .perspective-1000 {
   perspective: 1000px;

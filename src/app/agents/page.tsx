@@ -4,6 +4,15 @@ import { SpeechBubble } from "@/components/speech-bubble";
 import { TradingCard } from "@/components/trading-card";
 import { AccordionItem } from "@/components/accordion";
 import {
+  Sword,
+  Shield,
+  Zap,
+  Star,
+  Rocket,
+  Sun,
+  Sparkles,
+} from "lucide-react";
+import {
   leadAgents,
   subAgents,
   universes,
@@ -12,10 +21,20 @@ import {
   type Universe,
 } from "@/data/agents";
 
+const universeEmblems: Record<Universe, React.ReactNode> = {
+  tolkien: <Sword className="w-4 h-4" />,
+  marvel: <Shield className="w-4 h-4" />,
+  dc: <Zap className="w-4 h-4" />,
+  "star-wars": <Star className="w-4 h-4" />,
+  "star-trek": <Rocket className="w-4 h-4" />,
+  dune: <Sun className="w-4 h-4" />,
+  anime: <Sparkles className="w-4 h-4" />,
+};
+
 export const metadata: Metadata = {
   title: "Agents",
   description:
-    "Meet the Council: 10 lead agents across 7 fictional universes, commanding 170+ sub-agents.",
+    "Meet the Council: 11 lead agents across 7 fictional universes, commanding 170+ sub-agents.",
 };
 
 function UniverseRoster({ universe }: { universe: Universe }) {
@@ -30,9 +49,11 @@ function UniverseRoster({ universe }: { universe: Universe }) {
       title={
         <div className="flex items-center gap-3">
           <span
-            className="w-3 h-3 rounded-full"
-            style={{ backgroundColor: color }}
-          />
+            className="w-8 h-8 rounded-full flex items-center justify-center border-2"
+            style={{ borderColor: color, color, backgroundColor: `${color}15` }}
+          >
+            {universeEmblems[universe]}
+          </span>
           <span
             className="font-[family-name:var(--font-bangers)] text-xl tracking-wider"
             style={{ color }}
@@ -94,7 +115,7 @@ export default function AgentsPage() {
     <>
       <PageHeader
         title="THE COUNCIL"
-        subtitle="10 lead agents. 7 universes. 170+ sub-agents. Flip a card to meet them."
+        subtitle="11 lead agents. 7 universes. 170+ sub-agents. Flip a card to meet them."
       />
 
       <section className="px-4 pb-12">
