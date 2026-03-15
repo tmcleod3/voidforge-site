@@ -44,10 +44,10 @@ export default function ProtocolPage() {
                 <li key={phase.slug} className="relative pl-16">
                   {/* Node */}
                   <div
-                    className={`absolute left-3 top-5 w-7 h-7 rounded-full border-2 border-[var(--vf-electric-blue)] bg-[var(--vf-void)] flex items-center justify-center text-xs font-bold text-[var(--vf-electric-blue)] z-10 ${
+                    className={`absolute top-5 rounded-full border-2 border-[var(--vf-electric-blue)] bg-[var(--vf-void)] flex items-center justify-center font-bold text-[var(--vf-electric-blue)] z-10 ${
                       phase.number === 0
-                        ? "w-9 h-9 left-2 text-sm pulse-glow"
-                        : ""
+                        ? "w-9 h-9 left-[7px] text-sm pulse-glow"
+                        : "w-7 h-7 left-3 text-xs"
                     }`}
                   >
                     {phase.number}
