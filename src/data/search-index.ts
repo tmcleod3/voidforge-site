@@ -42,6 +42,8 @@ export const searchIndex: SearchEntry[] = [
   { title: "Chani", description: "Worm rider, Telegram bridge — Dune universe", path: "/agents/chani", category: "Agents" },
   { title: "Fury", description: "Pipeline orchestrator — Marvel universe", path: "/agents/fury", category: "Agents" },
   { title: "Sisko", description: "Campaign commander — Star Trek universe", path: "/agents/sisko", category: "Agents" },
+  { title: "Celebrimbor", description: "Forge artist, image generation — Tolkien universe", path: "/agents/celebrimbor", category: "Agents" },
+  { title: "Bashir", description: "Field medic, post-mortem analysis — Star Trek universe", path: "/agents/bashir", category: "Agents" },
 
   // Commands
   { title: "Commands", description: "All 13 slash commands with usage and examples", path: "/commands", category: "Commands" },
@@ -58,6 +60,8 @@ export const searchIndex: SearchEntry[] = [
   { title: "/thumper", description: "Chani's Telegram bridge with Gom Jabbar authentication", path: "/commands/thumper", category: "Commands" },
   { title: "/assemble", description: "Fury's full pipeline from architecture to launch", path: "/commands/assemble", category: "Commands" },
   { title: "/campaign", description: "Sisko's War Room — read the PRD, pick missions, finish the fight", path: "/commands/campaign", category: "Commands" },
+  { title: "/imagine", description: "Celebrimbor's Forge — AI image generation from PRD descriptions", path: "/commands/imagine", category: "Commands" },
+  { title: "/debrief", description: "Bashir's Field Report — post-mortem analysis and upstream feedback", path: "/commands/debrief", category: "Commands" },
 
   // Patterns
   { title: "Patterns", description: "7 code patterns with framework implementations", path: "/patterns", category: "Patterns" },

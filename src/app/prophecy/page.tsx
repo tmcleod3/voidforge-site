@@ -141,28 +141,61 @@ const shipped = [
       "Kira recon, Dax analysis, Odo prerequisites, Sisko command",
     ],
   },
+  {
+    version: "v4.0.0",
+    date: "2026-03-14",
+    title: "The Reliability Release",
+    headline: "The forge hardens. Pre-deploy builds. CI/CD generation. Env validation. The foundation becomes unbreakable.",
+    items: [
+      "Pre-deploy build step — verify before you ship",
+      "CI/CD pipeline generation (GitHub Actions, Railway)",
+      "Environment variable validation at build time",
+      "Railway API migration for smoother deploys",
+      "Credential scoping — keys isolated per deploy target",
+    ],
+  },
+  {
+    version: "v4.1.0",
+    date: "2026-03-14",
+    title: "The Observability Release",
+    headline: "The forge can see itself. Deploy logs. Cost estimation. Health monitoring. Sentry integration.",
+    items: [
+      "Deploy log streaming with real-time output",
+      "Cost estimation before provisioning",
+      "Health monitoring and uptime checks",
+      "Sentry error tracking integration",
+    ],
+  },
+  {
+    version: "v4.2.0",
+    date: "2026-03-14",
+    title: "The DX Release",
+    headline: "The developer experience levels up. Prisma types. OpenAPI docs. ERD generation. Database seeding.",
+    items: [
+      "Prisma type generation for typed database queries",
+      "OpenAPI documentation generation",
+      "ERD (Entity Relationship Diagram) generation",
+      "Integration templates for common services",
+      "Database seeding for development environments",
+    ],
+  },
+  {
+    version: "v4.4.0",
+    date: "2026-03-15",
+    title: "The Imagination Release",
+    headline: "The forge learns to see. Celebrimbor generates images. Bashir writes post-mortems. The methodology heals itself.",
+    items: [
+      "/imagine — Celebrimbor's AI image generation from PRD descriptions",
+      "/debrief — Bashir's post-mortem analysis and upstream feedback",
+      "Celebrimbor (Lord of Eregion) joins as 12th lead agent",
+      "Bashir (Julian Bashir, DS9) joins as 13th lead agent",
+      "7 new sub-agents across Tolkien and Star Trek",
+      "15 total slash commands",
+    ],
+  },
 ];
 
 const future = [
-  {
-    version: "v3.10",
-    title: "The Watchtower",
-    opacity: 1,
-    items: [
-      "Monitoring bootstrap — Prometheus + Grafana configs, health check endpoints, alerting rules",
-      "Log aggregation — CloudWatch (AWS), Logflare (Vercel/Cloudflare), Papertrail (Railway)",
-      "Backup automation — pg_dump with S3 upload, retention policy, weekly restore verification",
-    ],
-  },
-  {
-    version: "v3.11",
-    title: "The Academy",
-    opacity: 0.85,
-    items: [
-      "Interactive tutorial mode — demo PRD that builds a small app with educational commentary per phase",
-      "Pattern playground — sandbox to see all 7 patterns across 4 frameworks (Next.js, Express, Django, Rails)",
-    ],
-  },
   {
     version: "v4.0",
     title: "The Multiverse",

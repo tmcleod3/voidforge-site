@@ -195,6 +195,34 @@ export const leadAgents: LeadAgent[] = [
     phasesActive: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
     powerLevel: 10,
   },
+  {
+    slug: "celebrimbor",
+    name: "Celebrimbor",
+    realName: "Lord of Eregion",
+    universe: "tolkien",
+    domain: "Forge Artist (Image Generation)",
+    description:
+      "The greatest craftsman the elves ever produced. His name means 'Hand of Silver' — and that hand shapes visual assets from nothing but prose descriptions. Illustrations, portraits, OG images, hero art. If the PRD describes it and code can't generate it, Celebrimbor forges it.",
+    quote:
+      "I am the greatest craftsman that ever lived. I forged the Three Rings. I can certainly forge a PNG.",
+    commandsLed: ["/imagine"],
+    phasesActive: [8],
+    powerLevel: 8,
+  },
+  {
+    slug: "bashir",
+    name: "Bashir",
+    realName: "Julian Bashir",
+    universe: "star-trek",
+    domain: "Field Medic (Post-Mortem Analysis)",
+    description:
+      "DS9's chief medical officer — genetically enhanced, sees patterns others miss. His real gift is diagnosis. He doesn't just treat the symptom, he traces it back to the root cause. When a mission goes sideways, Bashir examines the wounded and writes the report that prevents it from happening again.",
+    quote:
+      "I'm not just cataloguing injuries — I'm figuring out why the battle plan failed.",
+    commandsLed: ["/debrief"],
+    phasesActive: [9, 10, 11],
+    powerLevel: 7,
+  },
 ];
 
 export const subAgents: SubAgent[] = [

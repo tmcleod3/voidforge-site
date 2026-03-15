@@ -214,6 +214,41 @@ export const commands: Command[] = [
     ],
     badge: "NEW in v3.9",
   },
+  {
+    slug: "imagine",
+    name: "/imagine",
+    lead: "Celebrimbor",
+    description:
+      "The forge artist. Celebrimbor scans the PRD for visual asset requirements, derives a style from the brand section, and generates images via DALL-E 3. Portraits, illustrations, OG images, hero art — whatever the PRD describes and code can't produce.",
+    usage: "/imagine",
+    whatHappens: [
+      "Checks vault for OpenAI API key (prompts on first run)",
+      "Scans the PRD for all visual asset descriptions",
+      "Derives a style prefix from PRD Section 14 (Brand Voice)",
+      "Scans existing assets — skips what's already generated",
+      "Presents the plan with image count and cost estimate",
+      "Generates images via DALL-E 3 HD with rate limiting",
+      "Downloads to public/images/ with manifest tracking",
+      "Verifies generated images are wired into components",
+    ],
+    badge: "NEW in v4.4",
+  },
+  {
+    slug: "debrief",
+    name: "/debrief",
+    lead: "Bashir",
+    description:
+      "The field medic. Bashir examines what happened during a build or campaign, diagnoses what went wrong, traces root causes, and writes a post-mortem that prevents the same failure from recurring. Can file upstream issues to improve VoidForge itself.",
+    usage: "/debrief",
+    whatHappens: [
+      "Ezri reconstructs the session timeline from logs and git history",
+      "Bashir examines each phase for injuries — failures, regressions, surprises",
+      "O'Brien traces root causes through the codebase",
+      "Bashir writes the post-mortem with lessons and methodology fixes",
+      "Optionally files a GitHub issue to the upstream VoidForge repo",
+    ],
+    badge: "NEW in v4.4",
+  },
 ];
 
 export function getCommand(slug: string): Command | undefined {
