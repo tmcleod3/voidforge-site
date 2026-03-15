@@ -388,7 +388,7 @@ button:focus-visible {
 
 @keyframes flip-hint-pulse {
   0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; color: var(--vf-forge-orange); }
+  50% { opacity: 1; color: #ff6b35; }
 }
 
 /* --- 3D Card Flip --- */
