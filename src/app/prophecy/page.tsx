@@ -55,6 +55,11 @@ const majorMeta: Record<string, { title: string; quote: string; agent: string }>
     quote: "The forge learned from its wounds. Every field report made it stronger. Every failure became a lesson.",
     agent: "Bashir",
   },
+  "6": {
+    title: "Camelot",
+    quote: "The forge built a castle around itself. Walls, gates, watchtowers. Now it defends what it creates.",
+    agent: "Kenobi",
+  },
 };
 
 function groupByMajor(releases: typeof shipped) {
@@ -281,6 +286,31 @@ const shipped = [
       "Complexity-first mission ordering in /campaign — hard features first",
       "Éowyn's Enchantment Review — Step 1.75 in /ux for delight and micro-interactions",
       "Field report integration — Issues #4, #5, #6, #8, #9 implemented upstream",
+    ],
+  },
+  {
+    version: "v6.0.0",
+    date: "2026-03-15",
+    title: "Camelot Multi",
+    headline: "The forge becomes a castle. Great Hall dashboard. Project registry. Health polling. The forge manages itself.",
+    items: [
+      "Great Hall dashboard — multi-project management interface",
+      "Project registry with health polling and status tracking",
+      "Import flow for onboarding existing projects",
+      "SSRF protection on all internal service calls",
+    ],
+  },
+  {
+    version: "v6.5.0",
+    date: "2026-03-15",
+    title: "Camelot Remote",
+    headline: "The castle gets walls. Five layers of security. TOTP 2FA. Self-deploy. Audit trail. The forge defends itself.",
+    items: [
+      "5-layer security architecture for remote access",
+      "TOTP 2FA authentication (two-password architecture)",
+      "Self-deploy capability — the forge provisions its own infrastructure",
+      "Comprehensive audit trail for all operations",
+      "Gauntlet build-output verification — field report #9 implemented",
     ],
   },
 ];
