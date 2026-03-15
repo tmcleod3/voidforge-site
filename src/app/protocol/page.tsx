@@ -95,14 +95,6 @@ export default function ProtocolPage() {
                         </div>
                       </div>
 
-                      {/* Gate */}
-                      <div className="crt-terminal !p-3 text-sm">
-                        <span className="text-[var(--vf-forge-yellow)]">
-                          GATE:
-                        </span>{" "}
-                        Must pass before advancing. Both manual verification
-                        and automated checks required. No exceptions.
-                      </div>
                     </div>
                   </AccordionItem>
                 </li>

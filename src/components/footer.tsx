@@ -90,6 +90,16 @@ export function Footer() {
               </li>
               <li>
                 <a
+                  href="https://substack.com/@tmcleod"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] transition-colors"
+                >
+                  Substack
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://www.linkedin.com/in/tmcleod3/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -107,16 +117,6 @@ export function Footer() {
                   className="text-sm text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] transition-colors"
                 >
                   X
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://substack.com/@tmcleod"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] transition-colors"
-                >
-                  Substack
                 </a>
               </li>
               <li>
