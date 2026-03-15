@@ -36,7 +36,7 @@ export default function DeployPage() {
         <img
           src="/images/tutorials/tutorial-deploy.png"
           alt="Deploy — a rocket on a launchpad with deploy target indicators"
-          className="w-full max-w-md mx-auto rounded-lg comic-panel mb-8"
+          className="w-full rounded-lg comic-panel mb-8"
         />
 
         <TableOfContents items={tocItems} />

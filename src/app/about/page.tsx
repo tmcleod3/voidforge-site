@@ -18,9 +18,22 @@ export default function AboutPage() {
         <div className="mx-auto max-w-3xl">
           {/* Creator card */}
           <div className="comic-panel bg-[var(--vf-surface-raised)] p-8 mb-8">
-            <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-forge-orange)] mb-4">
-              THOMAS MCLEOD
-            </h2>
+            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/thomas-mcleod.png"
+                alt="Thomas McLeod — creator of VoidForge"
+                className="w-32 h-32 rounded-full border-4 border-[var(--vf-forge-orange)] object-cover flex-shrink-0"
+              />
+              <div>
+                <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                  THOMAS MCLEOD
+                </h2>
+                <p className="text-sm text-[var(--vf-text-muted)] italic">
+                  Builder. Founder. The one who lit the forge.
+                </p>
+              </div>
+            </div>
             <p className="text-[var(--vf-text-muted)] mb-4">
               6x serial entrepreneur. Father of two. Married to Elizabeth.
               Based in Santa Monica, California. American University graduate.
@@ -116,31 +129,14 @@ export default function AboutPage() {
               the result.
             </p>
 
-            {/* Build sequence strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 mb-8">
-              {[
-                { agent: "Picard", action: "Oriented", color: "var(--vf-star-trek)" },
-                { agent: "Stark", action: "Engineered", color: "var(--vf-marvel)" },
-                { agent: "Galadriel", action: "Designed", color: "var(--vf-tolkien)" },
-                { agent: "Batman", action: "Interrogated", color: "var(--vf-dc)" },
-                { agent: "Kenobi", action: "Secured", color: "var(--vf-star-wars)" },
-                { agent: "Kusanagi", action: "Deployed", color: "var(--vf-anime)" },
-              ].map((step) => (
-                <div
-                  key={step.agent}
-                  className="comic-panel bg-[var(--vf-surface-raised)] p-3 text-center"
-                >
-                  <p
-                    className="font-[family-name:var(--font-bangers)] text-sm tracking-wider mb-0.5"
-                    style={{ color: step.color }}
-                  >
-                    {step.agent}
-                  </p>
-                  <p className="text-xs text-[var(--vf-text-muted)]">
-                    {step.action}
-                  </p>
-                </div>
-              ))}
+            {/* Build sequence comic strip */}
+            <div className="comic-panel overflow-hidden mb-8">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/about-build-strip.png"
+                alt="The build sequence: PRD → Picard Orients → Stark + Galadriel Build → Batman Tests → Kenobi Secures → Kusanagi Deploys → You're Here"
+                className="w-full"
+              />
             </div>
 
             <SpeechBubble agent="Batman" universe="dc">

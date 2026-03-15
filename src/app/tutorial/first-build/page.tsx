@@ -28,7 +28,7 @@ export default function FirstBuildPage() {
         <img
           src="/images/tutorials/tutorial-build.png"
           alt="First Build — a blueprint being fed into a code-generating machine"
-          className="w-full max-w-md mx-auto rounded-lg comic-panel mb-8"
+          className="w-full rounded-lg comic-panel mb-8"
         />
 
         <TableOfContents items={tocItems} />

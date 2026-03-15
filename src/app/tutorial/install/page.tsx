@@ -27,7 +27,7 @@ export default function InstallPage() {
         <img
           src="/images/tutorials/tutorial-install.png"
           alt="Install — a toolbox opening with glowing developer tools"
-          className="w-full max-w-md mx-auto rounded-lg comic-panel mb-8"
+          className="w-full rounded-lg comic-panel mb-8"
         />
 
         <TableOfContents items={tocItems} />
