@@ -202,12 +202,12 @@ export default function AgentsPage() {
                           <p className="text-sm font-medium text-[var(--vf-text)] truncate">
                             {agent.name}
                           </p>
-                          <p className="text-[11px] text-[var(--vf-text-muted)] truncate">
+                          <p className="text-[11px] text-[var(--vf-text-muted)] sm:truncate">
                             {agent.role}
                           </p>
                         </div>
-                        {/* Tooltip */}
-                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] rounded-md shadow-lg opacity-0 pointer-events-none group-hover/sub:opacity-100 group-hover/sub:pointer-events-auto transition-opacity duration-150 z-20 w-max max-w-[240px]">
+                        {/* Tooltip — desktop only */}
+                        <div className="hidden sm:block absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] rounded-md shadow-lg opacity-0 pointer-events-none group-hover/sub:opacity-100 group-hover/sub:pointer-events-auto transition-opacity duration-150 z-20 w-max max-w-[240px]">
                           <p className="text-xs font-medium text-[var(--vf-text)] mb-0.5">{agent.name}</p>
                           <p className="text-[11px] text-[var(--vf-text-muted)]">{agent.role}</p>
                           <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-[var(--vf-surface-overlay)]" />
