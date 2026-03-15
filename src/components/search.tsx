@@ -134,11 +134,13 @@ export function Search() {
         >
           <div
             ref={modalRef}
-            className="w-full max-w-lg bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] rounded-lg shadow-2xl shadow-black/50 overflow-hidden outline-none"
+            className="w-full max-w-lg bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] rounded-lg shadow-2xl shadow-black/50 overflow-hidden"
+            style={{ outline: "none" }}
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
             aria-label="Site search"
+            tabIndex={-1}
           >
             {/* Search input */}
             <div className="flex items-center gap-3 px-4 border-b border-[var(--vf-border)]">
@@ -150,7 +152,8 @@ export function Search() {
                 onChange={(e) => handleSearch(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="Search commands, agents, patterns..."
-                className="flex-1 py-4 bg-transparent text-[var(--vf-text)] placeholder-[var(--vf-text-muted)] outline-none text-base"
+                className="flex-1 py-4 bg-transparent text-[var(--vf-text)] placeholder-[var(--vf-text-muted)] text-base"
+                style={{ outline: "none" }}
                 aria-label="Search"
                 autoComplete="off"
               />
