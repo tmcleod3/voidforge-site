@@ -190,7 +190,7 @@ export default function AgentsPage() {
                     {subs.map((agent) => (
                       <div
                         key={agent.name}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[var(--vf-surface-raised)] border border-[var(--vf-border)]"
+                        className="group/sub relative flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] hover:border-[var(--vf-forge-orange)]/40 transition-colors cursor-default"
                       >
                         <div
                           className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 border-2 overflow-hidden"
@@ -205,6 +205,12 @@ export default function AgentsPage() {
                           <p className="text-[11px] text-[var(--vf-text-muted)] truncate">
                             {agent.role}
                           </p>
+                        </div>
+                        {/* Tooltip */}
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] rounded-md shadow-lg opacity-0 pointer-events-none group-hover/sub:opacity-100 group-hover/sub:pointer-events-auto transition-opacity duration-150 z-20 w-max max-w-[240px]">
+                          <p className="text-xs font-medium text-[var(--vf-text)] mb-0.5">{agent.name}</p>
+                          <p className="text-[11px] text-[var(--vf-text-muted)]">{agent.role}</p>
+                          <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-[var(--vf-surface-overlay)]" />
                         </div>
                       </div>
                     ))}
