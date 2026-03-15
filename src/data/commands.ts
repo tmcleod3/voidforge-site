@@ -195,6 +195,25 @@ export const commands: Command[] = [
     ],
     badge: "NEW in v3.7",
   },
+  {
+    slug: "campaign",
+    name: "/campaign",
+    lead: "Sisko",
+    description:
+      "The war room. Sisko reads the PRD, identifies every remaining mission, and executes them one by one — running /assemble for each — until the entire product is complete.",
+    usage: "/campaign",
+    whatHappens: [
+      "Kira runs operational recon — checks for unfinished builds or assembles",
+      "Dax analyzes the PRD and diffs against the codebase",
+      "Odo verifies prerequisites for the next mission",
+      "Sisko presents the mission brief and waits for confirmation",
+      "Fury's /assemble runs for the scoped mission",
+      "Coulson commits and versions the completed mission",
+      "Loop: back to Step 1 until every PRD section is implemented",
+      "Final full-project review when all missions are complete",
+    ],
+    badge: "NEW in v3.9",
+  },
 ];
 
 export function getCommand(slug: string): Command | undefined {

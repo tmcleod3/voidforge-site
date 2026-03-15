@@ -115,23 +115,38 @@ const shipped = [
       "Crossfire protocol: agents challenge each other's findings",
     ],
   },
+  {
+    version: "v3.8.0",
+    date: "2026-03-14",
+    title: "Strange's Last Mile",
+    headline: "End-to-end deploy. Every target. No hand-holding required.",
+    items: [
+      "End-to-end deploy automation for all 6 targets",
+      "GitHub integration for CI/CD workflows",
+      "SSH deploy with rollback capability",
+      "Strange's deploy wizard handles the full lifecycle",
+    ],
+  },
+  {
+    version: "v3.9.0",
+    date: "2026-03-14",
+    title: "Sisko's War Room",
+    headline: "The Emissary arrives. Read the PRD. Pick a mission. Win the war.",
+    items: [
+      "/campaign — autonomous PRD-to-product mission sequencing",
+      "Sisko (Benjamin Sisko, DS9) joins as 11th lead agent",
+      "13 total slash commands",
+      "Mission-by-mission execution with /assemble per mission",
+      "Kira recon, Dax analysis, Odo prerequisites, Sisko command",
+    ],
+  },
 ];
 
 const future = [
   {
-    version: "v3.8",
-    title: "The Pipeline",
-    opacity: 1,
-    items: [
-      "CI/CD generation — auto-generate GitHub Actions workflows from deploy target config",
-      "Preview environments — per-PR preview deploys (native for Vercel/Railway, containers for VPS)",
-      "Secrets management — graduate from .env to GitHub Secrets, AWS Secrets Manager, platform-native",
-    ],
-  },
-  {
-    version: "v3.9",
+    version: "v3.10",
     title: "The Watchtower",
-    opacity: 0.85,
+    opacity: 1,
     items: [
       "Monitoring bootstrap — Prometheus + Grafana configs, health check endpoints, alerting rules",
       "Log aggregation — CloudWatch (AWS), Logflare (Vercel/Cloudflare), Papertrail (Railway)",
@@ -139,9 +154,9 @@ const future = [
     ],
   },
   {
-    version: "v3.10",
+    version: "v3.11",
     title: "The Academy",
-    opacity: 0.7,
+    opacity: 0.85,
     items: [
       "Interactive tutorial mode — demo PRD that builds a small app with educational commentary per phase",
       "Pattern playground — sandbox to see all 7 patterns across 4 frameworks (Next.js, Express, Django, Rails)",
@@ -150,7 +165,7 @@ const future = [
   {
     version: "v4.0",
     title: "The Multiverse",
-    opacity: 0.5,
+    opacity: 0.6,
     items: [
       "Multi-project orchestration — monorepo with multiple services, each with their own PRD",
       "Rollback dashboard — deployment history with one-click revert",

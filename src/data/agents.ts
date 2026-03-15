@@ -181,6 +181,20 @@ export const leadAgents: LeadAgent[] = [
     phasesActive: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
     powerLevel: 10,
   },
+  {
+    slug: "sisko",
+    name: "Sisko",
+    realName: "Benjamin Sisko",
+    universe: "star-trek",
+    domain: "Campaign Command (Mission Sequencing)",
+    description:
+      "The Emissary. Reads the PRD, identifies every mission, and executes them one by one until the product is complete. No mission left behind. No feature forgotten. The Prophets showed him the path — he walks it.",
+    quote:
+      "I am not Picard. I don't plan the architecture — I win the war. One mission at a time.",
+    commandsLed: ["/campaign"],
+    phasesActive: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+    powerLevel: 10,
+  },
 ];
 
 export const subAgents: SubAgent[] = [
