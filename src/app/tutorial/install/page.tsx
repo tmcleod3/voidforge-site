@@ -4,6 +4,7 @@ import { SpeechBubble } from "@/components/speech-bubble";
 import { CopyButton } from "@/components/copy-button";
 import { TutorialNav } from "@/components/tutorial-nav";
 import { TableOfContents } from "@/components/table-of-contents";
+import { TutorialProgress } from "@/components/tutorial-progress";
 
 export const metadata: Metadata = {
   title: "Install",
@@ -142,6 +143,7 @@ export default function InstallPage() {
           prev={{ href: "/tutorial", label: "Tutorial Hub" }}
           next={{ href: "/tutorial/first-build", label: "First Build" }}
         />
+        <TutorialProgress step="install" />
       </div>
     </div>
   );

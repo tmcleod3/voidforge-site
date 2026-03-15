@@ -4,6 +4,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Analytics } from "@/components/analytics";
 import { Starfield } from "@/components/starfield";
+import { JsonLd } from "@/components/json-ld";
 import "./globals.css";
 
 const bangers = Bangers({
@@ -61,6 +62,7 @@ export default function RootLayout({
       className={`${bangers.variable} ${spaceMono.variable} ${inter.variable}`}
     >
       <body className="font-sans bg-[var(--vf-void)] text-[var(--vf-text)] min-h-screen flex flex-col antialiased relative">
+        <JsonLd />
         <Starfield />
         <a
           href="#main-content"

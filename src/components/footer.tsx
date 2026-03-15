@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { Github } from "lucide-react";
+import { trackEvent } from "@/components/analytics";
 
 export function Footer() {
   return (
@@ -79,6 +82,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] transition-colors"
+                  onClick={() => trackEvent("github_click", { location: "footer" })}
                 >
                   <Github className="h-4 w-4" />
                   GitHub
@@ -90,6 +94,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] transition-colors"
+                  onClick={() => trackEvent("linkedin_click")}
                 >
                   LinkedIn
                 </a>
@@ -133,6 +138,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)] transition-colors"
+              onClick={() => trackEvent("linkedin_click")}
             >
               Thomas McLeod
             </a>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
+import { TrackedLink } from "@/components/tracked-link";
 
 export const metadata: Metadata = {
   title: "About",
@@ -42,14 +43,15 @@ export default function AboutPage() {
               be a <em>protocol</em>, not a <em>prayer</em>.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a
+              <TrackedLink
                 href="https://www.linkedin.com/in/tmcleod3/"
+                event="linkedin_click"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-4 py-2 bg-[var(--vf-forge-orange)] text-black font-bold rounded-md hover:bg-[var(--vf-forge-yellow)] transition-colors text-sm"
               >
                 LINKEDIN
-              </a>
+              </TrackedLink>
               <a
                 href="https://x.com/tmcleod3"
                 target="_blank"
@@ -82,14 +84,16 @@ export default function AboutPage() {
               >
                 INSTAGRAM
               </a>
-              <a
+              <TrackedLink
                 href="https://github.com/tmcleod3/voidforge"
+                event="github_click"
+                eventProps={{ location: "about" }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-4 py-2 border-2 border-[var(--vf-border)] text-[var(--vf-text)] font-bold rounded-md hover:border-[var(--vf-forge-orange)] transition-colors text-sm"
               >
                 VIEW THE SOURCE
-              </a>
+              </TrackedLink>
             </div>
           </div>
 

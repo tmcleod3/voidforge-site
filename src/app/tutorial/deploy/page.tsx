@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { TutorialNav } from "@/components/tutorial-nav";
 import { TableOfContents } from "@/components/table-of-contents";
+import { TutorialProgress } from "@/components/tutorial-progress";
 
 export const metadata: Metadata = {
   title: "Deploy",
@@ -110,6 +111,7 @@ export default function DeployPage() {
         <TutorialNav
           prev={{ href: "/tutorial/first-build", label: "First Build" }}
         />
+        <TutorialProgress step="deploy" />
       </div>
     </div>
   );

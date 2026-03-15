@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { TutorialNav } from "@/components/tutorial-nav";
 import { TableOfContents } from "@/components/table-of-contents";
+import { TutorialProgress } from "@/components/tutorial-progress";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -126,6 +127,7 @@ deploy: "vercel"
           prev={{ href: "/tutorial/install", label: "Install" }}
           next={{ href: "/tutorial/deploy", label: "Deploy" }}
         />
+        <TutorialProgress step="first-build" />
       </div>
     </div>
   );

@@ -4,6 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { Menu, X, Github } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { Search } from "@/components/search";
+import { trackEvent } from "@/components/analytics";
 
 const navLinks = [
   { href: "/tutorial", label: "Tutorial" },
@@ -53,12 +55,14 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
+            <Search />
             <a
               href="https://github.com/tmcleod3/voidforge"
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-2 p-2 text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] transition-colors rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
+              className="ml-1 p-2 text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] transition-colors rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
               aria-label="View source on GitHub (opens in new tab)"
+              onClick={() => trackEvent("github_click", { location: "nav" })}
             >
               <Github className="h-5 w-5" />
             </a>

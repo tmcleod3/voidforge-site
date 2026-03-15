@@ -2,6 +2,19 @@
 
 All notable changes to the VoidForge Marketing Site.
 
+## [0.3.0] — 2026-03-14
+
+### Added
+- Client-side site search with Fuse.js — Cmd+K shortcut, 55 indexed pages, keyboard navigation
+- JSON-LD structured data (SoftwareApplication schema) on every page
+- Event tracking: `github_click` (nav, footer, about), `linkedin_click`, `tutorial_progress`, `search_query`
+- Tutorial progress tracking — fires when user reaches bottom of each tutorial page
+- TrackedLink component for analytics-aware external links
+
+### Changed
+- Footer and about page links now track click events for analytics
+- Header now includes search button between nav links and GitHub icon
+
 ## [0.2.0] — 2026-03-14
 
 ### Added
