@@ -35,33 +35,56 @@ export default function AboutPage() {
               </div>
             </div>
             <p className="text-[var(--vf-text-muted)] mb-4">
-              6x serial entrepreneur. Father of two. Married to Elizabeth.
-              Based in Santa Monica, California. American University graduate.
+              Father. Husband. American University graduate. Santa Monica, California.
+              Four companies founded and exited — <strong className="text-[var(--vf-text)]">PageLime</strong>,{" "}
+              <strong className="text-[var(--vf-text)]">LolConnect</strong>,{" "}
+              <strong className="text-[var(--vf-text)]">Omni</strong>,{" "}
+              and{" "}
+              <strong className="text-[var(--vf-text)]">Arkive</strong>.
+              Currently President at{" "}
+              <a
+                href="https://saltwater.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)] font-bold"
+              >
+                Saltwater
+              </a>.
+              Building{" "}
+              <strong className="text-[var(--vf-forge-orange)]">VoidForge</strong>{" "}
+              for the love.
             </p>
             <p className="text-[var(--vf-text-muted)] mb-4">
-              Built <strong className="text-[var(--vf-text)]">Arkive</strong>,{" "}
-              <strong className="text-[var(--vf-text)]">PageLime</strong>,{" "}
-              <strong className="text-[var(--vf-text)]">Saltwater</strong>,{" "}
-              <strong className="text-[var(--vf-text)]">Omni</strong> (storage),
-              and now{" "}
-              <strong className="text-[var(--vf-forge-orange)]">VoidForge</strong>.
-              Each company taught him something about shipping fast, failing
-              usefully, and building things that actually work.
+              Every exit left behind a lesson. PageLime taught him that developers
+              will pay for tools that respect their time. Omni taught him that
+              infrastructure is invisible until it breaks. Arkive taught him that
+              the best products feel inevitable in hindsight. And somewhere between
+              the fourth exit and the next idea, he started talking to an AI and
+              realized it could build — but only if you gave it a <em>protocol</em>,
+              not a <em>prayer</em>.
             </p>
             <p className="text-[var(--vf-text-muted)] mb-6">
-              VoidForge started as a personal system — a set of notes on how
-              to get Claude Code to stop hallucinating and start shipping. It
-              turned into a methodology with 170+ named AI agents, a 13-phase
-              build protocol, and a philosophy: your AI coding workflow should
-              be a <em>protocol</em>, not a <em>prayer</em>.
+              VoidForge is what happened next. A set of personal notes turned into
+              a methodology. The methodology grew 170+ named agents across 7
+              fictional universes. The agents learned a 13-phase build protocol.
+              And then Tom pointed the forge at itself and said: <em>&ldquo;Build
+              your own website.&rdquo;</em> You&apos;re reading the result.
             </p>
             <div className="flex flex-wrap gap-3">
+              <a
+                href="https://substack.com/@tmcleod"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-[var(--vf-forge-orange)] text-black font-bold rounded-md hover:bg-[var(--vf-forge-yellow)] transition-colors text-sm"
+              >
+                SUBSTACK
+              </a>
               <TrackedLink
                 href="https://www.linkedin.com/in/tmcleod3/"
                 event="linkedin_click"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-[var(--vf-forge-orange)] text-black font-bold rounded-md hover:bg-[var(--vf-forge-yellow)] transition-colors text-sm"
+                className="px-4 py-2 border-2 border-[var(--vf-border)] text-[var(--vf-text)] font-bold rounded-md hover:border-[var(--vf-forge-orange)] transition-colors text-sm"
               >
                 LINKEDIN
               </TrackedLink>
@@ -72,14 +95,6 @@ export default function AboutPage() {
                 className="px-4 py-2 border-2 border-[var(--vf-border)] text-[var(--vf-text)] font-bold rounded-md hover:border-[var(--vf-forge-orange)] transition-colors text-sm"
               >
                 X
-              </a>
-              <a
-                href="https://substack.com/@tmcleod"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 border-2 border-[var(--vf-border)] text-[var(--vf-text)] font-bold rounded-md hover:border-[var(--vf-forge-orange)] transition-colors text-sm"
-              >
-                SUBSTACK
               </a>
               <a
                 href="https://www.threads.com/@tmcleod"
