@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/page-header";
+import { TrackView } from "@/components/track-view";
 import { commands, getCommand } from "@/data/commands";
 
 interface CommandPageProps {
@@ -31,6 +32,7 @@ export default async function CommandPage({ params }: CommandPageProps) {
 
   return (
     <div className="px-4 py-16">
+      <TrackView event="command_view" props={{ command: cmd.slug }} />
       <div className="mx-auto max-w-3xl">
         <PageHeader title={cmd.name.toUpperCase()} subtitle={cmd.lead} />
 

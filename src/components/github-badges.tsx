@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Star, Tag } from "lucide-react";
+import { trackEvent } from "@/components/analytics";
 
 const GITHUB_REPO = process.env.NEXT_PUBLIC_GITHUB_REPO || "tmcleod3/voidforge";
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
@@ -63,6 +64,7 @@ export function GitHubBadges() {
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] rounded-full text-sm text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] hover:border-[var(--vf-forge-orange)] transition-colors"
+        onClick={() => trackEvent("github_click", { location: "hero" })}
       >
         <Star className="h-4 w-4" />
         {data.stars !== null ? data.stars.toLocaleString() : "GitHub"}

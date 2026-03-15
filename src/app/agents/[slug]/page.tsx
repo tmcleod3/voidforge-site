@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/page-header";
+import { TrackView } from "@/components/track-view";
 import {
   leadAgents,
   universes,
@@ -50,6 +51,7 @@ function LeadAgentPage({ agent }: { agent: (typeof leadAgents)[number] }) {
 
   return (
     <div className="px-4 py-16">
+      <TrackView event="agent_view" props={{ agent: agent.slug, universe: agent.universe }} />
       <div className="mx-auto max-w-3xl">
         {/* Splash header */}
         <div

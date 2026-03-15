@@ -3,18 +3,21 @@
 import { useState, useCallback } from "react";
 import { Copy, Check } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { trackEvent } from "@/components/analytics";
 
 interface CopyButtonProps {
   text: string;
   className?: string;
+  trackAs?: string;
 }
 
-export function CopyButton({ text, className }: CopyButtonProps) {
+export function CopyButton({ text, className, trackAs }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(text);
+      if (trackAs) trackEvent("install_copy", { tier: trackAs });
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
     } catch {
@@ -30,7 +33,7 @@ export function CopyButton({ text, className }: CopyButtonProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 3000);
     }
-  }, [text]);
+  }, [text, trackAs]);
 
   return (
     <button

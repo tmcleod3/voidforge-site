@@ -60,7 +60,7 @@ export function InstallSection() {
                   <span className="text-[var(--vf-text-muted)]">$ </span>
                   {item.command}
                 </code>
-                <CopyButton text={item.command} />
+                <CopyButton text={item.command} trackAs={item.tier.toLowerCase()} />
               </div>
             </motion.div>
           ))}

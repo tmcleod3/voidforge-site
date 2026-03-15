@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/page-header";
+import { TrackView } from "@/components/track-view";
 import { patterns, getPattern } from "@/data/patterns";
 
 interface PatternPageProps {
@@ -31,6 +32,7 @@ export default async function PatternPage({ params }: PatternPageProps) {
 
   return (
     <div className="px-4 py-16">
+      <TrackView event="pattern_view" props={{ pattern: pattern.slug }} />
       <div className="mx-auto max-w-3xl">
         <PageHeader title={pattern.title.toUpperCase()} />
 
