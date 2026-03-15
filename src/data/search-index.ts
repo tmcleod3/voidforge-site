@@ -46,7 +46,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "Bashir", description: "Field medic, post-mortem analysis — Star Trek universe", path: "/agents/bashir", category: "Agents" },
 
   // Commands
-  { title: "Commands", description: "All 13 slash commands with usage and examples", path: "/commands", category: "Commands" },
+  { title: "Commands", description: "All 15 slash commands with usage and examples", path: "/commands", category: "Commands" },
   { title: "/build", description: "Execute the full 13-phase build protocol", path: "/commands/build", category: "Commands" },
   { title: "/qa", description: "Batman's full QA pass with double-pass verification", path: "/commands/qa", category: "Commands" },
   { title: "/test", description: "Batman's test-writing mode — coverage analysis and test architecture", path: "/commands/test", category: "Commands" },
