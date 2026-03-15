@@ -127,13 +127,13 @@ export function Search() {
       {/* Modal overlay */}
       {open && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
           onClick={close}
           role="presentation"
         >
           <div
             ref={modalRef}
-            className="w-full max-w-lg mx-4 bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] rounded-lg shadow-2xl overflow-hidden"
+            className="w-full max-w-lg bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] rounded-lg shadow-2xl shadow-black/50 overflow-hidden"
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
