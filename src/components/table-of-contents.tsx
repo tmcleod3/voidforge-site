@@ -52,7 +52,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
         {open && (
           <nav
             id="toc-mobile-list"
-            className="mt-1 bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] rounded-md py-2"
+            className="mt-1 bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] rounded-md py-2 max-h-[40vh] overflow-y-auto"
             aria-label="Table of contents"
           >
             <ul className="space-y-1">

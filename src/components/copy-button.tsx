@@ -19,7 +19,7 @@ export function CopyButton({ text, className, trackAs }: CopyButtonProps) {
       await navigator.clipboard.writeText(text);
       if (trackAs) trackEvent("install_copy", { tier: trackAs });
       setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
+      setTimeout(() => setCopied(false), 5000);
     } catch {
       // Fallback for older browsers
       const textArea = document.createElement("textarea");
@@ -31,7 +31,7 @@ export function CopyButton({ text, className, trackAs }: CopyButtonProps) {
       document.execCommand("copy");
       document.body.removeChild(textArea);
       setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
+      setTimeout(() => setCopied(false), 5000);
     }
   }, [text, trackAs]);
 

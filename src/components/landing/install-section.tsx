@@ -51,8 +51,13 @@ export function InstallSection() {
                 <span className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-forge-orange)]">
                   {item.tier}
                 </span>
+                {i === 0 && (
+                  <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-[var(--vf-forge-orange)]/20 text-[var(--vf-forge-orange)] rounded">
+                    Recommended
+                  </span>
+                )}
                 <span className="text-xs text-[var(--vf-text-muted)]">
-                  — {item.label}
+                  {item.label}
                 </span>
               </div>
               <div className="crt-terminal flex items-center justify-between gap-2 !p-3">

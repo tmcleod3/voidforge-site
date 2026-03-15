@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { CopyButton } from "@/components/copy-button";
@@ -21,6 +22,9 @@ export default function InstallPage() {
   return (
     <div className="px-4 py-16">
       <div className="mx-auto max-w-3xl">
+        <Link href="/tutorial" className="text-sm text-[var(--vf-text-muted)] hover:text-[var(--vf-forge-orange)] transition-colors mb-4 inline-block">
+          &larr; Tutorial Hub
+        </Link>
         <PageHeader title="INSTALL" subtitle="Step 1 of 3" />
 
         {/* eslint-disable-next-line @next/next/no-img-element */}

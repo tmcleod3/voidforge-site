@@ -318,6 +318,15 @@ button:focus-visible {
   transform: scale(1);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .card-starburst::before {
+    transition: none;
+  }
+  .portal-rupture::before {
+    animation: none;
+  }
+}
+
 /* --- Portal Rupture (Prophecy v4) --- */
 .portal-rupture {
   position: relative;
@@ -341,6 +350,12 @@ button:focus-visible {
   border-radius: 10px;
   z-index: -1;
   animation: portal-spin 6s linear infinite;
+  animation-play-state: paused;
+  opacity: 0.4;
+}
+
+.portal-rupture:hover::before {
+  animation-play-state: running;
   opacity: 0.6;
 }
 

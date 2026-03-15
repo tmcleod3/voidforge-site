@@ -57,7 +57,7 @@ export function TradingCard({
 
   return (
     <div
-      className="group perspective-1000 h-[420px] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)] rounded-md card-starburst"
+      className="group perspective-1000 h-[340px] sm:h-[380px] lg:h-[420px] cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)] rounded-md card-starburst"
       onClick={() => setFlipped(!flipped)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -137,7 +137,7 @@ export function TradingCard({
 
             {/* Flip hint */}
             <p className="text-[10px] text-[var(--vf-text-muted)] text-center mt-3 opacity-60">
-              TAP TO FLIP
+              FLIP CARD
             </p>
           </div>
         </div>
@@ -219,7 +219,7 @@ export function TradingCard({
 
             {/* Flip hint */}
             <p className="text-[10px] text-[var(--vf-text-muted)] text-center mt-2 opacity-60">
-              TAP TO FLIP BACK
+              FLIP BACK
             </p>
           </div>
         </div>

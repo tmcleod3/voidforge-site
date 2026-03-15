@@ -58,7 +58,7 @@ export function FrameworkTabs({
               "px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-t-md border border-b-0 transition-colors whitespace-nowrap",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]",
               active === impl.framework
-                ? "bg-[var(--vf-surface-raised)] text-[var(--vf-forge-orange)] border-[var(--vf-border)]"
+                ? "bg-[var(--vf-surface-raised)] text-[var(--vf-forge-orange)] border-[var(--vf-border)] border-b-2 border-b-[var(--vf-forge-orange)]"
                 : "bg-transparent text-[var(--vf-text-muted)] border-transparent hover:text-[var(--vf-text)] hover:bg-[var(--vf-surface-raised)]/50"
             )}
           >

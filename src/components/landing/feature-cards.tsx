@@ -93,9 +93,12 @@ export function FeatureCards() {
                   {feature.title}
                 </h3>
 
-                <p className="text-sm text-[var(--vf-text-muted)]">
+                <p className="text-sm text-[var(--vf-text-muted)] mb-3">
                   {feature.description}
                 </p>
+                <span className="text-xs text-[var(--vf-text-muted)] group-hover:text-[var(--vf-forge-orange)] transition-colors">
+                  EXPLORE &rarr;
+                </span>
               </Link>
             </motion.div>
           ))}

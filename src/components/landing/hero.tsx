@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -15,7 +16,7 @@ export function Hero() {
 
       <div className="relative z-10 text-center max-w-4xl mx-auto">
         <motion.h1
-          className="font-[family-name:var(--font-bangers)] text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] tracking-wider gradient-text leading-none mb-6"
+          className="font-[family-name:var(--font-bangers)] text-6xl sm:text-7xl md:text-8xl lg:text-9xl tracking-wider gradient-text leading-tight mb-6"
           initial={shouldReduceMotion ? {} : { x: -200, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
@@ -45,6 +46,20 @@ export function Hero() {
           </code>
           . Ship to production.
         </motion.p>
+
+        <motion.div
+          initial={shouldReduceMotion ? {} : { y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.7, duration: 0.5 }}
+          className="mt-8"
+        >
+          <Link
+            href="/tutorial"
+            className="inline-block px-8 py-3 bg-[var(--vf-forge-orange)] text-black font-bold text-lg rounded-md hover:bg-[var(--vf-forge-yellow)] transition-colors font-[family-name:var(--font-bangers)] tracking-wider"
+          >
+            FORGE YOUR FIRST APP &rarr;
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

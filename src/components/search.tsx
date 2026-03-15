@@ -92,8 +92,8 @@ export function Search() {
       setResults([]);
       return;
     }
-    const searchResults = fuse.search(value).slice(0, 8);
-    setResults(searchResults);
+    const allResults = fuse.search(value);
+    setResults(allResults.slice(0, 10));
     trackEvent("search_query", { query: value });
   }
 
