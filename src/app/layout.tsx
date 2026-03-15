@@ -3,6 +3,7 @@ import { Bangers, Space_Mono, Inter } from "next/font/google";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Analytics } from "@/components/analytics";
+import { Starfield } from "@/components/starfield";
 import "./globals.css";
 
 const bangers = Bangers({
@@ -59,7 +60,8 @@ export default function RootLayout({
       lang="en"
       className={`${bangers.variable} ${spaceMono.variable} ${inter.variable}`}
     >
-      <body className="font-sans bg-[var(--vf-void)] text-[var(--vf-text)] min-h-screen flex flex-col antialiased">
+      <body className="font-sans bg-[var(--vf-void)] text-[var(--vf-text)] min-h-screen flex flex-col antialiased relative">
+        <Starfield />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-[var(--vf-forge-orange)] focus:text-black focus:font-bold focus:rounded-md"
@@ -67,7 +69,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <Header />
-        <main id="main-content" className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1 relative z-10">{children}</main>
         <Footer />
         <Analytics />
       </body>

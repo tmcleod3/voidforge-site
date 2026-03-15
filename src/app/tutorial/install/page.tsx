@@ -67,16 +67,16 @@ export default function InstallPage() {
                 FULL TIER
               </h3>
               <p className="text-sm text-[var(--vf-text-muted)] mb-4">
-                Everything — wizards, provisioners, AWS SDK, deploy targets.
-                Run the interactive setup wizard that walks you through project
-                creation.
+                The complete forge — Merlin&apos;s setup wizard, Strange&apos;s
+                deploy wizard, AWS provisioners, encrypted credential vault,
+                Telegram bridge, and all 170+ agents ready to build.
               </p>
               <div className="crt-terminal flex items-center justify-between gap-2 !p-3">
-                <code className="text-sm">
+                <code className="text-sm break-all">
                   <span className="text-[var(--vf-text-muted)]">$ </span>
-                  npx voidforge init
+                  git clone https://github.com/tmcleod3/voidforge.git my-project && cd my-project && npm install
                 </code>
-                <CopyButton text="npx voidforge init" />
+                <CopyButton text="git clone https://github.com/tmcleod3/voidforge.git my-project && cd my-project && npm install" />
               </div>
             </div>
 

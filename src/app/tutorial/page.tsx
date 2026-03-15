@@ -15,7 +15,7 @@ const steps = [
     icon: Download,
     title: "INSTALL",
     description:
-      "Prerequisites, the 3 tiers, and getting VoidForge on your machine.",
+      "Node.js, Claude Code, and one git clone. Three tiers, one decision. Galadriel walks you through it.",
     href: "/tutorial/install",
     color: "var(--vf-electric-blue)",
   },
@@ -24,7 +24,7 @@ const steps = [
     icon: Hammer,
     title: "FIRST BUILD",
     description:
-      "Write a PRD, run /build, and watch 170+ agents build your app.",
+      "Write what you want. Type /build. Picard reads your PRD, Stark fires up the engine, and 170+ agents start forging.",
     href: "/tutorial/first-build",
     color: "var(--vf-forge-orange)",
   },
@@ -33,7 +33,7 @@ const steps = [
     icon: Rocket,
     title: "DEPLOY",
     description:
-      "Choose your target. Kusanagi deploys to all 6. Go live.",
+      "Name your target. Kusanagi handles DNS, SSL, monitoring, and backups. You handle the launch party.",
     href: "/tutorial/deploy",
     color: "var(--vf-neon-green)",
   },

@@ -16,7 +16,7 @@ const features = [
     icon: Layers,
     title: "13-PHASE PROTOCOL",
     description:
-      "From PRD to production in a structured, repeatable sequence. Every phase has a verification gate.",
+      "Not a vibe. A protocol. Picard validates your PRD. Stark builds the engine. Batman tests every assumption. Kenobi locks the doors. 13 phases, 13 gates, zero hand-waving.",
     href: "/protocol",
     color: "var(--vf-electric-blue)",
   },
@@ -24,15 +24,15 @@ const features = [
     icon: Users,
     title: "170+ NAMED AGENTS",
     description:
-      "9 lead agents across 7 fictional universes. Each with a real personality and a real job to do.",
+      "10 lead agents from Tolkien, Marvel, DC, Star Wars, Star Trek, Dune, and Anime. Each with a personality, a methodology, and opinions about your code.",
     href: "/agents",
     color: "var(--vf-forge-orange)",
   },
   {
     icon: Terminal,
-    title: "11 SLASH COMMANDS",
+    title: "12 SLASH COMMANDS",
     description:
-      "Type /build and watch it go. Or /qa for Batman's audit. Or /security for Kenobi's review.",
+      "Type /build and watch the forge ignite. /qa summons Batman. /security wakes Kenobi. /assemble deploys every agent at once. Fury's orders.",
     href: "/commands",
     color: "var(--vf-neon-green)",
   },
@@ -40,7 +40,7 @@ const features = [
     icon: Code2,
     title: "7 CODE PATTERNS",
     description:
-      "Reference implementations for API routes, services, components, middleware, and more.",
+      "Battle-tested reference implementations. API routes, services, components, middleware, error handling. Write code that every agent can read.",
     href: "/patterns",
     color: "var(--vf-comic-pink)",
   },
@@ -48,7 +48,7 @@ const features = [
     icon: Globe,
     title: "6 DEPLOY TARGETS",
     description:
-      "VPS, Vercel, Railway, Cloudflare, Docker, or static. Kusanagi deploys to all of them.",
+      "VPS, Vercel, Railway, Cloudflare, Docker, or static HTML. Tell Kusanagi where and she handles the rest — DNS, SSL, monitoring, backups.",
     href: "/tutorial/deploy",
     color: "var(--vf-deep-purple)",
   },
@@ -56,7 +56,7 @@ const features = [
     icon: GitBranch,
     title: "3 TIERS",
     description:
-      "Full, Scaffold, or Core. Use the whole forge, just the methodology, or the ultra-light core.",
+      "Full: the whole forge with wizards and provisioners. Scaffold: methodology only. Core: ultra-light, drop into anything. Pick your weapon.",
     href: "/tutorial/install",
     color: "var(--vf-forge-yellow)",
   },

@@ -174,6 +174,27 @@ export const commands: Command[] = [
     ],
     badge: "NEW in v3.3",
   },
+  {
+    slug: "assemble",
+    name: "/assemble",
+    lead: "Fury",
+    description:
+      "The full pipeline. Architect → Build → Triple Review → UX → Double Security → DevOps → QA → Test → Crossfire → Council. One command to rule them all.",
+    usage: "/assemble",
+    whatHappens: [
+      "Fury assembles all agents into a single devastating pipeline",
+      "Picard runs architecture review first",
+      "Full /build protocol executes (13 phases)",
+      "Triple code review pass (Picard × 3)",
+      "Galadriel's UX/a11y audit",
+      "Double security audit (Kenobi × 2)",
+      "Kusanagi's infrastructure review",
+      "Batman's QA and test suite",
+      "Crossfire: agents challenge each other's findings",
+      "Council vote: all leads must sign off or it doesn't ship",
+    ],
+    badge: "NEW in v3.7",
+  },
 ];
 
 export function getCommand(slug: string): Command | undefined {

@@ -157,6 +157,19 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/thumper"],
     phasesActive: [],
   },
+  {
+    slug: "fury",
+    name: "Fury",
+    realName: "Nick Fury",
+    universe: "marvel",
+    domain: "The Initiative (Full Pipeline)",
+    description:
+      "Assembles every agent into one devastating pipeline. Architect, build, triple review, UX, double security, devops, QA, test, crossfire, council. One command. No mercy. No shortcuts.",
+    quote:
+      "I'm here because you need to be reminded that there was an idea to bring together a group of remarkable agents.",
+    commandsLed: ["/assemble"],
+    phasesActive: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+  },
 ];
 
 export const subAgents: SubAgent[] = [

@@ -7,17 +7,17 @@ import { GitHubBadges } from "@/components/github-badges";
 const installCommands = [
   {
     tier: "Full",
-    label: "Everything — wizards, provisioners, deploy",
-    command: "npx voidforge init",
+    label: "Everything — wizards, provisioners, the whole forge",
+    command: "git clone https://github.com/tmcleod3/voidforge.git my-project && cd my-project && npm install",
   },
   {
     tier: "Scaffold",
-    label: "Methodology only — add a PRD and /build",
+    label: "Methodology only — add a PRD, type /build, watch the agents work",
     command: "git clone --branch scaffold https://github.com/tmcleod3/voidforge.git my-project",
   },
   {
     tier: "Core",
-    label: "Ultra-light — methodology files for Claude Code",
+    label: "Ultra-light — drop the methodology into any existing project",
     command: "git clone --branch core https://github.com/tmcleod3/voidforge.git my-project",
   },
 ] as const;
