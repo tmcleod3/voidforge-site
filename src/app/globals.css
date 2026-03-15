@@ -1,0 +1,281 @@
+@import "tailwindcss";
+
+/* ========================================
+   VoidForge Design System — Custom CSS
+   Comic-book / pulp-sci-fi aesthetic
+   ======================================== */
+
+/* --- Theme Variables --- */
+:root {
+  /* Comic palette */
+  --vf-void: #0a0a0f;
+  --vf-forge-orange: #ff6b35;
+  --vf-forge-yellow: #ffd700;
+  --vf-electric-blue: #00d4ff;
+  --vf-neon-green: #39ff14;
+  --vf-comic-red: #ff2d55;
+  --vf-comic-pink: #ff6eb4;
+  --vf-deep-purple: #7b2ff7;
+
+  /* Universe colors */
+  --vf-tolkien: #2d6a4f;
+  --vf-marvel: #e63946;
+  --vf-dc: #1d3557;
+  --vf-star-wars: #ffd700;
+  --vf-star-trek: #457b9d;
+  --vf-dune: #c9a227;
+  --vf-anime: #ff6eb4;
+
+  /* Surfaces */
+  --vf-surface: #12121a;
+  --vf-surface-raised: #1a1a2e;
+  --vf-surface-overlay: #252540;
+  --vf-border: #2a2a3e;
+  --vf-text: #e8e8f0;
+  --vf-text-muted: #8888a0;
+
+  /* Terminal */
+  --vf-terminal-green: #39ff14;
+  --vf-terminal-bg: #0a0a0f;
+
+  /* Spacing & sizing */
+  --vf-panel-border: 4px;
+  --vf-panel-radius: 2px;
+}
+
+/* --- Base Reset Overrides --- */
+body {
+  background-color: var(--vf-void);
+  color: var(--vf-text);
+  font-feature-settings: "ss01", "ss02";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- Global Focus Styles --- */
+:focus-visible {
+  outline: 2px solid var(--vf-forge-orange);
+  outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--vf-forge-orange);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* --- Comic Panel Borders --- */
+.comic-panel {
+  border: var(--vf-panel-border) solid #000;
+  border-radius: var(--vf-panel-radius);
+  position: relative;
+  overflow: hidden;
+}
+
+.comic-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.05);
+}
+
+/* --- Halftone Pattern --- */
+.halftone {
+  position: relative;
+}
+
+.halftone::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+  background-size: 8px 8px;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* --- Starburst Shape --- */
+.starburst {
+  position: relative;
+}
+
+.starburst::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 0deg,
+    var(--vf-forge-yellow) 0deg,
+    transparent 20deg,
+    transparent 25deg,
+    var(--vf-forge-yellow) 25deg,
+    transparent 45deg,
+    transparent 50deg,
+    var(--vf-forge-yellow) 50deg,
+    transparent 70deg,
+    transparent 75deg,
+    var(--vf-forge-yellow) 75deg,
+    transparent 95deg,
+    transparent 100deg,
+    var(--vf-forge-yellow) 100deg,
+    transparent 120deg,
+    transparent 125deg,
+    var(--vf-forge-yellow) 125deg,
+    transparent 145deg,
+    transparent 150deg,
+    var(--vf-forge-yellow) 150deg,
+    transparent 170deg,
+    transparent 175deg,
+    var(--vf-forge-yellow) 175deg,
+    transparent 195deg,
+    transparent 200deg,
+    var(--vf-forge-yellow) 200deg,
+    transparent 220deg,
+    transparent 225deg,
+    var(--vf-forge-yellow) 225deg,
+    transparent 245deg,
+    transparent 250deg,
+    var(--vf-forge-yellow) 250deg,
+    transparent 270deg,
+    transparent 275deg,
+    var(--vf-forge-yellow) 275deg,
+    transparent 295deg,
+    transparent 300deg,
+    var(--vf-forge-yellow) 300deg,
+    transparent 320deg,
+    transparent 325deg,
+    var(--vf-forge-yellow) 325deg,
+    transparent 345deg,
+    transparent 350deg,
+    var(--vf-forge-yellow) 350deg,
+    transparent 360deg
+  );
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --- Speech Bubble --- */
+.speech-bubble {
+  position: relative;
+  background: var(--vf-surface-raised);
+  border: 3px solid #000;
+  border-radius: 18px;
+  padding: 1rem 1.25rem;
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -16px;
+  left: 24px;
+  width: 0;
+  height: 0;
+  border: 16px solid transparent;
+  border-top-color: #000;
+  border-bottom: 0;
+}
+
+.speech-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -11px;
+  left: 27px;
+  width: 0;
+  height: 0;
+  border: 13px solid transparent;
+  border-top-color: var(--vf-surface-raised);
+  border-bottom: 0;
+  z-index: 1;
+}
+
+/* --- CRT Terminal --- */
+.crt-terminal {
+  background: var(--vf-terminal-bg);
+  border: 3px solid #333;
+  border-radius: 12px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-space-mono, monospace);
+  color: var(--vf-terminal-green);
+  box-shadow:
+    inset 0 0 60px rgba(57, 255, 20, 0.03),
+    0 0 20px rgba(57, 255, 20, 0.05);
+}
+
+.crt-terminal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(57, 255, 20, 0.015) 2px,
+    rgba(57, 255, 20, 0.015) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.crt-terminal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* --- Pulsing Glow Animation (CSS only, no JS) --- */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .pulse-glow {
+    animation: none;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- Utility: Gradient Text --- */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--vf-forge-orange),
+    var(--vf-forge-yellow),
+    var(--vf-electric-blue)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
