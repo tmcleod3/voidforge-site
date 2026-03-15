@@ -3,7 +3,29 @@ The Prophets have shown me the path. Time to execute the plan.
 ## Context Setup
 1. Read `/logs/campaign-state.md` — if it exists, we're mid-campaign
 2. Read `/docs/methods/CAMPAIGN.md` for operating rules
-3. Read `/docs/PRD.md` — the source of truth
+3. Read the PRD — check `/PRD-VOIDFORGE.md` first (VoidForge's own roadmap, root-level), fall back to `/docs/PRD.md` (user project PRD)
+
+## Planning Mode (--plan)
+
+If `$ARGUMENTS` contains `--plan`, skip execution and update the plan instead:
+
+1. Read the current PRD (`/PRD-VOIDFORGE.md` or `/docs/PRD.md`) and `ROADMAP.md` (if it exists)
+2. Parse what the user wants to add from `$ARGUMENTS` (everything after `--plan`)
+3. **Dax analyzes** where it fits:
+   - Is it a new feature? → Add to the PRD under the right section (Core Features, Integrations, etc.)
+   - Is it a bug fix or improvement? → Add to ROADMAP.md under the appropriate version
+   - Is it a new version-worth of work? → Create a new version section in ROADMAP.md
+   - Does it change priorities? → Reorder the roadmap accordingly
+4. **Odo checks** dependencies: does this new item depend on something not yet built? Flag it.
+5. Present the proposed changes to the user for review before writing
+6. On confirmation, write the updates to the PRD and/or ROADMAP.md
+7. Do NOT start building — planning mode only updates the plan
+
+After planning mode completes, the user can run `/campaign` (no flags) to start executing.
+
+---
+
+## Execution Mode (default)
 
 ## Step 0 — Kira's Operational Reconnaissance
 
@@ -20,24 +42,28 @@ Check for unfinished business:
 - If build-state shows incomplete phases → resume `/build` first
 - If uncommitted changes exist → ask: "Commit first, or continue?"
 - If `/campaign --resume` was passed → resume from campaign-state's active mission
+- If campaign-state has unresolved BLOCKED items → present them: "These items from previous missions are still blocked: [list]. Resolve now, skip, or continue?"
 - If clear → proceed to Step 1
 
 ## Step 1 — Dax's Strategic Analysis
 
 Read the PRD and diff against the codebase:
 
-1. Read `/docs/PRD.md` fully — extract every feature, route, schema, integration
+1. Read the PRD fully (`/PRD-VOIDFORGE.md` if it exists at root, otherwise `/docs/PRD.md`) — extract every feature, route, schema, integration
 2. Scan the codebase — what exists? Routes, schema files, components, tests
 3. Read PRD Section 16 (Launch Sequence) for user-defined phases
 4. Read YAML frontmatter for skip flags (`auth: no`, `payments: none`, etc.)
-5. Diff: what the PRD describes vs. what's implemented
-6. Produce the ordered mission list — each mission is 1-3 PRD sections, scoped to be buildable in one `/assemble` run
+5. **Classify every requirement by type:** Code (buildable), Asset (needs external generation — images, illustrations, OG cards), Copy (text accuracy), Infrastructure (DNS, env vars, dashboards)
+6. Diff: what the PRD describes vs. what's implemented — **structural AND semantic** (not just "does the route exist?" but "does the component render what the PRD describes?")
+7. Produce the ordered mission list — each mission is 1-3 PRD sections, scoped to be buildable in one `/assemble` run
+8. **Separately list BLOCKED items** — asset/infrastructure requirements that code can't satisfy
 
 **Priority cascade:**
 1. Section 16 phases (if defined by user)
 2. Dependency order: Auth → Core → Supporting → Integrations → Admin → Marketing
 3. PRD section order as tiebreaker
 4. Skip sections flagged as no/none in frontmatter
+5. Asset/infrastructure requirements → flag as BLOCKED, don't include in code missions
 
 ## Step 2 — Odo's Prerequisite Check
 
@@ -59,6 +85,7 @@ Present to the user:
   Objective:  [What gets built]
   PRD Scope:  [Which sections]
   Prereqs:    [Met / Blocked]
+  BLOCKED:    [Asset/infra items that won't be built — flag for user]
   Est. Phases: [Which /build phases apply]
 ═══════════════════════════════════════════
   Confirm? [Y/n/skip/override]
@@ -71,26 +98,36 @@ Wait for user confirmation before proceeding.
 On confirmation:
 1. Run `/assemble` with the scoped mission description
 2. If `$ARGUMENTS` includes `--fast`, pass `--fast` to assemble (skip Crossfire + Council)
-3. Monitor context — if getting heavy, checkpoint and suggest `/campaign --resume`
+3. Monitor for context pressure symptoms (re-reading files, forgetting decisions). If noticed, ask user to run `/context` — only checkpoint if usage exceeds 70%.
 
 ## Step 5 — Debrief and Commit
 
 After `/assemble` completes:
 1. Run `/git` to commit and version the mission
 2. Update `/logs/campaign-state.md` — mark mission complete, update stats
-3. Check: are all PRD sections now implemented?
+3. **Collect BLOCKED items** from this mission (assets, infrastructure, copy issues). For each:
+   - If it's a future feature → append to `ROADMAP.md` under the appropriate version
+   - If it's a missing asset the user must provide → add to a `## Blocked Items` section in campaign-state.md with what's needed and who can unblock it
+   - If it's a PRD requirement that can't be satisfied by code → flag in the Prophecy Board as BLOCKED with the reason
+4. Check: are all PRD requirements COMPLETE or BLOCKED?
    - **No** → loop back to Step 1 (next mission)
    - **Yes** → Step 6
 
-## Step 6 — Victory Condition
+## Step 6 — Victory Condition (with Troi's Compliance Check)
 
-All PRD sections implemented:
+All PRD requirements are COMPLETE or explicitly BLOCKED:
 1. Run `/assemble --skip-build` for one final full-project review
-2. Report campaign summary: missions completed, total findings, total fixes
-3. Sisko signs off: *"The Prophets' plan is fulfilled. The campaign is complete."*
+2. **Troi reads the PRD section-by-section** — verifies every prose claim against the implementation. Not just "does the route exist?" but "does the component render what the PRD describes?" Checks numeric claims, visual treatments, copy accuracy, asset gaps.
+3. Fix code discrepancies. Flag asset requirements as BLOCKED.
+4. Report: COMPLETE items, BLOCKED items (with reasons), deviations from PRD
+5. Victory only if user acknowledges all BLOCKED items
+6. Sisko signs off: *"The Prophets' plan is fulfilled. The campaign is complete."*
+
+**Victory ≠ "everything built." Victory = "everything buildable built correctly, everything unbuildable explicitly acknowledged."**
 
 ## Arguments
-- `$ARGUMENTS` containing `--resume` → resume from campaign-state's active mission
-- `$ARGUMENTS` containing `--fast` → pass --fast to every /assemble call
-- `$ARGUMENTS` containing `--mission "Name"` → jump to a specific PRD section
+- `--plan [description]` → planning mode: update PRD and/or ROADMAP.md with new ideas, don't build
+- `--resume` → resume from campaign-state's active mission
+- `--fast` → pass --fast to every /assemble call
+- `--mission "Name"` → jump to a specific PRD section
 - No arguments → start fresh or auto-detect state

@@ -1,6 +1,6 @@
 # Version
 
-**Current:** 3.9.0
+**Current:** 4.4.0
 
 ## Versioning Scheme
 
@@ -14,6 +14,11 @@ This project uses [Semantic Versioning](https://semver.org/):
 
 | Version | Date | Summary |
 |---------|------|---------|
+| 4.4.0 | 2026-03-15 | The Imagination Release — /imagine (Celebrimbor), /debrief (Bashir), 2 new leads, 7 new sub-agents |
+| 4.2.0 | 2026-03-14 | The DX Release — Prisma types, OpenAPI docs, ERD generation, integration templates, database seeding |
+| 4.1.0 | 2026-03-14 | The Observability Release — deploy logs, cost estimation, health monitoring, Sentry integration |
+| 4.0.0 | 2026-03-14 | The Reliability Release — pre-deploy build step, CI/CD generation, env validation, Railway API migration, credential scoping |
+| 3.9.1 | 2026-03-14 | Roadmap + VoidForge PRD + /campaign --plan mode for roadmap updates |
 | 3.9.0 | 2026-03-14 | Sisko's War Room — /campaign command, autonomous PRD-to-product mission sequencing, 11th lead agent |
 | 3.8.0 | 2026-03-14 | Strange's Last Mile — end-to-end deploy automation for all 6 targets, GitHub integration, SSH deploy with rollback |
 | 3.7.0 | 2026-03-14 | Fury's Initiative — /assemble full pipeline, /thumper Telegram bridge, Dune universe, 10 leads, 12 commands |
