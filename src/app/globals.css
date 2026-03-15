@@ -373,6 +373,26 @@ button:focus-visible {
   to { transform: rotate(360deg); }
 }
 
+/* --- Tutorial Image Float --- */
+.float-gentle {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* --- FLIP CARD Pulse Hint --- */
+.flip-hint-pulse {
+  animation: flip-hint-pulse 2s ease-in-out 3;
+}
+
+@keyframes flip-hint-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; color: var(--vf-forge-orange); }
+}
+
 /* --- 3D Card Flip --- */
 .perspective-1000 {
   perspective: 1000px;

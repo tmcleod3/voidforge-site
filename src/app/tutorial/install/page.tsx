@@ -31,7 +31,7 @@ export default function InstallPage() {
         <img
           src="/images/tutorials/tutorial-install.webp"
           alt="Install — a toolbox opening with glowing developer tools"
-          className="w-full rounded-lg comic-panel mb-8"
+          className="w-full rounded-lg comic-panel mb-8 float-gentle"
         />
 
         <TableOfContents items={tocItems} />

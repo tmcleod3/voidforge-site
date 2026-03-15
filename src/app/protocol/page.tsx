@@ -76,7 +76,7 @@ export default function ProtocolPage() {
           <div className="relative">
             {/* Vertical line */}
             <div
-              className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--vf-electric-blue)] via-[var(--vf-forge-orange)] to-[var(--vf-neon-green)]"
+              className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--vf-electric-blue)] via-[var(--vf-forge-orange)] to-[var(--vf-neon-green)] pulse-glow"
               aria-hidden="true"
             />
 

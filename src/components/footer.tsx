@@ -129,8 +129,8 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 pt-8 border-t border-[var(--vf-border)]">
-          <p className="text-center text-xs text-[var(--vf-text-muted)]">
+        <div className="mt-10 pt-8 border-t border-[var(--vf-border)]">
+          <p className="text-center text-sm text-[var(--vf-text)] font-medium leading-relaxed">
             Built by VoidForge. Written by Bilbo. Designed by Galadriel. Tested
             by Batman. Deployed by Kusanagi. Created by{" "}
             <a

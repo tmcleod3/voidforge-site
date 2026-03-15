@@ -29,8 +29,23 @@ export default function CommandsPage() {
       </section>
 
       <section className="px-4 pb-24">
-        <div className="mx-auto max-w-4xl space-y-3">
-          {commands.map((cmd) => (
+        <div className="mx-auto max-w-4xl">
+          {[
+            { label: "BUILD", tagline: "Type one command. Watch the forge ignite.", slugs: ["build", "assemble", "campaign", "imagine"] },
+            { label: "REVIEW", tagline: "Trust nothing. Verify everything.", slugs: ["qa", "test", "review", "ux", "security", "gauntlet"] },
+            { label: "OPERATIONS", tagline: "The machinery behind the magic.", slugs: ["devops", "architect", "git", "void", "thumper", "debrief"] },
+          ].map((group) => (
+            <div key={group.label} className="mb-10">
+              <div className="flex items-center gap-3 mb-1">
+                <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)]">
+                  {group.label}
+                </h3>
+              </div>
+              <p className="text-xs text-[var(--vf-text-muted)] italic mb-4">
+                {group.tagline}
+              </p>
+              <div className="space-y-3">
+          {commands.filter((cmd) => group.slugs.includes(cmd.slug)).map((cmd) => (
             <AccordionItem
               key={cmd.slug}
               title={
@@ -88,6 +103,9 @@ export default function CommandsPage() {
                 )}
               </div>
             </AccordionItem>
+          ))}
+              </div>
+            </div>
           ))}
         </div>
       </section>

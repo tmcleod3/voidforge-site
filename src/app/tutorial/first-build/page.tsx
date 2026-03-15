@@ -31,7 +31,7 @@ export default function FirstBuildPage() {
         <img
           src="/images/tutorials/tutorial-build.webp"
           alt="First Build — a blueprint being fed into a code-generating machine"
-          className="w-full rounded-lg comic-panel mb-8"
+          className="w-full rounded-lg comic-panel mb-8 float-gentle"
         />
 
         <TableOfContents items={tocItems} />
