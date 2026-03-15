@@ -35,7 +35,7 @@ export default function AboutPage() {
               </div>
             </div>
             <p className="text-[var(--vf-text-muted)] mb-4">
-              Father. Husband. American University graduate. Santa Monica, California.
+              Father. Husband. Can Dance. Has Thoughts. Forever Builder.
               Four companies founded and exited: <strong className="text-[var(--vf-text)]">PageLime</strong>,{" "}
               <strong className="text-[var(--vf-text)]">LolConnect</strong>,{" "}
               <strong className="text-[var(--vf-text)]">Omni</strong>,{" "}
