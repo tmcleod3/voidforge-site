@@ -302,7 +302,7 @@ export const subAgents: SubAgent[] = [
   { name: "Senku", role: "Infrastructure provisioning", universe: "anime" },
   { name: "Levi", role: "Code cleanup and refactoring", universe: "anime" },
   { name: "Spike", role: "Debugging", universe: "anime" },
-  { name: "Strange", role: "Deploy wizard", universe: "anime" },
+  { name: "Haku", role: "Deploy wizard — browser-based deploy provisioning", universe: "anime" },
 ];
 
 export function getLeadAgent(slug: string): LeadAgent | undefined {
