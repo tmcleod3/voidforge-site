@@ -29,16 +29,16 @@ email: none
 
 # Deployment
 deploy: "vercel"
-hostname: "voidforge.dev"
+hostname: "voidforge.build"
 ```
 
 ---
 
 ## 1. Product Vision
 
-- **Name:** VoidForge.dev (alternate candidates considered: ForgeManual.dev, VoidForgeHQ.com — VoidForge.dev selected as the canonical brand domain)
+- **Name:** VoidForge.build (alternate candidates considered: ForgeManual.dev, VoidForgeHQ.com, VoidForge.dev — VoidForge.build selected as the canonical brand domain)
 - **One-liner:** The complete guide to building production apps with 170+ AI agents.
-- **What it does:** VoidForge.dev is the landing page, tutorial hub, and reference manual for the VoidForge open-source methodology framework. It teaches developers how to install VoidForge, understand the 13-phase build protocol, use all 11 slash commands, and leverage a roster of 170+ named AI agents across 7 fictional universes to ship full-stack applications from a single Product Requirements Document. The site is itself built by VoidForge — a self-referential proof of the system's capability.
+- **What it does:** VoidForge.build is the landing page, tutorial hub, and reference manual for the VoidForge open-source methodology framework. It teaches developers how to install VoidForge, understand the 13-phase build protocol, use all 13 slash commands, and leverage a roster of 170+ named AI agents (11 leads) across 7 fictional universes to ship full-stack applications from a single Product Requirements Document. The site is itself built by VoidForge — a self-referential proof of the system's capability.
 - **Who it's for:** Developers and technical founders who use Claude Code (or want to start) and want a structured, repeatable process for turning a PRD into a deployed production application. They're comfortable on the command line, they've probably cloned a GitHub repo before, and they want their AI coding workflow to go from "vibes" to "protocol."
 - **Brand personality:** Kooky, mythic, irreverent. Think pulp sci-fi novel covers from the 1950s colliding with 90s comic book action panels and Tolkien's maps. The vibe is Roy Lichtenstein painting a starship bridge while Gandalf debugs the warp core. It is NOT corporate. It is NOT minimalist. It is NOT a typical developer docs site. It is loud, colorful, character-driven, and FUN — but the content underneath is dead serious and production-grade.
 
@@ -71,7 +71,7 @@ hostname: "voidforge.dev"
 │                                                                   │
 │  ┌──────────────────────┐  ┌──────────────────────┐              │
 │  │  GitHub API (badges, │  │  Cloudflare DNS       │              │
-│  │  star count, release)│  │  (voidforge.dev)      │              │
+│  │  star count, release)│  │  (voidforge.build)      │              │
 │  └──────────────────────┘  └──────────────────────┘              │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -86,11 +86,11 @@ hostname: "voidforge.dev"
 /tutorial/deploy            → Deployment walkthrough: Strange wizard, 6 targets, going live
 /protocol                   → The 13-phase build protocol explained phase-by-phase
 /protocol/[phase-slug]      → Individual phase detail page (13 pages: orient, scaffold, infrastructure, auth, core-feature, supporting, integrations, admin, marketing, qa, ux, security, deploy, launch)
-/agents                     → The Council: all 9 lead agents with universe breakdowns
+/agents                     → The Council: all 11 lead agents with universe breakdowns
 /agents/[universe-slug]     → Universe detail page (7 pages: tolkien, marvel, dc, star-wars, star-trek, dune, anime)
-/agents/[agent-slug]        → Individual agent profile page (9 leads: galadriel, stark, batman, kenobi, picard, kusanagi, coulson, bombadil, chani)
-/commands                   → All 11 slash commands with usage, examples, agent assignments
-/commands/[command-slug]    → Individual command page (11 pages: build, qa, test, security, ux, review, devops, architect, git, void, thumper)
+/agents/[agent-slug]        → Individual agent profile page (11 leads: galadriel, stark, batman, kenobi, picard, kusanagi, coulson, bombadil, chani, fury, sisko)
+/commands                   → All 13 slash commands with usage, examples, agent assignments
+/commands/[command-slug]    → Individual command page (13 pages: build, qa, test, security, ux, review, devops, architect, git, void, thumper, assemble, campaign)
 /patterns                   → 7 code patterns overview with framework tabs
 /patterns/[pattern-slug]    → Individual pattern page (7 pages: api-route, service, component, middleware, error-handling, job-queue, multi-tenant)
 /prophecy                   → The roadmap (what's shipped, what's next, what's far out)
@@ -117,7 +117,7 @@ This is a static site. There are no backend services. All content is compiled at
 | **Fonts** | Bangers (display/headers), Space Mono (code), Inter (body) | Bangers = comic book impact. Space Mono = terminal/code feel. Inter = readable body text that doesn't fight the loud design. All loaded via `next/font/google` for zero layout shift. |
 | **Analytics** | Plausible (self-hosted or cloud) | Privacy-respecting, no cookies, lightweight (<1KB script). Tracks page views and custom events without GDPR concerns. |
 | **Hosting** | Vercel | Free tier handles static sites with global CDN, automatic HTTPS, preview deploys on PR. Zero config for Next.js projects. |
-| **DNS** | Cloudflare (nameserver delegation to Vercel) | Already using Cloudflare for DNS across Tom's projects. CNAME to Vercel for voidforge.dev. |
+| **DNS** | Cloudflare (nameserver delegation to Vercel) | Already using Cloudflare for DNS across Tom's projects. A record to Vercel (76.76.21.21) for voidforge.build. |
 | **Source Content** | Pulled from VoidForge repo at build time | Tutorial text, agent descriptions, command docs, and pattern code are sourced from the actual repo files (HOLOCRON.md, NAMING_REGISTRY.md, etc.) to ensure docs never drift from source. |
 
 ### All Dependencies
@@ -137,6 +137,7 @@ This is a static site. There are no backend services. All content is compiled at
     "rehype-autolink-headings": "^7.0.0",
     "@shikijs/rehype": "^1.0.0",
     "shiki": "^1.0.0",
+    "fuse.js": "^7.1.0",
     "clsx": "^2.0.0",
     "tailwind-merge": "^2.0.0"
   },
@@ -159,11 +160,11 @@ This is a static site. There are no backend services. All content is compiled at
 ### Feature 1: Landing Page (The Hero)
 
 **User flow:**
-1. User arrives at voidforge.dev (from GitHub README link, social media, or search)
+1. User arrives at voidforge.build (from GitHub README link, social media, or search)
 2. Full-viewport hero section loads with animated comic-panel layout: VoidForge logo rendered in pulp sci-fi title treatment, animated starburst behind it, tagline "From nothing, everything." in Bangers font
 3. Scroll reveals a 3-panel comic strip that summarizes the pitch: Panel 1 — "DROP IN A PRD" (shows a document falling into a glowing forge), Panel 2 — "170+ AGENTS BUILD IT" (shows the 9 lead agents in action-pose silhouettes), Panel 3 — "SHIP TO PRODUCTION" (shows a rocket launching with a green checkmark)
 4. Below the strip: quick-start install command with copy button, GitHub star count badge, latest version badge
-5. Scroll further: 6 feature cards in a 2x3 grid (13-Phase Protocol, 170+ Named Agents, 11 Slash Commands, 7 Code Patterns, 6 Deploy Targets, 3 Tiers). Each card has a Lichtenstein-style halftone background, bold heading, 2-sentence description, and link to the relevant deep page
+5. Scroll further: 6 feature cards in a 2x3 grid (13-Phase Protocol, 170+ Named Agents, 13 Slash Commands, 7 Code Patterns, 6 Deploy Targets, 3 Tiers). Each card has a Lichtenstein-style halftone background, bold heading, 2-sentence description, and link to the relevant deep page
 6. Footer: "Built by VoidForge. Written by Bilbo. Designed by Galadriel. Tested by Batman. Deployed by Kusanagi. Created by Thomas McLeod." with GitHub link and LinkedIn link
 
 **Data model:** None — all static content.
@@ -246,10 +247,10 @@ This is a static site. There are no backend services. All content is compiled at
 
 **User flow:**
 1. User navigates to /agents
-2. Sees "The Council" — 9 lead agent cards arranged in a 3x3 grid, each with: agent name, real character name, universe emblem, domain label, a 2-sentence personality description, and a comic-style action portrait silhouette
+2. Sees "The Council" — 11 lead agent cards in a responsive grid, each with: agent name, real character name, universe emblem, domain label, a 2-sentence personality description, power level bar, and a 3D-flippable trading card revealing commands, phases, and a memorable quote
 3. Below The Council: universe selector tabs (Tolkien, Marvel, DC, Star Wars, Star Trek, Dune, Anime) — clicking a tab shows all agents from that universe in a scrollable roster
 4. Each agent in the roster shows: character name, role description, and the personality line from NAMING_REGISTRY.md (e.g., "Vegeta — Pride, relentless optimization, 'it's over 9000' (monitoring)")
-5. Clicking a lead agent card links to /agents/[agent-slug] — a full-page profile with: character illustration, universe, domain, behavioral directives (from the method doc), sub-agent roster (from NAMING_REGISTRY.md), which slash commands they lead, which build phases they participate in, and a memorable quote
+5. Clicking a lead agent card links to /agents/[agent-slug] — a full-page profile with: universe, domain, behavioral directives (from the method doc), sub-agent roster (from NAMING_REGISTRY.md), which slash commands they lead, which build phases they participate in, power level, and a memorable quote
 6. Clicking a universe tab links to /agents/[universe-slug] — shows all characters from that universe with their roles
 
 **Data model:** None — content sourced from NAMING_REGISTRY.md and method docs at build time. Agent data is structured as a TypeScript const at build time:
@@ -266,6 +267,7 @@ type Agent = {
   quote: string;          // Memorable quote
   commandsLed: string[];  // ["/ux"]
   phasesActive: number[]; // [3, 4, 5, 8, 10]
+  powerLevel: number;     // 1-10
   subAgents: SubAgent[];  // From naming registry
 };
 
@@ -299,7 +301,7 @@ type SubAgent = {
 
 **User flow:**
 1. User navigates to /commands
-2. Sees all 11 slash commands in a table: command name, lead agent, and 1-sentence description
+2. Sees all 13 slash commands in a table: command name, lead agent, and 1-sentence description
 3. Each row links to /commands/[command-slug]
 4. Individual command pages show: full usage instructions, which agent leads it, what happens when you run it (step-by-step), example terminal output (styled as a retro CRT terminal with green-on-black text and scanline overlay), related commands, and tips
 
@@ -315,8 +317,10 @@ type SubAgent = {
 - **Success state:** Full table with links and terminal previews
 
 **Edge cases:**
-- `/thumper` command (Chani's Telegram bridge) is marked with a "NEW in v3.3" badge
+- `/thumper` command (Chani's Telegram bridge) is marked with a "NEW in v3.5" badge
 - `/void` command (Bombadil's forge sync) includes a "self-referential" note: "This command was used to keep this very website in sync with VoidForge upstream"
+- `/assemble` command (Fury's Initiative) runs the full pipeline from architecture to launch
+- `/campaign` command (Sisko's War Room) reads the PRD, picks missions, and runs the war
 
 ---
 
@@ -374,7 +378,7 @@ type SubAgent = {
 
 **User flow:**
 1. User navigates to /about
-2. Sees Thomas McLeod's story: 5x serial entrepreneur, American University, LA-based, built Arkive, PageLime, Saltwater, and now VoidForge
+2. Sees Thomas McLeod's story: 6x serial entrepreneur, American University, Santa Monica-based, built Arkive, PageLime, Saltwater, Omni, and now VoidForge
 3. Below: the "Built by the Forge" narrative — how this very website was built using VoidForge's own methodology, which agents contributed what, and the self-referential loop of a tool building its own marketing site
 4. Links to: GitHub repo, LinkedIn (https://www.linkedin.com/in/tmcleod3/), and the VoidForge Holocron
 
@@ -422,13 +426,13 @@ content/
 │   ├── index.mdx              ← /agents hub (The Council)
 │   ├── leads/
 │   │   ├── galadriel.mdx      ← /agents/galadriel
-│   │   └── ... (9 lead files)
+│   │   └── ... (11 lead files)
 │   └── universes/
 │       ├── tolkien.mdx        ← /agents/tolkien
 │       └── ... (7 universe files)
 ├── commands/
 │   ├── index.mdx              ← /commands hub
-│   └── build.mdx, qa.mdx, ... (11 command files)
+│   └── build.mdx, qa.mdx, ... (13 command files)
 ├── patterns/
 │   ├── index.mdx              ← /patterns hub
 │   └── api-route.mdx, ... (7 pattern files)
@@ -436,7 +440,7 @@ content/
 └── about.mdx                  ← /about
 ```
 
-Total content files: 53 MDX files.
+Total content files: 68 pages (11 leads + 7 universes + 14 phases + 13 commands + 7 patterns + 4 tutorial + 12 other).
 
 ---
 
@@ -632,11 +636,11 @@ Not applicable — static site served from Vercel's edge CDN. No server processe
 
 ### DNS/SSL
 
-- **Domain:** voidforge.dev
+- **Domain:** voidforge.build
 - **DNS provider:** Cloudflare
-- **Configuration:** CNAME record: `voidforge.dev` → `cname.vercel-dns.com`
+- **Configuration:** A record: `voidforge.build` → `76.76.21.21` (Vercel), A record: `www.voidforge.build` → `76.76.21.21`
 - **SSL:** Automatic via Vercel (Let's Encrypt). Vercel handles certificate provisioning and renewal.
-- **Redirect:** `www.voidforge.dev` → `voidforge.dev` (configured in Vercel dashboard)
+- **Redirect:** `www.voidforge.build` → `voidforge.build` (configured in Vercel dashboard)
 
 ### Backup Strategy
 
@@ -649,10 +653,10 @@ Not applicable — static site served from Vercel's edge CDN. No server processe
 
 | Variable | Required | Description | Example Value |
 |----------|----------|-------------|---------------|
-| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Yes | Plausible analytics domain | `voidforge.dev` |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Yes | Plausible analytics domain | `voidforge.build` |
 | `NEXT_PUBLIC_PLAUSIBLE_HOST` | No | Custom Plausible host (if self-hosted) | `https://plausible.yourdomain.com` |
 | `NEXT_PUBLIC_GITHUB_REPO` | Yes | GitHub repo for API badges | `tmcleod3/voidforge` |
-| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical site URL for SEO meta | `https://voidforge.dev` |
+| `NEXT_PUBLIC_SITE_URL` | Yes | Canonical site URL for SEO meta | `https://voidforge.build` |
 
 Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ prefix).
 
@@ -738,7 +742,7 @@ Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ pref
 - Protocol hub (/protocol) with 13-phase timeline visualization
 - 14 individual phase pages (0-13) sourced from BUILD_PROTOCOL.md
 - Agent directory hub (/agents) with The Council grid and universe tabs
-- 9 lead agent profile pages
+- 11 lead agent profile pages
 - 7 universe roster pages
 - Agent data model (TypeScript const from NAMING_REGISTRY.md)
 
@@ -747,7 +751,7 @@ Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ pref
 **Done criteria:**
 - Timeline renders all 14 phases with correct lead agents
 - All phase pages have complete content from BUILD_PROTOCOL.md
-- Agent grid shows all 9 leads with correct universe colors
+- Agent grid shows all 11 leads with correct universe colors
 - Universe tabs switch correctly and show full rosters
 - Anime universe pagination works (72 agents, 20 per page)
 - All cross-links between agents, phases, and commands resolve
@@ -758,7 +762,7 @@ Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ pref
 
 **Scope:**
 - Commands hub (/commands) with mission-briefing table
-- 11 individual command pages sourced from .claude/commands/*.md
+- 13 individual command pages sourced from .claude/commands/*.md
 - CRT terminal component for command output examples
 - Patterns hub (/patterns) with 7 pattern cards
 - 7 individual pattern pages with framework tabs
@@ -769,12 +773,12 @@ Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ pref
 **Dependencies:** Phase 4 (content pipeline proven, design system complete).
 
 **Done criteria:**
-- All 11 command pages render with terminal output examples
+- All 13 command pages render with terminal output examples
 - All 7 pattern pages render with framework tab switching (4 tabs each)
 - Prophecy timeline shows shipped vs future with correct visual distinction
 - About page has working LinkedIn link (opens new tab) and GitHub link
 - /github redirects to https://github.com/tmcleod3/voidforge
-- All 53 content pages are reachable from navigation
+- All 68 content pages are reachable from navigation
 
 ---
 
@@ -799,7 +803,7 @@ Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ pref
 - Plausible receives pageview events on Vercel preview
 - All 10 custom events fire correctly (verify in Plausible live view)
 - Every page has unique title, description, and OG image
-- Sitemap includes all 53 pages
+- Sitemap includes all 65+ pages
 - Site search returns relevant results for "install," "batman," "deploy," "security"
 - Lighthouse scores: Performance ≥ 95, Accessibility ≥ 95, Best Practices ≥ 95, SEO ≥ 95
 - axe accessibility scan: 0 critical or serious violations
@@ -810,18 +814,18 @@ Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ pref
 ### Phase 7: Launch
 
 **Scope:**
-- DNS configuration: voidforge.dev CNAME to Vercel
+- DNS configuration: voidforge.build CNAME to Vercel
 - Production deployment on Vercel
 - Verify HTTPS, redirects (www → apex), security headers
 - Smoke test: visit every page on production, verify no broken links
-- Update VoidForge README.md with link to voidforge.dev
+- Update VoidForge README.md with link to voidforge.build
 - GitHub repo description updated with website URL
 
 **Dependencies:** Phase 6 (everything must be polished and tested).
 
 **Done criteria:**
-- https://voidforge.dev loads, all pages accessible
-- https://www.voidforge.dev redirects to https://voidforge.dev
+- https://voidforge.build loads, all pages accessible
+- https://www.voidforge.build redirects to https://voidforge.build
 - All external links (GitHub, LinkedIn) work
 - No console errors on any page
 - Plausible receiving production data
