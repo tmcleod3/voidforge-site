@@ -308,9 +308,7 @@ button:focus-visible {
   pointer-events: none;
 }
 
-.card-starburst-custom::after {
-  content: attr(data-text);
-}
+/* starburst text set via data-text attribute in component */
 
 *:hover > .card-starburst-custom,
 *:focus-visible > .card-starburst-custom {
