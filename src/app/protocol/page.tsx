@@ -42,6 +42,7 @@ const agentLore: Record<string, { img: string; line: string }> = {
   Windu: { img: "/images/agents/subs/windu.webp", line: "CSP and header review." },
   Ahsoka: { img: "/images/agents/subs/ahsoka.webp", line: "Secrets management audit." },
   "Padmé": { img: "/images/agents/subs/padmé.webp", line: "Compliance review." },
+  "Éowyn": { img: "/images/agents/subs/éowyn.webp", line: "Enchantment and delight." },
 };
 
 export const metadata: Metadata = {

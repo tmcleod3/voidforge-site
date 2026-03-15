@@ -89,9 +89,9 @@ export const phases: Phase[] = [
     slug: "marketing",
     name: "Marketing Pages",
     lead: "Galadriel",
-    supporting: [],
+    supporting: ["Bilbo (copy)", "Éowyn (enchantment)", "Celebrimbor (assets)", "Legolas (performance)"],
     summary:
-      "Homepage, features, pricing, legal pages. SEO meta on every page. Mobile responsive.",
+      "Homepage, features, pricing, legal pages. SEO meta on every page. Bilbo writes copy. Éowyn adds delight. Celebrimbor forges visual assets. Mobile responsive.",
     skipCondition: "marketing: no",
   },
   {
@@ -108,9 +108,9 @@ export const phases: Phase[] = [
     slug: "ux",
     name: "UX Audit",
     lead: "Galadriel",
-    supporting: ["Elrond", "Arwen", "Samwise", "Bilbo", "Legolas", "Gimli", "Gandalf"],
+    supporting: ["Éowyn (enchantment)", "Elrond", "Arwen", "Samwise", "Bilbo", "Legolas", "Gimli", "Gandalf"],
     summary:
-      "Accessibility, responsive design, loading states, error states, keyboard navigation, focus management. WCAG 2.1 AA compliance.",
+      "Accessibility, responsive design, loading states, error states, keyboard navigation, focus management. Éowyn reviews delight and micro-interactions. WCAG 2.1 AA compliance.",
   },
   {
     number: 11,
@@ -126,17 +126,17 @@ export const phases: Phase[] = [
     slug: "deploy",
     name: "Deploy",
     lead: "Kusanagi",
-    supporting: ["Batman (smoke test)"],
+    supporting: ["Coulson (release tag)", "Batman (smoke test)"],
     summary:
-      "Provision infrastructure, configure DNS/SSL, deploy pipeline, monitoring, backups. Health check must pass.",
+      "Provision infrastructure, configure DNS/SSL, deploy pipeline, monitoring, backups. Coulson tags the release. Health check must pass.",
   },
   {
     number: 13,
     slug: "launch",
     name: "Launch",
-    lead: "All agents",
-    supporting: [],
+    lead: "Sisko",
+    supporting: ["Coulson (version)", "Batman (final smoke)", "Bashir (debrief)", "Fury (council vote)"],
     summary:
-      "Final checklist: SSL, email, payments, analytics, monitoring, backups, security headers, legal, performance, mobile, a11y.",
+      "Final checklist: SSL, email, payments, analytics, monitoring, backups, security headers, legal, performance, mobile, a11y. Coulson versions. Batman smokes. Bashir debriefs. Sisko signs off.",
   },
 ];
