@@ -31,7 +31,7 @@ export default function InstallPage() {
         <img
           src="/images/tutorials/tutorial-install.webp"
           alt="Install — a toolbox opening with glowing developer tools"
-          className="w-full rounded-lg comic-panel mb-8 "
+          className="w-full rounded-lg comic-panel mb-8 float-gentle"
         />
 
         <TableOfContents items={tocItems} />
@@ -95,7 +95,7 @@ export default function InstallPage() {
                 FULL TIER
               </h3>
               <p className="text-sm text-[var(--vf-text-muted)] mb-4">
-                The complete forge — Gandalf&apos;s setup wizard, Haku&apos;s
+                The complete forge — Merlin&apos;s setup wizard, Haku&apos;s
                 deploy wizard, AWS provisioners, encrypted credential vault,
                 Telegram bridge, and all 170+ agents ready to build.
               </p>

@@ -142,7 +142,7 @@ export function TradingCard({
             </p>
 
             {/* Flip hint */}
-            <p className="text-[10px] text-[var(--vf-text-muted)] text-center mt-3 opacity-60">
+            <p className="text-[10px] text-[var(--vf-text-muted)] text-center mt-3 flip-hint-pulse">
               FLIP CARD
             </p>
           </div>
