@@ -32,6 +32,13 @@ export default function DeployPage() {
       <div className="mx-auto max-w-3xl">
         <PageHeader title="DEPLOY" subtitle="Step 3 of 3" />
 
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/tutorials/tutorial-deploy.png"
+          alt="Deploy — a rocket on a launchpad with deploy target indicators"
+          className="w-full max-w-md mx-auto rounded-lg comic-panel mb-8"
+        />
+
         <TableOfContents items={tocItems} />
 
         <SpeechBubble agent="Kusanagi" universe="anime">

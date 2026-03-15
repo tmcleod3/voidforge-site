@@ -24,6 +24,13 @@ export default function FirstBuildPage() {
       <div className="mx-auto max-w-3xl">
         <PageHeader title="FIRST BUILD" subtitle="Step 2 of 3" />
 
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/tutorials/tutorial-build.png"
+          alt="First Build — a blueprint being fed into a code-generating machine"
+          className="w-full max-w-md mx-auto rounded-lg comic-panel mb-8"
+        />
+
         <TableOfContents items={tocItems} />
 
         <SpeechBubble agent="Picard" universe="star-trek">

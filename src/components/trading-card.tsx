@@ -6,6 +6,7 @@ import { universeColors, universeLabels, type Universe } from "@/data/agents";
 
 interface TradingCardProps {
   name: string;
+  slug: string;
   realName: string;
   universe: Universe;
   domain: string;
@@ -41,6 +42,7 @@ function PowerBar({ level, max = 10 }: { level: number; max?: number }) {
 
 export function TradingCard({
   name,
+  slug,
   realName,
   universe,
   domain,
@@ -92,20 +94,19 @@ export function TradingCard({
               {universeLabels[universe]}
             </span>
 
-            {/* Agent icon — stylized initial */}
+            {/* Agent portrait */}
             <div
-              className="w-20 h-20 rounded-full mx-auto mb-4 flex items-center justify-center border-3"
+              className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden border-3"
               style={{
                 borderColor: color,
-                background: `${color}10`,
               }}
             >
-              <span
-                className="font-[family-name:var(--font-bangers)] text-4xl"
-                style={{ color }}
-              >
-                {name[0]}
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/images/agents/${slug}.png`}
+                alt={`${name} portrait`}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             {/* Name */}

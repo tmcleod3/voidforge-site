@@ -41,9 +41,18 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "VoidForge",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1792,
+        height: 1024,
+        alt: "VoidForge — From Nothing, Everything. 170+ AI agents across 7 fictional universes.",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: ["/images/og-image.png"],
   },
   robots: {
     index: true,

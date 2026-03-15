@@ -137,6 +137,7 @@ export default function AgentsPage() {
               <TradingCard
                 key={agent.slug}
                 name={agent.name}
+                slug={agent.slug}
                 realName={agent.realName}
                 universe={agent.universe}
                 domain={agent.domain}

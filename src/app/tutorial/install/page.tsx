@@ -23,6 +23,13 @@ export default function InstallPage() {
       <div className="mx-auto max-w-3xl">
         <PageHeader title="INSTALL" subtitle="Step 1 of 3" />
 
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/tutorials/tutorial-install.png"
+          alt="Install — a toolbox opening with glowing developer tools"
+          className="w-full max-w-md mx-auto rounded-lg comic-panel mb-8"
+        />
+
         <TableOfContents items={tocItems} />
 
         <SpeechBubble agent="Galadriel" universe="tolkien">
