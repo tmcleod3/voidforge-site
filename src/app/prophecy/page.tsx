@@ -29,6 +29,34 @@ function extractAgents(text: string): string[] {
   return Object.keys(agentAvatars).filter((name) => text.includes(name));
 }
 
+const majorMeta: Record<string, { title: string; quote: string; agent: string }> = {
+  "1": {
+    title: "The Spark",
+    quote: "In the beginning, there was nothing. And then someone typed /build.",
+    agent: "Picard",
+  },
+  "2": {
+    title: "The Awakening",
+    quote: "The forge learned to listen. Commands, patterns, wizards. It went from a tool to a system.",
+    agent: "Stark",
+  },
+  "3": {
+    title: "The Expansion",
+    quote: "Seven universes. Thirteen phases. One hundred and seventy agents. The forge became a world.",
+    agent: "Fury",
+  },
+  "4": {
+    title: "The Crucible",
+    quote: "Reliability. Observability. Imagination. The forge stopped building things and started building itself.",
+    agent: "Celebrimbor",
+  },
+  "5": {
+    title: "The Reckoning",
+    quote: "The forge learned from its wounds. Every field report made it stronger. Every failure became a lesson.",
+    agent: "Bashir",
+  },
+};
+
 function groupByMajor(releases: typeof shipped) {
   const groups: Record<string, typeof shipped> = {};
   for (const r of releases) {
@@ -300,17 +328,38 @@ export default function ProphecyPage() {
                 key={`v${major}`}
                 defaultOpen={major === String(Math.max(...groupByMajor(shipped).map(([m]) => Number(m))))}
                 title={
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 flex-wrap flex-1">
                     <span className="font-[family-name:var(--font-bangers)] text-2xl tracking-wider text-[var(--vf-forge-yellow)]">
                       V{major}
                     </span>
+                    {majorMeta[major] && (
+                      <span className="font-[family-name:var(--font-bangers)] text-lg tracking-wider text-[var(--vf-text)]">
+                        {majorMeta[major].title}
+                      </span>
+                    )}
                     <span className="text-xs text-[var(--vf-text-muted)]">
                       {releases.length} release{releases.length !== 1 ? "s" : ""}
                     </span>
+                    {majorMeta[major] && agentAvatars[majorMeta[major].agent] && (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={agentAvatars[majorMeta[major].agent]}
+                        alt={majorMeta[major].agent}
+                        className="w-7 h-7 rounded-full border border-[var(--vf-border)] object-cover ml-auto"
+                      />
+                    )}
                   </div>
                 }
               >
                 <div className="pt-3 space-y-3">
+                  {majorMeta[major] && (
+                    <p className="text-sm italic text-[var(--vf-text-muted)] border-l-2 border-[var(--vf-forge-yellow)]/30 pl-3 mb-4">
+                      &ldquo;{majorMeta[major].quote}&rdquo;
+                      <span className="text-[var(--vf-forge-yellow)] ml-2 not-italic text-xs">
+                        — {majorMeta[major].agent}
+                      </span>
+                    </p>
+                  )}
                   {releases.map((release) => {
                     const allText = [release.title, release.headline, ...release.items].join(" ");
                     const agents = extractAgents(allText);
