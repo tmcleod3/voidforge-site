@@ -193,6 +193,30 @@ const shipped = [
       "15 total slash commands",
     ],
   },
+  {
+    version: "v4.5.0",
+    date: "2026-03-15",
+    title: "The Enchantment Release",
+    headline: "The forge learns to delight. Éowyn reviews every micro-moment. Transitions breathe. Empty states invite.",
+    items: [
+      "Éowyn's Enchantment Review — Step 1.75 in /ux pipeline",
+      "Micro-interaction audit: transitions, empty states, loading anticipation",
+      "Motion language consistency checks",
+      "Brand resonance in the first 5 seconds",
+    ],
+  },
+  {
+    version: "v5.5.0",
+    date: "2026-03-15",
+    title: "The Optimization Release",
+    headline: "The forge gets lean. Gimli optimizes every image. Sisko orders complexity-first. The methodology heals from its own field reports.",
+    items: [
+      "Gimli's image optimization — Step 5.5 in /imagine: resize, WebP, <200KB per image",
+      "Complexity-first mission ordering in /campaign — hard features first",
+      "Field report integration — Issues #4, #5, #6 implemented upstream",
+      "Updated /build, /assemble, /debrief, /void, QA, DevOps, Frontend methods",
+    ],
+  },
 ];
 
 const future = [

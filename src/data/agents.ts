@@ -264,6 +264,10 @@ export const subAgents: SubAgent[] = [
   { name: "Gandalf", role: "Edge case handling, error boundaries", universe: "tolkien" },
   { name: "Merlin", role: "Setup wizards, onboarding flows", universe: "tolkien" },
   { name: "Éowyn", role: "Enchantment review, delight, micro-interactions", universe: "tolkien" },
+  { name: "Nori", role: "Asset scanner — scans PRD for image requirements", universe: "tolkien" },
+  { name: "Ori", role: "Prompt engineer — crafts generation prompts", universe: "tolkien" },
+  { name: "Dori", role: "Integration checker — verifies images wired in", universe: "tolkien" },
+  { name: "Celeborn", role: "Design system governance", universe: "tolkien" },
   // Marvel
   { name: "Banner", role: "Database administration", universe: "marvel" },
   { name: "Romanoff", role: "External API integrations", universe: "marvel" },
