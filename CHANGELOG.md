@@ -2,6 +2,34 @@
 
 All notable changes to the VoidForge Marketing Site.
 
+## [0.5.0] — 2026-03-16
+
+### Added
+- Portrait breathe animation — agent portraits gently scale on 8s CSS cycle
+- Copy button celebrate — scale bounce on successful copy
+- Gradient underline CSS class for animated link hovers
+- Random 404 quotes — 6 agents rotate on each visit (Batman, Picard, Bombadil, Fury, Galadriel, Kenobi)
+- Prophecy v6.5.1 (The Retcon), v7.0.0 (The Penthouse), v7.0.1 (The Resilience Pack)
+- Prophecy V7 "The Enterprise" era with Picard quote
+- Prophecy forward-looking roadmap: v8 Hive Mind, v9 Multiverse, v10 Singularity
+- New code pattern: third-party-script.ts
+
+### Changed
+- Arthurian retcon: Merlin→Gandalf, Camelot→Fortress, Camelot Multi→Avengers Tower Multi, Camelot Remote→Avengers Tower Remote
+- Prophecy grouped by major version with era titles, agent avatars, and character quotes
+- 404 buttons equal width on desktop
+- Methodology synced to VoidForge v7.2.0
+
+### Fixed
+- Vercel deployment catastrophe: added postcss.config.mjs + @import source("../") to fix Tailwind v4 utility generation
+- Removed CSS build validation script that conflicted with Vercel
+- Deployment Protection disabled after Vercel account upgrade silently enabled it
+- 404 random quotes: moved from build-time to client-side component for runtime randomization
+- Duplicate "The Penthouse" in prophecy (v6.0.0→Avengers Tower Multi, v6.5.0→Avengers Tower Remote)
+
+### Security
+- Restored CSP 'unsafe-inline' after Gauntlet removal broke Next.js hydration
+
 ## [0.4.0] — 2026-03-15
 
 ### Added
