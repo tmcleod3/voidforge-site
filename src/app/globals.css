@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-/* Limit Tailwind content scanning to src/ only — exclude docs/, .claude/, scripts/ */
-@source "../";
 
 /* ========================================
    VoidForge Design System — Custom CSS
