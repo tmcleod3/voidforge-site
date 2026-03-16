@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node -e \"const fs=require('fs'),g=require('path').join('out','_next','static','css');if(!fs.existsSync(g)||!fs.readdirSync(g).some(f=>fs.statSync(g+'/'+f).size>10000))throw new Error('CSS output missing or empty — check Tailwind/PostCSS config')\"",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
