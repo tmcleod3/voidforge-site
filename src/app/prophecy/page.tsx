@@ -60,6 +60,11 @@ const majorMeta: Record<string, { title: string; quote: string; agent: string }>
     quote: "The forge built a castle around itself. Walls, gates, watchtowers. Now it defends what it creates.",
     agent: "Kenobi",
   },
+  "7": {
+    title: "The Enterprise",
+    quote: "The forge doesn't just build for one. It builds for many. Roles, permissions, coordination. Scale demands structure.",
+    agent: "Picard",
+  },
 };
 
 function groupByMajor(releases: typeof shipped) {
@@ -311,6 +316,44 @@ const shipped = [
       "Self-deploy capability — the forge provisions its own infrastructure",
       "Comprehensive audit trail for all operations",
       "Gauntlet build-output verification — field report #9 implemented",
+    ],
+  },
+  {
+    version: "v6.5.1",
+    date: "2026-03-15",
+    title: "The Retcon",
+    headline: "Names change. The forge stays the same. Gandalf replaces Merlin. Avengers Tower replaces Camelot.",
+    items: [
+      "Merlin → Gandalf (setup wizards merged into edge case handling)",
+      "Camelot → Avengers Tower naming across all references",
+      "Great Hall → The Lobby, Round Table → The Penthouse",
+      "9 methodology fixes from field reports #4, #5, #6, #8, #9, #10, #13",
+    ],
+  },
+  {
+    version: "v7.0.0",
+    date: "2026-03-15",
+    title: "The Penthouse",
+    headline: "The forge gets executive floors. Multi-user RBAC. Per-project ACLs. Linked services. The forge becomes enterprise.",
+    items: [
+      "Multi-user role-based access control (RBAC)",
+      "Per-project access control lists (ACLs)",
+      "Linked services — coordinated deploys across projects",
+      "Rollback capability for linked service groups",
+      "Cost tracker and agent memory across projects",
+    ],
+  },
+  {
+    version: "v7.0.1",
+    date: "2026-03-15",
+    title: "The Resilience Pack",
+    headline: "Nine field reports became nine fixes. The forge hardens from its own battle scars.",
+    items: [
+      "Three-act wizard redesign plan for onboarding",
+      "Resilience Pack reclassification of deployment features",
+      "9 methodology fixes from downstream field reports",
+      "Preview deploy gate added to /devops protocol",
+      "Tailwind v4 source() directive documented in troubleshooting",
     ],
   },
 ];
