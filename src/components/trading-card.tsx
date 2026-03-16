@@ -111,7 +111,7 @@ export function TradingCard({
               <img
                 src={`/images/agents/${slug}.webp`}
                 alt={`${name} portrait`}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover portrait-breathe"
               />
             </div>
 

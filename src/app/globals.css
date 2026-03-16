@@ -393,6 +393,41 @@ button:focus-visible {
   50% { opacity: 1; color: var(--vf-forge-orange); }
 }
 
+/* --- Portrait Breathe (trading cards) --- */
+.portrait-breathe {
+  animation: portrait-breathe 8s ease-in-out infinite;
+}
+
+@keyframes portrait-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+/* --- Copy Button Celebrate --- */
+.copy-celebrate {
+  animation: copy-celebrate 0.3s ease-out;
+}
+
+@keyframes copy-celebrate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* --- Gradient Link Underline --- */
+.gradient-underline {
+  text-decoration: none;
+  background-image: linear-gradient(var(--vf-forge-orange), var(--vf-forge-yellow));
+  background-size: 0% 2px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+
+.gradient-underline:hover {
+  background-size: 100% 2px;
+}
+
 /* --- 3D Card Flip --- */
 .perspective-1000 {
   perspective: 1000px;
