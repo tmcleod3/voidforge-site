@@ -36,21 +36,22 @@
 
 ## Full Agent Roster
 
-**Round 1 — Discovery (4 leads):**
+**Round 1 — Discovery (5 leads):**
 - Picard (Star Trek) — architecture scan
 - Stark (Marvel) — code review scan
 - Galadriel (Tolkien) — UX surface map + Éowyn enchantment
 - Kenobi (Star Wars) — attack surface inventory
+- Kusanagi (Anime) — infrastructure discovery (firewall, ports, database exposure, deploy config)
 
 **Round 2 — First Strike (full teams):**
 - Batman team: Oracle, Red Hood, Alfred, Deathstroke, Constantine, Nightwing, Lucius
-- Galadriel team: Elrond, Arwen, Samwise, Bilbo, Legolas, Gimli, Gandalf, Éowyn
+- Galadriel team: Elrond, Arwen, Samwise, Bilbo, Legolas, Gimli, Radagast, Éowyn
 - Kenobi team: Leia, Chewie, Rex, Maul, Yoda, Windu, Ahsoka, Padmé
 - Stark: integration tracing (solo — follows data across all modules)
 
 **Round 3 — Second Strike (targeted re-verification):**
 - Batman: Nightwing + Red Hood + Deathstroke (re-probe)
-- Galadriel: Samwise + Gandalf + Bilbo (re-verify)
+- Galadriel: Samwise + Radagast + Bilbo (re-verify)
 - Kenobi: Maul + Ahsoka + Padmé (re-probe + functional check)
 - Kusanagi: Senku + Levi + Spike + L + Bulma + Holo (full DevOps)
 
@@ -88,6 +89,10 @@ Fix batches happen between rounds:
 - After Round 3: fix remaining findings
 - After Round 4: fix adversarial findings
 - After Round 5: final convergence fixes (max 2 iterations)
+
+**Grep for siblings:** After EVERY fix, grep the entire codebase for the same pattern. When fixing `aria-controls` in one component, grep all components. When adding SSRF protection to one endpoint, check all endpoints that accept URLs. Fix ALL instances — not just the one that was reported. This is the #1 source of rework across field reports.
+
+**Encoding variant check:** For every security filter that operates on tool names, function names, or identifiers, verify it handles all encoding variants (`:`, `__`, URL-encoded, dot-notation, etc.). MCP tool names, API paths, and permission identifiers may use different encodings across layers.
 
 **Build-output verification:** After every fix batch, if the project has a build step, run the build and verify the output. Framework-generated code (inline scripts, hydration markers, SSR output) is invisible to source-level analysis but can be broken by security hardening. Check: `npm run build && grep -c '<script>' dist/**/*.html`. If the build fails or output changes unexpectedly, the fix is wrong.
 

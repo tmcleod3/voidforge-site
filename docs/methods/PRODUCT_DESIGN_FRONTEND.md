@@ -21,7 +21,7 @@
 | Content Designer | **Bilbo** | Microcopy, error messages, empty states, tone | Does it speak clearly? |
 | Frontend Engineer | **Legolas** | Component architecture, CSS/layout, state handling | Clean and elegant code. |
 | Performance | **Gimli** | Loading states, perceived performance, mobile/tablet | Solid. No wasted motion. |
-| Product QA | **Gandalf** | Edge cases, broken states, forms, validation | Arrives precisely when things break. |
+| Product QA | **Radagast** | Edge cases, broken states, forms, validation | Arrives precisely when things break. |
 | Delight Architect | **Éowyn** | Enchantment, emotion, micro-moments, motion, brand resonance | Sees beauty where others see compliance. |
 
 **Need more?** Pull from Tolkien pool: Aragorn, Faramir, Pippin, Treebeard, Haldir. See NAMING_REGISTRY.md.
@@ -48,7 +48,7 @@ Adversarial UX/UI QA review. Identify usability issues, inconsistencies, broken 
 4. Maintain design consistency: use existing system/components.
 5. If change impacts behavior, call it out and offer alternatives.
 6. No new dependencies unless necessary.
-7. Spin up all seven agents. Gandalf checks everyone's work.
+7. Spin up all seven agents. Radagast checks everyone's work.
 8. Validation is manual + automated: run the app, click through, written regression checklist. Reference `/docs/patterns/component.tsx` for state handling patterns.
 
 ## Step 0 — Orient
@@ -73,6 +73,8 @@ Trace the primary user flow step by step. This is a narrative walkthrough, not a
 - Are displayed counts accurate? (Cross-reference rendered numbers against actual data)
 
 **Global CSS conflict check:** For projects with both a global stylesheet (globals.css, base styles) and component-level styles (Tailwind utilities, CSS modules), check for specificity conflicts. Global rules like `.parent { overflow: hidden }` will override Tailwind's `overflow-auto` on children. For each component with layout/overflow/position/z-index utilities, grep the global stylesheet for conflicting rules on parent or ancestor selectors. Common traps: `overflow: hidden` on layout containers, `position: relative` creating unexpected stacking contexts, global `:focus-visible` outlines bleeding through component boundaries.
+
+**Tailwind v4 content scanning check:** Tailwind v4 auto-scans ALL files for class names (no explicit `content` config by default). Non-source files — methodology docs (`.md`), pattern examples (`.tsx` in `docs/`), build logs, `.claude/` commands — can contain class-like strings that Tailwind tries to generate utilities for. This produces invalid CSS in some PostCSS environments (notably Vercel's build pipeline). For Tailwind v4 projects: verify the project has a `tailwind.config.ts` (or CSS `@source` directive) that explicitly limits scanning to `src/`, `app/`, `components/`, and `pages/` directories. Exclude: `docs/`, `.claude/`, `logs/`, `node_modules/`, and any directory containing `.md` files with inline code blocks.
 
 **If you cannot run the app:** Trace the state flow through the store and component tree to simulate what the user would see at each step. Follow the chain: user action → event handler → store action → state update → which components re-render → what they display.
 
@@ -117,7 +119,7 @@ Before the auditors begin, Éowyn reads the PRD's brand personality section and 
 **Bilbo:** Microcopy, labels, CTAs, error messages, empty states, tone.
 **Legolas:** Component architecture, CSS, semantic HTML, state management.
 **Gimli:** Skeletons, optimistic UI, debounce, layout shift, mobile, touch targets.
-**Gandalf:** Forms, validation, dangerous actions, confirmations, undo.
+**Radagast:** Forms, validation, dangerous actions, confirmations, undo.
 **Éowyn:** Implements accepted enchantment opportunities from Step 1.75 during batch fixes.
 
 ## Step 3 — Manual Walkthroughs
@@ -145,9 +147,9 @@ Arwen leads. Buttons, inputs, cards, modals, toasts. Consistent variants, spacin
 
 After all fixes are applied, run a verification pass to catch fix-induced regressions:
 - **Samwise** re-audits accessibility on all modified components — verify a11y fixes didn't break other a11y properties (common anti-pattern)
-- **Gandalf** re-checks edge cases on fixed flows — verify fixes hold under adversarial input
+- **Radagast** re-checks edge cases on fixed flows — verify fixes hold under adversarial input
 
-If Pass 2 finds new issues, fix and re-verify. Do not finalize until Samwise and Gandalf sign off.
+If Pass 2 finds new issues, fix and re-verify. Do not finalize until Samwise and Radagast sign off.
 
 ## Step 8 — Deliverables
 
