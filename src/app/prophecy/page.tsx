@@ -296,7 +296,7 @@ const shipped = [
   {
     version: "v6.0.0",
     date: "2026-03-15",
-    title: "The Lobby",
+    title: "Avengers Tower Multi",
     headline: "The forge gets a command center. The Lobby dashboard. Project registry. Health polling. The forge manages itself.",
     items: [
       "The Lobby dashboard — multi-project management interface",
@@ -308,8 +308,8 @@ const shipped = [
   {
     version: "v6.5.0",
     date: "2026-03-15",
-    title: "The Penthouse",
-    headline: "The castle gets walls. Five layers of security. TOTP 2FA. Self-deploy. Audit trail. The forge defends itself.",
+    title: "Avengers Tower Remote",
+    headline: "The tower gets walls. Five layers of security. TOTP 2FA. Self-deploy. Audit trail. The forge defends itself.",
     items: [
       "5-layer security architecture for remote access",
       "TOTP 2FA authentication (two-password architecture)",
