@@ -56,7 +56,7 @@ const majorMeta: Record<string, { title: string; quote: string; agent: string }>
     agent: "Bashir",
   },
   "6": {
-    title: "The Fortress",
+    title: "Camelot",
     quote: "The forge built a castle around itself. Walls, gates, watchtowers. Now it defends what it creates.",
     agent: "Kenobi",
   },
@@ -110,7 +110,7 @@ const shipped = [
     title: "The Forge Takes Shape",
     headline: "Interactive wizards. Encrypted vault. Real cloud provisioning. The forge can build AND deploy.",
     items: [
-      "Gandalf's setup wizard — browser-based onboarding with PRD generation",
+      "Merlin's setup wizard — browser-based onboarding with PRD generation",
       "Haku's deploy wizard — 6 targets (Docker, AWS VPS, Vercel, Railway, Cloudflare, Static)",
       "AES-256-GCM encrypted credential vault",
       "Auto-provisioning: EC2, RDS, ElastiCache, S3",
@@ -291,10 +291,10 @@ const shipped = [
   {
     version: "v6.0.0",
     date: "2026-03-15",
-    title: "The Lobby",
-    headline: "The forge gets a command center. The Lobby dashboard. Project registry. Health polling. The forge manages itself.",
+    title: "Camelot Multi",
+    headline: "The forge becomes a castle. Great Hall dashboard. Project registry. Health polling. The forge manages itself.",
     items: [
-      "The Lobby dashboard — multi-project management interface",
+      "Great Hall dashboard — multi-project management interface",
       "Project registry with health polling and status tracking",
       "Import flow for onboarding existing projects",
       "SSRF protection on all internal service calls",
@@ -303,7 +303,7 @@ const shipped = [
   {
     version: "v6.5.0",
     date: "2026-03-15",
-    title: "The Penthouse",
+    title: "Camelot Remote",
     headline: "The castle gets walls. Five layers of security. TOTP 2FA. Self-deploy. Audit trail. The forge defends itself.",
     items: [
       "5-layer security architecture for remote access",

@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 /* ========================================
    VoidForge Design System — Custom CSS
    Comic-book / pulp-sci-fi aesthetic
@@ -310,7 +309,7 @@ button:focus-visible {
 }
 
 .card-starburst-custom::after {
-  content: "!";
+  content: attr(data-text);
 }
 
 *:hover > .card-starburst-custom,
