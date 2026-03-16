@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss" source("../..");
 
 /* ========================================
    VoidForge Design System — Custom CSS
