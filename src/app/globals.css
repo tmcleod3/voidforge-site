@@ -310,7 +310,7 @@ button:focus-visible {
 }
 
 .card-starburst-custom::after {
-  content: attr(data-text);
+  content: "!";
 }
 
 *:hover > .card-starburst-custom,
