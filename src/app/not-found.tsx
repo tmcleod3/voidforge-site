@@ -16,7 +16,7 @@ export default function NotFound() {
           This page doesn&apos;t exist — but from nothing, everything. Perhaps
           you meant to visit:
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center [&>a]:w-full [&>a]:sm:w-48 [&>a]:text-center">
           <Link
             href="/"
             className="px-6 py-3 bg-[var(--vf-forge-orange)] text-black font-bold rounded-md hover:bg-[var(--vf-forge-yellow)] transition-colors"
