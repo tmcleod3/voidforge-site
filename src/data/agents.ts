@@ -277,8 +277,8 @@ export const subAgents: SubAgent[] = [
   { name: "Samwise", role: "Accessibility audit (a11y)", universe: "tolkien" },
   { name: "Legolas", role: "Performance optimization", universe: "tolkien" },
   { name: "Gimli", role: "Build tooling, bundling", universe: "tolkien" },
-  { name: "Gandalf", role: "Edge case handling, error boundaries", universe: "tolkien" },
-  { name: "Merlin", role: "Setup wizards, onboarding flows", universe: "tolkien" },
+  { name: "Gandalf", role: "Edge cases, error boundaries, setup wizards", universe: "tolkien" },
+  
   { name: "Éowyn", role: "Enchantment review, delight, micro-interactions", universe: "tolkien" },
   { name: "Nori", role: "Asset scanner — scans PRD for image requirements", universe: "tolkien" },
   { name: "Ori", role: "Prompt engineer — crafts generation prompts", universe: "tolkien" },
