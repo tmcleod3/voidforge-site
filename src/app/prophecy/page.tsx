@@ -360,14 +360,36 @@ const shipped = [
 
 const future = [
   {
-    version: "v4.0",
-    title: "The Multiverse",
-    opacity: 0.6,
+    version: "v8.0",
+    title: "The Hive Mind",
+    opacity: 1,
     items: [
-      "Multi-project orchestration — monorepo with multiple services, each with their own PRD",
-      "Rollback dashboard — deployment history with one-click revert",
-      "Cost tracker — AWS billing API integration with cost projections",
-      "Agent memory — cross-project learnings (\"last time you used Stripe with Next.js, we hit this...\")",
+      "Agent memory — persistent cross-project learnings that accumulate across every build",
+      "Pattern evolution — agents propose new code patterns based on repeated solutions",
+      "Auto-PRD — generate a PRD from a conversation, not a blank document",
+      "Conflict prediction — agents flag architectural conflicts before they happen",
+    ],
+  },
+  {
+    version: "v9.0",
+    title: "The Multiverse",
+    opacity: 0.75,
+    items: [
+      "Multi-language forge — Python, Go, Rust projects with the same 13-phase protocol",
+      "Agent specialization — custom sub-agents trained on your codebase's patterns",
+      "Live collaboration — multiple developers running agents simultaneously without conflicts",
+      "Visual PRD editor — drag-and-drop interface that generates VoidForge-compatible PRDs",
+    ],
+  },
+  {
+    version: "v10.0",
+    title: "The Singularity",
+    opacity: 0.5,
+    items: [
+      "Self-improving methodology — agents rewrite their own method docs based on field reports",
+      "Autonomous campaigns — the forge reads the PRD and ships without human intervention",
+      "Cross-project orchestration — one campaign manages multiple repos as a single product",
+      "The forge builds the forge — VoidForge generates its own next version",
     ],
   },
 ];
