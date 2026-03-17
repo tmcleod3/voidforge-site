@@ -137,7 +137,7 @@ VoidForge ships on three branches. Shared methodology files exist on all three.
 - `HOLOCRON.md`, `VERSION.md`, `CHANGELOG.md`
 - `scripts/thumper/*`
 
-**NOT shared** (main-only): `package.json` (wizard dependencies differ per tier), `package-lock.json`, `.claude/settings.json` (user permissions/hooks), `wizard/*`, `scripts/* (except scripts/thumper/)`, `logs/*`, `.env`
+**NOT shared** (main-only): `package.json` (wizard dependencies differ per tier), `package-lock.json`, `.claude/settings.json` (user permissions/hooks), `wizard/*`, `scripts/*`, `logs/*`, `.env`
 
 Scaffold and core have their own minimal `package.json` (name + version + description only — no dependencies). When syncing version bumps, update `VERSION.md` and `CHANGELOG.md` on all branches but leave each branch's `package.json` version field to be updated independently.
 
