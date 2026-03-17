@@ -14,9 +14,9 @@ export const phases: Phase[] = [
     slug: "orient",
     name: "Orient",
     lead: "Picard",
-    supporting: ["All agents read PRD"],
+    supporting: ["All agents read PRD", "Wong (loads lessons)", "Troi (PRD verification)"],
     summary:
-      "Read the PRD. Validate frontmatter. Extract architecture. Flag gaps. Write ADRs. This is the mission briefing.",
+      "Read the PRD. Validate frontmatter. Extract architecture. Wong loads LESSONS.md. Troi verifies extraction. Phase 0.5: Picard's Conflict Scan.",
   },
   {
     number: 1,
@@ -51,7 +51,7 @@ export const phases: Phase[] = [
     slug: "core-feature",
     name: "Core Feature",
     lead: "Stark",
-    supporting: ["Galadriel"],
+    supporting: ["Galadriel", "Troi (PRD compliance)", "Padmé (functional verification)"],
     summary:
       "The single most important user journey, built end-to-end as a vertical slice. Schema → API → UI → wire up.",
   },
@@ -99,7 +99,7 @@ export const phases: Phase[] = [
     slug: "qa",
     name: "QA Audit",
     lead: "Batman",
-    supporting: ["Oracle", "Red Hood", "Alfred", "Deathstroke", "Constantine"],
+    supporting: ["Oracle", "Red Hood", "Alfred", "Deathstroke", "Constantine", "Cyborg", "Raven", "Wonder Woman"],
     summary:
       "Full QA pass: test coverage, error handling, edge cases, boundary testing, config review. Double-pass: find → fix → re-verify.",
   },
@@ -108,7 +108,7 @@ export const phases: Phase[] = [
     slug: "ux",
     name: "UX Audit",
     lead: "Galadriel",
-    supporting: ["Éowyn (enchantment)", "Elrond", "Arwen", "Samwise", "Bilbo", "Legolas", "Gimli", "Gandalf"],
+    supporting: ["Éowyn (enchantment)", "Elrond", "Arwen", "Samwise", "Bilbo", "Legolas", "Gimli", "Gandalf", "Celeborn"],
     summary:
       "Accessibility, responsive design, loading states, error states, keyboard navigation, focus management. Éowyn reviews delight and micro-interactions. WCAG 2.1 AA compliance.",
   },
@@ -135,7 +135,7 @@ export const phases: Phase[] = [
     slug: "launch",
     name: "Launch",
     lead: "Sisko",
-    supporting: ["Coulson (version)", "Batman (final smoke)", "Bashir (debrief)", "Fury (council vote)"],
+    supporting: ["Coulson (version)", "Batman (final smoke)", "Bashir (debrief)", "Fury (council vote)", "Troi (PRD compliance)"],
     summary:
       "Final checklist: SSL, email, payments, analytics, monitoring, backups, security headers, legal, performance, mobile, a11y. Coulson versions. Batman smokes. Bashir debriefs. Sisko signs off.",
   },
