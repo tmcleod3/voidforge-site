@@ -79,6 +79,11 @@ export const majorEras: Record<string, MajorEra> = {
     quote: "The forge doesn't just build for one. It builds for many. Roles, permissions, coordination. Scale demands structure.",
     agent: "Picard",
   },
+  "8": {
+    title: "The Hive Mind",
+    quote: "The forge remembers. Every lesson, every failure, every triumph. It reads its own history and fights smarter the next time.",
+    agent: "Sisko",
+  },
 };
 
 export const shipped: Release[] = [
@@ -473,24 +478,73 @@ export const shipped: Release[] = [
       "v7.6 Vault Pipeline roadmap defined",
     ],
   },
+  {
+    version: "v7.5.3",
+    date: "2026-03-16",
+    title: "The Triage Pack",
+    headline: "Vault key naming. Outbound URL safety. Accordion a11y. The forge triages its inbox.",
+    items: [
+      "Triage of field reports #42–#44",
+      "Vault key naming conventions documented",
+      "Outbound URL safety checks in security audit",
+      "Accordion a11y pattern added to component reference",
+    ],
+  },
+  {
+    version: "v7.6.0",
+    date: "2026-03-16",
+    title: "The Vault Pipeline",
+    headline: "Deploy --env-only. Standalone vault reader. PTY cleanup. The forge manages its own credentials.",
+    items: [
+      "deploy --env-only — write vault credentials to .env without full provisioning",
+      "Standalone vault reader for credential extraction",
+      "PTY cleanup and process management improvements",
+      "engines field added to package.json (>=20.11.0)",
+    ],
+  },
+  {
+    version: "v7.7.0",
+    date: "2026-03-16",
+    title: "The Housekeeping",
+    headline: "Architecture doc refresh. Server auto-restart detection. COMPATIBILITY.md. The forge tidies up.",
+    items: [
+      "Architecture documentation refresh",
+      "Server auto-restart detection in smoke tests",
+      "COMPATIBILITY.md for Node.js version requirements",
+      "Context pressure fix — actual usage checks, not heuristics",
+    ],
+  },
+  {
+    version: "v8.0.0",
+    date: "2026-03-16",
+    title: "The Hive Mind",
+    headline: "The forge remembers. Agent Memory reads lessons. Conflict Prediction catches mistakes early. /prd generates PRDs from conversation.",
+    items: [
+      "Agent Memory — active LESSONS.md read-back in /qa, /review, /security, /ux",
+      "Conflict Prediction — Phase 0.5 scans PRD for 8 structural contradictions",
+      "/prd command — Sisko's 5-act structured interview to generate complete PRDs",
+      "17 total slash commands",
+    ],
+  },
+  {
+    version: "v8.0.1",
+    date: "2026-03-16",
+    title: "Victory Gauntlet Hardening",
+    headline: "Sixteen fixes. Quality Reduction Anti-Pattern. The Gauntlet is never abbreviated.",
+    items: [
+      "16 fixes from field reports #46–#53",
+      "Quality Reduction Anti-Pattern — agents can never reduce quality based on context pressure",
+      "engines >=20.11.0 enforced across all tiers",
+      "9 methodology fixes across agent protocols",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
-    version: "v8.0",
-    title: "The Hive Mind",
-    opacity: 1,
-    items: [
-      "Agent memory — persistent cross-project learnings that accumulate across every build",
-      "Pattern evolution — agents propose new code patterns based on repeated solutions",
-      "Auto-PRD — generate a PRD from a conversation, not a blank document",
-      "Conflict prediction — agents flag architectural conflicts before they happen",
-    ],
-  },
-  {
     version: "v9.0",
     title: "The Multiverse",
-    opacity: 0.75,
+    opacity: 1,
     items: [
       "Multi-language forge — Python, Go, Rust projects with the same 13-phase protocol",
       "Agent specialization — custom sub-agents trained on your codebase's patterns",
@@ -501,7 +555,7 @@ export const future: FutureRelease[] = [
   {
     version: "v10.0",
     title: "The Singularity",
-    opacity: 0.7,
+    opacity: 0.75,
     items: [
       "Self-improving methodology — agents rewrite their own method docs based on field reports",
       "Autonomous campaigns — the forge reads the PRD and ships without human intervention",

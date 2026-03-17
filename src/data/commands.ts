@@ -490,6 +490,23 @@ export const commands: Command[] = [
     ],
     badge: "NEW in v5.5",
   },
+  {
+    slug: "prd",
+    name: "/prd",
+    lead: "Sisko",
+    description:
+      "The PRD generator. Sisko runs a 5-act structured interview — product vision, tech stack, features, UI, shipping plan — and produces a complete PRD with valid YAML frontmatter.",
+    usage: "/prd",
+    whatHappens: [
+      "Act 1: Product vision — name, one-liner, audience, personality",
+      "Act 2: Tech stack — framework, database, styling with smart defaults",
+      "Act 3: Features — user flows, data models, edge cases for each feature",
+      "Act 4: UI and routes — page hierarchy, responsive behavior, states",
+      "Act 5: Shipping plan — launch phases, done criteria, deploy target",
+      "Complete PRD written to /docs/PRD.md with valid frontmatter",
+    ],
+    badge: "NEW in v8.0",
+  },
 ];
 
 export function getCommand(slug: string): Command | undefined {
