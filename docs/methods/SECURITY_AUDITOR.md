@@ -97,6 +97,64 @@ Pattern: `/api/photos/[...name]` that joins path segments into a Google API URL 
 
 **Security principle:** For security boundaries (tool access, URL allowlists, IP ranges, credential scopes), **always prefer whitelist (default-deny) over blocklist (default-allow)**. New entries should be blocked by default until explicitly allowed. Blocklists inevitably miss entries.
 
+### External API Transport
+
+Grep for all `fetch(`, `axios(`, `http.get(`, `https.get(`, and `new URL(` calls. Flag any that construct URLs with `http://` (not `https://`). External API calls over plain HTTP leak credentials, API keys, and user data to network observers. Common culprits: GeoIP services, analytics endpoints, webhook callbacks, development-mode URLs hardcoded for localhost that accidentally reach production.
+
+**Rule:** All external API calls must use HTTPS. No exceptions. If a service only offers HTTP, proxy it through your own HTTPS endpoint. (Field report #52: GeoIP service called over HTTP, leaking user IP addresses to network observers.)
+
+### IP Range Validation
+
+Never use string prefix matching for IP ranges. `ip.startsWith('172.2')` matches public IPs like `172.200.x.x` — the RFC 1918 private range is `172.16.0.0 - 172.31.255.255`, which requires integer comparison, not string operations.
+
+**Rule:** For IP range checks, parse octets to integers and compare numerically, or use a library (`ipaddr.js`, Python `ipaddress`). String prefix matching on dotted-decimal IPs is always wrong. (Field report #52: SSRF protection matched `172.200.x.x` as "private," allowing bypass.)
+
+### Internal Path Leakage
+
+API responses must never include server filesystem paths (`/home/`, `/opt/`, `/Users/`, `process.cwd()`), environment variable values, or internal configuration (database connection strings, internal hostnames, stack traces with file paths). Grep for `__dirname`, `__filename`, `process.cwd()`, `process.env` in response-building code. If error responses include stack traces, strip them in production (`NODE_ENV=production`). (Field report #52)
+
+### CORS Requirements (not just restrictions)
+
+CORS security checks typically verify restrictions — that endpoints don't have overly permissive `Access-Control-Allow-Origin`. But also check the inverse: **do endpoints that NEED cross-origin access actually have CORS headers?** If the application uses subdomains, embedded content, or published sites that call back to the main API, verify those endpoints return the required CORS headers for legitimate origins. Missing CORS headers cause silent failures — the browser blocks the request but the user sees no error. (Field report #46: cross-origin tracking endpoint had no CORS headers; sendBeacon masked the problem but fetch-based tracking silently failed.)
+
+### Mobile Security Checklist (when `deploy: ios|android|cross-platform`)
+
+- **Certificate pinning:** Verify the app pins TLS certificates for API endpoints. Without pinning, MITM attacks can intercept API traffic even over HTTPS.
+- **Secure storage:** Secrets (tokens, keys) must use Keychain (iOS) or EncryptedSharedPreferences/Keystore (Android) — never AsyncStorage, UserDefaults, or SharedPreferences.
+- **Jailbreak/root detection:** Detect and warn (or block) on jailbroken/rooted devices. Attackers on jailbroken devices can read app sandbox, intercept SSL, and modify app behavior.
+- **Transport security:** iOS requires App Transport Security (ATS) — verify no `NSAllowsArbitraryLoads` exception. Android requires Network Security Config — verify no `cleartextTrafficPermitted`.
+- **No secrets in bundle:** Grep the built IPA/APK for hardcoded API keys, secrets, or credentials. Use `strings` on the binary. Anything in the bundle is extractable.
+- **Code obfuscation:** For Android, verify ProGuard/R8 is enabled. For React Native, verify Hermes is used (bytecode, not readable JS).
+- **Deep link validation:** Verify deep link handlers validate parameters before navigating. A crafted deep link (`yourapp://admin?bypass=true`) should not reach privileged screens.
+
+### Vault Password Delivery
+
+When a project uses the VoidForge vault (or any encrypted credential store) with non-interactive access:
+- **Never accept passwords via command-line arguments** — visible in `ps`, shell history, and process listings
+- **Prefer `VAULT_PASSWORD_FILE`** over `VAULT_PASSWORD` env var — file can have `0o600` permissions and doesn't persist in process environment
+- **If env var is the only option**, document the risk: env vars are visible to same-UID processes (`/proc/<pid>/environ`), child processes, crash reporters, and APM agents
+- **Never log or echo the vault password** — even in debug mode
+
+(Field report #54: vault password accepted via `VOIDFORGE_VAULT_PASSWORD` env var with no file-based alternative and no documentation of the exposure surface.)
+
+### Outbound URL Safety
+
+For any system that sends URLs to users (transactional emails, SMS, push notifications, webhook callbacks):
+- Verify outbound URLs never resolve to `localhost`, `127.0.0.1`, `::1`, or private IP ranges (`10.*`, `172.16-31.*`, `192.168.*`)
+- The app URL used in emails should have a production-only fallback — if `APP_URL` is unset or contains a loopback address, refuse to send rather than send broken links
+- Consider a dedicated server-only env var for email links (e.g., `EMAIL_BASE_URL`) separate from `NEXT_PUBLIC_APP_URL` — client-side and email URL requirements differ
+- Test: send a transactional email in dev mode, inspect the link — does it point to localhost? If yes, the guard is missing
+
+This is the outbound mirror of SSRF prevention: SSRF stops external URLs from reaching internal services, outbound URL safety stops internal URLs from reaching external users. (Field report #44: verification email sent with `localhost:5005` URL — worked on same machine, broke from any other device.)
+
+### Credentials Never in API Responses
+
+API responses must NEVER include credentials, tokens, or secrets — even in "admin-only" or "internal" endpoints. Grep for responses that include: `password`, `secret`, `token`, `api_key`, `private_key`, `credentials`. Common violations: user profile endpoints returning the password hash, API key management endpoints including the full key in GET responses (show only last 4 characters), internal debug endpoints returning environment variables. (Field report #66: API settings endpoint returned full MCP connection credentials in the response body.)
+
+### Response Header Injection
+
+Verify that user-controlled data is never injected into HTTP response headers without sanitization. Check: `Content-Disposition` (filename from user input), `Location` (redirect URL from user input), `Set-Cookie` (values from user input). A newline in a header value (`\r\n`) can inject arbitrary headers or split the response. Sanitize by stripping `\r` and `\n` from any user data placed in headers, or use framework-provided header-setting functions that handle escaping. (Field report #57)
+
 **Ahsoka — Access:** Every endpoint verifies ownership (no IDOR). UUIDs not sequential IDs. Admin verified server-side. Tier features verified server-side. User A can't access User B's anything. Rate limiting per-user and per-IP. **Auth framework rate limiting:** Auth frameworks (NextAuth, Passport, Auth.js, Supabase Auth, etc.) may handle login routing internally. Verify that rate limiting is applied inside the framework's `authorize`/`verify` callback, not just at the API route level. The framework's handler may bypass route-level middleware entirely. (Field report #38: NextAuth's `authorize()` callback ran inside its own handler — route-level rate limiting never saw login attempts.)
 
 ### Direct-ID Entity Access
@@ -146,6 +204,17 @@ if (!realDir.startsWith(expectedBase)) throw 'symlink escape';
 ```
 
 (Field report #20: symlink bypass identified in Round 1, not fixed until Round 4.)
+
+### Extended Star Wars Roster (activate as needed)
+
+**Qui-Gon (Subtle Vulnerabilities):** Finds the vulnerabilities that pass every standard check — timing windows, race conditions in auth, logic errors that are technically correct but exploitable. "Always in motion is the future."
+**Han (First Strike):** Quick OWASP top 10 scan before the deep audit begins. Shoots first — finds the obvious vulnerabilities that shouldn't require deep analysis.
+**Anakin (Dark Side Exploitation):** After remediations, attempts to bypass them using framework misuse — JWT algorithm confusion, auth library edge cases, prototype pollution. "You underestimate my power."
+**Bo-Katan (Perimeter Defense):** Network security, firewall rules, exposed ports, CORS policy, CSP headers. Guards the outer walls.
+**Din Djarin (Bug Bounty):** Post-remediation bounty hunting. Hunts for any remaining vulnerability with Mandalorian tenacity. "This is the way."
+**Bail Organa (Governance):** Compliance mapping — GDPR data handling, SOC2 controls, HIPAA if applicable. Not code-level security but policy-level compliance. Called for projects with regulatory requirements.
+**Cassian (Intelligence):** Threat modeling and recon before anyone audits. Maps the attack surface, identifies high-value targets, produces the threat model that guides the rest of the audit.
+**Sabine (Unconventional):** Tries attack vectors no standard checklist covers — supply chain attacks, dependency confusion, prototype pollution, CSP bypass via CDN. "You've never seen anyone fight like me."
 
 ### Phase 3 — Remediate
 

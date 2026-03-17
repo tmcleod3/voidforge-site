@@ -146,11 +146,44 @@ Before hiding, relocating, or collapsing a UI container (dropdown, panel, menu, 
 **Elrond:** IA, navigation, task flows, friction.
 **Arwen:** Spacing, typography, icons, button hierarchy, visual hierarchy.
 **Samwise:** Keyboard nav, focus rings, ARIA, contrast, reduced motion. **WCAG contrast verification:** For the project's primary text/background combinations, verify WCAG AA contrast ratio (4.5:1 for normal text, 3:1 for large text). Check: primary text on primary bg, muted text on primary bg, accent text on primary bg. Opacity modifiers (e.g., `text-emerald-200/50`) halve the effective contrast — always compute the final rendered color, not the base color. A systematic check during the initial color system design prevents dozens of instances across the codebase. (Field report #38: 46 failing-contrast instances across 13 files, systemic from day 1.)
+**Samwise — Async Button A11y:** For buttons that trigger async operations (save, submit, deploy), verify: button shows loading state (`aria-busy="true"`), disabled during operation, success/error announced via `aria-live="polite"` region or `role="status"`. Sighted users see a spinner; screen reader users need the equivalent announcement. (Field report #57)
 **Bilbo:** Microcopy, labels, CTAs, error messages, empty states, tone.
 **Legolas:** Component architecture, CSS, semantic HTML, state management.
 **Gimli:** Skeletons, optimistic UI, debounce, layout shift, mobile, touch targets.
 **Radagast:** Forms, validation, dangerous actions, confirmations, undo.
 **Éowyn:** Implements accepted enchantment opportunities from Step 1.75 during batch fixes.
+**Celeborn:** Design system governance — are spacing tokens consistent? Is the typography scale followed? Are colors from the palette? Are component naming conventions respected? Celeborn audits the *system* behind the components, not the components themselves. "Quiet authority." Catches when one component uses `gap-4` while another uses `gap-[18px]` for the same spacing, or when a color is hardcoded instead of using a design token.
+
+### Game UX / Game Feel Checklist (when `type: game`)
+
+- **Game feel / juice:** Does hitting an enemy feel impactful? Check: screen shake (2-4px, 100ms), hit pause (50-100ms freeze frame), particle burst, audio cue, camera punch. These are mandatory for action games.
+- **Controller support:** If the game supports gamepads, verify: all menus navigable with D-pad, confirm = A/Cross, back = B/Circle. Show correct button icons for the connected controller.
+- **Accessibility options menu:** At minimum: rebindable keys, colorblind mode (pattern-based indicators, not just color), subtitle size options, screen shake toggle, difficulty options. See gameaccessibilityguidelines.com.
+- **Onboarding:** Does the first 30 seconds teach the controls? Interactive tutorial > text instructions > nothing. Never dump all controls at once.
+- **Death/failure:** Is the feedback clear? Can the player understand WHY they died? Is the retry loop fast? (<3 seconds from death to playing again for action games.)
+- **Loading:** Never show a static loading screen with no feedback. Progress bar, animated icon, or gameplay tips.
+
+### Mobile UX Checklist (when `deploy: ios|android|cross-platform`)
+
+- **Safe area:** Content must respect safe area insets (notch, home indicator, status bar). Never place interactive elements under the notch.
+- **Touch targets:** Minimum 44pt (iOS) / 48dp (Android). Verify with fingers, not mouse cursor. Adjacent targets need 8pt minimum gap.
+- **Navigation:** Follow platform conventions — back swipe (iOS), hardware back button (Android). Don't fight the platform.
+- **Gestures:** Swipe-to-delete, pull-to-refresh, long-press menus. Verify they don't conflict with system gestures (edge swipe = back on iOS).
+- **Haptics:** Use appropriate haptic feedback for confirmations (success), errors (warning), and destructive actions (heavy impact). Don't overuse — haptics lose meaning if everything vibrates.
+- **Keyboard:** Verify keyboard avoidance on all forms. Test with hardware keyboard connected. Verify "Done" button dismisses keyboard.
+- **Dynamic Type / Font scaling:** Support system font size preferences. Verify layout doesn't break at largest size. Use relative units, not fixed pixel sizes.
+- **Reduced motion:** Respect `prefers-reduced-motion` (iOS) / "Remove animations" (Android). Replace animations with instant state changes.
+
+### Extended Tolkien Roster (activate as needed)
+
+**Aragorn (UX Leadership):** Orchestrates the Tolkien team when Galadriel runs multiple parallel agents. Prioritizes which findings matter most for the user. "Not all who wander are lost — but some UX flows definitely are."
+**Faramir (Quality over Glory):** Checks whether polish is going to the right places — core flows that users see daily, not edge features nobody opens. Prevents over-engineering low-traffic screens.
+**Pippin (Edge Case Discovery):** Does the unexpected — clicks back mid-flow, resizes to 320px, pastes emoji in the search field, opens the same page in two tabs. "Fool of a Took!" but finds real bugs.
+**Boromir (Hubris Check):** Is the design overengineered? Too many animations? Parallax on a settings page? "One does not simply add a parallax effect." Guards against complexity that hurts performance or confuses users.
+**Haldir (Boundary Guard):** Checks transitions between pages, states, and components. Are loading→success transitions smooth? Do error→retry flows work? Does navigation feel cohesive or disjointed?
+**Glorfindel (Hardest Challenges):** Reserved for the most complex rendering tasks — canvas, WebGL, SVG animations, complex responsive layouts. Called only when the project has genuine visual complexity.
+**Frodo (The Hardest Task):** The one flow that's most critical AND most complex gets Frodo's dedicated attention. He carries it alone, tests it exhaustively, and doesn't stop until it works perfectly.
+**Merry (Pair Review):** Partners with Pippin — one finds the edge case, the other verifies the fix. Pair-based verification of edge case resolutions.
 
 ## Step 3 — Manual Walkthroughs
 

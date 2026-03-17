@@ -6,12 +6,13 @@
 
 ## Phase 0 — Orient (Picard leads)
 1. Read `/docs/PRD.md` — extract the YAML frontmatter block
-2. Validate frontmatter values: `type` must be one of (full-stack, api-only, static-site, prototype). `auth` must be (yes, no). `payments` must be (stripe, lemonsqueezy, none). `deploy` must be (vps, vercel, railway, cloudflare, static, docker). Flag any invalid or missing values.
+2. Validate frontmatter values: `type` must be one of (full-stack, api-only, static-site, prototype, game). `auth` must be (yes, no). `payments` must be (stripe, lemonsqueezy, none). `deploy` must be (vps, vercel, railway, cloudflare, static, docker, ios, android, cross-platform). If `type: game`, check game-specific fields (game_engine, game_genre). If `deploy: ios|android|cross-platform`, check mobile fields (mobile_framework, bundle_id). See BUILD_PROTOCOL.md "Game Project Detection" and "Mobile Framework Detection" sections for phase adaptations.
 3. Read `/docs/methods/BUILD_PROTOCOL.md` — check skip rules against frontmatter
 4. Extract from PRD: tech stack, database schema, API routes, page routes, integrations, env vars
 5. Read `/docs/LESSONS.md` — check for relevant lessons from previous projects. If any lessons match this project's tech stack (framework, database, auth, integrations), note them: "Lessons from prior builds: [list relevant ones]." These inform later phases — e.g., if a lesson says "React useEffect render loops escape review," trace render cycles proactively in Phase 4+.
 6. Flag any gaps or ambiguities — list them explicitly, don't guess
-7. Write initial ADRs to `/docs/adrs/`
+7. **Troi confirms PRD extraction:** Troi reads the PRD prose and verifies the extraction matches — catches misinterpretations before 8+ build phases propagate them.
+8. Write initial ADRs to `/docs/adrs/`
 8. Create `/logs/build-state.md` and `/logs/phase-00-orient.md` with extraction results + relevant lessons
 9. **Gate:** ADRs written, all PRD sections accounted for, skip rules documented in build-state.md
 
@@ -91,6 +92,9 @@
 3. Configure DNS/SSL, monitoring, backups
 4. Log to `/logs/phase-12-deploy.md`
 5. **Gate:** Health check passes in production, monitoring active, backup tested
+
+## Phase 12.5 — Wong's Pattern Usage Log
+After build and before launch, log which patterns were used: pattern name, framework adaptation, custom mods. Store in `docs/pattern-usage.json`. Feeds Wong's promotion analysis in `/debrief`.
 
 ## Phase 13 — Launch (All agents)
 1. Full checklist: SSL, email, payments, analytics, monitoring, backups, security headers, legal, performance, mobile, accessibility, all tests passing

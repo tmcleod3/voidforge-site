@@ -71,7 +71,15 @@ Check for unfinished business:
 - If `/campaign --resume` was passed → resume from campaign-state's active mission
 - If campaign-state has unresolved BLOCKED items → present them: "These items from previous missions are still blocked: [list]. Resolve now, skip, or continue?"
 - If vault exists but `.env` is sparse → offer: "The vault has credentials but infrastructure isn't provisioned. Run `voidforge deploy` now?" In `--blitz` mode: auto-run provisioner.
-- If clear → proceed to Step 1
+- If clear → proceed to Step 0.5
+
+## Step 0.5 — Vault Auto-Inject
+
+If vault exists and `.env` is sparse (missing keys that the vault has):
+1. Run `voidforge deploy --env-only` to write vault credentials to `.env`
+2. In `--blitz` mode: auto-run without confirmation
+3. In normal mode: show what will be written, ask for confirmation
+4. This runs BEFORE Dax's full analysis so the populated `.env` is visible
 
 ## Step 1 — Dax's Strategic Analysis
 
@@ -84,7 +92,8 @@ Read the PRD and diff against the codebase:
 5. **Classify every requirement by type:** Code (buildable), Asset (needs external generation — images, illustrations, OG cards), Copy (text accuracy), Infrastructure (DNS, env vars, dashboards)
 6. Diff: what the PRD describes vs. what's implemented — **structural AND semantic** (not just "does the route exist?" but "does the component render what the PRD describes?")
 7. Produce the ordered mission list — each mission is 1-3 PRD sections, scoped to be buildable in one `/assemble` run
-8. **Separately list BLOCKED items** — asset/infrastructure requirements that code can't satisfy
+8. **Pike challenges the ordering:** "Should we attempt a harder mission first while context is fresh?" Bold counterbalance to Dax's dependency-based ordering. If Pike's argument is stronger, reorder.
+9. **Separately list BLOCKED items** — asset/infrastructure requirements that code can't satisfy
 
 **Priority cascade:**
 1. Section 16 phases (if defined by user)
@@ -151,7 +160,7 @@ After `/assemble` completes:
 1. Run `/git` to commit and version the mission
 2. Update `/logs/campaign-state.md` — mark mission complete, update stats. When updating, include the debrief issue number: "Debrief: #XX" or "Debrief: SKIPPED (not blitz)" or "Debrief: N/A (normal mode)".
 3. **BLITZ GATE:** If `$ARGUMENTS` contains `--blitz`, run `/debrief --submit` NOW. Do not proceed to the next step until the debrief is filed. This is non-negotiable — blitz captures learnings while context is fresh. Log the debrief issue number in campaign-state.md.
-   **Lightweight alternative:** If context is too heavy for full `/debrief --submit`, append a 3-line summary to `/logs/campaign-debriefs.md` instead (mission name, finding counts, key lesson). This satisfies the gate. Full debrief runs at campaign end.
+   **Lightweight alternative:** ONLY if `/context` shows actual usage above 70% (~700k tokens), append a 3-line summary to `/logs/campaign-debriefs.md` instead (mission name, finding counts, key lesson). You MUST report the actual context percentage to justify this. "Context is heavy" without a number is not valid justification.
 4. **Collect BLOCKED items** from this mission (assets, infrastructure, copy issues). For each:
    - If it's a future feature → append to `ROADMAP.md` under the appropriate version
    - If it's a missing asset the user must provide → add to a `## Blocked Items` section in campaign-state.md with what's needed and who can unblock it
@@ -160,7 +169,7 @@ After `/assemble` completes:
    - **No** → loop back to Step 1 (next mission)
    - **Yes** → Step 6
 
-**Context pressure check:** After 3 consecutive build missions in this session, consider checkpointing and resuming in a fresh session. Context pressure after 3+ missions degrades review quality. If continuing, note this in campaign-state.md.
+**Context pressure check:** Do NOT checkpoint based on mission count. Check actual context usage via `/context`. Only checkpoint when usage exceeds 70% (~700k tokens). Never pause a blitz based on mission count alone.
 
 ## Step 6 — Victory Condition (Gauntlet + Troi's Compliance Check)
 
@@ -183,5 +192,9 @@ All PRD requirements are COMPLETE or explicitly BLOCKED:
 - `--resume` → resume from campaign-state's active mission
 - `--fast` → pass --fast to every /assemble call (skip Crossfire + Council per-mission). Minimum: 1 review round per mission even in --fast mode. Never 0.
 - `--blitz` → full autonomous mode: skips mission confirmation prompts, auto-continues between missions, auto-debriefs after each mission. Does NOT imply `--fast` — full review quality is preserved. Combine with `--fast` explicitly if you want reduced reviews. Use when you want to walk away and come back to a built project.
+- `--autonomous` → supervised autonomy: same as blitz PLUS `git tag` before each mission, critical-finding rollback, 5-mission human checkpoints. Safer for 10+ mission campaigns. See CAMPAIGN.md "Autonomous Mode" for full guardrails.
+- `--continuous` → after Victory, auto-start the next roadmap version within the same major (v9.3→v9.4, stops before v10.0). Add `--major` to cross major boundaries and never stop cooking.
 - `--mission "Name"` → jump to a specific PRD section
 - No arguments → start fresh or auto-detect state
+
+**VICTORY GAUNTLET IS NEVER SKIPPED.** Not for methodology-only campaigns. Not for "no code changes." The Gauntlet checks methodology consistency (cross-references, command↔doc sync, agent assignments, version drift) in addition to code. Five campaigns (v8.1-v9.2) shipped without Gauntlets — this is a protocol violation.

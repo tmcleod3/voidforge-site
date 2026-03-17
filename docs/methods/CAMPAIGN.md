@@ -96,7 +96,8 @@ Kira reads the battlefield:
 3. Read `/logs/assemble-state.md` — check for in-progress assemblies
 4. Check `git status` — uncommitted work?
 5. Read auto-memory for project context
-6. Check for VoidForge vault: `~/.voidforge/vault.enc`
+6. **State file freshness check:** If `build-state.md` or `campaign-state.md` exists, verify the version/commit matches the current `git log -1` and `package.json` version. If stale (from a previous session that didn't clean up), warn and offer to reset. (Field report #67)
+7. Check for VoidForge vault: `~/.voidforge/vault.enc`
    - If vault exists → check if provisioning completed (`~/.voidforge/runs/*.json`)
    - If vault exists + provisioning NOT done → flag: "Credentials collected but infrastructure not provisioned. Run `voidforge deploy` before continuing."
    - If vault exists + provisioning done → verify `.env` is populated from vault. If not, suggest re-running provisioner.
@@ -113,6 +114,14 @@ At the start of every campaign session, cross-reference `git log` against `campa
 - **BLOCKED ITEMS** — campaign-state has unresolved BLOCKED items from previous missions → present them: "These items are still blocked: [list]. Resolve now, skip, or continue?"
 - **VAULT AVAILABLE** — vault exists but `.env` is sparse → offer: "The vault has credentials but infrastructure isn't provisioned. Run `voidforge deploy` now? [Y/n]" In `--blitz` mode: auto-run provisioner. In normal mode: ask user.
 - **CLEAR** — no in-progress work → proceed to Step 1
+
+### Step 0.5 — Vault Auto-Inject
+
+If Dax's classification (Step 1, run ahead as a pre-check) finds env vars that are "vault-available but not in .env," auto-run `voidforge deploy --env-only` before the first mission. This writes vault credentials to `.env` without provisioning infrastructure. No manual step needed.
+
+In `--blitz` mode: auto-run without confirmation. In normal mode: present the list of env vars that will be written and ask for confirmation.
+
+This step runs AFTER Step 0 (vault status known) and BEFORE Step 1 (so Dax's full analysis sees the populated `.env`).
 
 ### Step 1 — Dax's Strategic Analysis
 
@@ -226,6 +235,18 @@ When a mission duplicates or extends an existing code path (adding a version-awa
 
 Even in `--fast` mode, each mission gets at least **1 review round** (not 3, but never 0). A single review catches ~80% of issues for 33% of the review cost. Zero reviews in blitz caused 7 Critical+High issues to accumulate undetected across 4 missions — all caught by the Victory Gauntlet but at much higher fix cost. (Field report #28)
 
+**Node API compatibility check (within review):** When the review finds new Node.js API calls (`fs.globSync`, `readdir({ recursive: true })`, `import.meta.dirname`, etc.), verify the API exists in the minimum version declared in `engines`. Check the Node.js docs for "Added in:" version. The `engines` field is a contract — code that uses APIs above the minimum version crashes for users on the minimum. (Field report #50: `fs.globSync` requires Node 22+ but engines declared >=20.)
+
+**UI→server route tracing (within review):** When a mission writes both UI code and server code, the review must trace every `fetch()` call in the UI to a registered server route. For each `fetch('/api/...')` in `.js`/`.ts` UI files, verify the path exists as an `addRoute()` call in the server. Missing routes produce silent 404s that are invisible in development. (Field report #50: UI button called `/api/server/restart` but no endpoint was created.)
+
+### Per-Mission Verification Agents
+
+After each mission's review round, two agents run quick checks:
+
+**Troi (PRD Compliance):** Spot-checks the PRD sections that this mission targeted. "Does what we just built match what the PRD said to build?" Not a full PRD read — just the relevant sections. Catches drift between intent and implementation before it compounds across missions.
+
+**Padmé (Functional Verification):** If the mission touched user-facing flows, Padmé verifies the affected flow still works end-to-end. "Open the app, complete the task, verify the output." Only triggered for missions that modify routes, components, or user-visible behavior — not for methodology-only or infrastructure missions.
+
 ### Step 4.5 — Gauntlet Checkpoint (Thanos)
 
 After every 4th completed mission (missions 4, 8, 12, etc.), Thanos runs a Gauntlet checkpoint:
@@ -240,7 +261,9 @@ After every 4th completed mission (missions 4, 8, 12, etc.), Thanos runs a Gaunt
 
 ### Lightweight Blitz Debrief (Alternative)
 
-If context pressure makes full `/debrief --submit` impractical mid-campaign, capture a **3-line mission summary** appended to `/logs/campaign-debriefs.md` instead:
+**Only valid when `/context` shows actual usage above 70% (~700k tokens).** You MUST report the actual context percentage to justify using the lightweight alternative. "Context is heavy" without a number is not valid justification.
+
+If actual usage exceeds 70%, capture a **3-line mission summary** appended to `/logs/campaign-debriefs.md` instead:
 
 ```
 ### Mission N — [Name] (vX.Y.Z)
@@ -252,12 +275,37 @@ Full debrief runs once at campaign end (after Victory Gauntlet), covering all mi
 
 ### Context Pressure Limit
 
-After 3 consecutive build missions in a single session, checkpoint and consider resuming in a fresh session. Context pressure after 3+ missions causes measurable quality degradation:
-- Review rounds get skipped (Mission 6 in field report #33 received zero review)
-- Debriefs get skipped despite being mandatory gates
-- Agent coordination errors increase as the orchestrator loses track of conventions
+**Do NOT checkpoint based on mission count.** Check actual context usage via `/context`. The 1M context window supports 10+ missions easily. Only checkpoint when actual usage exceeds 70% (~700k tokens).
 
-The Victory Gauntlet catches issues from late-session missions, but at much higher fix cost than per-mission review. (Field report #33)
+Symptoms of real context pressure (NOT speculative):
+- Claude re-reads files it already read this session
+- Claude forgets decisions made earlier in the conversation
+- Review quality visibly degrades (skipped rounds, generic findings)
+
+If these symptoms appear, run `/context` to check actual usage. If >70%, checkpoint. If <70%, the symptoms have a different cause — investigate instead of checkpointing.
+
+**Never suggest stopping a blitz based on mission count alone.** The field report #33 quality degradation was at ~800k tokens after 6 heavy missions with full /assemble pipelines, not at 3 lightweight missions. (Field report #45: blitz incorrectly paused at 172k/1000k — 17% usage — after 1 mission.)
+
+### Quality Reduction Anti-Pattern (MANDATORY — applies to all agents)
+
+**You MUST NOT reduce the quality or thoroughness of any review, Gauntlet, checkpoint, or debrief based on self-assessed "context pressure."** This is a hard rule, not a guideline.
+
+Specifically, you MUST NOT:
+- Run the Gauntlet "efficiently" or "focused on the changeset" instead of the full protocol
+- Use a "lightweight checkpoint" instead of the full Gauntlet checkpoint
+- Skip debrief because "context is heavy"
+- Reduce review rounds because "we've been building continuously"
+- Use phrases like "given context pressure," "to save context," or "running efficiently" to justify cutting any quality gate
+
+**If you believe context pressure justifies reducing quality:**
+1. Run `/context` (or ask the user to)
+2. Report the ACTUAL number: "Context is at X/1000k (Y%)"
+3. If below 70%: **you are wrong — continue at full quality**
+4. If above 70%: checkpoint state and suggest a fresh session — do NOT reduce quality in the current session
+
+**Why this rule exists:** In 3 separate sessions (field reports #45, #50, and prior campaigns), agents self-justified quality reductions at 17%, 28%, and 37% context usage. The Gauntlet was "run efficiently" at 284k. A checkpoint was made "lightweight" at 375k. Both decisions let bugs through that the full protocol would have caught. Self-assessed "context pressure" is the #1 cause of quality degradation in VoidForge campaigns — not actual context limits.
+
+**The Gauntlet is never reduced. Checkpoints are never lightweight. Debriefs are never skipped. Run `/context` or run the full protocol.**
 
 ### Step 5 — Debrief and Commit
 
@@ -286,14 +334,29 @@ All PRD requirements are COMPLETE or explicitly BLOCKED:
    - Are non-code requirements flagged as BLOCKED? (illustrations, OG images, assets)
 4. If Troi finds discrepancies → fix code requirements, flag asset requirements as BLOCKED
 5. Present final report: COMPLETE items, BLOCKED items (with reasons), deviations from PRD
-6. Victory only if: **Gauntlet Council signs off** AND user acknowledges all BLOCKED items
-7. Sisko signs off:
+6. **Run `/debrief --submit`** — mandatory end-of-campaign post-mortem covering all missions together. Captures cross-cutting learnings that per-mission debriefs miss. This runs BEFORE the sign-off so learnings are captured while context is fresh. (Field reports #31, #53)
+7. **Victory Checklist** — ALL must be true before sign-off:
+   - [ ] Gauntlet Council signed off (6/6 or all domains pass)
+   - [ ] All BLOCKED items acknowledged by user
+   - [ ] `/debrief --submit` filed (issue number recorded)
+   - [ ] Campaign-state.md updated with final status
+8. Sisko signs off (ONLY after checklist is complete):
 
 > *"The Prophets' plan is fulfilled. The campaign is complete."*
 
-8. **Run `/debrief --submit`** — mandatory end-of-campaign post-mortem covering all missions together. Captures cross-cutting learnings that per-mission debriefs miss. In blitz mode, auto-submits per FIELD_MEDIC.md rule 2 exception. This is non-negotiable, like the Victory Gauntlet itself. (Field report #31)
-
 **Victory does NOT mean "everything was built." It means "everything buildable was built correctly, survived the Gauntlet, and everything unbuildable is explicitly acknowledged."**
+
+**The Victory Gauntlet is NEVER skipped.** Not for methodology-only campaigns. Not for "no code changes." Not for single-mission campaigns. The Gauntlet checks methodology consistency (cross-references, command↔doc sync, agent assignments, version drift) in ADDITION to code quality. Five consecutive campaigns (v8.1-v9.2) shipped without Gauntlets because the first skip was self-justified as "methodology-only" and the pattern stuck. This is a protocol violation on the same level as the Quality Reduction Anti-Pattern.
+
+### Periodic Architecture Health Check
+
+After every 2-3 campaigns (or when transitioning between major project phases), run a full `/architect` with all agents deployed (Spock, Uhura, Worf, Tuvok, La Forge, Data, Torres, Riker). This catches systemic issues that per-mission reviews and Gauntlets miss:
+- Missing database indexes for query patterns that emerged over multiple campaigns
+- PII that accumulated without isolation
+- Integration failure modes never tested
+- Architecture decisions made in Campaign 1 that no longer fit Campaign 4's reality
+
+Individual campaigns catch bugs. The health check catches drift. (Field report #67: full architecture review after 4 campaigns found 2 CRITICAL + 3 HIGH issues that no Gauntlet had caught.)
 
 ## The Prophecy Board
 
@@ -335,6 +398,42 @@ After each mission, Sisko updates `/logs/campaign-state.md`.
 - **Skip to mission:** `/campaign --mission "Payments"` — jumps to that PRD section
 - **Fast mode:** `/campaign --fast` — passes `--fast` to every `/assemble` call (skips Crossfire + Council)
 - **Blitz mode:** `/campaign --blitz` — fully autonomous execution: skips mission confirmation, auto-debriefs after each mission, auto-continues. Does NOT imply `--fast`. Combine: `--blitz --fast`
+- **Autonomous mode:** `/campaign --autonomous` — supervised autonomy with safety rails (see below)
+- **Continuous mode:** `/campaign --continuous` — after Victory, auto-start the next roadmap version (see below)
+
+### Continuous Mode (`--continuous`)
+
+After the current campaign completes (Victory Gauntlet passes, debrief filed, sign-off done), Sisko checks the ROADMAP for the next unbuilt version. **By default, continuous mode only chains within the current major version.** At v9.2, it continues to v9.3, v9.4, etc. but STOPS before v10.0 — a major version is a natural checkpoint that deserves a deliberate decision to start.
+
+**Scope rules:**
+- `--continuous` (default) → chain through remaining minor/patch versions in the current major. v9.2 → v9.3 → v9.4 → STOP at v10.0 boundary.
+- `--continuous --major` → cross major version boundaries. v9.3 → v10.0 → v10.1 → never stops cooking until the roadmap is empty.
+
+Combinable with other flags:
+- `--blitz --continuous` — blitz through remaining dot releases, stop at next major
+- `--blitz --continuous --major` — blitz everything on the roadmap, no stops
+- `--autonomous --continuous` — autonomous with checkpoints, chaining within major
+- `--fast --continuous` — fast reviews across dot releases
+
+**The Victory Gauntlet still runs between versions.** Continuous mode does NOT skip the Gauntlet — it runs the Gauntlet, then starts the next campaign. The Gauntlet is the gate between versions, whether or not continuous mode chains them.
+
+### Autonomous Mode (`--autonomous`)
+
+Sisko executes missions without waiting for confirmation at every brief. Stronger guardrails than `--blitz`:
+
+1. **Git checkpoint before each mission:** `git tag campaign-mission-N-start` before building. If things go wrong, rollback is one `git reset --hard` away.
+2. **Critical finding gate:** If `/assemble` produces Critical findings that can't be auto-fixed → rollback to the tag, pause for human review. Do NOT continue.
+3. **5-mission human checkpoint:** Maximum 5 consecutive autonomous missions before a mandatory human checkpoint. Present progress summary, ask to continue.
+4. **Victory Gauntlet requires human confirmation** — even in autonomous mode. The final Gauntlet is too important to skip human review.
+5. **Post-mission summaries logged, not presented** — mission briefs and debrief summaries go to campaign-state.md without interactive display.
+6. **Debrief is still mandatory** — `/debrief --submit` runs after each mission (same as blitz).
+
+**`--autonomous` vs `--blitz`:**
+- `--blitz` = no human interaction, full quality, auto-continue. The user walks away.
+- `--autonomous` = same as blitz PLUS git tags, critical-finding rollback, and 5-mission human checkpoints. The user checks in periodically.
+- `--autonomous` is safer for long campaigns (10+ missions) where unattended errors can compound.
+
+**Why after v8.0-v8.2:** Autonomous campaigns are safer when Agent Memory catches known pitfalls (v8.0), the Deep Roster catches more issues per review (v8.1), the methodology self-improves from lessons (v8.2), and Conflict Prediction catches structural problems before they propagate through unattended missions.
 
 ## Deliverables
 

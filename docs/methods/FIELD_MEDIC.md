@@ -151,12 +151,38 @@ Bombadil (`/void`) carries messages — he syncs files. He doesn't read, think, 
 - Comments on issues are factual and professional (triage results, not opinions)
 - Closed issues can be reopened if the fix turns out to be insufficient
 
+## Promotion Analysis (Wong)
+
+After writing the report (Step 3), Wong checks if the findings should promote into method docs:
+
+1. **Read `docs/LESSONS.md`** — count entries by category and target method doc
+2. **Cluster check:** If 3+ lessons share the same category AND target the same method doc, Wong auto-drafts a promotion:
+   - A specific new checklist item, rule, or pattern based on the lesson cluster
+   - Cites all contributing lessons
+   - Targets the exact section of the method doc where it belongs
+3. **Present for user approval** — never auto-apply. Show: "Wong recommends promoting these 3 lessons into [method doc] [section]: [proposed text]. Approve? [Y/n]"
+4. If approved: apply the change to the method doc, mark each lesson as "Promoted to: [doc name]" in LESSONS.md
+5. If submitting upstream (`--submit`): include the proposed method doc change in the GitHub issue body so `/debrief --inbox` can process it
+
+**Why 3+ threshold:** A single lesson could be project-specific. Two could be coincidence. Three is a pattern worth encoding into the methodology. The user always has final say.
+
+### Pattern Evolution Check
+
+If `docs/pattern-usage.json` exists (logged by BUILD_PROTOCOL Phase 12.5), Wong checks for recurring pattern variations:
+1. Read the pattern-usage data across available projects
+2. If the same custom modification appears in 10+ projects → propose it as a new pattern or a pattern section update
+3. If a framework adaptation is consistently modified → propose updating the adaptation section
+4. Present to user: "This variation of api-route.ts appeared in 10 projects. Promote to pattern? [Y/n]"
+
+This is the long-game feedback loop: patterns evolve from data, not guesses.
+
 ## Deliverables
 
 1. Structured post-mortem document
 2. Optional: GitHub issue on upstream repo
 3. Local copy saved to `/logs/debrief-YYYY-MM-DD.md`
 4. (Inbox mode) Triage comments on upstream issues, applied fixes
+5. (Promotion) Method doc updates from lesson clusters (user-approved)
 
 ## Handoffs
 

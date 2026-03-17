@@ -41,19 +41,25 @@ Pre-load active domain methodology. Load application code on demand. See `/docs/
 
 Reference implementations in `/docs/patterns/`. Match these shapes when writing. All patterns include framework adaptations (Next.js, Express, Django, Rails).
 
-- `api-route.ts` — Validation, auth, service call, consistent response
-- `service.ts` — Business logic, ownership checks, typed errors
-- `component.tsx` — Loading, empty, error, success states. Keyboard accessible.
-- `middleware.ts` — Auth, request logging, rate limiting
-- `error-handling.ts` — Canonical error strategy (single source of truth)
-- `job-queue.ts` — Background jobs: idempotency, retry, dead letter queue
-- `multi-tenant.ts` — Workspace scoping, tenant isolation, role-based access
+- `api-route.ts` — Validation, auth, service call, consistent response (+ Django DRF, FastAPI)
+- `service.ts` — Business logic, ownership checks, typed errors (+ Django, FastAPI)
+- `component.tsx` — Loading, empty, error, success states. Keyboard accessible. (+ HTMX)
+- `middleware.ts` — Auth, request logging, rate limiting (+ Django, FastAPI)
+- `error-handling.ts` — Canonical error strategy (+ Django DRF, FastAPI)
+- `job-queue.ts` — Background jobs: idempotency, retry, dead letter queue (+ Celery, ARQ)
+- `multi-tenant.ts` — Workspace scoping, tenant isolation, role-based access (+ django-tenants)
+- `mobile-screen.tsx` — React Native screen with safe area, a11y, 4 states
+- `mobile-service.ts` — Offline-first data pattern with sync queue, conflict resolution
+- `game-loop.ts` — Fixed timestep game loop with interpolation, pause/resume
+- `game-state.ts` — Hierarchical state machine with history, save/load
+- `game-entity.ts` — Entity Component System with component stores and systems
 
 ## Slash Commands
 
 | Command | What It Does |
 |---------|-------------|
 | `/build` | Execute full build protocol — self-contained with inline steps per phase |
+| `/prd` | Sisko's PRD generator — 5-act structured interview producing a complete PRD with valid YAML frontmatter |
 | `/qa` | Batman's full QA pass with double-pass verification and regression checklist |
 | `/test` | Batman's test-writing mode — coverage analysis, test architecture, write missing tests |
 | `/security` | Kenobi's OWASP audit with parallel + sequential phases and red-team verification |
@@ -97,7 +103,9 @@ Reference implementations in `/docs/patterns/`. Match these shapes when writing.
 | **The Campaign** | `/docs/methods/CAMPAIGN.md` | Sisko — when building the whole PRD mission by mission |
 | **Forge Artist** | `/docs/methods/FORGE_ARTIST.md` | Celebrimbor — when generating images from PRD descriptions |
 | **Field Medic** | `/docs/methods/FIELD_MEDIC.md` | Bashir — when running post-mortems and submitting upstream feedback |
-| **Patterns** | `/docs/patterns/` | When writing code (7 reference implementations) |
+| **PRD Generator** | `/docs/methods/PRD_GENERATOR.md` | Sisko — when generating a PRD from scratch |
+| **Meta-Workflow** | `/docs/META_WORKFLOW.md` | How to use VoidForge to develop VoidForge |
+| **Patterns** | `/docs/patterns/` | When writing code (13 reference implementations) |
 | **Lessons** | `/docs/LESSONS.md` | Cross-project learnings |
 
 ## The Team

@@ -66,9 +66,55 @@ Create or update `/docs/qa-prompt.md` with: stack, language, framework, package 
 **Red Hood (Dynamic):** Empty/huge/unicode inputs, network failures, malformed JSON, partial data, concurrent requests, rapid clicking, double submissions.
 **Alfred (Dependencies):** Outdated libs, known vulns, deprecated APIs, version conflicts.
 **Lucius (Config):** .env completeness, secrets not hardcoded, no secrets in git history, prod vs dev mismatches.
-**Deathstroke (Adversarial):** Penetration-style probing — exploit business logic, bypass validations, chain unexpected interactions, test authorization boundaries.
-**Constantine (Cursed Code):** Unreachable branches, dead state, impossible conditions, logic that only works by accident, tautological checks, shadowed variables.
+**Deathstroke (Adversarial):** Penetration-style probing — exploit business logic, bypass validations, chain unexpected interactions, test authorization boundaries. **Query-param state trust:** For every URL query parameter that changes client-side state (`?verified=true`, `?role=admin`, `?step=complete`), test: can you achieve the state change by manually constructing the URL without going through the intended flow? If the UI trusts the param without server validation, it's a bypass — the component must confirm against the server before rendering the privileged state. (Field report #44: dashboard hid verification banner on `?verified=true` without checking DB — any user could dismiss security prompts via URL.)
+**Constantine (Cursed Code):** Unreachable branches, dead state, impossible conditions, logic that only works by accident, tautological checks, shadowed variables. **const/let audit:** For JavaScript/TypeScript, grep for `const` declarations of arrays and objects, then check if any are later reassigned (`= ` after declaration). `const arr = []; arr = arr.filter(...)` is a TypeError in strict mode. Use `splice`, `push`, or declare with `let`. (Field report #50: `const tabs = []` reassigned in cleanup handler — crashed at runtime.)
 **Nightwing (Regression):** Smoke validation, high-value manual flows, "break it on purpose" probes, exact commands.
+**Cyborg (Integration):** System integration testing — when 3+ API files or modules connect, Cyborg traces the full data path across boundaries. "I see into the machine." Catches: missing imports between modules, inconsistent response shapes across endpoints, broken cross-module data flows.
+**Raven (Deep Analysis):** Bugs hidden beneath 3 layers of abstraction — follows data through transforms, closures, and callbacks. The bugs that exist because the logic is technically correct in each function but the composition is wrong.
+**Wonder Woman (Truth):** Finds where code says one thing and does another — misleading variable names, wrong comments, stale documentation, function names that don't match their behavior. "I compel the truth."
+
+### Extended DC Roster (activate as needed)
+
+**Flash (Rapid Testing):** Speed-runs smoke tests on every endpoint. Parallelizes curl commands. When time is short, Flash does the broad coverage pass.
+**Batgirl (Detail Audit):** Takes one module and audits every edge of every form, every boundary of every validation, every character of every regex. Not broad — *thorough*.
+**Green Arrow (Precision):** When a bug area is identified, Green Arrow narrows it to the exact line and exact condition. Called when Oracle finds "something wrong in this module" but can't pinpoint it.
+**Huntress (Flaky Tests):** Identifies tests that pass sometimes and fail others. Race conditions, timing dependencies, order-dependent tests, non-deterministic assertions.
+**Aquaman (Deep Dive):** Takes one complex module and tests it exhaustively. Not broad coverage — *deep* coverage of the hardest code. Called for modules with 500+ lines or 10+ functions.
+**Superman (Standards):** After all fixes, verifies the codebase meets its own stated standards — linting clean, type-safe, naming conventions consistent, no TODO/FIXME left unresolved.
+**Green Lantern (Scenario Construction):** Generates the test matrix before testing begins — what inputs × what states × what conditions should be tested? Called during Step 1 to produce the attack surface map.
+**Martian Manhunter (Cross-Environment):** Tests across environments — different Node versions, with and without optional dependencies, different OS behaviors. Called when the project targets multiple platforms.
+
+### Game QA Checklist (when `type: game`)
+
+- **Frame rate:** Profile with browser DevTools (WebGL) or engine profiler. Target: 60 FPS stable. Flag any frame that takes >20ms.
+- **Input latency:** Measure time from keypress to visible response. Target: <50ms for action games, <100ms for strategy/puzzle.
+- **Memory leaks:** Monitor heap over 10 minutes of gameplay. Heap should plateau, not climb. Common culprits: particles not recycled, event listeners not removed on scene exit, textures not disposed.
+- **Speedrun exploits:** Can the player skip intended content? Clip through walls? Stack buffs infinitely? Duplicate items? Test with adversarial intent.
+- **Out-of-bounds:** Walk into every wall, corner, and edge. Jump in unexpected places. What happens at the world boundary?
+- **Save corruption:** Save mid-transition (loading screen, death animation). Load the save. Is the game state valid? Corrupt a save file manually — does the game crash or show an error?
+- **Economy exploits:** If the game has currency/items: can you sell and rebuy at profit? Can you duplicate via network lag? Can you overflow counters?
+- **Platform testing:** WebGL on Chrome, Firefox, Safari. Desktop if Electron. Mobile if exported. Gamepad + keyboard + touch.
+
+### Mobile QA Checklist (when `deploy: ios|android|cross-platform`)
+
+When the project targets mobile platforms, add these to the attack plan:
+- **Orientation:** Rotate between portrait/landscape mid-flow. Verify layout doesn't break, modals resize, keyboard dismisses.
+- **Deep links:** Test `yourapp://path` and universal links. Verify they resolve to the correct screen with correct params. Test with app cold-started vs already running.
+- **Push notifications:** Tap notification while app is in foreground, background, and killed. Verify navigation + data load.
+- **Offline mode:** Enable airplane mode mid-operation. Verify queued actions sync when reconnected. Verify error messages are clear.
+- **Battery/memory:** Profile with Instruments (iOS) or Android Profiler. Flag memory leaks in navigation (screens not deallocated), excessive re-renders, background task abuse.
+- **App lifecycle:** Background → foreground. Verify state restored (form input, scroll position, auth token). Test after 30min background.
+- **Platform differences:** Test on both iOS and Android if cross-platform. Verify platform-specific components render correctly.
+
+### API Boundary Type Verification
+
+When the backend (Python, Go, Rust) and frontend (JavaScript) use different type systems, verify that types survive the API boundary correctly. Common gotcha: Python `bool` (`True`/`False`) becomes JSON `true`/`false` — but Python's string representation `"True"` is truthy in JS while `"False"` is also truthy. Check: Does the frontend compare API boolean values with `===` (strict) or `==` (loose)? Does the backend serialize booleans as JSON booleans or as strings? This catches "it works in Python tests but breaks in the browser" bugs. (Field report #66)
+
+### Delegation Pattern Trace
+
+When a function delegates to another function (e.g., `handleRequest` calls `processItem` which calls `applyTransform`), trace the full chain. Verify that configuration set at the top of the chain actually reaches the bottom. Common failure: `json.dumps(default=str)` computed but a framework's `JSONResponse` used instead, silently dropping the custom serializer. For every sweep/batch operation, verify the per-item function receives the same configuration as the orchestrating function. (Field report #57)
+
+**Client-Side Reliability:** When a client flow sends multiple network requests (beacon pairs, multi-step forms, chained API calls), test: "What happens when request 1 of N succeeds but request 2 fails?" Verify the system doesn't reach an inconsistent state (e.g., record created but counter not incremented, payment charged but order not confirmed). Test with network throttling and selective request blocking. (Field report #46: dual-beacon tracking — sendBeacon succeeded but fetch failed due to CORS, creating records without incrementing view counts.)
 
 **Copy Accuracy Pass:** Grep for numeric claims in rendered content (e.g., "10 lead agents", "12 commands", "53 pages"). Cross-reference against actual data counts. Any mismatch is a bug — inaccurate numbers undermine credibility. This is automatable and should run on every QA pass.
 

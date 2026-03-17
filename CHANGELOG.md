@@ -6,6 +6,173 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [9.3.0] - 2026-03-17
+
+### Added
+- **Game build protocol** — 12-phase adaptation for `type: game`.
+- **3 game patterns:** `game-loop.ts`, `game-state.ts`, `game-entity.ts`.
+- **Game QA + UX checklists** — frame rate, input latency, game feel, accessibility.
+- **4 game agents:** Spike-GameDev, Éowyn-GameFeel, Deathstroke-Exploit, L-Profiler.
+
+---
+
+## [9.2.0] - 2026-03-17
+
+### Added
+- **Mobile methodology** — BUILD_PROTOCOL, QA_ENGINEER, SECURITY_AUDITOR, PRODUCT_DESIGN_FRONTEND all gain mobile-specific checklists.
+- **2 mobile patterns:** `mobile-screen.tsx` (React Native, safe area, a11y) + `mobile-service.ts` (offline-first, sync queue).
+- **3 conditional agents:** Uhura-Mobile, Samwise-Mobile, Rex-Mobile.
+- **PRD template** updated with mobile frontmatter.
+
+### Blocked
+- Mobile provisioner deferred (needs Xcode CLI + Play Console API).
+
+---
+
+## [9.1.0] - 2026-03-17
+
+### Added
+- **Django + FastAPI deep dives** in all 8 pattern files — full code examples for DRF ViewSets, Pydantic models, Celery tasks, django-tenants, HTMX templates, FastAPI dependency injection, SQLAlchemy services, ARQ workers.
+- **Python framework detection** in BUILD_PROTOCOL.md — Phase 0 detects `framework: django|fastapi`, adapts scaffold, migrations, testing, and security checks.
+
+---
+
+## [9.0.0] - 2026-03-17
+
+### Added
+- **`docs/META_WORKFLOW.md`** — How to use VoidForge to develop VoidForge. Documents the feedback loop, anti-patterns discovered across 4 campaigns, when to use each campaign mode, and version history of campaigns-on-self.
+- **Wong's Pattern Usage Log (Phase 12.5)** — After each build, logs which patterns were used, which framework adaptations applied, which custom modifications made. Feeds pattern evolution analysis in `/debrief`.
+- **Pattern Evolution Check** in FIELD_MEDIC.md — Wong checks pattern-usage data for recurring variations across projects. 10+ occurrences → propose as new pattern.
+
+### Changed
+- **`/imagine` API key persistence** — FORGE_ARTIST.md now instructs persisting the OpenAI API key to `.env.local` on first use, preventing key loss between sessions. (Field report #62)
+
+---
+
+## [8.3.0] - 2026-03-16
+
+### Added
+- **`/campaign --autonomous`** — supervised autonomy with safety rails: git tag before each mission, critical-finding rollback, 5-mission human checkpoints, Victory Gauntlet requires human confirmation. Safer than `--blitz` for long campaigns (10+ missions).
+
+---
+
+## [8.2.0] - 2026-03-16
+
+### Added
+- **Self-Improving Methodology (Wong Promotion Analysis)** — when 3+ lessons in LESSONS.md share the same category and target the same method doc, Wong auto-drafts a promotion: a specific checklist item or rule based on the lesson cluster. Presented for user approval, never auto-applied. Added to FIELD_MEDIC.md and `/debrief` command.
+- **Custom Sub-Agents** — users can create project-specific sub-agents in `docs/CUSTOM_AGENTS.md`. Agents carry domain knowledge (e.g., `Jarvis-Tailwind` for Tailwind v4 patterns). Run alongside built-in agents. Naming collision check rule added to NAMING_REGISTRY.md. Template file created.
+
+---
+
+## [8.1.2] - 2026-03-16
+
+### Changed
+- **`/qa` command** gains Green Lantern (test matrix), Flash (smoke tests), Batgirl (detail audit), Aquaman (deep dive), Huntress (flaky tests), Green Arrow (precision), Superman (standards).
+- **`/security` command** gains Han + Cassian (Phase 0.5 first strike + recon), Bo-Katan (perimeter alongside Rex), Qui-Gon + Sabine + Bail Organa (Phase 2 extended), Anakin + Din Djarin (Phase 4 bypass + bounty).
+- **`/ux` command** gains Aragorn (orchestrator), Pippin + Frodo (Step 3 edge cases + hardest flow), Faramir (Step 5 quality focus), Boromir + Glorfindel (Step 6 hubris + hard rendering), Haldir (Step 7 boundaries), Merry (Step 7.5 pair verification).
+- **`/architect` command** gains Crusher + Archer (Step 0 diagnostics + greenfield), Tuvok (Step 1 security architecture), Kim + Janeway (Step 2 API design + novel architectures).
+- **`/gauntlet` command** Round 3 now explicitly names DevOps team (Senku, Levi, Spike, L, Bulma, Holo, Valkyrie).
+- **`/assemble` command** gains Hill (phase tracking) + Jarvis (status summaries).
+- **`/campaign` command** gains Pike (Step 1 — bold ordering challenge to Dax).
+
+---
+
+## [8.1.1] - 2026-03-16
+
+### Added
+- **Extended DC roster for `/qa`** — Flash (rapid testing), Batgirl (detail audit), Green Arrow (precision), Huntress (flaky tests), Aquaman (deep dive), Superman (standards), Green Lantern (scenario construction), Martian Manhunter (cross-environment).
+- **Extended Star Wars roster for `/security`** — Qui-Gon (subtle vulns), Han (first strike), Anakin (dark-side exploitation), Bo-Katan (perimeter), Din Djarin (bug bounty), Bail Organa (governance), Cassian (threat modeling), Sabine (unconventional attacks).
+- **Extended Tolkien roster for `/ux`** — Aragorn (UX leadership), Faramir (quality focus), Pippin (edge cases), Boromir (hubris check), Haldir (boundary guard), Glorfindel (hard rendering), Frodo (hardest task), Merry (pair review).
+- **Extended Anime roster for `/devops`** — Vegeta (monitoring), Trunks (migrations), Mikasa (critical protection), Erwin (planning), Mustang (cleanup), Olivier (hardening), Hughes (observability), Calcifer (daemons), Duo (teardown).
+- **Extended Star Trek roster for `/architect`** — Janeway (novel architectures), Tuvok (security architecture), Crusher (diagnostics), Archer (greenfield), Kim (API design), Pike (bold planning).
+- **Extended Marvel roster for `/build`** — T'Challa (craft), Wanda (state), Shuri (innovation), Rocket (scrappy), Okoye (data integrity), Falcon (migrations), Bucky (legacy).
+
+---
+
+## [8.1.0] - 2026-03-16
+
+### Added
+- **Troi (PRD Compliance)** activated in `/build` Phase 0 (confirms PRD extraction), Phase 4/8 gates (spot-checks built features against PRD), and `/campaign` per-mission checks.
+- **Padmé (Functional Verification)** activated in `/build` Phase 4/6 gates (verifies primary user flow end-to-end) and `/campaign` per-mission for user-facing missions.
+- **Celeborn (Design System Governance)** activated in `/ux` Step 2 and `/build` Phase 5 — audits spacing tokens, typography scale, color palette consistency, component naming.
+- **Worf (Security Implications)** activated in `/architect` Step 1 — flags security implications of architectural decisions alongside Spock and Uhura.
+- **Riker (Decision Review)** activated in `/architect` Step 5 — reviews Picard's ADRs for trade-off validity and second-order effects.
+- **Torres (Performance Architecture)** activated in `/architect` Step 3 — identifies N+1 queries, missing indexes, caching gaps in design phase.
+- **Cyborg (System Integration)** activated in `/qa` Step 1 — traces full data paths across module boundaries when 3+ modules connect.
+- **Raven (Deep Analysis)** activated in `/qa` Step 1 — finds bugs hidden beneath layers of abstraction, data flowing through transforms.
+- **Wonder Woman (Truth Detector)** activated in `/qa` Step 1 — finds code that says one thing and does another.
+- **Valkyrie (Disaster Recovery)** activated in `/devops` — backup verification, restore testing, failover procedures.
+
+---
+
+## [8.0.1] - 2026-03-16
+
+### Fixed
+- **Victory Gauntlet hardening** — 16 fixes across 2 Gauntlet runs: PTY stale session cleanup (3 compounding bugs), .env newline/shell injection, globSync Node 22+ compat replaced with recursive readdir, restart banner dead endpoint + CSP violation, symlink cycle guard, XSS in auto-command banner, dead code cleanup.
+- **Node.js `engines` field** tightened from `>=20.0.0` to `>=20.11.0` — `import.meta.dirname` requires 20.11+.
+- **Quality Reduction Anti-Pattern** — hard methodology rule: agents MUST NOT reduce Gauntlet, checkpoint, or debrief quality based on self-assessed "context pressure." Must run `/context` and report actual usage. Below 70% = continue full protocol.
+- **9 methodology fixes** from field reports #46-#53: CORS requirements check, external API HTTPS enforcement, IP range validation warning, internal path leakage check, client-side partial failure testing, const/let audit, Node API compatibility check, UI→server route tracing, Victory Checklist with debrief-before-sign-off.
+- **CLAUDE.md** — added PRD_GENERATOR to Docs Reference, corrected pattern count (7→8).
+- **Architecture docs** version headers updated to 8.0.0.
+
+---
+
+## [8.0.0] - 2026-03-16
+
+### Added
+- **Agent Memory — Active Lessons Read-Back.** Wong loads `/docs/LESSONS.md` during Phase 0 Orient. Review commands (`/qa`, `/security`, `/ux`, `/review`) read LESSONS.md in Context Setup and flag matches during analysis.
+- **Conflict Prediction — Phase 0.5 Architecture Scan.** Picard scans PRD frontmatter for 8 structural contradictions before any code is written. Added Conflict Checklist to SYSTEMS_ARCHITECT.md and pre-analysis step to `/architect`.
+- **`/prd` command** — Sisko's PRD generator. 5-act structured interview producing a complete PRD with valid YAML frontmatter.
+
+---
+
+## [7.7.0] - 2026-03-16
+
+### Added
+- **Native module mtime detection** — server snapshots `.node` file mtimes at startup, checks on Lobby load. If changed (npm install while server running), shows "Restart Now" banner.
+- **`/api/server/status` endpoint** — returns `needsRestart` flag for native module detection.
+- **`docs/COMPATIBILITY.md`** — Node.js version testing doc with known ABI-breaking changes and engines field policy.
+- **Restart banner** in Lobby — appears when native modules changed on disk.
+
+### Changed
+- **ARCHITECTURE.md** rewritten from v2.7.0 to v7.7.0 — adds Avengers Tower, RBAC, Thumper, ws/node-pty, PTY manager, vault key naming, mtime detection.
+- **FAILURE_MODES.md** rewritten — adds WebSocket, PTY, Tower, Thumper, and native module failure modes.
+- **SCALING.md** rewritten — Tier 2 reflects shipped multi-user features, PTY sessions as bottleneck.
+- **Context pressure rule** fixed — removed "3 consecutive missions" heuristic. Checks actual usage, only checkpoints at 70%.
+
+---
+
+## [7.6.0] - 2026-03-16
+
+### Added
+- **`voidforge deploy --env-only`** — write vault credentials to `.env` without provisioning infrastructure. Reads all vault keys, maps both `env:`-prefixed and hyphenated keys to env vars, appends to `.env`. Supports `VOIDFORGE_VAULT_PASSWORD` env var for non-interactive use.
+- **`scripts/vault-read.ts`** — standalone vault reader. Read a single key (`--key`) or list all keys (`--list`). Supports non-interactive use via `VOIDFORGE_VAULT_PASSWORD`.
+- **Campaign vault auto-inject (Step 0.5)** — if vault has credentials not yet in `.env`, auto-run `deploy --env-only` before the first mission. Blitz mode auto-runs; normal mode asks for confirmation.
+- **Node.js `engines` field** in package.json — `>=20.0.0 <25.0.0`. Prevents silent ABI breaks with unsupported Node versions.
+
+### Changed
+- **Stale PTY session cleanup** — Tower auto-detects sessions that fail within 2 seconds of creation. Auto-removes the dead tab and retries once. Prevents dead sessions from consuming MAX_SESSIONS slots.
+- **Fallback model ID** updated from `claude-sonnet-4-5-20241022` to `claude-sonnet-4-6`.
+
+---
+
+## [7.5.3] - 2026-03-16
+
+### Added
+- **Vault key naming convention** in HOLOCRON — documents hyphenated keys (global/infra) vs `env:`-prefixed keys (project-specific), with resolver order and provisioner mapping.
+- **Outbound URL Safety** checklist in security audit — verify transactional emails never send localhost/private IP URLs, production fallback requirement, dedicated `EMAIL_BASE_URL` recommendation. (Field report #44)
+- **Query-param state trust** attack vector in QA — Deathstroke tests whether URL parameters controlling client state are validated server-side before rendering. (Field report #44)
+- **Collapsible/Accordion ARIA pattern** in component reference — `aria-expanded` + `aria-controls` + `id` triple checklist with code example. (Field report #43)
+- **v7.7 The Housekeeping** planned in ROADMAP — architecture doc refresh, server auto-restart (tech debt #11), Node.js compatibility doc.
+- **v7.6 bolt-ons** planned in ROADMAP — stale PTY cleanup (#12), Node.js `engines` field, fallback model ID update.
+- **v8.0 ship order** in ROADMAP — Agent Memory first, then Conflict Prediction, then Auto-PRD.
+
+### Fixed
+- **Stale roadmap header** — updated from v7.1.0 to v7.5.2 with correct next version (v7.6).
+- **Field reports #42-#44** triaged and closed — 4 fixes applied, 2 already-fixed, 2 deferred to v7.6, 2 wontfix.
+
+---
+
 ## [7.5.2] - 2026-03-16
 
 ### Added

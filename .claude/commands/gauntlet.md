@@ -58,7 +58,7 @@ Use the Agent tool to run all four in parallel — targeted re-verification:
 - **Agent 1 (Batman — Re-probe):** Nightwing re-runs the test suite. Red Hood re-probes fixed areas. Deathstroke tests new boundaries created by the fixes. Focus on regressions.
 - **Agent 2 (Galadriel — Error States + Re-verify):** Samwise re-audits a11y on all modified components. Radagast re-checks edge cases on fixed flows. Bilbo re-checks microcopy on any changed UI.
 - **Agent 3 (Kenobi — Re-probe + Access Control):** Maul re-probes all remediated vulnerabilities. Ahsoka verifies access control across every role boundary. Padmé verifies the primary user flow still works (critical path smoke test).
-- **Agent 4 (Kusanagi — DevOps):** Run the complete `/devops` protocol. Deploy scripts, monitoring, backups, health checks, page weight gate, security headers.
+- **Agent 4 (Kusanagi — DevOps):** Run the complete `/devops` protocol with full team: Senku (provisioning), Levi (deploy), Spike (networking), L (monitoring), Bulma (backup), Holo (cost), Valkyrie (disaster recovery). Deploy scripts, monitoring, backups, health checks, page weight gate, security headers.
 
 **→ FIX BATCH 2:** Fix remaining findings.
 
@@ -125,7 +125,7 @@ Present them with severity and recommendation. The user decides whether to ship 
 - The Gauntlet does NOT build code — it reviews and hardens existing code
 - Fixes happen BETWEEN rounds, not batched at the end
 - Every finding must have: ID, severity, file, description, fix recommendation
-- If context pressure symptoms appear, ask user to run `/context`
+- If context pressure symptoms appear, ask user to run `/context`. Only checkpoint at >70%. NEVER reduce Gauntlet rounds, skip agents, or "run efficiently" based on self-assessed context pressure. See CAMPAIGN.md "Quality Reduction Anti-Pattern" — this is a hard rule.
 - The Gauntlet is the final test before shipping. Treat it with appropriate gravity.
 
 ## Handoffs

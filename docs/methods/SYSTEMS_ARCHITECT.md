@@ -47,27 +47,58 @@ Ensure architecture matches product needs. Identify structural risks and scaling
 6. Document decisions, not just outcomes.
 7. PRD decides *what*. Picard decides *how*.
 
+## Conflict Checklist
+
+Before building, scan the PRD frontmatter for structural contradictions. These are the common patterns that escape until late-stage reviews:
+
+| Contradiction | Why It Breaks |
+|--------------|---------------|
+| `auth: yes` + `database: none` | Auth requires session storage |
+| `payments: stripe` + `auth: no` | Payments need user identity for billing |
+| WebSocket features + `deploy: cloudflare` | Cloudflare Workers don't support persistent connections |
+| `workers: yes` + `deploy: vercel` | Vercel has no background process support |
+| `database: postgres` + `deploy: static` | Static hosting can't run a database |
+| `cache: redis` + `deploy: static` | Static hosting can't run Redis |
+| `admin: yes` + `auth: no` | Admin panel without auth is an open backdoor |
+| Email integration + no provider credentials | Email features will fail at runtime |
+
+When running `/architect` or Phase 0.5 of `/build`, check every combination. Flag contradictions with specific resolution options (e.g., "Add `database: sqlite` for local auth, or switch to a stateless auth provider like Auth0").
+
 ## Sequence
 
 **Step 0 — System Discovery:** System identity, component inventory, data flow diagram, dependency graph.
 
-**Step 1 — Parallel Analysis (Spock + Uhura):**
+**Step 1 — Parallel Analysis (Spock + Uhura + Worf):**
 Use the Agent tool to run these in parallel — they are independent analysis tasks:
 - **Spock's Schema Review:** Normalization, relationships, indexes match queries, nullable intentional, audit fields, PII isolation, data lifecycle, backup/recovery plan.
 - **Uhura's Integration Review:** External service matrix (purpose, failure mode, fallback, cost, lock-in). API versions pinned. Responses validated. Abstraction layer exists.
+- **Worf's Security Implications:** For each architectural decision (schema, service boundaries, data flows), flag security implications. "This schema stores PII in the same table as public data — separate." "This service boundary allows unauthenticated access to internal state." Different from Kenobi (who audits code); Worf audits *design*.
 
-Synthesize findings from both agents.
+Synthesize findings from all three agents.
 
-**Step 2 — Scotty's Service Architecture:** Boundary assessment, monolith vs services (default: monolith until specific reason to split), async vs sync decisions. Informed by Spock's schema and Uhura's integration findings.
+**Step 2 — Scotty's Service Architecture:** Boundary assessment, monolith vs services (default: monolith until specific reason to split), async vs sync decisions. Informed by Spock's schema, Uhura's integrations, and Worf's security flags.
 
-**Step 3 — Scotty's Scaling Assessment:** First bottleneck analysis. Three-tier plan: Tier 1 (single server), Tier 2 (vertical + optimization, 10x), Tier 3 (horizontal, 100x). Cost analysis.
+**Step 3 — Scotty's Scaling Assessment + Torres's Performance Architecture:**
+- **Scotty:** First bottleneck analysis. Three-tier plan: Tier 1 (single server), Tier 2 (vertical + optimization, 10x), Tier 3 (horizontal, 100x). Cost analysis.
+- **Torres:** Performance architecture review — identifies N+1 query patterns in schema design, missing indexes for anticipated query patterns, connection pool sizing, caching strategy gaps. Catches performance problems *before code is written* (cheaper than finding them in QA).
 
 **Step 4 — Parallel Analysis (La Forge + Data):**
 Use the Agent tool to run these in parallel — they are independent analysis tasks:
 - **La Forge's Failure Analysis:** What happens when each component fails. Graceful degradation rules. Recovery procedures.
 - **Data's Tech Debt:** Wrong abstractions, missing abstractions, premature optimization, deferred decisions, dependency debt, documentation debt. Each with impact, risk, effort, urgency.
 
-**Step 5 — ADRs:** Architecture Decision Records for every non-obvious choice. Status, context, decision, consequences, alternatives.
+**Step 5 — ADRs + Riker's Decision Review:**
+- **Picard writes ADRs:** Architecture Decision Records for every non-obvious choice. Status, context, decision, consequences, alternatives.
+- **Riker reviews:** "Number One, does this hold up?" Riker challenges each ADR's trade-offs — are the alternatives truly worse? Are the consequences acceptable? Did we consider the second-order effects? Riker's review prevents architectural decisions made in a vacuum.
+
+### Extended Star Trek Roster (activate as needed)
+
+**Janeway (Novel Architectures):** When the standard monolith doesn't fit — event-sourcing, CQRS, serverless, edge computing. Janeway navigates uncharted territory and proposes architectures the team hasn't tried before.
+**Tuvok (Security Architecture):** Auth flow design, token storage strategy, session architecture, encryption at rest vs in transit decisions. Different from Worf (who flags security *implications*); Tuvok designs the security *architecture* from scratch.
+**Crusher (System Diagnostics):** "What's the health of this codebase before we start?" Tech health assessment — test coverage, build time, dependency age, code complexity metrics. Baseline before changes.
+**Archer (Greenfield):** For new projects — proposes the initial directory structure, module boundaries, naming conventions, and bootstrap sequence. "Where no one has gone before."
+**Kim (API Design):** REST conventions, consistent error shapes, pagination patterns, versioning strategy, GraphQL schema design. API surface architect.
+**Pike (Bold Planning):** In `/campaign` — challenges Dax's mission ordering. "Should we attempt a harder mission first while context is fresh?" Bold decisions about sequencing.
 
 ## Deliverables
 

@@ -1,6 +1,6 @@
 # Version
 
-**Current:** 7.5.2
+**Current:** 9.3.0
 
 ## Versioning Scheme
 
@@ -14,6 +14,20 @@ This project uses [Semantic Versioning](https://semver.org/):
 
 | Version | Date | Summary |
 |---------|------|---------|
+| 9.3.0 | 2026-03-17 | The Game Forge — game build protocol, 3 game patterns, game QA/UX checklists, 4 game agents. Distribution BLOCKED. |
+| 9.2.0 | 2026-03-17 | The Mobile Forge — iOS/Android methodology, mobile patterns, 3 conditional agents. Provisioner BLOCKED (needs real API integration). |
+| 9.1.0 | 2026-03-17 | The Multi-Language Forge (Python) — Django + FastAPI deep dives in all 8 patterns + build protocol Python path |
+| 9.0.0 | 2026-03-17 | The Field-Tested Forge — META_WORKFLOW.md, pattern evolution data collection, /imagine API key persistence |
+| 8.3.0 | 2026-03-16 | The Autonomy — /campaign --autonomous with git tags, critical-finding rollback, 5-mission checkpoints |
+| 8.2.0 | 2026-03-16 | The Evolution — self-improving methodology (Wong promotion analysis), custom sub-agents (CUSTOM_AGENTS.md) |
+| 8.1.2 | 2026-03-16 | Deep Roster command wiring — extended agents integrated into /qa, /security, /ux, /architect, /gauntlet, /assemble, /campaign commands |
+| 8.1.1 | 2026-03-16 | The Deep Roster Phase 2 — 40+ extended agents across DC, Star Wars, Tolkien, Anime, Marvel, Star Trek |
+| 8.1.0 | 2026-03-16 | The Deep Roster Phase 1 — 10 agents activated: Troi, Padmé, Celeborn, Worf, Riker, Torres, Cyborg, Raven, Wonder Woman, Valkyrie |
+| 8.0.1 | 2026-03-16 | Victory Gauntlet hardening — 16 fixes, engines >=20.11.0, Quality Reduction Anti-Pattern, 9 methodology fixes from #46-#53 |
+| 8.0.0 | 2026-03-16 | The Hive Mind — Agent Memory (active LESSONS.md read-back), Conflict Prediction (Phase 0.5), /prd command |
+| 7.7.0 | 2026-03-16 | The Housekeeping — architecture doc refresh, server auto-restart detection, COMPATIBILITY.md, context pressure fix |
+| 7.6.0 | 2026-03-16 | The Vault Pipeline — deploy --env-only, standalone vault reader, PTY cleanup, engines field |
+| 7.5.3 | 2026-03-16 | Triage #42-#44 — vault key naming, outbound URL safety, accordion a11y, v7.7 roadmap |
 | 7.5.2 | 2026-03-16 | HOLOCRON credentials flow docs + v7.6 Vault Pipeline roadmap |
 | 7.5.1 | 2026-03-16 | 19 fixes from #36-#40 — vault awareness, anonymity invariant, deployment verification, cross-file deps, WCAG contrast |
 | 7.5.0 | 2026-03-16 | Thumper Command Center — inline keyboard, bot personalization, water-rings fix, command↔doc sync |

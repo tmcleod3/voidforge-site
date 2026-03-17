@@ -1,15 +1,22 @@
 # /architect — Picard's Architecture Review
 
+**AGENT DEPLOYMENT IS MANDATORY.** Steps 1 and 4 specify parallel agent launches via the Agent tool. You MUST actually launch these agents as separate sub-processes — do NOT shortcut to inline analysis, even if you think you can answer faster by reading files directly. The agents exist because parallel analysis catches things sequential reading misses. Skipping agent deployment is a protocol violation. (Field report #68)
+
 ## Context Setup
 1. Read `/logs/build-state.md` — understand current project state
 2. Read `/docs/methods/SYSTEMS_ARCHITECT.md`
 3. Read `/docs/PRD.md` (System Architecture + Tech Stack sections)
 
-## Step 0 — System Discovery
+## Pre-Analysis — Conflict Scan
+Before any deep analysis, scan the PRD frontmatter for structural contradictions (see SYSTEMS_ARCHITECT.md Conflict Checklist). Check: auth+database, payments+auth, websockets+deploy, workers+deploy, database+deploy, cache+deploy, admin+auth, email+credentials. Flag any contradictions immediately — these cost hours if caught late.
+
+## Step 0 — System Discovery (**Crusher** + **Archer**)
+**Crusher** assesses system health first — test coverage, build time, dependency age, code complexity. Baseline before changes.
+**Archer** (for greenfield projects) proposes initial directory structure, module boundaries, naming conventions.
 Produce: system identity, component inventory, data flow diagram (ASCII), dependency graph.
 Write to `/logs/` (phase-00 if during orient, or a dedicated architecture log).
 
-## Step 1 — Parallel Analysis (Spock + Uhura)
+## Step 1 — Parallel Analysis (Spock + Uhura + Worf)
 Use the Agent tool to run these in parallel — they are independent analysis tasks:
 
 **Agent 1 (Spock — Schema Review):**
@@ -29,20 +36,25 @@ For each external service, produce:
 
 Verify: API versions pinned, responses validated, abstraction layer exists.
 
-Synthesize findings from both agents.
+**Agent 3 (Worf — Security Implications):**
+For each architectural decision (schema, service boundaries, data flows), flag security implications. PII colocation, unauthenticated access to internal state, overly permissive service boundaries. Worf audits *design*, not code.
 
-## Step 2 — Scotty's Service Architecture
+**Agent 4 (Tuvok — Security Architecture):**
+Auth flow design, token storage strategy, session architecture, encryption at rest vs in transit. Where Worf flags implications, Tuvok designs the solutions.
+
+Synthesize findings from all four agents.
+
+## Step 2 — Scotty's Service Architecture + Kim's API Design
 - Boundary assessment: is the boundary between services/modules clean?
 - Monolith vs services: default monolith. Only split if there's a specific operational reason (different scaling profile, different team, different deploy cadence).
 - Async vs sync: which operations should be background jobs?
-- Informed by Spock's schema and Uhura's integration findings.
+- **Kim** reviews API surface: REST conventions, consistent error shapes, pagination patterns, versioning strategy.
+- **Janeway** (conditional): when the standard monolith doesn't fit, proposes event-sourcing, CQRS, serverless, edge computing.
+- Informed by Spock's schema, Uhura's integrations, and Worf/Tuvok's security findings.
 
-## Step 3 — Scotty's Scaling Assessment
-Identify the first bottleneck. Produce three-tier plan:
-- **Tier 1 (current):** Single server. What works, what's the ceiling.
-- **Tier 2 (10x):** Vertical scaling + optimization. Add indexes, caching, connection pooling.
-- **Tier 3 (100x):** Horizontal scaling. Read replicas, CDN, queue-based processing, service splits.
-Include cost estimates at each tier.
+## Step 3 — Scotty's Scaling + Torres's Performance
+- **Scotty:** Identify the first bottleneck. Three-tier plan: Tier 1 (current), Tier 2 (10x, vertical), Tier 3 (100x, horizontal). Cost estimates.
+- **Torres:** Performance architecture — N+1 query patterns in schema design, missing indexes for anticipated queries, connection pool sizing, caching strategy gaps. Catches performance problems before code is written.
 
 ## Step 4 — Parallel Analysis (La Forge + Data)
 Use the Agent tool to run these in parallel — they are independent analysis tasks:
@@ -62,8 +74,8 @@ Catalog each item:
 
 Types: wrong abstraction, missing abstraction, premature optimization, deferred decision, dependency debt, documentation debt.
 
-## Step 5 — ADRs
-Write Architecture Decision Records to `/docs/adrs/` for every non-obvious choice:
+## Step 5 — ADRs + Riker's Decision Review
+Write Architecture Decision Records to `/docs/adrs/` for every non-obvious choice. After writing, **Riker reviews**: challenges trade-offs, verifies alternatives were truly considered, checks for second-order effects.
 ```
 # ADR-001: [Title]
 ## Status: Accepted
