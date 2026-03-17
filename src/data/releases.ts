@@ -538,6 +538,50 @@ export const shipped: Release[] = [
       "9 methodology fixes across agent protocols",
     ],
   },
+  {
+    version: "v8.1.0",
+    date: "2026-03-16",
+    title: "The Deep Roster Phase 1",
+    headline: "Ten new agents activated. Troi reads the PRD. Celeborn governs the design system. The roster deepens.",
+    items: [
+      "Troi (PRD compliance verification in Phase 0 and Council)",
+      "Padmé (functional verification in build gates)",
+      "Celeborn (design system governance in /ux)",
+      "Worf (security implications in /architect)",
+      "Riker (ADR review in /architect)",
+      "Torres (performance architecture in /architect)",
+      "Cyborg (integration testing in /qa)",
+      "Raven (deep analysis bugs in /qa)",
+      "Wonder Woman (code-vs-behavior truth detection in /qa)",
+      "Valkyrie (disaster recovery in /devops)",
+    ],
+  },
+  {
+    version: "v8.1.1",
+    date: "2026-03-16",
+    title: "The Deep Roster Phase 2",
+    headline: "Forty more agents join the forge. Every universe gets reinforcements. 220+ named characters.",
+    items: [
+      "Extended DC Roster — Flash, Batgirl, Green Arrow, Huntress, Aquaman, Superman, Green Lantern, Martian Manhunter",
+      "Extended Star Wars Roster — Qui-Gon, Han, Anakin, Bo-Katan, Din Djarin, Bail Organa, Cassian, Sabine",
+      "Extended Tolkien Roster — Aragorn, Faramir, Pippin, Boromir, Haldir, Glorfindel, Frodo, Merry",
+      "Extended Anime Roster — Vegeta, Trunks, Mikasa, Erwin, Mustang, Olivier, Hughes, Calcifer, Duo",
+      "Extended Marvel Roster — T'Challa, Wanda, Shuri, Rocket, Okoye, Falcon, Bucky",
+      "Extended Star Trek Roster — Janeway, Tuvok, Crusher, Archer, Kim, Pike",
+    ],
+  },
+  {
+    version: "v8.1.2",
+    date: "2026-03-16",
+    title: "Deep Roster Command Wiring",
+    headline: "Every new agent wired into their commands. The deep roster is operational.",
+    items: [
+      "Extended agents integrated into /qa, /security, /ux, /architect commands",
+      "Extended agents integrated into /gauntlet, /assemble, /campaign pipelines",
+      "Phase 0.5 First Strike added to /security (Han + Cassian)",
+      "Security re-verification expanded to Maul + Anakin + Din Djarin",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [
