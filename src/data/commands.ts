@@ -450,7 +450,7 @@ export const commands: Command[] = [
     lead: "Thanos",
     description:
       "The ultimate test. 5 rounds, 30+ agents across 6 universes, escalating from discovery to adversarial warfare. Review-only — no build. If your project survives the snap, it's ready for anything.",
-    usage: "/gauntlet [--quick] [--security-only] [--ux-only] [--qa-only] [--resume] [--ux-extra]",
+    usage: "/gauntlet [--quick] [--security-only] [--ux-only] [--qa-only] [--resume] [--ux-extra] [--infinity]",
     whatHappens: [
       "Round 1: Discovery — all agents read the codebase in parallel",
       "Round 2: Domain audits — QA, UX, Security, Architecture, DevOps each run full passes",
@@ -500,6 +500,13 @@ export const commands: Command[] = [
         description:
           "Éowyn rides out. Beyond standard usability, she proposes micro-animations, copy improvements, and moments of delight that make users smile.",
         effect: "Extra enchantment emphasis across all rounds.",
+      },
+      {
+        flag: "--infinity",
+        type: "boolean",
+        description:
+          "The Infinity Gauntlet. Ten rounds, two full passes. Every active agent deployed as its own dedicated sub-process — not combined, not summarized. ~60-80 agent launches across all 7 universes. The full 110-agent roster called off the bench.",
+        effect: "10 rounds (2x full pass). Every agent gets its own launch, context, and findings.",
       },
     ],
     badge: "NEW in v5.5",
