@@ -84,6 +84,11 @@ export const majorEras: Record<string, MajorEra> = {
     quote: "The forge remembers. Every lesson, every failure, every triumph. It reads its own history and fights smarter the next time.",
     agent: "Sisko",
   },
+  "9": {
+    title: "The Multiverse",
+    quote: "One forge. Many languages. Many platforms. The methodology transcends the stack.",
+    agent: "Picard",
+  },
 };
 
 export const shipped: Release[] = [
@@ -582,24 +587,88 @@ export const shipped: Release[] = [
       "Security re-verification expanded to Maul + Anakin + Din Djarin",
     ],
   },
+  {
+    version: "v8.2.0",
+    date: "2026-03-16",
+    title: "The Evolution",
+    headline: "The forge improves itself. Wong promotes lessons to method docs. Custom sub-agents join the roster.",
+    items: [
+      "Self-improving methodology — Wong analyzes lesson clusters and drafts method doc promotions",
+      "Custom sub-agents — user-defined specialists via CUSTOM_AGENTS.md",
+      "Lesson promotion pipeline — 3+ same-category lessons auto-draft updates",
+    ],
+  },
+  {
+    version: "v8.3.0",
+    date: "2026-03-16",
+    title: "The Autonomy",
+    headline: "The forge runs itself. Git tags before every mission. Rollback on critical findings. Five-mission checkpoints.",
+    items: [
+      "/campaign --autonomous — supervised autonomy with git tags and rollback",
+      "/campaign --continuous — chain campaigns within a major version",
+      "Critical-finding rollback to pre-mission tag",
+      "5-mission human checkpoints for long campaigns",
+    ],
+  },
+  {
+    version: "v9.0.0",
+    date: "2026-03-17",
+    title: "The Field-Tested Forge",
+    headline: "META_WORKFLOW.md. Pattern evolution. /imagine key persistence. The forge documents how to develop itself.",
+    items: [
+      "META_WORKFLOW.md — how to use VoidForge to develop VoidForge",
+      "Pattern evolution data collection — Wong's Phase 12.5",
+      "/imagine API key persistence to .env.local (field report #62)",
+      "Pattern usage logging across campaigns",
+    ],
+  },
+  {
+    version: "v9.1.0",
+    date: "2026-03-17",
+    title: "The Multi-Language Forge",
+    headline: "Python joins the forge. Django DRF and FastAPI deep-dives in all 8 patterns. The methodology speaks a new language.",
+    items: [
+      "Django DRF + FastAPI code examples in all 8 existing patterns",
+      "Python framework detection in Build Protocol Phase 0",
+      "Django middleware, Celery tasks, django-tenants patterns",
+      "FastAPI dependencies, ARQ workers, SQLAlchemy services",
+    ],
+  },
+  {
+    version: "v9.2.0",
+    date: "2026-03-17",
+    title: "The Mobile Forge",
+    headline: "iOS and Android join the forge. React Native patterns. Mobile QA, UX, and security checklists. The forge goes mobile.",
+    items: [
+      "mobile-screen.tsx — React Native screen pattern with safe area and 4 states",
+      "mobile-service.ts — Offline-first data with sync queue and conflict resolution",
+      "Mobile QA checklist (orientation, deep links, push, offline, app lifecycle)",
+      "Mobile security checklist (cert pinning, secure storage, jailbreak detection)",
+      "3 conditional mobile agents (Uhura-Mobile, Samwise-Mobile, Rex-Mobile)",
+    ],
+  },
+  {
+    version: "v9.3.0",
+    date: "2026-03-17",
+    title: "The Game Forge",
+    headline: "Games join the forge. Fixed-timestep loops. State machines. Entity Component Systems. The forge plays.",
+    items: [
+      "game-loop.ts — Fixed-timestep game loop with interpolation and pause/resume",
+      "game-state.ts — Hierarchical state machine with save/load serialization",
+      "game-entity.ts — Entity Component System with component stores and systems",
+      "12-phase game build adaptation in Build Protocol",
+      "Game QA checklist (frame rate, input latency, speedrun exploits)",
+      "Game UX/game feel checklist (juice, controller support, death feedback)",
+      "4 game agents (Spike-GameDev, Eowyn-GameFeel, Deathstroke-Exploit, L-Profiler)",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
-    version: "v9.0",
-    title: "The Multiverse",
-    opacity: 1,
-    items: [
-      "Multi-language forge — Python, Go, Rust projects with the same 13-phase protocol",
-      "Agent specialization — custom sub-agents trained on your codebase's patterns",
-      "Live collaboration — multiple developers running agents simultaneously without conflicts",
-      "Visual PRD editor — drag-and-drop interface that generates VoidForge-compatible PRDs",
-    ],
-  },
-  {
     version: "v10.0",
     title: "The Singularity",
-    opacity: 0.75,
+    opacity: 1,
     items: [
       "Self-improving methodology — agents rewrite their own method docs based on field reports",
       "Autonomous campaigns — the forge reads the PRD and ships without human intervention",

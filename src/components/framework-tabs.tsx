@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 import { trackEvent } from "@/components/analytics";
 import { CollapsibleCode } from "@/components/collapsible-code";
 
-export type Framework = "nextjs" | "express" | "django" | "rails";
+export type Framework = "nextjs" | "express" | "django" | "rails" | "fastapi" | "react-native" | "typescript";
 
 export interface FrameworkImplementation {
   framework: Framework;

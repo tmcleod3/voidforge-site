@@ -263,7 +263,7 @@ export const commands: Command[] = [
     lead: "Sisko",
     description:
       "The war room. Sisko reads the PRD, identifies every remaining mission, and executes them one by one — running /assemble for each — until the entire product is complete. Use --blitz for full autonomous mode.",
-    usage: "/campaign [--blitz] [--fast] [--plan] [--resume] [--mission \"Name\"]",
+    usage: "/campaign [--blitz] [--fast] [--plan] [--resume] [--mission \"Name\"] [--autonomous] [--continuous]",
     whatHappens: [
       "Kira runs operational recon — checks for unfinished builds or assembles",
       "Dax analyzes the PRD and diffs against the codebase",
@@ -313,6 +313,20 @@ export const commands: Command[] = [
         description:
           "Jump to a specific PRD section by name. Skip the queue — go straight to the fight that matters.",
         effect: "Execute only the named mission from the PRD.",
+      },
+      {
+        flag: "--autonomous",
+        type: "boolean",
+        description:
+          "Supervised autonomy. Like blitz, but with git tags before every mission, critical-finding rollback, and 5-mission human checkpoints. Safer for long campaigns.",
+        effect: "Git tag before each mission. Rollback on critical findings. Checkpoint every 5 missions.",
+      },
+      {
+        flag: "--continuous",
+        type: "boolean",
+        description:
+          "After victory, auto-start the next roadmap version within the same major. The forge keeps building until the roadmap runs dry.",
+        effect: "Chain campaigns within a major version (e.g., v9.3 → v9.4). Stops before crossing major boundaries.",
       },
     ],
     badge: "NEW in v3.9",

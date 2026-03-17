@@ -1423,6 +1423,101 @@ end`,
       },
     ],
   },
+  {
+    slug: "mobile-screen",
+    name: "mobile-screen.tsx",
+    title: "Mobile Screen",
+    description: "React Native screen with safe area, Dynamic Type, and 4 states.",
+    teaches:
+      "How to build mobile screens that handle safe area insets, accessibility scaling, platform-aware navigation, and the full loading/empty/error/success state cycle.",
+    whenToUse:
+      "Every React Native screen. The entry point pattern for mobile UI.",
+    preview: `export function ProfileScreen() {\n  const insets = useSafeAreaInsets()\n  const { data, error, loading } = useProfile()\n  if (loading) return <ScreenSkeleton />\n}`,
+    frameworks: [
+      {
+        framework: "react-native",
+        label: "React Native",
+        language: "TypeScript",
+        code: `import { useSafeAreaInsets } from "react-native-safe-area-context";\n\nexport function ProfileScreen() {\n  const insets = useSafeAreaInsets();\n  const { data, error, loading } = useProfile();\n\n  if (loading) return <ScreenSkeleton />;\n  if (error) return <ErrorState retry={refetch} />;\n  if (!data) return <EmptyState />;\n\n  return (\n    <View style={{ paddingTop: insets.top }}>\n      <ProfileHeader user={data} />\n    </View>\n  );\n}`,
+      },
+    ],
+  },
+  {
+    slug: "mobile-service",
+    name: "mobile-service.ts",
+    title: "Mobile Service",
+    description: "Offline-first data with sync queue, conflict resolution, and retry.",
+    teaches:
+      "How to build mobile services that work offline-first with local reads, background sync queues, conflict resolution, and exponential backoff retry.",
+    whenToUse:
+      "Any mobile feature that needs to work without a network connection.",
+    preview: `export class OfflineService {\n  async read(id: string) {\n    return localStore.get(id) ?? await api.fetch(id)\n  }\n}`,
+    frameworks: [
+      {
+        framework: "react-native",
+        label: "React Native",
+        language: "TypeScript",
+        code: `import AsyncStorage from "@react-native-async-storage/async-storage";\n\nexport class OfflineService<T> {\n  async read(id: string): Promise<T | null> {\n    const local = await AsyncStorage.getItem(id);\n    if (local) return JSON.parse(local);\n    const remote = await this.api.fetch(id);\n    if (remote) await AsyncStorage.setItem(id, JSON.stringify(remote));\n    return remote;\n  }\n\n  async write(id: string, data: T): Promise<void> {\n    await AsyncStorage.setItem(id, JSON.stringify(data));\n    await this.syncQueue.enqueue({ id, data, timestamp: Date.now() });\n  }\n}`,
+      },
+    ],
+  },
+  {
+    slug: "game-loop",
+    name: "game-loop.ts",
+    title: "Game Loop",
+    description: "Fixed-timestep game loop with interpolation, pause/resume, and frame budgets.",
+    teaches:
+      "How to implement a deterministic game loop with fixed physics timestep, visual interpolation for smooth rendering, pause/resume controls, and frame budget tracking.",
+    whenToUse:
+      "Any real-time game that needs consistent physics independent of frame rate.",
+    preview: `class GameLoop {\n  tick(dt: number) {\n    this.accumulator += dt\n    while (this.accumulator >= STEP) {\n      this.update(STEP)\n    }\n  }\n}`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "TypeScript",
+        language: "TypeScript",
+        code: `const FIXED_STEP = 1000 / 60; // 60 Hz physics\n\nclass GameLoop {\n  private accumulator = 0;\n  private lastTime = 0;\n  private running = false;\n\n  start() {\n    this.running = true;\n    this.lastTime = performance.now();\n    requestAnimationFrame(this.frame);\n  }\n\n  private frame = (now: number) => {\n    if (!this.running) return;\n    const dt = now - this.lastTime;\n    this.lastTime = now;\n    this.accumulator += dt;\n\n    while (this.accumulator >= FIXED_STEP) {\n      this.update(FIXED_STEP);\n      this.accumulator -= FIXED_STEP;\n    }\n\n    const alpha = this.accumulator / FIXED_STEP;\n    this.render(alpha); // interpolate for smooth visuals\n    requestAnimationFrame(this.frame);\n  };\n}`,
+      },
+    ],
+  },
+  {
+    slug: "game-state",
+    name: "game-state.ts",
+    title: "Game State",
+    description: "Hierarchical state machine with enter/exit hooks, history, and save/load.",
+    teaches:
+      "How to manage complex game states (menus, gameplay, pause, cutscenes) with clean transitions, sub-states, and serialization for save games.",
+    whenToUse:
+      "Any game with multiple modes (menu, play, pause, game-over) that need clean transitions.",
+    preview: `class StateMachine {\n  transition(to: string) {\n    this.current.exit()\n    this.current = this.states[to]\n    this.current.enter()\n  }\n}`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "TypeScript",
+        language: "TypeScript",
+        code: `interface GameState {\n  name: string;\n  enter(): void;\n  exit(): void;\n  update(dt: number): void;\n  render(): void;\n}\n\nclass StateMachine {\n  private states: Map<string, GameState> = new Map();\n  private current: GameState | null = null;\n  private history: string[] = [];\n\n  transition(to: string) {\n    if (this.current) {\n      this.history.push(this.current.name);\n      this.current.exit();\n    }\n    this.current = this.states.get(to) ?? null;\n    this.current?.enter();\n  }\n\n  back() {\n    const prev = this.history.pop();\n    if (prev) this.transition(prev);\n  }\n}`,
+      },
+    ],
+  },
+  {
+    slug: "game-entity",
+    name: "game-entity.ts",
+    title: "Game Entity (ECS)",
+    description: "Entity Component System with component stores, systems, and object pooling.",
+    teaches:
+      "How to organize game objects using the Entity Component System pattern — entities are IDs, components are data, systems are behavior.",
+    whenToUse:
+      "Games with many entities that share behaviors (bullets, enemies, particles, NPCs).",
+    preview: `class World {\n  createEntity(): number {\n    return this.nextId++\n  }\n  addComponent<T>(entity: number, type: string, data: T) {\n    this.stores[type].set(entity, data)\n  }\n}`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "TypeScript",
+        language: "TypeScript",
+        code: `type Entity = number;\n\nclass World {\n  private nextId = 0;\n  private stores: Map<string, Map<Entity, unknown>> = new Map();\n\n  createEntity(): Entity {\n    return this.nextId++;\n  }\n\n  addComponent<T>(entity: Entity, type: string, data: T) {\n    if (!this.stores.has(type)) this.stores.set(type, new Map());\n    this.stores.get(type)!.set(entity, data);\n  }\n\n  query(...types: string[]): Entity[] {\n    const [first, ...rest] = types;\n    const candidates = [...(this.stores.get(first)?.keys() ?? [])];\n    return candidates.filter(e =>\n      rest.every(t => this.stores.get(t)?.has(e))\n    );\n  }\n}`,
+      },
+    ],
+  },
 ];
 
 export function getPattern(slug: string): Pattern | undefined {

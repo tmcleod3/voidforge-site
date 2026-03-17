@@ -67,7 +67,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/prd", description: "Sisko's PRD Generator — 5-act structured interview to produce a complete PRD", path: "/commands/prd", category: "Commands" },
 
   // Patterns
-  { title: "Patterns", description: "7 code patterns with framework implementations", path: "/patterns", category: "Patterns" },
+  { title: "Patterns", description: "13 code patterns with framework implementations", path: "/patterns", category: "Patterns" },
   { title: "API Route", description: "Validation, auth, service call, consistent response", path: "/patterns/api-route", category: "Patterns" },
   { title: "Service", description: "Business logic, ownership checks, typed errors", path: "/patterns/service", category: "Patterns" },
   { title: "Component", description: "Loading, empty, error, success states — keyboard accessible", path: "/patterns/component", category: "Patterns" },
