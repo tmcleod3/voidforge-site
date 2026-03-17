@@ -59,6 +59,10 @@ These are independent, read-only scans. Run in parallel using the Agent tool:
 
 **Leia — Secrets:** No secrets in source code. No secrets in git history. .env in .gitignore. Different secrets dev/prod. Rotation plan documented.
 
+### Crypto Randomness
+
+Verify all random value generation uses `crypto.getRandomValues()` (browser) or `crypto.randomBytes()` (Node.js). Flag `Math.random()` in any code that generates tokens, codes, identifiers, or secrets. `Math.random()` is predictable — an attacker can reconstruct the seed and predict future values. This is the most common security mistake in JavaScript codebases. (Field report #32: referral codes used Math.random() — caught by Gauntlet, not by build.)
+
 **Chewie — Dependencies:** `npm audit`. No critical/high vulns. Lock file committed. Versions pinned. No deprecated packages.
 
 **Rex — Infrastructure:** Security headers (HSTS, X-Content-Type-Options, X-Frame-Options, CSP, Referrer-Policy, Permissions-Policy). CORS not wildcard. TLS 1.2+. Valid certs everywhere. **CSP build-output check:** If the project uses a framework with a build step (Next.js, Nuxt, SvelteKit, Gatsby, Astro), run the build and grep the output HTML for `<script>` tags. Framework-generated inline scripts are invisible in source code but will be blocked by CSP without `unsafe-inline`. Check before tightening CSP: `grep -c '<script>' dist/**/*.html` (or `out/`, `.next/`, `build/`).
@@ -73,11 +77,39 @@ These require full codebase context — run sequentially:
 
 **Windu — Input:** SQL (parameterized queries), XSS (escaped output, no dangerouslySetInnerHTML, CSP), SSRF (URL allowlist, block internal IPs — check ALL bypass vectors: octal IPs `0177.0.0.1`, decimal IPs `2130706433`, IPv6-mapped `::ffff:127.0.0.1`, DNS rebinding, URL scheme bypass `file://`, double-encoding), Command (no user input in shell), Path traversal (sanitized filenames), Deserialization (schema validate all parsed data). **AI Output Sanitization:** If the app generates or executes AI output (LLM responses, code generation), verify: (1) regex sanitization handles nested structures (e.g., nested braces), (2) sanitization failure does NOT fall through to a less-secure path, (3) server-side code execution uses true sandboxing (isolated-vm), NOT Node.js `vm` module (test: `this.constructor.constructor('return globalThis')()` — if it returns the real global, the sandbox is broken), (4) script/iframe tags stripped, (5) event handlers stripped via catch-all rename, not just regex match. **Rename not strip:** When sanitizing JSX/HTML attributes, RENAME (prefix with `data-x-`) rather than STRIP (regex remove). Stripping with regex cannot handle nested structures (braces, quotes) and leaves partial values that break compilation. Renaming preserves the full attribute value while making the handler inert.
 
+### Proxy Route SSRF
+
+For any route that proxies requests to external APIs (image proxies, API gateways, CDN wrappers):
+- Validate the target path/URL against a **regex allowlist** of permitted endpoints
+- Never interpolate user-controlled path segments directly into external URLs
+- Strip query parameters that contain credentials before forwarding
+- Log all proxy requests for audit
+
+Pattern: `/api/photos/[...name]` that joins path segments into a Google API URL is an SSRF vector — arbitrary paths can reach any Google endpoint using the server's API key. (Field report #33)
+
 **Security principle:** For security boundaries (tool access, URL allowlists, IP ranges, credential scopes), **always prefer whitelist (default-deny) over blocklist (default-allow)**. New entries should be blocked by default until explicitly allowed. Blocklists inevitably miss entries.
 
 **Ahsoka — Access:** Every endpoint verifies ownership (no IDOR). UUIDs not sequential IDs. Admin verified server-side. Tier features verified server-side. User A can't access User B's anything. Rate limiting per-user and per-IP.
 
+### Direct-ID Entity Access
+
+For every `GET /{entity}/{id}` endpoint, verify it checks BOTH ownership/org_id AND visibility/permissions. Direct-ID access without filtering is always **High severity minimum** — never defer. An attacker who guesses or enumerates IDs can access any record. This applies to every entity, not just "sensitive" ones. (Field report #28: `GET /notes/{note_id}` returned any note by ID with no org check — caught by Gauntlet, not per-mission review.)
+
+### Role Enforcement Coverage
+
+After adding role enforcement to a router, grep for ALL write operations: `@router.post`, `@router.put`, `@router.patch`, `@router.delete` (or framework equivalent). Verify EVERY match has role checking. Don't just cover CRUD — also cover batch operations, merge endpoints, import/export, and admin utilities. (Field report #28: role enforcement added to 4 CRUD endpoints, missed 11 delete/batch/merge endpoints in the same router.)
+
+### Auth Retrofit Audit
+When adding new auth middleware, role checks, or authorization gates to a router or module, audit ALL existing endpoints in that same file/router for missing enforcement — not just the new ones. New auth patterns must be retrofitted to existing endpoints. Pre-existing write endpoints without role checks become privilege escalation vectors the moment auth is added to their neighbors.
+(Field report #21: `_require_admin` added to new endpoints but not retrofitted to existing `PUT /settings/*` routes — any viewer could modify system config.)
+
 **Padmé — Data:** PII identified. PII not in logs/errors/URLs. Deletion possible (GDPR). Export possible. Backups encrypted.
+
+### No Secrets in Stored Data
+
+Verify that no data written to the database contains API keys, tokens, or credentials embedded in URLs or values. Common pattern: an API adapter builds a URL with `&key=${apiKey}` and stores it in a database column. When that URL is served to clients, the API key leaks.
+
+**Rule:** Stored URLs must never embed auth parameters. Proxy server-side instead — the client requests from your API, your API adds the credential at request time. (Field report #33: Google Places adapter stored photo URLs with embedded API key.)
 
 ### Symlink Resolution
 

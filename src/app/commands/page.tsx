@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { AccordionItem } from "@/components/accordion";
 import { SpeechBubble } from "@/components/speech-bubble";
@@ -56,6 +57,11 @@ export default function CommandsPage() {
                   <span className="text-xs text-[var(--vf-text-muted)]">
                     {cmd.lead}
                   </span>
+                  {cmd.arguments && cmd.arguments.length > 0 && (
+                    <span className="px-1.5 py-0.5 text-[10px] bg-[var(--vf-forge-orange)]/10 text-[var(--vf-forge-orange)] rounded font-bold">
+                      {cmd.arguments.length} flag{cmd.arguments.length !== 1 ? "s" : ""}
+                    </span>
+                  )}
                 </div>
               }
               badge={
@@ -101,6 +107,19 @@ export default function CommandsPage() {
                     {cmd.note}
                   </p>
                 )}
+
+                {/* Detail page link */}
+                <Link
+                  href={`/commands/${cmd.slug}`}
+                  className="inline-flex items-center gap-1 text-xs text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)] transition-colors font-bold uppercase tracking-wider"
+                  aria-label={cmd.arguments && cmd.arguments.length > 0
+                    ? `Open the Armory for ${cmd.name}`
+                    : `Full details for ${cmd.name}`}
+                >
+                  {cmd.arguments && cmd.arguments.length > 0
+                    ? "Open the Armory →"
+                    : "Full details →"}
+                </Link>
               </div>
             </AccordionItem>
           ))}

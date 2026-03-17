@@ -414,6 +414,13 @@ button:focus-visible {
   100% { transform: scale(1); }
 }
 
+/* --- Forge Glow (Armory flag cards) --- */
+.forge-glow {
+  box-shadow:
+    0 0 8px rgba(255, 107, 53, 0.15),
+    0 0 20px rgba(255, 107, 53, 0.08);
+}
+
 /* --- Gradient Link Underline --- */
 .gradient-underline {
   text-decoration: none;

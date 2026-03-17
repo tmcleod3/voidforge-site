@@ -356,6 +356,89 @@ const shipped = [
       "Tailwind v4 source() directive documented in troubleshooting",
     ],
   },
+  {
+    version: "v7.1.0",
+    date: "2026-03-15",
+    title: "The Redesign",
+    headline: "The wizard learns a new dance. Three acts. One flow. Simple and advanced become one.",
+    items: [
+      "Three-act wizard flow replaces simple/advanced split",
+      "Operations menu for post-deploy management",
+      "Resilience Pack — deploy features reclassified as core infrastructure",
+      "Simplified onboarding experience",
+    ],
+  },
+  {
+    version: "v7.2.0",
+    date: "2026-03-15",
+    title: "The Gauntlet Forging",
+    headline: "Thanos forges the Gauntlet from battle scars. 31 code fixes. 11 methodology fixes. 7 enchantments. WCAG AA. The forge earns its armor.",
+    items: [
+      "31 code fixes from Gauntlet review findings",
+      "11 methodology fixes across agent protocols",
+      "7 enchantments — micro-interactions, transitions, delight moments",
+      "WCAG AA compliance across all interactive elements",
+      "v8.0+ roadmap defined (The Hive Mind, The Multiverse, The Singularity)",
+    ],
+  },
+  {
+    version: "v7.2.1",
+    date: "2026-03-15",
+    title: "The Terminal Fix",
+    headline: "Node.js v24 broke the terminal. One dependency update. Crisis averted.",
+    items: [
+      "Fix Avengers Tower terminal crash on Node.js v24",
+      "node-pty upgraded from 1.1.0 to 1.2.0-beta.12",
+    ],
+  },
+  {
+    version: "v7.3.0",
+    date: "2026-03-16",
+    title: "The Tower Overhaul",
+    headline: "Avengers Tower gets a renovation. WebSocket library. Vault unlock. Build-state in the Lobby. Sisko gets blitz mode.",
+    items: [
+      "WebSocket library migration (ws) for Avengers Tower",
+      "Vault unlock flow improvements",
+      "Build-state visibility in The Lobby dashboard",
+      "/campaign --blitz — full autonomous mode: skip confirmations, auto-continue between missions",
+      "IPv6 connectivity fix for remote access",
+    ],
+  },
+  {
+    version: "v7.3.1",
+    date: "2026-03-16",
+    title: "The Blitz Refinement",
+    headline: "Blitz learns wisdom. Autonomous doesn't mean reckless. Full reviews stay. Auto-debrief captures every lesson.",
+    items: [
+      "--blitz no longer implies --fast — full review quality preserved in autonomous mode",
+      "--blitz and --fast are now independent flags (combine explicitly for speed + autonomy)",
+      "Auto-debrief after each blitz mission (/debrief --submit) — learnings captured while context is fresh",
+    ],
+  },
+  {
+    version: "v7.4.0",
+    date: "2026-03-16",
+    title: "The Field Hardening",
+    headline: "Twenty methodology fixes from the field. Hawkeye gets smoke tests. Éowyn gets enchantments in the Gauntlet. The forge hardens from battle.",
+    items: [
+      "Hawkeye's runtime smoke test added to /assemble (Phase 2.5)",
+      "Éowyn's enchantment emphasis via --ux-extra in /gauntlet",
+      "Troi's PRD compliance check in the Council",
+      "20 methodology fixes across 7 agent protocols",
+    ],
+  },
+  {
+    version: "v7.4.1",
+    date: "2026-03-16",
+    title: "The Upstream Fixes",
+    headline: "Fifteen fixes from GitHub issues #31–#34. The forge listens to its field reports and strengthens.",
+    items: [
+      "15 fixes from upstream field reports (issues #31–#34)",
+      "Gauntlet round structure refined",
+      "Campaign mission ordering improvements",
+      "Sub-agent protocol hardening",
+    ],
+  },
 ];
 
 const future = [
@@ -384,7 +467,7 @@ const future = [
   {
     version: "v10.0",
     title: "The Singularity",
-    opacity: 0.5,
+    opacity: 0.7,
     items: [
       "Self-improving methodology — agents rewrite their own method docs based on field reports",
       "Autonomous campaigns — the forge reads the PRD and ships without human intervention",
@@ -405,8 +488,8 @@ export default function ProphecyPage() {
       <section className="px-4 pb-12">
         <div className="mx-auto max-w-4xl">
           <SpeechBubble agent="Bombadil" universe="tolkien">
-            Old Tom Bombadil has watched the forge from the beginning. Twenty-one
-            versions in five days. From 150 characters to 170+. From a text file
+            Old Tom Bombadil has watched the forge from the beginning. Twenty-eight
+            versions in six days. From 150 characters to 170+. From a text file
             to a living methodology. The river keeps flowing, and old Tom keeps
             singing.
           </SpeechBubble>

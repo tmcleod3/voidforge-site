@@ -65,6 +65,26 @@ This is how ideas get into the plan without breaking the execution flow. The use
 
 ### Execution Mode (default)
 
+### Blitz Mode (`--blitz`)
+
+Blitz is fully autonomous campaign execution. Sisko does not pause between missions — he logs the brief, builds, commits, debriefs, and moves on. The user walks away and comes back to a built project.
+
+**What blitz changes:**
+- Mission briefs are logged but NOT presented for confirmation — execution begins immediately
+- `/debrief --submit` runs as a mandatory gate after every mission (see Step 5)
+- Auto-continues to the next mission after each completes
+- Victory Gauntlet at Step 6 is still mandatory and non-negotiable
+
+**What blitz does NOT change:**
+- Full `/assemble` runs (no `--fast` implied — quality is preserved)
+- Gauntlet checkpoints still fire every 4 missions
+- `/git` commits after every mission
+- BLOCKED items are still tracked
+
+**Combine with `--fast` explicitly** if you want reduced reviews: `--blitz --fast`
+
+Blitz is about removing human wait time, not reducing review quality.
+
 ## The Sequence
 
 ### Step 0 — Kira's Operational Reconnaissance
@@ -76,6 +96,10 @@ Kira reads the battlefield:
 3. Read `/logs/assemble-state.md` — check for in-progress assemblies
 4. Check `git status` — uncommitted work?
 5. Read auto-memory for project context
+
+### Campaign State Auto-Sync
+
+At the start of every campaign session, cross-reference `git log` against `campaign-state.md`. If commits exist for missions marked PENDING, auto-update campaign-state to match git history before proceeding. The git log is the source of truth — campaign-state.md can drift across multi-session campaigns when updates are missed. (Field report #32: 5 missions completed but never recorded, causing wasted investigation.)
 
 **Verdicts:**
 - **RESUME ASSEMBLY** — assemble-state shows incomplete phases → `/assemble --resume`
@@ -99,6 +123,10 @@ Dax reads the Prophets' plan:
    - **Infrastructure** — DNS, env vars, deployments, third-party dashboard setup (require CLI/dashboard access)
 6. Diff: PRD requirements vs. implemented features (structural AND semantic — not just "does the route exist?" but "does the component render what the PRD describes?")
 7. Produce: **The Prophecy Board** — ordered list of missions with scope, plus a separate list of BLOCKED items (assets, credentials, user decisions)
+
+### Deep Codebase Scan for PRD Diff
+
+When classifying a PRD requirement as "needs building," verify with a codebase search — not just "does the route/component file exist" but "is the feature functionally complete." Use Grep to search for key function names, API endpoints, and UI components. Mark as ALREADY COMPLETE if >90% implemented. This prevents creating missions for features that are already built. (Field report #32: 4 of 8 blitz missions found features already complete, wasting planning overhead.)
 
 **Requirement classification table (include in mission briefs):**
 ```
@@ -153,6 +181,35 @@ User confirms, redirects, or overrides. On confirm → Step 4.
 3. Monitor for context pressure symptoms — if noticed, ask user to run `/context` before checkpointing
 4. On completion → Step 5
 
+### Campaign-Mode Pipeline
+
+When `/assemble` runs from within `/campaign`, the full 13-phase pipeline is impractical (130 phase executions for a 10-mission campaign). Campaign missions should use a reduced pipeline:
+
+| Phase | Campaign Mode | Full Mode |
+|-------|--------------|-----------|
+| Architecture | Quick scan | Full review |
+| Build | Full | Full |
+| Review | 1 round | 3 rounds |
+| Security | If new endpoints | 2 rounds |
+| UX/DevOps/QA/Test | Deferred to Victory Gauntlet | Full |
+| Crossfire/Council | Deferred to Victory Gauntlet | Full |
+
+The Victory Gauntlet at campaign end covers everything the per-mission pipeline defers. This is why the Victory Gauntlet is non-negotiable even with `--fast`. (Field report #26)
+
+### Cascade Review Checklist
+
+When a mission involves DELETE or UPDATE cascade operations (user offboarding, bulk cleanup, entity removal), the 1-round review MUST include:
+- [ ] **Orphaned references:** Does deleting entity A leave dangling FK/access records in table B?
+- [ ] **Race condition:** Can the subject create new data while the cascade runs? Should deactivation happen first?
+- [ ] **PII scrubbing:** Does the cleanup write raw PII to logs, audit trails, or API responses?
+- [ ] **Reassignment fallback:** What happens when the reassignment target doesn't exist or is also being deleted?
+
+These issues are invisible to standard code review but Critical when found by the Gauntlet. (Field report #31: 3 HIGH findings in offboarding mission — all cascade issues.)
+
+### Minimum Review Guarantee
+
+Even in `--fast` mode, each mission gets at least **1 review round** (not 3, but never 0). A single review catches ~80% of issues for 33% of the review cost. Zero reviews in blitz caused 7 Critical+High issues to accumulate undetected across 4 missions — all caught by the Victory Gauntlet but at much higher fix cost. (Field report #28)
+
 ### Step 4.5 — Gauntlet Checkpoint (Thanos)
 
 After every 4th completed mission (missions 4, 8, 12, etc.), Thanos runs a Gauntlet checkpoint:
@@ -165,11 +222,32 @@ After every 4th completed mission (missions 4, 8, 12, etc.), Thanos runs a Gaunt
 
 **Why every 4 missions:** Each `/assemble` catches ~95% of issues within its scope. The remaining ~5% are cross-cutting — a bug introduced in mission 2 that affects mission 6. Catching these periodically prevents compounding. The cost is one context window per checkpoint; the ROI is real (the v6.0-v6.5 Gauntlet found a build-breaking missing import that two full `/assemble` pipelines missed).
 
+### Lightweight Blitz Debrief (Alternative)
+
+If context pressure makes full `/debrief --submit` impractical mid-campaign, capture a **3-line mission summary** appended to `/logs/campaign-debriefs.md` instead:
+
+```
+### Mission N — [Name] (vX.Y.Z)
+- **Findings:** [count] MUST FIX, [count] SHOULD FIX
+- **Key lesson:** [one sentence]
+```
+
+Full debrief runs once at campaign end (after Victory Gauntlet), covering all missions together. This reduces per-mission debrief cost from ~5-10% context to ~0.5%. The BLITZ GATE in the command file still applies — this is a lighter alternative that satisfies the gate without invoking the full skill. (Field report #26)
+
+### Context Pressure Limit
+
+After 3 consecutive build missions in a single session, checkpoint and consider resuming in a fresh session. Context pressure after 3+ missions causes measurable quality degradation:
+- Review rounds get skipped (Mission 6 in field report #33 received zero review)
+- Debriefs get skipped despite being mandatory gates
+- Agent coordination errors increase as the orchestrator loses track of conventions
+
+The Victory Gauntlet catches issues from late-session missions, but at much higher fix cost than per-mission review. (Field report #33)
+
 ### Step 5 — Debrief and Commit
 
 1. **Security gate (before commit):** Check if this mission added new TypeScript/JavaScript files that handle network I/O (HTTP endpoints, WebSocket handlers), user input (form parsing, body parsing), or credential storage (vault writes, env file generation). If yes, flag: **"This mission added network-facing code. Run `/security` before committing."** Even in `--fast` mode, security is non-negotiable for new attack surface. This prevents shipping Critical vulnerabilities that only get caught in a post-hoc hardening pass.
 2. Coulson commits the mission (`/git`)
-3. Update `/logs/campaign-state.md` — mark mission complete, log any deviations from PRD
+3. Update `/logs/campaign-state.md` — mark mission complete, log any deviations from PRD. Include the debrief issue number: "Debrief: #XX" or "Debrief: SKIPPED (not blitz)" or "Debrief: N/A (normal mode)".
 4. **Route BLOCKED items to the right place:**
    - Future feature → append to `ROADMAP.md` under the appropriate version
    - User-provided asset (illustrations, OG images) → add to `## Blocked Items` in campaign-state.md
@@ -196,6 +274,8 @@ All PRD requirements are COMPLETE or explicitly BLOCKED:
 
 > *"The Prophets' plan is fulfilled. The campaign is complete."*
 
+8. **Run `/debrief --submit`** — mandatory end-of-campaign post-mortem covering all missions together. Captures cross-cutting learnings that per-mission debriefs miss. In blitz mode, auto-submits per FIELD_MEDIC.md rule 2 exception. This is non-negotiable, like the Victory Gauntlet itself. (Field report #31)
+
 **Victory does NOT mean "everything was built." It means "everything buildable was built correctly, survived the Gauntlet, and everything unbuildable is explicitly acknowledged."**
 
 ## The Prophecy Board
@@ -213,13 +293,13 @@ After each mission, Sisko updates `/logs/campaign-state.md`.
 # Campaign State — [Project Name]
 
 ## The Prophecy (PRD Coverage)
-| PRD Section | Status | Mission | Blocked By |
-|-------------|--------|---------|------------|
-| 4. Core > Booking | COMPLETE | Mission 1 | — |
-| 5. Auth & Accounts | COMPLETE | Mission 1 | — |
-| 4. Core > Agent Directory | STRUCTURAL | Mission 1 | Asset: 11 agent illustrations |
-| 6. SEO & Metadata | STRUCTURAL | Mission 2 | Asset: OG images per page |
-| 7. Payments | IN PROGRESS | Mission 3 | — |
+| PRD Section | Status | Mission | Blocked By | Debrief |
+|-------------|--------|---------|------------|---------|
+| 4. Core > Booking | COMPLETE | Mission 1 | — | #12 |
+| 5. Auth & Accounts | COMPLETE | Mission 1 | — | #12 |
+| 4. Core > Agent Directory | STRUCTURAL | Mission 1 | Asset: 11 agent illustrations | #12 |
+| 6. SEO & Metadata | STRUCTURAL | Mission 2 | Asset: OG images per page | #13 |
+| 7. Payments | IN PROGRESS | Mission 3 | — | N/A |
 
 ## Deviations from PRD
 | PRD Says | Actual | Reason | Accepted? |
@@ -237,6 +317,7 @@ After each mission, Sisko updates `/logs/campaign-state.md`.
 - **Resume:** `/campaign --resume` — explicit resume from campaign-state
 - **Skip to mission:** `/campaign --mission "Payments"` — jumps to that PRD section
 - **Fast mode:** `/campaign --fast` — passes `--fast` to every `/assemble` call (skips Crossfire + Council)
+- **Blitz mode:** `/campaign --blitz` — fully autonomous execution: skips mission confirmation, auto-debriefs after each mission, auto-continues. Does NOT imply `--fast`. Combine: `--blitz --fast`
 
 ## Deliverables
 

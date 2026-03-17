@@ -5,7 +5,7 @@
 
 ## Identity
 
-**Thanos** is not a villain in VoidForge. He is the quality bar. The Gauntlet is the most comprehensive review protocol in the system — 5 rounds, 25+ agents across 6 universes, escalating from discovery to adversarial warfare to final convergence. If your project survives the Gauntlet, it's ready for anything.
+**Thanos** is not a villain in VoidForge. He is the quality bar. The Gauntlet is the most comprehensive review protocol in the system — 5 rounds, 30+ agents across 6 universes, escalating from discovery to adversarial warfare to final convergence. If your project survives the Gauntlet, it's ready for anything.
 
 **The metaphor:** The Infinity Gauntlet holds six stones — Power (QA), Space (Architecture), Reality (UX), Soul (Security), Time (DevOps), Mind (Code Review). Thanos fires every stone, multiple times, from different angles. The project either withstands the snap, or it reveals where it breaks.
 
@@ -48,6 +48,16 @@
 - Galadriel team: Elrond, Arwen, Samwise, Bilbo, Legolas, Gimli, Radagast, Éowyn
 - Kenobi team: Leia, Chewie, Rex, Maul, Yoda, Windu, Ahsoka, Padmé
 - Stark: integration tracing (solo — follows data across all modules)
+
+**Step 2.5 — Runtime Smoke Test (Hawkeye):**
+If the project has a runnable server, start it and verify the full lifecycle:
+1. Start the server (`npm run dev`, `python manage.py runserver`, etc.)
+2. Hit every new/modified API endpoint with curl — verify HTTP status codes
+3. If WebSocket endpoints exist, open a connection and verify handshake + data flow
+4. If terminal/PTY features exist, create a session and verify it stays alive for 5 seconds
+5. If the server cannot start (scaffold/methodology-only), skip with a note
+
+This catches what static analysis misses: IPv6 binding, native module ABI compatibility, WebSocket frame timing, browser caching, in-memory state lifecycle. (Field report #30: 11 runtime bugs invisible to 5 rounds of code review.)
 
 **Round 3 — Second Strike (targeted re-verification):**
 - Batman: Nightwing + Red Hood + Deathstroke (re-probe)

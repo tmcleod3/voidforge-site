@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/page-header";
 import { TrackView } from "@/components/track-view";
 import { commands, getCommand } from "@/data/commands";
+import { CommandArgs } from "@/components/command-args";
 
 interface CommandPageProps {
   params: Promise<{ slug: string }>;
@@ -74,6 +75,11 @@ export default async function CommandPage({ params }: CommandPageProps) {
             ))}
           </ol>
         </section>
+
+        {/* The Armory — command arguments */}
+        {cmd.arguments && cmd.arguments.length > 0 && (
+          <CommandArgs args={cmd.arguments} commandName={cmd.name} />
+        )}
 
         {/* Note */}
         {cmd.note && (

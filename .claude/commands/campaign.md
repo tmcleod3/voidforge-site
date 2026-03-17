@@ -1,5 +1,27 @@
 The Prophets have shown me the path. Time to execute the plan.
 
+## Blitz Mode Check
+
+**IMPORTANT: If `$ARGUMENTS` contains `--blitz`, this is BLITZ MODE.** In blitz mode:
+- Do NOT ask for confirmation at mission briefs — proceed immediately
+- Run full `/assemble` (do NOT imply `--fast` — blitz means autonomous, not reduced quality)
+- Auto-continue to the next mission after each one completes
+- Auto-debrief after each mission (`/debrief --submit`)
+- Still run the Victory Gauntlet at Step 6 (non-negotiable)
+- Still commit after each mission via `/git`
+- Log mission briefs but do not wait for user input
+
+**`--blitz` ≠ `--fast`.** Blitz skips human interaction. Fast skips review phases. They are independent flags and can be combined (`--blitz --fast`) if the user wants both.
+
+**In blitz mode, make ALL decisions autonomously. Never ask the user a question. If uncertain, choose the option that preserves quality (e.g., run the Gauntlet, not skip it). The only human interaction in blitz mode is the final completion summary.**
+
+**Blitz per-mission checklist** (verify ALL before continuing to next mission):
+1. `/assemble` completed
+2. `/git` committed
+3. `/debrief --submit` filed (MANDATORY — not optional)
+4. `campaign-state.md` updated with mission status + debrief issue number
+5. Proceed to next mission
+
 ## Context Setup
 1. Read `/logs/campaign-state.md` — if it exists, we're mid-campaign
 2. Read `/docs/methods/CAMPAIGN.md` for operating rules
@@ -92,13 +114,14 @@ Present to the user:
   Confirm? [Y/n/skip/override]
 ```
 
-Wait for user confirmation before proceeding.
+If `$ARGUMENTS` contains `--blitz`, skip confirmation and proceed immediately. Otherwise, wait for user confirmation before proceeding.
 
 ## Step 4 — Deploy Fury
 
-On confirmation:
+On confirmation (or immediately in `--blitz` mode):
 1. Run `/assemble` with the scoped mission description
-2. If `$ARGUMENTS` includes `--fast`, pass `--fast` to assemble (skip Crossfire + Council)
+   When running from within `/campaign`, use a reduced pipeline: architecture (quick) + build + 1 review round + security (if new endpoints). Defer UX, DevOps, QA, Test, Crossfire, and Council to the Victory Gauntlet. This keeps per-mission cost manageable across multi-mission campaigns.
+2. If `$ARGUMENTS` includes `--fast`, pass `--fast` to assemble (skip Crossfire + Council). Note: `--blitz` does NOT imply `--fast`.
 3. Monitor for context pressure symptoms (re-reading files, forgetting decisions). If noticed, ask user to run `/context` — only checkpoint if usage exceeds 70%.
 
 ## Step 4.5 — Gauntlet Checkpoint (Thanos)
@@ -106,6 +129,9 @@ On confirmation:
 After every 4th mission (missions 4, 8, 12, etc.), run a Gauntlet checkpoint before continuing:
 
 1. **Count completed missions** in this campaign. If `completedMissions % 4 === 0`, trigger checkpoint.
+
+**ENFORCEMENT:** After committing each mission, increment your mission counter. Check: if completedMissionsThisCampaign is divisible by 4, trigger the checkpoint. In blitz mode, this check is mandatory and automatic — do not skip or defer it. Log the count in campaign-state.md after each mission: "Missions completed: N. Next checkpoint at: N+X."
+
 2. **Run `/gauntlet --quick`** (3 rounds: Discovery → First Strike → Second Strike). This catches cross-module integration bugs that individual `/assemble` runs miss — each `/assemble` only reviews its own changeset, but the Gauntlet reviews the **combined system**.
 3. **Fix all Critical and High findings** before proceeding to the next mission.
 4. **Commit fixes** via `/git` with message: `Gauntlet checkpoint after mission N: X fixes`
@@ -117,14 +143,18 @@ After every 4th mission (missions 4, 8, 12, etc.), run a Gauntlet checkpoint bef
 
 After `/assemble` completes:
 1. Run `/git` to commit and version the mission
-2. Update `/logs/campaign-state.md` — mark mission complete, update stats
-3. **Collect BLOCKED items** from this mission (assets, infrastructure, copy issues). For each:
+2. Update `/logs/campaign-state.md` — mark mission complete, update stats. When updating, include the debrief issue number: "Debrief: #XX" or "Debrief: SKIPPED (not blitz)" or "Debrief: N/A (normal mode)".
+3. **BLITZ GATE:** If `$ARGUMENTS` contains `--blitz`, run `/debrief --submit` NOW. Do not proceed to the next step until the debrief is filed. This is non-negotiable — blitz captures learnings while context is fresh. Log the debrief issue number in campaign-state.md.
+   **Lightweight alternative:** If context is too heavy for full `/debrief --submit`, append a 3-line summary to `/logs/campaign-debriefs.md` instead (mission name, finding counts, key lesson). This satisfies the gate. Full debrief runs at campaign end.
+4. **Collect BLOCKED items** from this mission (assets, infrastructure, copy issues). For each:
    - If it's a future feature → append to `ROADMAP.md` under the appropriate version
    - If it's a missing asset the user must provide → add to a `## Blocked Items` section in campaign-state.md with what's needed and who can unblock it
    - If it's a PRD requirement that can't be satisfied by code → flag in the Prophecy Board as BLOCKED with the reason
-4. Check: are all PRD requirements COMPLETE or BLOCKED?
+5. Check: are all PRD requirements COMPLETE or BLOCKED?
    - **No** → loop back to Step 1 (next mission)
    - **Yes** → Step 6
+
+**Context pressure check:** After 3 consecutive build missions in this session, consider checkpointing and resuming in a fresh session. Context pressure after 3+ missions degrades review quality. If continuing, note this in campaign-state.md.
 
 ## Step 6 — Victory Condition (Gauntlet + Troi's Compliance Check)
 
@@ -138,11 +168,14 @@ All PRD requirements are COMPLETE or explicitly BLOCKED:
 6. Victory only if: Gauntlet Council signs off AND user acknowledges all BLOCKED items
 7. Sisko signs off: *"The Prophets' plan is fulfilled. The campaign is complete."*
 
+8. **Run `/debrief --submit`** — mandatory end-of-campaign post-mortem covering all missions together. Captures cross-cutting learnings that per-mission debriefs miss. In blitz mode, auto-submits per FIELD_MEDIC.md rule 2 exception. This is non-negotiable, like the Victory Gauntlet itself. (Field report #31)
+
 **Victory ≠ "everything built." Victory = "everything buildable was built correctly, survived the Gauntlet, and everything unbuildable is explicitly acknowledged."**
 
 ## Arguments
 - `--plan [description]` → planning mode: update PRD and/or ROADMAP.md with new ideas, don't build
 - `--resume` → resume from campaign-state's active mission
-- `--fast` → pass --fast to every /assemble call
+- `--fast` → pass --fast to every /assemble call (skip Crossfire + Council per-mission). Minimum: 1 review round per mission even in --fast mode. Never 0.
+- `--blitz` → full autonomous mode: skips mission confirmation prompts, auto-continues between missions, auto-debriefs after each mission. Does NOT imply `--fast` — full review quality is preserved. Combine with `--fast` explicitly if you want reduced reviews. Use when you want to walk away and come back to a built project.
 - `--mission "Name"` → jump to a specific PRD section
 - No arguments → start fresh or auto-detect state
