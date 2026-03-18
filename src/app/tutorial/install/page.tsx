@@ -97,7 +97,7 @@ export default function InstallPage() {
               <p className="text-sm text-[var(--vf-text-muted)] mb-4">
                 The complete forge — Gandalf&apos;s setup wizard, Haku&apos;s
                 deploy wizard, AWS provisioners, encrypted credential vault,
-                Telegram bridge, and all 220+ agents ready to build.
+                Telegram bridge, and all 240+ agents ready to build.
               </p>
               <div className="crt-terminal flex items-center justify-between gap-2 !p-3">
                 <code className="text-sm break-all">

@@ -12,6 +12,7 @@ import {
   Rocket,
   Sun,
   Sparkles,
+  Flame,
 } from "lucide-react";
 import {
   leadAgents,
@@ -30,12 +31,13 @@ const universeEmblems: Record<Universe, React.ReactNode> = {
   "star-trek": <Rocket className="w-4 h-4" />,
   dune: <Sun className="w-4 h-4" />,
   anime: <Sparkles className="w-4 h-4" />,
+  cosmere: <Flame className="w-4 h-4" />,
 };
 
 export const metadata: Metadata = {
   title: "Agents",
   description:
-    "Meet the Council: 14 lead agents across 7 fictional universes, commanding 220+ sub-agents.",
+    "Meet the Council: 14 lead agents across 7 fictional universes, commanding 240+ sub-agents.",
 };
 
 function UniverseRoster({ universe }: { universe: Universe }) {
@@ -116,7 +118,7 @@ export default function AgentsPage() {
     <>
       <PageHeader
         title="THE COUNCIL"
-        subtitle="14 lead agents. 7 universes. 220+ sub-agents. Flip a card to meet them."
+        subtitle="14 lead agents. 7 universes. 240+ sub-agents. Flip a card to meet them."
       />
 
       <section className="px-4 pb-12">
@@ -162,7 +164,7 @@ export default function AgentsPage() {
             THE FULL ROSTER
           </h2>
           <p className="text-center text-sm text-[var(--vf-text-muted)] mb-10">
-            220+ sub-agents across 7 universes. The specialists behind the leads.
+            240+ sub-agents across 7 universes. The specialists behind the leads.
           </p>
 
           <div className="space-y-10">

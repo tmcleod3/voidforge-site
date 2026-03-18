@@ -22,7 +22,7 @@ const features = [
   },
   {
     icon: Users,
-    title: "220+ NAMED AGENTS",
+    title: "240+ NAMED AGENTS",
     description:
       "14 lead agents from Tolkien, Marvel, DC, Star Wars, Star Trek, Dune, and Anime. Each with a personality, a methodology, and opinions about your code.",
     href: "/agents",
@@ -30,7 +30,7 @@ const features = [
   },
   {
     icon: Terminal,
-    title: "17 SLASH COMMANDS",
+    title: "22 SLASH COMMANDS",
     description:
       "Type /build and watch the forge ignite. /qa summons Batman. /security wakes Kenobi. /imagine generates art. /campaign runs the war. Sisko's orders.",
     href: "/commands",
@@ -38,7 +38,7 @@ const features = [
   },
   {
     icon: Code2,
-    title: "13 CODE PATTERNS",
+    title: "21 CODE PATTERNS",
     description:
       "Battle-tested reference implementations. API routes, services, components, middleware, error handling. Write code that every agent can read.",
     href: "/patterns",

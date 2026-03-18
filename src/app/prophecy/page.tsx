@@ -34,7 +34,7 @@ export default function ProphecyPage() {
         <div className="mx-auto max-w-4xl">
           <SpeechBubble agent="Bombadil" universe="tolkien">
             Old Tom Bombadil has watched the forge from the beginning.
-            Forty-seven versions in seven days. From 150 characters to 220+. From
+            Fifty-nine versions in eight days. From 150 characters to 240+. From
             a text file to a living methodology. The river keeps flowing, and
             old Tom keeps singing.
           </SpeechBubble>

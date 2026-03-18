@@ -47,7 +47,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "Thanos", description: "The Gauntlet — comprehensive 5-round review — Marvel universe", path: "/agents/thanos", category: "Agents" },
 
   // Commands
-  { title: "Commands", description: "All 17 slash commands with usage and examples", path: "/commands", category: "Commands" },
+  { title: "Commands", description: "All 22 slash commands with usage and examples", path: "/commands", category: "Commands" },
   { title: "/build", description: "Execute the full 13-phase build protocol", path: "/commands/build", category: "Commands" },
   { title: "/qa", description: "Batman's full QA pass with double-pass verification", path: "/commands/qa", category: "Commands" },
   { title: "/test", description: "Batman's test-writing mode — coverage analysis and test architecture", path: "/commands/test", category: "Commands" },
@@ -67,7 +67,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/prd", description: "Sisko's PRD Generator — 5-act structured interview to produce a complete PRD", path: "/commands/prd", category: "Commands" },
 
   // Patterns
-  { title: "Patterns", description: "13 code patterns with framework implementations", path: "/patterns", category: "Patterns" },
+  { title: "Patterns", description: "21 code patterns with framework implementations", path: "/patterns", category: "Patterns" },
   { title: "API Route", description: "Validation, auth, service call, consistent response", path: "/patterns/api-route", category: "Patterns" },
   { title: "Service", description: "Business logic, ownership checks, typed errors", path: "/patterns/service", category: "Patterns" },
   { title: "Component", description: "Loading, empty, error, success states — keyboard accessible", path: "/patterns/component", category: "Patterns" },

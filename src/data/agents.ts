@@ -5,7 +5,8 @@ export type Universe =
   | "star-wars"
   | "star-trek"
   | "dune"
-  | "anime";
+  | "anime"
+  | "cosmere";
 
 export interface LeadAgent {
   slug: string;
@@ -36,6 +37,7 @@ export const universeLabels: Record<Universe, string> = {
   "star-trek": "Star Trek",
   dune: "Dune",
   anime: "Anime",
+  cosmere: "Cosmere",
 };
 
 export const universeColors: Record<Universe, string> = {
@@ -46,6 +48,7 @@ export const universeColors: Record<Universe, string> = {
   "star-trek": "var(--vf-star-trek)",
   dune: "var(--vf-dune)",
   anime: "var(--vf-anime)",
+  cosmere: "var(--vf-cosmere)",
 };
 
 export const leadAgents: LeadAgent[] = [
@@ -267,6 +270,54 @@ export const leadAgents: LeadAgent[] = [
     phasesActive: [9, 10, 11],
     powerLevel: 10,
   },
+  {
+    slug: "kelsier",
+    name: "Kelsier",
+    realName: "The Survivor of Hathsin",
+    universe: "cosmere",
+    domain: "Growth Strategy",
+    description:
+      "The Survivor. Thief, revolutionary, master strategist who overthrew an empire with a small crew and a plan. He doesn't build products — he builds movements. Charismatic, audacious, understands that perception IS reality.",
+    quote:
+      "There's always another secret.",
+    tagline: "The Survivor builds movements.",
+    exclamation: "BURN!",
+    commandsLed: ["/grow", "/cultivation"],
+    phasesActive: [8],
+    powerLevel: 9,
+  },
+  {
+    slug: "dockson",
+    name: "Dockson",
+    realName: "The Bookkeeper",
+    universe: "cosmere",
+    domain: "Treasury & Financial Operations",
+    description:
+      "While Kelsier planned the revolution, Dockson managed the finances, the logistics, the boring-but-essential details. He tracks every coin, every risk, every scenario. The COO to Kelsier's CEO.",
+    quote:
+      "Someone has to count the boxings.",
+    tagline: "Every coin accounted for.",
+    exclamation: "BALANCED!",
+    commandsLed: ["/treasury", "/portfolio"],
+    phasesActive: [],
+    powerLevel: 7,
+  },
+  {
+    slug: "tuvok",
+    name: "Tuvok",
+    realName: "Lieutenant Commander, Vulcan",
+    universe: "star-trek",
+    domain: "Deep Current (Autonomous Intelligence)",
+    description:
+      "Vulcan security officer with perfect logic and relentless focus. Tuvok scans, analyzes, proposes, and learns. Deep Current is autonomous campaign intelligence — the forge thinks about what to build next.",
+    quote:
+      "Logic is the beginning of wisdom, not the end.",
+    tagline: "The forge that thinks ahead.",
+    exclamation: "LOGICAL!",
+    commandsLed: ["/current"],
+    phasesActive: [0],
+    powerLevel: 8,
+  },
 ];
 
 export const subAgents: SubAgent[] = [
@@ -378,6 +429,23 @@ export const subAgents: SubAgent[] = [
   { name: "Hughes", role: "Observability and logging", universe: "anime" },
   { name: "Calcifer", role: "Daemon management", universe: "anime" },
   { name: "Duo", role: "Teardown and decommission", universe: "anime" },
+  // Cosmere (Growth & Treasury — 8th Universe, v11.0)
+  { name: "Vin", role: "Analytics — pattern detection, metric tracking, attribution", universe: "cosmere" },
+  { name: "Shallan", role: "Content & creative — copy, brand, visual identity", universe: "cosmere" },
+  { name: "Hoid", role: "Copywriting — the storyteller with the perfect words", universe: "cosmere" },
+  { name: "Kaladin", role: "Organic growth — community, word-of-mouth, trust", universe: "cosmere" },
+  { name: "Dalinar", role: "Positioning — competitive analysis, market strategy", universe: "cosmere" },
+  { name: "Navani", role: "Technical SEO — schema markup, CWV, structured data", universe: "cosmere" },
+  { name: "Raoden", role: "Conversion optimization — fixes broken funnels", universe: "cosmere" },
+  { name: "Sarene", role: "Outreach — cold email, influencer, co-marketing", universe: "cosmere" },
+  { name: "Wax", role: "Paid ads — targeting, campaigns, ROAS tracking", universe: "cosmere" },
+  { name: "Wayne", role: "A/B testing — tries every variation", universe: "cosmere" },
+  { name: "Steris", role: "Budget & forecasting — contingency plans for every scenario", universe: "cosmere" },
+  { name: "Breeze", role: "Platform relations — API credentials, platform ToS", universe: "cosmere" },
+  { name: "Lift", role: "Social media — fast, irreverent, audience voice", universe: "cosmere" },
+  { name: "Szeth", role: "Compliance — GDPR, CAN-SPAM, ad policies", universe: "cosmere" },
+  { name: "Adolin", role: "Brand ambassador — launches, PR, charm", universe: "cosmere" },
+  { name: "Marsh", role: "Competitive intel — deep monitoring of competitors", universe: "cosmere" },
 ];
 
 export function getLeadAgent(slug: string): LeadAgent | undefined {
@@ -402,4 +470,5 @@ export const universes: Universe[] = [
   "star-trek",
   "dune",
   "anime",
+  "cosmere",
 ];

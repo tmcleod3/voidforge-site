@@ -7,7 +7,7 @@ import { patterns } from "@/data/patterns";
 export const metadata: Metadata = {
   title: "Patterns",
   description:
-    "13 reference code patterns: API route, service, component, middleware, error handling, job queue, multi-tenant, mobile screen, mobile service, game loop, game state, game entity.",
+    "21 reference code patterns: API route, service, component, middleware, error handling, job queue, multi-tenant, mobile screen, mobile service, game loop, game state, game entity.",
 };
 
 export default function PatternsPage() {
@@ -15,7 +15,7 @@ export default function PatternsPage() {
     <>
       <PageHeader
         title="CODE PATTERNS"
-        subtitle="13 reference implementations. Match these shapes when you write."
+        subtitle="21 reference implementations. Match these shapes when you write."
       />
 
       <section className="px-4 pb-12">

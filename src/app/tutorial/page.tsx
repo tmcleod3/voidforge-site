@@ -24,7 +24,7 @@ const steps = [
     icon: Hammer,
     title: "FIRST BUILD",
     description:
-      "Write what you want. Type /build. Picard reads your PRD, Stark fires up the engine, and 220+ agents start forging.",
+      "Write what you want. Type /build. Picard reads your PRD, Stark fires up the engine, and 240+ agents start forging.",
     href: "/tutorial/first-build",
     color: "var(--vf-forge-orange)",
   },

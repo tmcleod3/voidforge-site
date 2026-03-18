@@ -8,7 +8,7 @@ import { commands } from "@/data/commands";
 export const metadata: Metadata = {
   title: "Commands",
   description:
-    "17 slash commands: /build, /qa, /test, /security, /ux, /review, /devops, /architect, /git, /void, /thumper, /assemble, /campaign, /imagine, /debrief, /gauntlet, /prd.",
+    "22 slash commands: /build, /qa, /test, /security, /ux, /review, /devops, /architect, /git, /void, /thumper, /assemble, /campaign, /imagine, /debrief, /gauntlet, /prd, /grow, /treasury, /portfolio, /cultivation, /current.",
 };
 
 export default function CommandsPage() {
@@ -16,7 +16,7 @@ export default function CommandsPage() {
     <>
       <PageHeader
         title="MISSION BRIEFING"
-        subtitle="17 slash commands. Type one. Watch the agents mobilize."
+        subtitle="22 slash commands. Type one. Watch the agents mobilize."
       />
 
       <section className="px-4 pb-12">
@@ -33,6 +33,7 @@ export default function CommandsPage() {
         <div className="mx-auto max-w-4xl">
           {[
             { label: "BUILD", tagline: "Type one command. Watch the forge ignite.", slugs: ["build", "assemble", "campaign", "imagine", "prd"] },
+            { label: "GROWTH", tagline: "Build it. Then grow it.", slugs: ["grow", "cultivation", "current", "treasury", "portfolio"] },
             { label: "REVIEW", tagline: "Trust nothing. Verify everything.", slugs: ["qa", "test", "review", "ux", "security", "gauntlet"] },
             { label: "OPERATIONS", tagline: "The machinery behind the magic.", slugs: ["devops", "architect", "git", "void", "thumper", "debrief"] },
           ].map((group) => (

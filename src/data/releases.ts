@@ -94,6 +94,16 @@ export const majorEras: Record<string, MajorEra> = {
     quote: "The forge watches itself work. Confidence scores. Agent debates. Living PRDs. The methodology becomes self-aware.",
     agent: "Thanos",
   },
+  "11": {
+    title: "The Consciousness",
+    quote: "The forge grows what it builds. The Cosmere awakens. Marketing, treasury, growth — the forge becomes a business.",
+    agent: "Kelsier",
+  },
+  "12": {
+    title: "The Scanner",
+    quote: "The forge sees everything. Deep Current scans, analyzes, proposes. Autonomous intelligence that thinks about what to build next.",
+    agent: "Tuvok",
+  },
 };
 
 export const shipped: Release[] = [
@@ -693,17 +703,94 @@ export const shipped: Release[] = [
       "Build archaeology — trace production bugs back through the build protocol",
     ],
   },
+  {
+    version: "v10.1.0",
+    date: "2026-03-17",
+    title: "Danger Room Data Feeds",
+    headline: "Live WebSocket feeds. Confidence scoring in commands. Agent debates. Living PRD gates.",
+    items: ["Danger Room data feeds + feature enforcement", "Live WebSocket integration", "Confidence scoring in all review commands", "Agent debate protocol in findings"],
+  },
+  {
+    version: "v10.2.0",
+    date: "2026-03-17",
+    title: "Unbuilt Features",
+    headline: "Natural Language Deploy. Methodology A/B Testing. Prophecy Visualizer. Ideas documented but not yet built.",
+    items: ["Natural Language Deploy concept", "Methodology A/B Testing concept", "Prophecy Visualizer concept"],
+  },
+  {
+    version: "v11.0.0",
+    date: "2026-03-18",
+    title: "The Consciousness",
+    headline: "The Cosmere awakens. Kelsier leads growth. Dockson manages money. 18 agents. 6-phase growth protocol. Financial vault with TOTP 2FA.",
+    items: ["8th Universe: Cosmere (Brandon Sanderson) — 18 growth/marketing/treasury agents", "Kelsier joins as 15th lead agent (Growth Strategist)", "Dockson joins as 16th lead agent (Treasury)", "/grow command — 6-phase growth protocol", "/cultivation — installable autonomous growth engine", "Financial vault with TOTP 2FA and safety tiers"],
+  },
+  {
+    version: "v11.1.0",
+    date: "2026-03-18",
+    title: "The Treasury",
+    headline: "Dockson opens the books. Revenue adapters. Heartbeat daemon. Reconciliation engine. The forge manages its own money.",
+    items: ["/treasury command — revenue ingest, budget allocation, spend execution", "Heartbeat daemon for automated financial monitoring", "Reconciliation engine — daily spend-to-budget matching", "Revenue adapters for Stripe, Paddle, bank APIs"],
+  },
+  {
+    version: "v11.2.0",
+    date: "2026-03-18",
+    title: "The Distribution",
+    headline: "Six ad platform adapters. Campaign state machine. Spend execution pipeline. Compliance framework.",
+    items: ["6 ad platform adapters (Meta, Google, TikTok, LinkedIn, Twitter, Reddit)", "Campaign state machine — create, test, measure, optimize, scale", "Spend execution pipeline with budget enforcement", "Compliance framework — GDPR, CAN-SPAM, platform ToS"],
+  },
+  {
+    version: "v11.3.0",
+    date: "2026-03-18",
+    title: "The Heartbeat",
+    headline: "/portfolio command. Mercury/Brex adapters. Anomaly detection. Encrypted backup. Desktop notifications.",
+    items: ["/portfolio command — cross-project financial dashboard", "Mercury and Brex bank adapters", "Anomaly detection in spend patterns", "Encrypted financial backup", "Desktop notifications for budget alerts"],
+  },
+  {
+    version: "v12.0.0",
+    date: "2026-03-18",
+    title: "Deep Current: The Scanner",
+    headline: "Autonomous campaign intelligence. /current command. Site scanner. Situation model. Cold start intake. The forge thinks about what to build next.",
+    items: ["Tuvok promoted to 17th lead agent (Deep Current)", "/current command — autonomous campaign intelligence", "Site scanner — crawl and analyze any URL", "Situation model — persistent market understanding", "Cold start intake for new projects"],
+  },
+  {
+    version: "v12.1.0",
+    date: "2026-03-18",
+    title: "The Analyst",
+    headline: "Seven's gap analysis. Campaign proposal generator. Tier 1 advisory mode.",
+    items: ["Seven's gap analysis — identify growth opportunities from situation model", "Campaign proposal generator with budget and ROAS estimates", "Tier 1 advisory — suggests but doesn't execute"],
+  },
+  {
+    version: "v12.2.0",
+    date: "2026-03-18",
+    title: "The Bridge",
+    headline: "Chakotay's correlation engine. Prediction tracking. Cross-pipeline data flow.",
+    items: ["Chakotay's correlation engine — links actions to outcomes", "Prediction tracking — did the proposal's ROAS estimate hold?", "Cross-pipeline data flow between growth and treasury"],
+  },
+  {
+    version: "v12.3.0",
+    date: "2026-03-18",
+    title: "The Navigator",
+    headline: "Paris's route optimizer. Finds the fastest path to growth targets.",
+    items: ["Paris's route optimizer — sequences campaigns for maximum impact", "Budget allocation optimization across channels", "Seasonal and trend-aware scheduling"],
+  },
+  {
+    version: "v12.4.0",
+    date: "2026-03-18",
+    title: "The Autonomy",
+    headline: "Route optimizer. Tier 2/3 autonomy. Circuit breakers. Kill switch. Deploy freeze. The forge runs itself.",
+    items: ["Tier 2 autonomy — execute approved campaigns without human confirmation", "Tier 3 autonomy — full autonomous growth with circuit breakers", "Kill switch — /treasury --freeze stops all automated spending", "Deploy freeze — pause all automated actions during incidents"],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
-    version: "v11.0",
-    title: "The Consciousness",
+    version: "v13.0",
+    title: "The Convergence",
     opacity: 1,
     items: [
-      "Self-improving methodology — agents rewrite their own method docs based on field reports",
-      "Autonomous campaigns — the forge reads the PRD and ships without human intervention",
+      "Build + Grow + Fund in one command — the forge handles the entire product lifecycle",
       "Cross-project orchestration — one campaign manages multiple repos as a single product",
+      "Marketplace of pre-built project templates with growth playbooks",
       "The forge builds the forge — VoidForge generates its own next version",
     ],
   },

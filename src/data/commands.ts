@@ -537,6 +537,108 @@ export const commands: Command[] = [
     ],
     badge: "NEW in v8.0",
   },
+  {
+    slug: "grow",
+    name: "/grow",
+    lead: "Kelsier",
+    description:
+      "Kelsier's 6-phase growth protocol. Audit your product, optimize SEO, create content, run ads, manage outreach, measure results. The forge that grows what it builds.",
+    usage: "/grow [--audit] [--seo] [--ads platform] [--social platform] [--email] [--content type] [--budget N] [--continuous]",
+    whatHappens: [
+      "Phase 1: Kelsier + Vin + Marsh run reconnaissance — product audit, site audit, competitive analysis",
+      "Phase 2: Navani + Raoden lay foundation — technical SEO, conversion optimization, analytics",
+      "Phase 3: Shallan + Hoid create content — blog, changelog, case studies, visual assets",
+      "Phase 4: Distribution — organic (Kaladin, Lift) + paid (Wax, Wayne) + outreach (Sarene)",
+      "Phase 5: Szeth runs compliance — GDPR, CAN-SPAM, platform ToS, ad policies",
+      "Phase 6: Vin + Kelsier measure and iterate — track, identify, report, loop",
+    ],
+    arguments: [
+      { flag: "--audit", type: "boolean", description: "Kelsier's full growth audit — site analysis, competitive landscape, growth plan.", effect: "Run Phase 1 reconnaissance only." },
+      { flag: "--seo", type: "boolean", description: "Navani's technical SEO pass — schema, sitemap, meta, Core Web Vitals, Lighthouse.", effect: "Run Phase 2 SEO optimization only." },
+      { flag: "--ads", type: "string", valuePlaceholder: "platform", description: "Wax runs paid ads on a platform. Meta, Google, TikTok, LinkedIn, Twitter, or Reddit.", effect: "Run Phase 4 paid ads on the specified platform." },
+      { flag: "--social", type: "string", valuePlaceholder: "platform", description: "Lift manages social presence. Twitter, LinkedIn, or Reddit.", effect: "Run Phase 4 social on the specified platform." },
+      { flag: "--email", type: "boolean", description: "Sarene's outreach campaign — prospect research, cold email sequences, follow-ups.", effect: "Run Phase 4 email outreach." },
+      { flag: "--content", type: "string", valuePlaceholder: "type", description: "Shallan creates content. Blog, landing, changelog, or case-study.", effect: "Run Phase 3 content creation for the specified type." },
+      { flag: "--budget", type: "string", valuePlaceholder: "amount", description: "Steris's daily spend cap for paid operations. The Planner makes contingency plans for every scenario.", effect: "Set daily ad spend limit in dollars." },
+      { flag: "--continuous", type: "boolean", description: "Heartbeat mode — daily optimization cycles. Vin pulls metrics, Wax optimizes, Kelsier reviews, Lift schedules.", effect: "Run growth in scheduled daily cycles." },
+    ],
+    badge: "NEW in v11.0",
+  },
+  {
+    slug: "treasury",
+    name: "/treasury",
+    lead: "Dockson",
+    description:
+      "Dockson's financial operations. Connect revenue sources, allocate budgets, execute spend, reconcile daily. The forge that manages its own money.",
+    usage: "/treasury [--connect source] [--allocate percentages] [--report] [--forecast] [--freeze]",
+    whatHappens: [
+      "Ingest revenue from Stripe, Paddle, or bank APIs",
+      "Allocate budgets across growth, infrastructure, and reserves",
+      "Authorize charges against approved budgets with safety tiers",
+      "Reconcile daily — match spend to budget, flag anomalies",
+      "Report P&L, burn rate, runway, ROAS by channel",
+    ],
+    arguments: [
+      { flag: "--connect", type: "string", valuePlaceholder: "source", description: "Connect a financial source. Stripe, Mercury, Brex, or Paddle.", effect: "Set up revenue ingestion from the specified source." },
+      { flag: "--allocate", type: "string", valuePlaceholder: "percentages", description: "Set budget allocation. Format: growth:40,infra:30,reserve:30.", effect: "Distribute revenue across budget categories." },
+      { flag: "--report", type: "boolean", description: "Generate a financial summary — P&L, burn rate, runway, ROAS by channel.", effect: "Produce the current financial report." },
+      { flag: "--forecast", type: "boolean", description: "Steris projects spend and revenue for the next 30, 60, and 90 days.", effect: "Generate financial projections." },
+      { flag: "--freeze", type: "boolean", description: "Emergency kill switch. Stops ALL automated spending immediately.", effect: "Halt all automated financial operations." },
+    ],
+    badge: "NEW in v11.1",
+  },
+  {
+    slug: "portfolio",
+    name: "/portfolio",
+    lead: "Steris",
+    description:
+      "Steris's cross-project financials. Track all VoidForge projects from one place — status, revenue, traffic, ad spend, ROAS.",
+    usage: "/portfolio",
+    whatHappens: [
+      "Read portfolio state from ~/.voidforge/portfolio.json",
+      "Display status, revenue, and spend for each project",
+      "Cross-project financial aggregation",
+      "Portfolio-level optimization recommendations",
+    ],
+    badge: "NEW in v11.3",
+  },
+  {
+    slug: "cultivation",
+    name: "/cultivation",
+    lead: "Kelsier",
+    description:
+      "Install the Cultivation growth engine. Sets up the autonomous marketing infrastructure — ad platform connections, analytics, content pipeline, social scheduling.",
+    usage: "/cultivation",
+    whatHappens: [
+      "Install growth infrastructure alongside the project",
+      "Configure ad platform connections and API credentials",
+      "Set up analytics and conversion tracking",
+      "Initialize the content pipeline and social scheduler",
+      "Configure budget tiers and safety controls",
+    ],
+    badge: "NEW in v11.0",
+  },
+  {
+    slug: "current",
+    name: "/current",
+    lead: "Tuvok",
+    description:
+      "Tuvok's Deep Current — autonomous campaign intelligence. Scans the site, analyzes the market, proposes growth campaigns, learns from results. The forge that thinks about what to build next.",
+    usage: "/current [--scan] [--analyze] [--propose] [--cold-start]",
+    whatHappens: [
+      "Scan the live site for growth opportunities and gaps",
+      "Analyze market positioning and competitive landscape",
+      "Propose data-driven campaigns with budget estimates",
+      "Cold start intake for new projects — bootstraps the situation model",
+    ],
+    arguments: [
+      { flag: "--scan", type: "boolean", description: "Scan the live site — pages, performance, SEO, conversion paths.", effect: "Run site scanner only." },
+      { flag: "--analyze", type: "boolean", description: "Analyze the situation model — market position, competitor gaps, audience signals.", effect: "Run analysis only." },
+      { flag: "--propose", type: "boolean", description: "Generate campaign proposals with budget, timeline, and expected ROAS.", effect: "Produce proposals only." },
+      { flag: "--cold-start", type: "boolean", description: "Bootstrap the situation model for a new project — intake questionnaire + initial scan.", effect: "Run cold start intake." },
+    ],
+    badge: "NEW in v12.0",
+  },
 ];
 
 export function getCommand(slug: string): Command | undefined {
