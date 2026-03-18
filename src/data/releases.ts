@@ -89,6 +89,11 @@ export const majorEras: Record<string, MajorEra> = {
     quote: "One forge. Many languages. Many platforms. The methodology transcends the stack.",
     agent: "Picard",
   },
+  "10": {
+    title: "The Singularity",
+    quote: "The forge watches itself work. Confidence scores. Agent debates. Living PRDs. The methodology becomes self-aware.",
+    agent: "Thanos",
+  },
 };
 
 export const shipped: Release[] = [
@@ -662,12 +667,38 @@ export const shipped: Release[] = [
       "4 game agents (Spike-GameDev, Eowyn-GameFeel, Deathstroke-Exploit, L-Profiler)",
     ],
   },
+  {
+    version: "v10.0.0",
+    date: "2026-03-17",
+    title: "The War Room",
+    headline: "Mission control dashboard. Five core panels. WebSocket real-time feed. Agent activity ticker. The forge watches itself work.",
+    items: [
+      "Mission control dashboard with 5 core panels",
+      "WebSocket real-time feed for live agent activity",
+      "Agent activity ticker — see every agent launch in real-time",
+      "Living PRD — PRD evolves with the build, Troi checks two-way",
+      "One Mission One Commit anti-pattern enforcement",
+    ],
+  },
+  {
+    version: "v10.0.1",
+    date: "2026-03-17",
+    title: "The Frontier Features",
+    headline: "Confidence scoring. Agent debates. Adversarial PRD. Cross-project memory. Build archaeology. The forge thinks about thinking.",
+    items: [
+      "Agent confidence scoring (0-100) — low-confidence findings get second opinions",
+      "Agent debate protocol — structured 3-exchange disagreement resolution",
+      "/prd --challenge — Boromir argues against the PRD before building",
+      "Cross-project memory — global lessons persist across all projects",
+      "Build archaeology — trace production bugs back through the build protocol",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
-    version: "v10.0",
-    title: "The Singularity",
+    version: "v11.0",
+    title: "The Consciousness",
     opacity: 1,
     items: [
       "Self-improving methodology — agents rewrite their own method docs based on field reports",

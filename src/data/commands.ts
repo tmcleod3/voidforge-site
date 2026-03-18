@@ -517,7 +517,7 @@ export const commands: Command[] = [
     lead: "Sisko",
     description:
       "The PRD generator. Sisko runs a 5-act structured interview — product vision, tech stack, features, UI, shipping plan — and produces a complete PRD with valid YAML frontmatter.",
-    usage: "/prd",
+    usage: "/prd [--challenge]",
     whatHappens: [
       "Act 1: Product vision — name, one-liner, audience, personality",
       "Act 2: Tech stack — framework, database, styling with smart defaults",
@@ -525,6 +525,15 @@ export const commands: Command[] = [
       "Act 4: UI and routes — page hierarchy, responsive behavior, states",
       "Act 5: Shipping plan — launch phases, done criteria, deploy target",
       "Complete PRD written to /docs/PRD.md with valid frontmatter",
+    ],
+    arguments: [
+      {
+        flag: "--challenge",
+        type: "boolean",
+        description:
+          "Boromir argues AGAINST the PRD before it's finalized. He challenges expensive features, fragile integrations, and schema gaps. Cheaper than discovering design flaws in Phase 9.",
+        effect: "Act 6: Boromir's adversarial PRD challenge before finalizing.",
+      },
     ],
     badge: "NEW in v8.0",
   },
