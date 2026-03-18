@@ -30,7 +30,7 @@ const features = [
   },
   {
     icon: Terminal,
-    title: "22 SLASH COMMANDS",
+    title: "23 SLASH COMMANDS",
     description:
       "Type /build and watch the forge ignite. /qa summons Batman. /security wakes Kenobi. /imagine generates art. /campaign runs the war. Sisko's orders.",
     href: "/commands",

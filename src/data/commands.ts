@@ -639,6 +639,22 @@ export const commands: Command[] = [
     ],
     badge: "NEW in v12.0",
   },
+  {
+    slug: "dangerroom",
+    name: "/dangerroom",
+    lead: "Fury",
+    description:
+      "The Danger Room — installable operations dashboard for build, deploy, and agent monitoring. Real-time WebSocket feed, agent activity ticker, build progress panels. The forge watches itself work.",
+    usage: "/dangerroom",
+    whatHappens: [
+      "Install the Danger Room dashboard alongside your project",
+      "Configure WebSocket connection for real-time agent activity",
+      "Set up 5 core panels: build progress, agent activity, findings, deploy status, campaign state",
+      "Agent activity ticker shows every agent launch in real-time",
+      "Living PRD diff view shows how the plan evolved during execution",
+    ],
+    badge: "NEW in v10.0",
+  },
 ];
 
 export function getCommand(slug: string): Command | undefined {
