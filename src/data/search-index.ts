@@ -65,6 +65,11 @@ export const searchIndex: SearchEntry[] = [
   { title: "/debrief", description: "Bashir's Field Report — post-mortem analysis and upstream feedback", path: "/commands/debrief", category: "Commands" },
   { title: "/gauntlet", description: "Thanos's Comprehensive Review — 5 rounds, 30+ agents, every domain", path: "/commands/gauntlet", category: "Commands" },
   { title: "/prd", description: "Sisko's PRD Generator — 5-act structured interview to produce a complete PRD", path: "/commands/prd", category: "Commands" },
+  { title: "/grow", description: "Kelsier's 6-phase growth protocol — audit, SEO, content, ads, outreach, measure", path: "/commands/grow", category: "Commands" },
+  { title: "/treasury", description: "Dockson's financial operations — revenue, budgets, spend, reconciliation", path: "/commands/treasury", category: "Commands" },
+  { title: "/portfolio", description: "Steris's cross-project financials — aggregated spend and revenue", path: "/commands/portfolio", category: "Commands" },
+  { title: "/cultivation", description: "Install the Cultivation growth engine — autonomous marketing infrastructure", path: "/commands/cultivation", category: "Commands" },
+  { title: "/current", description: "Tuvok's Deep Current — autonomous campaign intelligence and site scanning", path: "/commands/current", category: "Commands" },
 
   // Patterns
   { title: "Patterns", description: "21 code patterns with framework implementations", path: "/patterns", category: "Patterns" },
@@ -75,6 +80,18 @@ export const searchIndex: SearchEntry[] = [
   { title: "Error Handling", description: "Canonical error strategy — single source of truth", path: "/patterns/error-handling", category: "Patterns" },
   { title: "Job Queue", description: "Background jobs: idempotency, retry, dead letter queue", path: "/patterns/job-queue", category: "Patterns" },
   { title: "Multi-Tenant", description: "Workspace scoping, tenant isolation, role-based access", path: "/patterns/multi-tenant", category: "Patterns" },
+  { title: "Mobile Screen", description: "React Native screen with safe area, Dynamic Type, 4 states", path: "/patterns/mobile-screen", category: "Patterns" },
+  { title: "Mobile Service", description: "Offline-first data with sync queue and conflict resolution", path: "/patterns/mobile-service", category: "Patterns" },
+  { title: "Game Loop", description: "Fixed-timestep game loop with interpolation and pause/resume", path: "/patterns/game-loop", category: "Patterns" },
+  { title: "Game State", description: "Hierarchical state machine with save/load serialization", path: "/patterns/game-state", category: "Patterns" },
+  { title: "Game Entity (ECS)", description: "Entity Component System with component stores and systems", path: "/patterns/game-entity", category: "Patterns" },
+  { title: "SSE Endpoint", description: "Server-Sent Events: lifecycle, keepalive, timeout, React hook", path: "/patterns/sse-endpoint", category: "Patterns" },
+  { title: "Ad Platform Adapter", description: "Split interface: setup, runtime adapter, read-only daemon", path: "/patterns/ad-platform-adapter", category: "Patterns" },
+  { title: "Financial Transaction", description: "Branded Cents type, hash-chained append log, atomic writes", path: "/patterns/financial-transaction", category: "Patterns" },
+  { title: "Daemon Process", description: "PID management, Unix socket API, job scheduler, signal handling", path: "/patterns/daemon-process", category: "Patterns" },
+  { title: "Revenue Source Adapter", description: "Read-only revenue interface with Stripe + Paddle implementations", path: "/patterns/revenue-source-adapter", category: "Patterns" },
+  { title: "OAuth Token Lifecycle", description: "Refresh at 80% TTL, failure escalation, vault integration", path: "/patterns/oauth-token-lifecycle", category: "Patterns" },
+  { title: "Outbound Rate Limiter", description: "Token bucket for external API calls with per-platform limits", path: "/patterns/outbound-rate-limiter", category: "Patterns" },
 
   // Other
   { title: "Prophecy", description: "The roadmap: what's shipped, what's next, what's far out", path: "/prophecy", category: "Roadmap" },
