@@ -6,6 +6,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [0.6.0] - 2026-03-19 — The Dossier
+
+### Added
+- **Commands page redesign** — accordions replaced with always-visible dossier cards in 2-column grid. 4 color-coded mission groups: STRIKE OPS (orange), FIELD OPS (green), RECON OPS (red), BASE OPS (blue)
+- **Patterns page redesign** — same dossier card treatment with 4 domain groups: WEB (blue), MOBILE (green), GAME (orange), SYSTEMS (purple). Code preview always visible on cards
+- **Tier badges** — All (green) vs Full (purple) with tier legend on commands page. Full-tier commands require wizard (main branch)
+- **Jump nav pills** — horizontal section navigation on commands and patterns pages
+- **Stats bars** — dynamic counts (commands, flags, groups, tiers, patterns, frameworks)
+- **Agent avatars** on command cards from existing image map
+- **Framework badges** on pattern cards (multi-framework vs single)
+- **Stagger animation** — WHAT HAPPENS steps fade-slide in with 80ms delay on command detail pages (CSS-only, respects prefers-reduced-motion)
+- **Ship dates** now visible in prophecy release expansions
+- **Command tier field** (`tier: "all" | "full"`) added to Command data interface
+- **v12.4.1 "The Tier Gate"** added to shipped releases data
+
+### Changed
+- 7 command descriptions rewritten with agent personality (/qa, /test, /review, /devops, /architect, /void, /cultivation)
+- Command detail pages restructured: fragment wrapper, SpeechBubble from lead agent, orange sub-headings, max-w-4xl, "Back to Mission Briefing" CTA
+- Pattern detail pages restructured: same treatment — SpeechBubble, orange headings, consistent layout
+- Prophecy Bombadil quote now derives version/era counts from data (no longer stale)
+- "Mission briefing →" CTA for non-flag commands (was "Full details")
+- OPERATIONS tagline: "Run the forge. Sharpen the blade." (was "The machinery behind the magic")
+
+### Fixed
+- Agent counts: 14→17 leads, 7→8 universes across hero, feature cards, agents page, about page, search index, JSON-LD, layout metadata
+- Pattern count: 21→19 in feature cards, search index, test
+- Broken Tailwind opacity modifiers on hex CSS vars in prophecy-release (silently non-functional)
+- Accordion `aria-controls` referencing nonexistent DOM when collapsed (now always-rendered with `hidden`)
+- Framework tabs: arrow-key navigation, `aria-controls`, roving `tabIndex`, panel `tabIndex`
+- `Math.max()` on empty shipped array returning `-Infinity`
+- Framework tab sort order for typescript/react-native/fastapi
+- Decorative bullets and avatars missing `aria-hidden`
+- Strikethrough items now use `<s>` for screen reader support
+- Dead `isPatch` function removed
+
+---
+
 ## [12.4.1] - 2026-03-18
 
 ### Added
