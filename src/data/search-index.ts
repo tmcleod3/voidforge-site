@@ -73,7 +73,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/dangerroom", description: "The Danger Room — installable operations dashboard for build/deploy/agent monitoring", path: "/commands/dangerroom", category: "Commands" },
 
   // Patterns
-  { title: "Patterns", description: "21 code patterns with framework implementations", path: "/patterns", category: "Patterns" },
+  { title: "Patterns", description: "19 code patterns across 4 domains with framework implementations", path: "/patterns", category: "Patterns" },
   { title: "API Route", description: "Validation, auth, service call, consistent response", path: "/patterns/api-route", category: "Patterns" },
   { title: "Service", description: "Business logic, ownership checks, typed errors", path: "/patterns/service", category: "Patterns" },
   { title: "Component", description: "Loading, empty, error, success states — keyboard accessible", path: "/patterns/component", category: "Patterns" },
