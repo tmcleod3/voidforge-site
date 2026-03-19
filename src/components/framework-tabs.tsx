@@ -19,7 +19,7 @@ interface FrameworkTabsProps {
   patternSlug: string;
 }
 
-const frameworkOrder: Framework[] = ["nextjs", "express", "django", "rails"];
+const frameworkOrder: Framework[] = ["nextjs", "express", "django", "rails", "fastapi", "react-native", "typescript"];
 
 export function FrameworkTabs({
   implementations,

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { AccordionItem } from "@/components/accordion";
 import { SpeechBubble } from "@/components/speech-bubble";
@@ -6,8 +7,7 @@ import { patterns } from "@/data/patterns";
 
 export const metadata: Metadata = {
   title: "Patterns",
-  description:
-    "21 reference code patterns: API route, service, component, middleware, error handling, job queue, multi-tenant, mobile screen, mobile service, game loop, game state, game entity.",
+  description: `${patterns.length} reference code patterns covering API routes, services, components, middleware, error handling, mobile, game dev, financial transactions, SSE, OAuth, and more.`,
 };
 
 export default function PatternsPage() {
@@ -15,7 +15,7 @@ export default function PatternsPage() {
     <>
       <PageHeader
         title="CODE PATTERNS"
-        subtitle="21 reference implementations. Match these shapes when you write."
+        subtitle={`${patterns.length} reference implementations. Match these shapes when you write.`}
       />
 
       <section className="px-4 pb-12">
@@ -73,17 +73,17 @@ export default function PatternsPage() {
                 {/* Code */}
                 <div>
                   <h3 className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-forge-orange)] mb-2">
-                    REFERENCE IMPLEMENTATION
+                    AT A GLANCE
                   </h3>
                   <div className="crt-terminal !p-4 text-sm">
                     <pre className="whitespace-pre-wrap">{pattern.preview}</pre>
                   </div>
-                  <p className="mt-2 text-xs text-[var(--vf-text-muted)]">
-                    Full implementation:{" "}
-                    <code className="text-[var(--vf-electric-blue)]">
-                      /docs/patterns/{pattern.name}
-                    </code>
-                  </p>
+                  <Link
+                    href={`/patterns/${pattern.slug}`}
+                    className="mt-3 inline-block text-sm text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)] transition-colors"
+                  >
+                    View full pattern with framework tabs &rarr;
+                  </Link>
                 </div>
               </div>
             </AccordionItem>
