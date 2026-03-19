@@ -45,7 +45,7 @@ export const commands: Command[] = [
     name: "/qa",
     lead: "Batman",
     description:
-      "Full QA pass with double-pass verification and regression checklist.",
+      "The double-pass. Batman's team probes every path, every boundary, every assumption. Then they do it again. If it breaks, they already know.",
     usage: "/qa",
     whatHappens: [
       "Oracle analyzes test coverage",
@@ -62,7 +62,7 @@ export const commands: Command[] = [
     name: "/test",
     lead: "Batman",
     description:
-      "Test-writing mode: coverage analysis, test architecture, write missing tests.",
+      "Batman writes the tests everyone else forgot. Coverage gaps identified, test architecture designed, missing paths covered. The Dark Knight doesn't leave witnesses.",
     usage: "/test",
     whatHappens: [
       "Oracle identifies coverage gaps",
@@ -111,7 +111,7 @@ export const commands: Command[] = [
     name: "/review",
     lead: "Picard",
     description:
-      "Code review for pattern compliance, quality, and maintainability.",
+      "Picard reads every line against the pattern library. Compliance, quality, maintainability. If it doesn't meet the standard, it doesn't ship.",
     usage: "/review",
     whatHappens: [
       "Picard reviews against architecture decisions (ADRs)",
@@ -126,7 +126,7 @@ export const commands: Command[] = [
     name: "/devops",
     lead: "Kusanagi",
     description:
-      "Infrastructure and deploy — adapts based on deploy target.",
+      "Kusanagi provisions, deploys, and monitors. Six deploy targets, automatic SSL, health checks that actually check health. The Major doesn't do half-measures.",
     usage: "/devops",
     whatHappens: [
       "Senku provisions infrastructure",
@@ -142,7 +142,7 @@ export const commands: Command[] = [
     name: "/architect",
     lead: "Picard",
     description:
-      "Architecture review with parallel analysis and conflict resolution.",
+      "Picard reviews the big decisions. Schema design, scaling strategy, ADRs. When agents disagree, he resolves the conflict. Make it so — but make it maintainable.",
     usage: "/architect",
     whatHappens: [
       "Schema and data model analysis",
@@ -194,7 +194,7 @@ export const commands: Command[] = [
     tier: "all" as CommandTier,
     name: "/void",
     lead: "Bombadil",
-    description: "Update VoidForge methodology from upstream.",
+    description: "Old Tom keeps the forge in tune. Checks upstream for methodology changes, syncs shared files across all three tiers, and makes sure the tools that build your tools stay sharp.",
     usage: "/void",
     whatHappens: [
       "Bombadil checks for upstream methodology changes",
@@ -631,7 +631,7 @@ export const commands: Command[] = [
     name: "/cultivation",
     lead: "Kelsier",
     description:
-      "Install the Cultivation growth engine. Sets up the autonomous marketing infrastructure — ad platform connections, analytics, content pipeline, social scheduling.",
+      "Plant the growth engine. Cultivation wires up ad platforms, analytics, content pipelines, and social scheduling — the infrastructure Kelsier's crew needs before they can burn.",
     usage: "/cultivation",
     whatHappens: [
       "Install growth infrastructure alongside the project",
