@@ -94,6 +94,11 @@ export const searchIndex: SearchEntry[] = [
   { title: "OAuth Token Lifecycle", description: "Refresh at 80% TTL, failure escalation, vault integration", path: "/patterns/oauth-token-lifecycle", category: "Patterns" },
   { title: "Outbound Rate Limiter", description: "Token bucket for external API calls with per-platform limits", path: "/patterns/outbound-rate-limiter", category: "Patterns" },
 
+  // Tutorials
+  { title: "The Wizard Path", description: "Start from nothing — Gandalf walks you through everything", path: "/tutorial/wizard", category: "Tutorial" },
+  { title: "The Scaffold Path", description: "You know your stack — write PRD, run campaign, ship", path: "/tutorial/scaffold", category: "Tutorial" },
+  { title: "The Import Path", description: "Existing project — point VoidForge at your code", path: "/tutorial/import", category: "Tutorial" },
+
   // Other
   { title: "Prophecy", description: "The roadmap: what's shipped, what's next, what's far out", path: "/prophecy", category: "Roadmap" },
   { title: "About", description: "Thomas McLeod — serial entrepreneur, engineer, creator of VoidForge", path: "/about", category: "About" },

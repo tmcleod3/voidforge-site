@@ -1,14 +1,11 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
+import { SpeechBubble } from "@/components/speech-bubble";
 import {
-  Download,
-  Hammer,
-  Rocket,
-  ScrollText,
-  Swords,
-  Shield,
-  Camera,
+  Wand2,
+  FileCode,
+  Import,
   Sprout,
   TrendingUp,
   Landmark,
@@ -18,42 +15,47 @@ import {
 export const metadata: Metadata = {
   title: "Tutorial",
   description:
-    "Step-by-step guides: install and build, ship campaigns and reviews, grow and manage money.",
+    "Three paths into the forge: wizard (start from nothing), scaffold (you have a plan), or import (you have code). Plus growth tools.",
 };
 
-const tracks = [
+const paths = [
   {
-    label: "BUILD",
-    tagline: "From zero to deployed.",
+    icon: Wand2,
+    title: "THE WIZARD",
+    subtitle: "I have nothing but an idea",
+    description:
+      "Gandalf walks you through everything. The wizard generates your PRD, builds the project, and deploys it. Zero blank-page problem.",
+    href: "/tutorial/wizard",
     color: "var(--vf-electric-blue)",
-    steps: [
-      { icon: Download, title: "INSTALL", description: "Node.js, Claude Code, and one git clone. Three tiers, one decision.", href: "/tutorial/install" },
-      { icon: Hammer, title: "FIRST BUILD", description: "Write a PRD, type /build, watch 240+ agents forge your app.", href: "/tutorial/first-build" },
-      { icon: Rocket, title: "DEPLOY", description: "Name your target. Kusanagi handles DNS, SSL, monitoring, and backups.", href: "/tutorial/deploy" },
-    ],
+    tier: "Full tier",
   },
   {
-    label: "SHIP",
-    tagline: "From built to battle-tested.",
+    icon: FileCode,
+    title: "THE SCAFFOLD",
+    subtitle: "I know my stack and have a plan",
+    description:
+      "You write the PRD (or use /prd to generate one). /campaign runs the war. No wizards, no hand-holding — just methodology and execution.",
+    href: "/tutorial/scaffold",
     color: "var(--vf-forge-orange)",
-    steps: [
-      { icon: ScrollText, title: "GENERATE A PRD", description: "Sisko interviews you in 5 acts. A complete PRD in minutes, not hours.", href: "/tutorial/prd" },
-      { icon: Swords, title: "RUN A CAMPAIGN", description: "Sisko reads the PRD, picks missions, runs /assemble for each. War room autonomy.", href: "/tutorial/campaign" },
-      { icon: Shield, title: "THE GAUNTLET", description: "5 rounds, 30+ agents, every domain. If your project survives, it ships.", href: "/tutorial/gauntlet" },
-      { icon: Camera, title: "GENERATE IMAGES", description: "Celebrimbor scans the PRD and forges every visual asset via DALL-E.", href: "/tutorial/imagine" },
-    ],
+    tier: "Scaffold tier",
   },
   {
-    label: "GROW",
-    tagline: "From shipped to scaled.",
-    color: "var(--vf-cosmere, #b8860b)",
-    steps: [
-      { icon: Sprout, title: "INSTALL CULTIVATION", description: "Set up the growth engine — ad platforms, analytics, content pipeline, safety tiers.", href: "/tutorial/cultivation" },
-      { icon: TrendingUp, title: "RUN GROWTH", description: "Kelsier's 6-phase protocol: audit, SEO, content, ads, outreach, measure.", href: "/tutorial/grow" },
-      { icon: Landmark, title: "MANAGE TREASURY", description: "Connect Stripe, allocate budgets, track revenue, reconcile daily.", href: "/tutorial/treasury" },
-      { icon: Monitor, title: "THE DANGER ROOM", description: "Install mission control. Watch agents work in real-time. 5 live panels.", href: "/tutorial/dangerroom" },
-    ],
+    icon: Import,
+    title: "THE IMPORT",
+    subtitle: "I have an existing project",
+    description:
+      "Point VoidForge at your existing codebase. /prd generates a PRD from your code. /gauntlet audits it. /campaign adds new features.",
+    href: "/tutorial/import",
+    color: "var(--vf-neon-green)",
+    tier: "Core tier",
   },
+] as const;
+
+const growthTools = [
+  { icon: Sprout, title: "Cultivation", description: "Install the growth engine", href: "/tutorial/cultivation" },
+  { icon: TrendingUp, title: "Growth", description: "Run growth campaigns", href: "/tutorial/grow" },
+  { icon: Landmark, title: "Treasury", description: "Manage money", href: "/tutorial/treasury" },
+  { icon: Monitor, title: "Danger Room", description: "Mission control", href: "/tutorial/dangerroom" },
 ] as const;
 
 export default function TutorialPage() {
@@ -61,76 +63,102 @@ export default function TutorialPage() {
     <>
       <PageHeader
         title="THE FORGE WALKTHROUGH"
-        subtitle="Three tracks. Build it. Ship it. Grow it."
+        subtitle="Every journey starts somewhere. Where does yours begin?"
       />
 
-      <section className="px-4 pb-24">
-        <div className="mx-auto max-w-4xl space-y-16">
-          {tracks.map((track) => (
-            <div key={track.label}>
-              <div className="flex items-center gap-3 mb-2">
-                <h2
-                  className="font-[family-name:var(--font-bangers)] text-2xl tracking-wider"
-                  style={{ color: track.color }}
-                >
-                  {track.label}
-                </h2>
-                <span className="text-xs text-[var(--vf-text-muted)] italic">
-                  {track.tagline}
-                </span>
-              </div>
+      <section className="px-4 pb-8">
+        <div className="mx-auto max-w-4xl">
+          <SpeechBubble agent="Bilbo" universe="tolkien">
+            Three paths into the forge. The wizard holds your hand. The scaffold
+            trusts your instincts. The import respects what you&apos;ve already
+            built. Pick the one that fits — they all lead to the same place.
+          </SpeechBubble>
+        </div>
+      </section>
 
-              <div className="relative">
-                <div
-                  className="absolute left-8 top-0 bottom-0 w-0.5 hidden sm:block"
-                  style={{ backgroundColor: `color-mix(in srgb, ${track.color} 30%, transparent)` }}
-                  aria-hidden="true"
-                />
-
-                <div className="space-y-6">
-                  {track.steps.map((step, i) => (
-                    <Link
-                      key={step.href}
-                      href={step.href}
-                      className="group block relative"
-                    >
-                      <div className="flex items-start gap-6">
-                        <div
-                          className="relative z-10 flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center border-2 group-hover:scale-110 transition-transform"
-                          style={{
-                            borderColor: track.color,
-                            backgroundColor: `color-mix(in srgb, ${track.color} 10%, transparent)`,
-                          }}
-                        >
-                          <step.icon
-                            className="w-6 h-6"
-                            style={{ color: track.color }}
-                          />
-                        </div>
-
-                        <div className="comic-panel bg-[var(--vf-surface-raised)] p-5 flex-1 group-hover:border-[var(--vf-forge-orange)] transition-colors">
-                          <div className="flex items-center gap-3 mb-1">
-                            <span
-                              className="font-[family-name:var(--font-bangers)] text-[10px] tracking-wider"
-                              style={{ color: track.color }}
-                            >
-                              {track.label} {i + 1}
-                            </span>
-                            <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-text)] group-hover:text-[var(--vf-forge-orange)] transition-colors">
-                              {step.title}
-                            </h3>
-                          </div>
-                          <p className="text-sm text-[var(--vf-text-muted)]">
-                            {step.description}
-                          </p>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
+      <section className="px-4 pb-12">
+        <div className="mx-auto max-w-4xl">
+          <div className="grid gap-6 md:grid-cols-3">
+            {paths.map((path) => (
+              <Link
+                key={path.href}
+                href={path.href}
+                className="group block"
+              >
+                <div className="comic-panel bg-[var(--vf-surface-raised)] p-6 h-full group-hover:border-[var(--vf-forge-orange)] transition-colors">
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center border-2 mb-4 group-hover:scale-110 transition-transform"
+                    style={{
+                      borderColor: path.color,
+                      backgroundColor: `color-mix(in srgb, ${path.color} 10%, transparent)`,
+                    }}
+                  >
+                    <path.icon className="w-6 h-6" style={{ color: path.color }} />
+                  </div>
+                  <h2 className="font-[family-name:var(--font-bangers)] text-2xl tracking-wider text-[var(--vf-text)] group-hover:text-[var(--vf-forge-orange)] transition-colors mb-1">
+                    {path.title}
+                  </h2>
+                  <p
+                    className="text-xs font-bold uppercase tracking-wider mb-3"
+                    style={{ color: path.color }}
+                  >
+                    {path.subtitle}
+                  </p>
+                  <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+                    {path.description}
+                  </p>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-[var(--vf-surface-overlay)] text-[var(--vf-text-muted)]">
+                    {path.tier}
+                  </span>
                 </div>
-              </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 pb-6">
+        <div className="mx-auto max-w-4xl">
+          <SpeechBubble agent="Picard" universe="star-trek">
+            The wizard is for first contact — when you need guidance through
+            every decision. The scaffold is for officers who know their mission
+            and want the forge to execute. The import is for joining a crew
+            already in flight.
+          </SpeechBubble>
+        </div>
+      </section>
+
+      {/* Growth & Operations */}
+      <section className="px-4 pb-24">
+        <div className="mx-auto max-w-4xl">
+          <div className="border-t border-[var(--vf-border)] pt-10 mt-4">
+            <SpeechBubble agent="Bilbo" universe="tolkien">
+              Building is only half the story. These tools help your creation
+              find its audience, manage its money, and watch itself work.
+            </SpeechBubble>
+
+            <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-cosmere, #b8860b)] mb-4 mt-6">
+              GROWTH &amp; OPERATIONS
+            </h2>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+              {growthTools.map((tool) => (
+                <Link
+                  key={tool.href}
+                  href={tool.href}
+                  className="group comic-panel bg-[var(--vf-surface-raised)] p-4 text-center group-hover:border-[var(--vf-forge-orange)] transition-colors"
+                >
+                  <tool.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-cosmere, #b8860b)]" />
+                  <h3 className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-text)] group-hover:text-[var(--vf-forge-orange)] transition-colors">
+                    {tool.title}
+                  </h3>
+                  <p className="text-[10px] text-[var(--vf-text-muted)]">
+                    {tool.description}
+                  </p>
+                </Link>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </section>
     </>
