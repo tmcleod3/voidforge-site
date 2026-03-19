@@ -17,6 +17,9 @@ const agentImageMap: Record<string, string> = {
   Celebrimbor: "/images/agents/celebrimbor.webp",
   Bashir: "/images/agents/bashir.webp",
   Thanos: "/images/agents/thanos.webp",
+  Kelsier: "/images/agents/kelsier.webp",
+  Dockson: "/images/agents/dockson.webp",
+  Tuvok: "/images/agents/tuvok.webp",
 };
 
 interface SpeechBubbleProps {
