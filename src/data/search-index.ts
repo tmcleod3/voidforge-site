@@ -30,7 +30,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "Launch", description: "Phase 13: Final verification and go-live", path: "/protocol/launch", category: "Protocol" },
 
   // Agents
-  { title: "The Council", description: "All 14 lead agents with universe breakdowns", path: "/agents", category: "Agents" },
+  { title: "The Council", description: "All 17 lead agents with universe breakdowns", path: "/agents", category: "Agents" },
   { title: "Galadriel", description: "Frontend & UX lead — Tolkien universe", path: "/agents/galadriel", category: "Agents" },
   { title: "Stark", description: "Backend engineer — Marvel universe", path: "/agents/stark", category: "Agents" },
   { title: "Batman", description: "QA & testing — DC universe", path: "/agents/batman", category: "Agents" },

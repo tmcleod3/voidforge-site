@@ -505,7 +505,7 @@ export const commands: Command[] = [
         flag: "--infinity",
         type: "boolean",
         description:
-          "The Infinity Gauntlet. Ten rounds, two full passes. Every active agent deployed as its own dedicated sub-process — not combined, not summarized. ~60-80 agent launches across all 7 universes. The full 110-agent roster called off the bench.",
+          "The Infinity Gauntlet. Ten rounds, two full passes. Every active agent deployed as its own dedicated sub-process — not combined, not summarized. ~60-80 agent launches across all 8 universes. The full roster called off the bench.",
         effect: "10 rounds (2x full pass). Every agent gets its own launch, context, and findings.",
       },
     ],
