@@ -24,6 +24,7 @@ export function AccordionItem({
     <div className="comic-panel bg-[var(--vf-surface-raised)] overflow-visible">
       <button
         type="button"
+        id={`btn-${contentId}`}
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between p-5 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)] rounded-sm"
         aria-expanded={open}
@@ -40,11 +41,15 @@ export function AccordionItem({
           )}
         />
       </button>
-      {open && (
-        <div id={contentId} className="px-5 pb-5 border-t border-[var(--vf-border)]">
-          {children}
-        </div>
-      )}
+      <div
+        id={contentId}
+        role="region"
+        aria-labelledby={`btn-${contentId}`}
+        hidden={!open}
+        className="px-5 pb-5 border-t border-[var(--vf-border)]"
+      >
+        {children}
+      </div>
     </div>
   );
 }

@@ -140,7 +140,7 @@ export default function ProphecyPage() {
                           key={item}
                           className="text-sm text-[var(--vf-text-muted)] flex items-start gap-2"
                         >
-                          <span className="text-[var(--vf-deep-purple)] mt-0.5 flex-shrink-0">
+                          <span className="text-[var(--vf-deep-purple)] mt-0.5 flex-shrink-0" aria-hidden="true">
                             &#9702;
                           </span>
                           {item}
