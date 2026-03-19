@@ -20,7 +20,8 @@ export const metadata: Metadata = {
 };
 
 const majorGroups = groupByMajor(shipped);
-const maxMajor = String(Math.max(...majorGroups.map(([m]) => Number(m))));
+const majorNumbers = majorGroups.map(([m]) => Number(m));
+const maxMajor = majorNumbers.length > 0 ? String(Math.max(...majorNumbers)) : "0";
 
 export default function ProphecyPage() {
   return (
@@ -34,9 +35,9 @@ export default function ProphecyPage() {
         <div className="mx-auto max-w-4xl">
           <SpeechBubble agent="Bombadil" universe="tolkien">
             Old Tom Bombadil has watched the forge from the beginning.
-            Fifty-nine versions in eight days. From 150 characters to 240+. From
-            a text file to a living methodology. The river keeps flowing, and
-            old Tom keeps singing.
+            {shipped.length} versions across {majorGroups.length} major eras.
+            From 150 named agents to 240+. From a text file to a living
+            methodology. The river keeps flowing, and old Tom keeps singing.
           </SpeechBubble>
         </div>
       </section>

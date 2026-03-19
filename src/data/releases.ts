@@ -831,9 +831,3 @@ export function groupByMinor(releases: Release[]) {
   }
   return Object.entries(groups);
 }
-
-/** Check if a version is a patch (x.y.z where z > 0) */
-export function isPatch(version: string): boolean {
-  const match = version.match(/^v\d+\.\d+\.(\d+)/);
-  return match ? Number(match[1]) > 0 : false;
-}
