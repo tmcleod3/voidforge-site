@@ -1,14 +1,66 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
-import { AccordionItem } from "@/components/accordion";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { commands } from "@/data/commands";
 
+const groups = [
+  {
+    id: "strike",
+    label: "STRIKE OPS",
+    tagline: "Type one command. Watch the forge ignite.",
+    color: "var(--vf-forge-orange)",
+    slugs: ["build", "assemble", "campaign", "imagine", "prd"],
+  },
+  {
+    id: "growth",
+    label: "FIELD OPS",
+    tagline: "Build it. Then grow it.",
+    color: "var(--vf-neon-green)",
+    slugs: ["grow", "cultivation", "current", "treasury", "portfolio"],
+  },
+  {
+    id: "recon",
+    label: "RECON OPS",
+    tagline: "Trust nothing. Verify everything.",
+    color: "var(--vf-comic-red)",
+    slugs: ["qa", "test", "review", "ux", "security", "gauntlet"],
+  },
+  {
+    id: "base",
+    label: "BASE OPS",
+    tagline: "Run the forge. Sharpen the blade.",
+    color: "var(--vf-electric-blue)",
+    slugs: ["devops", "architect", "git", "void", "thumper", "debrief", "dangerroom"],
+  },
+];
+
+const agentImages: Record<string, string> = {
+  Galadriel: "/images/agents/galadriel.webp",
+  Stark: "/images/agents/stark.webp",
+  Batman: "/images/agents/batman.webp",
+  Kenobi: "/images/agents/kenobi.webp",
+  Picard: "/images/agents/picard.webp",
+  Kusanagi: "/images/agents/kusanagi.webp",
+  Coulson: "/images/agents/coulson.webp",
+  Bombadil: "/images/agents/bombadil.webp",
+  Chani: "/images/agents/chani.webp",
+  Fury: "/images/agents/fury.webp",
+  Sisko: "/images/agents/sisko.webp",
+  Celebrimbor: "/images/agents/celebrimbor.webp",
+  Bashir: "/images/agents/bashir.webp",
+  Thanos: "/images/agents/thanos.webp",
+  Kelsier: "/images/agents/kelsier.webp",
+  Dockson: "/images/agents/dockson.webp",
+  Tuvok: "/images/agents/tuvok.webp",
+};
+
+const flagCount = commands.filter((c) => c.arguments && c.arguments.length > 0).length;
+const allTierCount = commands.filter((c) => c.tier === "all").length;
+
 export const metadata: Metadata = {
   title: "Commands",
-  description:
-    "23 slash commands: /build, /qa, /test, /security, /ux, /review, /devops, /architect, /git, /void, /thumper, /assemble, /campaign, /imagine, /debrief, /gauntlet, /prd, /grow, /treasury, /portfolio, /cultivation, /current.",
+  description: `${commands.length} slash commands across 4 mission groups. ${flagCount} with interactive flags. ${allTierCount} available on all tiers.`,
 };
 
 export default function CommandsPage() {
@@ -16,117 +68,161 @@ export default function CommandsPage() {
     <>
       <PageHeader
         title="MISSION BRIEFING"
-        subtitle="23 slash commands. Type one. Watch the agents mobilize."
+        subtitle={`${commands.length} slash commands. Type one. Watch the agents mobilize.`}
       />
 
-      <section className="px-4 pb-12">
+      <section className="px-4 pb-8">
         <div className="mx-auto max-w-4xl">
           <SpeechBubble agent="Coulson" universe="marvel">
-            Each command activates a specific team for a specific mission.
-            You don&apos;t need to know which agents to call — just tell the
-            forge what you need done. The right agents will answer.
+            {commands.length} commands. Four groups. Every one activates a full
+            agent team — you just pick the mission. STRIKE OPS creates things.
+            FIELD OPS scales them. RECON OPS tears them apart to make sure they
+            hold. BASE OPS keeps the forge itself running. Pick your weapon.
           </SpeechBubble>
         </div>
       </section>
 
-      <section className="px-4 pb-24">
-        <div className="mx-auto max-w-4xl">
-          {[
-            { label: "BUILD", tagline: "Type one command. Watch the forge ignite.", slugs: ["build", "assemble", "campaign", "imagine", "prd"] },
-            { label: "GROWTH", tagline: "Build it. Then grow it.", slugs: ["grow", "cultivation", "current", "treasury", "portfolio"] },
-            { label: "REVIEW", tagline: "Trust nothing. Verify everything.", slugs: ["qa", "test", "review", "ux", "security", "gauntlet"] },
-            { label: "OPERATIONS", tagline: "The machinery behind the magic.", slugs: ["devops", "architect", "git", "void", "thumper", "debrief", "dangerroom"] },
-          ].map((group) => (
-            <div key={group.label} className="mb-10">
-              <div className="flex items-center gap-3 mb-1">
-                <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)]">
-                  {group.label}
-                </h3>
-              </div>
-              <p className="text-xs text-[var(--vf-text-muted)] italic mb-4">
-                {group.tagline}
-              </p>
-              <div className="space-y-3">
-          {commands.filter((cmd) => group.slugs.includes(cmd.slug)).map((cmd) => (
-            <AccordionItem
-              key={cmd.slug}
-              title={
-                <div className="flex items-center gap-3 flex-wrap">
-                  <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-terminal-green)] text-lg font-bold">
-                    {cmd.name}
-                  </code>
-                  <span className="text-xs text-[var(--vf-text-muted)]">
-                    {cmd.lead}
-                  </span>
-                  {cmd.arguments && cmd.arguments.length > 0 && (
-                    <span className="px-1.5 py-0.5 text-[10px] bg-[var(--vf-forge-orange)]/10 text-[var(--vf-forge-orange)] rounded font-bold">
-                      {cmd.arguments.length} flag{cmd.arguments.length !== 1 ? "s" : ""}
-                    </span>
-                  )}
-                </div>
-              }
-              badge={
-                cmd.badge ? (
-                  <span className="px-2 py-0.5 bg-[var(--vf-neon-green)]/10 text-[var(--vf-neon-green)] text-xs rounded">
-                    {cmd.badge}
-                  </span>
-                ) : undefined
-              }
+      {/* Stats bar */}
+      <section className="px-4 pb-6">
+        <div className="mx-auto max-w-4xl flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-[var(--vf-text-muted)]">
+          <span><strong className="text-[var(--vf-forge-orange)]">{commands.length}</strong> commands</span>
+          <span className="text-[var(--vf-border)]">|</span>
+          <span><strong className="text-[var(--vf-forge-orange)]">{flagCount}</strong> with flags</span>
+          <span className="text-[var(--vf-border)]">|</span>
+          <span><strong className="text-[var(--vf-forge-orange)]">{groups.length}</strong> mission groups</span>
+          <span className="text-[var(--vf-border)]">|</span>
+          <span><strong className="text-[var(--vf-neon-green)]">{allTierCount}</strong> on all tiers</span>
+        </div>
+      </section>
+
+      {/* Jump nav */}
+      <section className="px-4 pb-10">
+        <nav className="mx-auto max-w-4xl flex flex-wrap justify-center gap-2" aria-label="Command groups">
+          {groups.map((g) => (
+            <a
+              key={g.id}
+              href={`#${g.id}`}
+              className="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-full border border-[var(--vf-border)] hover:border-current transition-colors"
+              style={{ color: g.color }}
             >
-              <div className="pt-4 space-y-4">
-                <p className="text-[var(--vf-text-muted)]">
-                  {cmd.description}
-                </p>
+              {g.label} ({g.slugs.length})
+            </a>
+          ))}
+        </nav>
+      </section>
 
-                {/* Usage */}
-                <div className="crt-terminal !p-3">
-                  <code className="text-sm">{cmd.usage}</code>
-                </div>
+      {/* Tier legend */}
+      <section className="px-4 pb-8">
+        <div className="mx-auto max-w-4xl flex justify-center gap-6 text-[10px] text-[var(--vf-text-muted)]">
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[var(--vf-neon-green)]" />
+            All tiers (scaffold + full)
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[var(--vf-deep-purple)]" />
+            Full tier only (requires wizard)
+          </span>
+        </div>
+      </section>
 
-                {/* What happens */}
-                <div>
-                  <h3 className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-forge-orange)] mb-2">
-                    WHAT HAPPENS
-                  </h3>
-                  <ol className="space-y-2 list-none p-0">
-                    {cmd.whatHappens.map((step, i) => (
-                      <li key={i} className="flex items-start gap-3">
-                        <span className="flex-shrink-0 w-5 h-5 rounded-full bg-[var(--vf-forge-orange)]/10 text-[var(--vf-forge-orange)] text-xs flex items-center justify-center font-bold mt-0.5">
-                          {i + 1}
-                        </span>
-                        <span className="text-sm text-[var(--vf-text-muted)]">
-                          {step}
-                        </span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
+      {/* Command groups */}
+      <section className="px-4 pb-24">
+        <div className="mx-auto max-w-4xl space-y-14">
+          {groups.map((group) => {
+            const groupCommands = commands.filter((cmd) =>
+              group.slugs.includes(cmd.slug)
+            );
 
-                {/* Note */}
-                {cmd.note && (
-                  <p className="text-xs text-[var(--vf-text-muted)] italic border-l-2 border-[var(--vf-forge-orange)] pl-3">
-                    {cmd.note}
-                  </p>
-                )}
-
-                {/* Detail page link */}
-                <Link
-                  href={`/commands/${cmd.slug}`}
-                  className="inline-flex items-center gap-1 text-xs text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)] transition-colors font-bold uppercase tracking-wider"
-                  aria-label={cmd.arguments && cmd.arguments.length > 0
-                    ? `Open the Armory for ${cmd.name}`
-                    : `Full details for ${cmd.name}`}
+            return (
+              <div key={group.id} id={group.id} className="scroll-mt-20">
+                {/* Group header */}
+                <div
+                  className="border-l-4 pl-4 mb-6"
+                  style={{ borderColor: group.color }}
                 >
-                  {cmd.arguments && cmd.arguments.length > 0
-                    ? "Open the Armory →"
-                    : "Full details →"}
-                </Link>
+                  <h2
+                    className="font-[family-name:var(--font-bangers)] text-2xl tracking-wider"
+                    style={{ color: group.color }}
+                  >
+                    {group.label}
+                  </h2>
+                  <p className="text-xs text-[var(--vf-text-muted)] italic">
+                    {group.tagline}
+                  </p>
+                </div>
+
+                {/* Dossier cards — 2 columns on md+, 1 on mobile */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {groupCommands.map((cmd) => {
+                    const tierColor =
+                      cmd.tier === "full"
+                        ? "var(--vf-deep-purple)"
+                        : "var(--vf-neon-green)";
+                    const avatar = agentImages[cmd.lead];
+
+                    return (
+                      <Link
+                        key={cmd.slug}
+                        href={`/commands/${cmd.slug}`}
+                        className="comic-panel bg-[var(--vf-surface-raised)] p-4 border-l-4 flex flex-col gap-3 group hover:bg-[var(--vf-surface-overlay)] transition-colors"
+                        style={{ borderLeftColor: tierColor }}
+                      >
+                        {/* Row 1: name + agent + tier */}
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-terminal-green)] text-base font-bold">
+                            {cmd.name}
+                          </code>
+                          {avatar && (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img
+                              src={avatar}
+                              alt=""
+                              aria-hidden="true"
+                              className="w-5 h-5 rounded-full border border-[var(--vf-border)] object-cover"
+                            />
+                          )}
+                          <span className="text-xs text-[var(--vf-text-muted)]">
+                            {cmd.lead}
+                          </span>
+                          <span
+                            className="ml-auto px-1.5 py-0.5 text-[9px] rounded font-bold uppercase tracking-wider"
+                            style={{
+                              color: tierColor,
+                              backgroundColor: `color-mix(in srgb, ${tierColor} 10%, transparent)`,
+                            }}
+                          >
+                            {cmd.tier === "full" ? "Full" : "All"}
+                          </span>
+                        </div>
+
+                        {/* Row 2: description (2-line clamp) */}
+                        <p className="text-sm text-[var(--vf-text-muted)] line-clamp-2 flex-1">
+                          {cmd.description}
+                        </p>
+
+                        {/* Row 3: metadata + CTA */}
+                        <div className="flex items-center gap-2 flex-wrap text-[10px]">
+                          <span className="text-[var(--vf-text-muted)]">
+                            {cmd.whatHappens.length} steps
+                          </span>
+                          {cmd.arguments && cmd.arguments.length > 0 && (
+                            <span className="px-1.5 py-0.5 bg-[var(--vf-forge-orange)]/10 text-[var(--vf-forge-orange)] rounded font-bold">
+                              {cmd.arguments.length} flag{cmd.arguments.length !== 1 ? "s" : ""}
+                            </span>
+                          )}
+                          <span className="ml-auto text-xs font-bold uppercase tracking-wider text-[var(--vf-forge-orange)] group-hover:text-[var(--vf-forge-yellow)] transition-colors">
+                            {cmd.arguments && cmd.arguments.length > 0
+                              ? "Open the Armory →"
+                              : "Mission briefing →"}
+                          </span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
-            </AccordionItem>
-          ))}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
     </>
