@@ -83,7 +83,7 @@ export default async function CommandPage({ params }: CommandPageProps) {
             </h2>
             <ol className="space-y-3">
               {cmd.whatHappens.map((step, i) => (
-                <li key={i} className="flex items-start gap-3">
+                <li key={i} className="flex items-start gap-3 stagger-step">
                   <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[var(--vf-forge-orange)]/10 text-[var(--vf-forge-orange)] text-xs flex items-center justify-center font-bold">
                     {i + 1}
                   </span>

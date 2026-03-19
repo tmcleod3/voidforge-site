@@ -458,6 +458,26 @@ button:focus-visible {
   transform: rotateY(180deg);
 }
 
+/* Staggered step reveal for numbered lists */
+@keyframes step-arrive {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.stagger-step {
+  opacity: 0;
+  animation: step-arrive 0.3s ease-out forwards;
+}
+.stagger-step:nth-child(1) { animation-delay: 0ms; }
+.stagger-step:nth-child(2) { animation-delay: 80ms; }
+.stagger-step:nth-child(3) { animation-delay: 160ms; }
+.stagger-step:nth-child(4) { animation-delay: 240ms; }
+.stagger-step:nth-child(5) { animation-delay: 320ms; }
+.stagger-step:nth-child(6) { animation-delay: 400ms; }
+.stagger-step:nth-child(7) { animation-delay: 480ms; }
+.stagger-step:nth-child(8) { animation-delay: 560ms; }
+.stagger-step:nth-child(9) { animation-delay: 640ms; }
+.stagger-step:nth-child(10) { animation-delay: 720ms; }
+
 @media (prefers-reduced-motion: reduce) {
   .rotate-y-180 {
     transform: none;
@@ -465,5 +485,9 @@ button:focus-visible {
   }
   .transform-3d {
     transform-style: flat;
+  }
+  .stagger-step {
+    opacity: 1;
+    animation: none;
   }
 }
