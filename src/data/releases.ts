@@ -780,6 +780,13 @@ export const shipped: Release[] = [
     headline: "Route optimizer. Tier 2/3 autonomy. Circuit breakers. Kill switch. Deploy freeze. The forge runs itself.",
     items: ["Tier 2 autonomy — execute approved campaigns without human confirmation", "Tier 3 autonomy — full autonomous growth with circuit breakers", "Kill switch — /treasury --freeze stops all automated spending", "Deploy freeze — pause all automated actions during incidents"],
   },
+  {
+    version: "v12.4.1",
+    date: "2026-03-18",
+    title: "The Tier Gate",
+    headline: "The /dangerroom command file arrives. Tier column in Slash Commands. Wizard prerequisite checks on 5 growth commands. Field report #110 closes the loop.",
+    items: ["/dangerroom command file — was listed in CLAUDE.md but the command never existed", "Tier column (All/Full) in CLAUDE.md Slash Commands table", "Wizard prerequisite checks on /cultivation, /grow, /treasury, /portfolio, /current", "Build-time env var verification in Phase 13 and Gauntlet smoke test (field report #104)", "Post-push deploy check in Release Manager (field report #104)"],
+  },
 ];
 
 export const future: FutureRelease[] = [

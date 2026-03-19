@@ -6,6 +6,8 @@ export interface CommandArgument {
   effect: string;
 }
 
+export type CommandTier = "all" | "full";
+
 export interface Command {
   slug: string;
   name: string;
@@ -16,11 +18,13 @@ export interface Command {
   arguments?: CommandArgument[];
   badge?: string;
   note?: string;
+  tier: CommandTier;
 }
 
 export const commands: Command[] = [
   {
     slug: "build",
+    tier: "all" as CommandTier,
     name: "/build",
     lead: "All agents",
     description:
@@ -37,6 +41,7 @@ export const commands: Command[] = [
   },
   {
     slug: "qa",
+    tier: "all" as CommandTier,
     name: "/qa",
     lead: "Batman",
     description:
@@ -53,6 +58,7 @@ export const commands: Command[] = [
   },
   {
     slug: "test",
+    tier: "all" as CommandTier,
     name: "/test",
     lead: "Batman",
     description:
@@ -67,6 +73,7 @@ export const commands: Command[] = [
   },
   {
     slug: "security",
+    tier: "all" as CommandTier,
     name: "/security",
     lead: "Kenobi",
     description:
@@ -83,6 +90,7 @@ export const commands: Command[] = [
   },
   {
     slug: "ux",
+    tier: "all" as CommandTier,
     name: "/ux",
     lead: "Galadriel",
     description:
@@ -99,6 +107,7 @@ export const commands: Command[] = [
   },
   {
     slug: "review",
+    tier: "all" as CommandTier,
     name: "/review",
     lead: "Picard",
     description:
@@ -113,6 +122,7 @@ export const commands: Command[] = [
   },
   {
     slug: "devops",
+    tier: "all" as CommandTier,
     name: "/devops",
     lead: "Kusanagi",
     description:
@@ -128,6 +138,7 @@ export const commands: Command[] = [
   },
   {
     slug: "architect",
+    tier: "all" as CommandTier,
     name: "/architect",
     lead: "Picard",
     description:
@@ -142,6 +153,7 @@ export const commands: Command[] = [
   },
   {
     slug: "git",
+    tier: "all" as CommandTier,
     name: "/git",
     lead: "Coulson",
     description: "Version bump, changelog, commit — full release management.",
@@ -179,6 +191,7 @@ export const commands: Command[] = [
   },
   {
     slug: "void",
+    tier: "all" as CommandTier,
     name: "/void",
     lead: "Bombadil",
     description: "Update VoidForge methodology from upstream.",
@@ -193,6 +206,7 @@ export const commands: Command[] = [
   },
   {
     slug: "thumper",
+    tier: "full" as CommandTier,
     name: "/thumper",
     lead: "Chani",
     description:
@@ -208,6 +222,7 @@ export const commands: Command[] = [
   },
   {
     slug: "assemble",
+    tier: "all" as CommandTier,
     name: "/assemble",
     lead: "Fury",
     description:
@@ -259,6 +274,7 @@ export const commands: Command[] = [
   },
   {
     slug: "campaign",
+    tier: "all" as CommandTier,
     name: "/campaign",
     lead: "Sisko",
     description:
@@ -333,6 +349,7 @@ export const commands: Command[] = [
   },
   {
     slug: "imagine",
+    tier: "all" as CommandTier,
     name: "/imagine",
     lead: "Celebrimbor",
     description:
@@ -393,6 +410,7 @@ export const commands: Command[] = [
   },
   {
     slug: "debrief",
+    tier: "all" as CommandTier,
     name: "/debrief",
     lead: "Bashir",
     description:
@@ -446,6 +464,7 @@ export const commands: Command[] = [
   },
   {
     slug: "gauntlet",
+    tier: "all" as CommandTier,
     name: "/gauntlet",
     lead: "Thanos",
     description:
@@ -513,6 +532,7 @@ export const commands: Command[] = [
   },
   {
     slug: "prd",
+    tier: "all" as CommandTier,
     name: "/prd",
     lead: "Sisko",
     description:
@@ -539,6 +559,7 @@ export const commands: Command[] = [
   },
   {
     slug: "grow",
+    tier: "full" as CommandTier,
     name: "/grow",
     lead: "Kelsier",
     description:
@@ -566,6 +587,7 @@ export const commands: Command[] = [
   },
   {
     slug: "treasury",
+    tier: "full" as CommandTier,
     name: "/treasury",
     lead: "Dockson",
     description:
@@ -589,6 +611,7 @@ export const commands: Command[] = [
   },
   {
     slug: "portfolio",
+    tier: "full" as CommandTier,
     name: "/portfolio",
     lead: "Steris",
     description:
@@ -604,6 +627,7 @@ export const commands: Command[] = [
   },
   {
     slug: "cultivation",
+    tier: "full" as CommandTier,
     name: "/cultivation",
     lead: "Kelsier",
     description:
@@ -620,6 +644,7 @@ export const commands: Command[] = [
   },
   {
     slug: "current",
+    tier: "full" as CommandTier,
     name: "/current",
     lead: "Tuvok",
     description:
@@ -641,6 +666,7 @@ export const commands: Command[] = [
   },
   {
     slug: "dangerroom",
+    tier: "full" as CommandTier,
     name: "/dangerroom",
     lead: "Fury",
     description:
