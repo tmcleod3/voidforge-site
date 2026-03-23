@@ -6,6 +6,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [0.7.0] - 2026-03-23 — The Alignment
+
+### Added
+- **`/assess` command page** — Picard's pre-build assessment for existing codebases. New command data, RECON OPS group, search index entry.
+- **`third-party-script` pattern page** — External script loading with 3 states. 19 → 20 patterns.
+- **7 shipped releases on prophecy** — v12.5.0 through v13.0.0 added to shipped releases. Future updated to v14.0 (Day-0 Engine).
+- **V13 "The Living Dashboard" era** — Major era entry on prophecy page with Fury as the era agent.
+- **Prophecy avatars for v11-v13** — Kelsier, Tuvok, Dockson added to agent avatar mapping.
+- **Nav active state** — Current page highlighted in orange via `usePathname()`. Works for sub-pages (e.g., `/agents/galadriel` highlights "Agents"). Added `aria-current="page"` for accessibility.
+- **Gauntlet tutorial: `--assess` and `--reckoning` flags** — New modes section with cross-link to /assess command.
+- **Campaign tutorial: checkpoint gauntlets and learned rules** — Every 4th mission auto-triggers quality gate. Persistent learned rules in campaign-state.md.
+- **Scaffold tutorial: hybrid project hint** — Links to Import Path for existing codebases.
+
+### Changed
+- **Import Path tutorial rewritten** — New 4-step workflow: install core → `/assess` → `/prd` → `/campaign`. Replaces old audit-then-build flow.
+- **Agent counts: "240+" → "140+"** — Accurate to callable agents (17 leads + 127 sub-agents = 144). Updated across hero, comic strip, feature cards, agents page, about page, prophecy, tutorial, meta tags, JSON-LD, and tests.
+- **"7 universes" → "8 universes"** on about page (Cosmere).
+- **Gauntlet "6 universes" → "8 universes"** in command description.
+- **PRD numeric accuracy** — Updated 28 stale claims: agents, leads, commands, patterns, universes, route lists, file counts.
+- **Campaign tutorial `--blitz` description fixed** — Was incorrectly described as `--fast + --autonomous`; blitz is autonomous without implying fast.
+- **Tutorial hub Import card** — Now references `/assess` workflow.
+
+### Fixed
+- **`--blitz` flag description** in campaign tutorial was factually wrong.
+
+---
+
 ## [13.0.0] - 2026-03-22
 
 ### Added
