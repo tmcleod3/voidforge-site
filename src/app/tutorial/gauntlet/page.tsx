@@ -92,29 +92,57 @@ export default function GauntletPage() {
 
         <section className="mt-12">
           <h2
-            id="the-infinity-gauntlet"
+            id="gauntlet-modes"
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
           >
-            THE INFINITY GAUNTLET
+            GAUNTLET MODES
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Need speed? Use the quick flag for a lighter pass:
+            Evaluating an existing codebase before a rebuild? Use the assess
+            flag:
+          </p>
+          <div className="crt-terminal !p-4 mb-6">
+            <code className="text-sm">/gauntlet --assess</code>
+          </div>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Assessment mode runs Rounds 1-2 only (Discovery + First Strike)
+            with no fix batches. Findings are grouped by root cause instead of
+            domain — you see the three stubs that all trace to the same
+            abandoned migration, not twelve separate findings across six
+            domains. This powers the{" "}
+            <Link
+              href="/commands/assess"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              /assess
+            </Link>{" "}
+            command.
+          </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Need speed? Use the quick flag for a 3-round pass:
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">/gauntlet --quick</code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Need the ultimate test? Add the infinity flag:
+            Preparing for launch? The reckoning flag runs a 5-wave parallel
+            review focused on launch readiness:
+          </p>
+          <div className="crt-terminal !p-4 mb-6">
+            <code className="text-sm">/gauntlet --reckoning</code>
+          </div>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Need the ultimate test? The infinity flag deploys every active agent
+            as its own sub-process — the full roster across all universes:
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">/gauntlet --infinity</code>
           </div>
           <p className="text-[var(--vf-text-muted)]">
             The Infinity Gauntlet doubles down on every round — more agents,
-            deeper analysis, cross-universe validation. It takes longer, costs
-            more tokens, and finds things the standard Gauntlet misses. Use it
-            before a major launch or when the stakes justify the thoroughness.
+            deeper analysis, cross-universe validation. Use it before a major
+            launch or when the stakes justify the thoroughness.
           </p>
         </section>
       </div>
