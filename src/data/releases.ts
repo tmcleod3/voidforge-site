@@ -787,12 +787,61 @@ export const shipped: Release[] = [
     headline: "The /dangerroom command file arrives. Tier column in Slash Commands. Wizard prerequisite checks on 5 growth commands. Field report #110 closes the loop.",
     items: ["/dangerroom command file — was listed in CLAUDE.md but the command never existed", "Tier column (All/Full) in CLAUDE.md Slash Commands table", "Wizard prerequisite checks on /cultivation, /grow, /treasury, /portfolio, /current", "Build-time env var verification in Phase 13 and Gauntlet smoke test (field report #104)", "Post-push deploy check in Release Manager (field report #104)"],
   },
+  {
+    version: "v12.5.0",
+    date: "2026-03-19",
+    title: "The Full Roster",
+    headline: "Agent deployment manifests: /review gets 20+ agents, /devops gets 16, /assemble gets 80+ documented. Every command knows its full team.",
+    items: ["Agent deployment manifests in /review (4 review teams, 20+ agents)", "Agent deployment manifests in /devops (16 agents across anime universe)", "Agent deployment manifests in /assemble (80+ agents across full initiative)", "Agent deployment manifests in /architect (15-agent bridge crew)", "Agent deployment manifests in /treasury (Dockson's financial team)"],
+  },
+  {
+    version: "v12.6.0",
+    date: "2026-03-22",
+    title: "The Assessment",
+    headline: "/assess command. --assess gauntlet flag. Stub detection. Migration completeness check. Auth-from-day-one. Process manager discipline.",
+    items: ["/assess command — Picard's pre-build assessment for existing codebases", "--assess gauntlet flag — Rounds 1-2 only, findings grouped by root cause", "Stub detection pattern in QA — methods returning success without side effects", "Migration completeness check in Phase 1 — flag duplicate implementations", "Auth-from-day-one — API key middleware stub from Phase 1", "Process manager discipline — never kill ports when PM2 owns the process"],
+  },
+  {
+    version: "v12.6.1",
+    date: "2026-03-22",
+    title: "Learned Rules",
+    headline: "Campaign checkpoints extract learned rules. Historical data validation. PRD evolution workflow.",
+    items: ["Learned Rules — recurring root causes become persistent pre-flight checks", "Historical data validation for data-dependent systems in Phase 0", "PRD evolution log for iterative /architect --plan refinement"],
+  },
+  {
+    version: "v12.6.2",
+    date: "2026-03-22",
+    title: "The Roadmap",
+    headline: "v13.0 roadmap: LAN mode, Danger Room consolidation, feature proposals from field reports.",
+    items: ["LAN mode proposal — private network access for ZeroTier/Tailscale/WireGuard", "Danger Room bug fixes and feature proposals from field reports #127-128"],
+  },
+  {
+    version: "v12.6.3",
+    date: "2026-03-22",
+    title: "Acceptance Criteria",
+    headline: "Acceptance criteria enforcement. Gitignore warning for campaign state. Blitz pre-flight. --adr-only mode.",
+    items: ["Campaign state gitignore warning — prevent silent data loss", "Blitz pre-flight checklist for all campaign modes", "--adr-only lightweight architect mode — ADRs only, skip full bridge crew"],
+  },
+  {
+    version: "v12.6.4",
+    date: "2026-03-22",
+    title: "The Egress Audit",
+    headline: "Encryption egress audit. GROUP BY compatibility. v14.0 Day-0 Engine roadmap.",
+    items: ["Encryption egress audit — trace all usages of encrypted fields across egress points", "GROUP BY compatibility guidance", "v14.0 Day-0 Engine roadmap planning"],
+  },
+  {
+    version: "v13.0.0",
+    date: "2026-03-22",
+    title: "The Living Dashboard",
+    headline: "Consolidation release. 3-tier UX. LAN mode. Status Line bridge. Agent activity ticker. New dashboard panels.",
+    items: ["LAN mode (--lan) — private network access for ZeroTier, Tailscale, WireGuard", "Status Line bridge — connects Claude Code's Status Line API to the Danger Room", "Agent activity ticker — methodology-driven JSONL logging with live WebSocket broadcast", "Tests panel and Git status panel for the Danger Room", "Dashboard config (danger-room.config.json) for project-specific panel settings", "3-tier UX consolidation across the Danger Room interface"],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
-    version: "v13.0",
-    title: "The Convergence",
+    version: "v14.0",
+    title: "The Day-0 Engine",
     opacity: 1,
     items: [
       "Build + Grow + Fund in one command — the forge handles the entire product lifecycle",
