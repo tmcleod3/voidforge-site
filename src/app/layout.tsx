@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     default: "VoidForge — From Nothing, Everything",
   },
   description:
-    "The complete guide to building production apps with 240+ AI agents across 8 fictional universes. Drop in a PRD, run /build, ship to production.",
+    "The complete guide to building production apps with 140+ AI agents across 8 fictional universes. Drop in a PRD, run /build, ship to production.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "https://voidforge.build"
   ),
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
         url: "/images/og-image.png",
         width: 1792,
         height: 1024,
-        alt: "VoidForge — From Nothing, Everything. 240+ AI agents across 8 fictional universes.",
+        alt: "VoidForge — From Nothing, Everything. 140+ AI agents across 8 fictional universes.",
       },
     ],
   },
