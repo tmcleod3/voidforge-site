@@ -6,7 +6,7 @@ import { SpeechBubble } from "@/components/speech-bubble";
 export const metadata: Metadata = {
   title: "The Import Path",
   description:
-    "You have code already. The forge joins mid-flight — audits what exists, builds what's missing.",
+    "You have code already. The forge assesses what exists, generates a PRD from reality, and builds what's missing.",
 };
 
 export default function ImportPage() {
@@ -28,7 +28,7 @@ export default function ImportPage() {
           The forge doesn&apos;t just build from nothing. It can join a project
           already in flight. You&apos;ve got code, you&apos;ve got
           infrastructure, you&apos;ve got history. The forge respects all of
-          it.
+          it — but it needs to understand it first.
         </SpeechBubble>
 
         <section className="mt-12">
@@ -37,7 +37,7 @@ export default function ImportPage() {
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
           >
-            INSTALL THE CORE
+            1. INSTALL THE CORE
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
             Clone the core branch into your existing project directory. This
@@ -52,11 +52,54 @@ export default function ImportPage() {
             The core tier is ultra-light: CLAUDE.md, slash commands, method
             docs, code patterns, and the naming registry. No wizards, no
             provisioners, no runtime dependencies. Point Claude Code at it and
-            the forge absorbs the methodology. Your existing build system,
-            your existing deploy pipeline, your existing everything — all
-            untouched.
+            the forge absorbs the methodology.
           </p>
         </section>
+
+        <section className="mt-12">
+          <h2
+            id="assess-the-codebase"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            2. ASSESS THE CODEBASE
+          </h2>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Before writing a PRD or building anything, let Picard&apos;s bridge
+            crew map what you already have:
+          </p>
+          <div className="crt-terminal !p-4 mb-6">
+            <code className="text-sm">/assess</code>
+          </div>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            This chains three operations into one command. Picard runs a full
+            architecture scan — schema, integrations, security posture, service
+            boundaries. Thanos runs an assessment-mode Gauntlet (Rounds 1-2
+            only) that groups findings by root cause instead of domain. Dax and
+            Troi diff your existing PRD against reality — or inventory what
+            exists if you don&apos;t have a PRD yet.
+          </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            The result is a{" "}
+            <strong className="text-[var(--vf-text)]">
+              State of the Codebase
+            </strong>{" "}
+            report in{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              /logs/assessment.md
+            </code>{" "}
+            — architecture summary, root causes grouped, PRD alignment, and a
+            remediation plan. This becomes the foundation for everything that
+            follows.
+          </p>
+        </section>
+
+        <SpeechBubble agent="Picard" universe="star-trek">
+          Assessment before action. I need to understand your architecture — the
+          schema, the integrations, the security posture — before I can advise
+          on what to build next. The assessment report becomes Sisko&apos;s
+          briefing document.
+        </SpeechBubble>
 
         <section className="mt-12">
           <h2
@@ -64,60 +107,64 @@ export default function ImportPage() {
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
           >
-            GENERATE YOUR PRD
+            3. GENERATE YOUR PRD
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Use the PRD command to have Sisko interview you about your existing
-            project:
+            Now that the assessment has mapped your existing system, have Sisko
+            interview you about what to build next:
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">/prd</code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Sisko scans your codebase, asks about your architecture, and
-            produces a PRD that describes what you already have AND what you
-            want to add. The frontmatter captures your existing stack — your
-            database, your framework, your deploy target — so agents work
-            within your constraints instead of fighting them.
+            Sisko&apos;s 5-act interview is now informed by the assessment. He
+            knows your stack, your schema, your security posture. The PRD he
+            produces describes what you already have AND what you want to add —
+            with frontmatter that captures your existing constraints so agents
+            work within them instead of fighting them.
+          </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            If you already have a PRD, the assessment report will have flagged
+            where it drifted from reality. Run{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              /prd --challenge
+            </code>{" "}
+            to have Boromir red-team the existing PRD against the assessment
+            findings.
           </p>
         </section>
 
-        <SpeechBubble agent="Picard" universe="star-trek">
-          I&apos;ll review your existing architecture before we build anything
-          new. The forge adapts to your constraints — your database, your
-          deploy target, your conventions. We don&apos;t replace what works.
-        </SpeechBubble>
-
         <section className="mt-12">
           <h2
-            id="audit-first-build-second"
+            id="build-with-campaign"
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
           >
-            AUDIT FIRST, BUILD SECOND
+            4. BUILD WITH CAMPAIGN
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Before adding features, run the Gauntlet on your existing code:
+            Hand the PRD to Sisko and let the campaign engine sequence the work:
           </p>
           <div className="crt-terminal !p-4 mb-6">
-            <code className="text-sm">/gauntlet</code>
+            <code className="text-sm">/campaign</code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Batman finds bugs. Kenobi finds security gaps. Galadriel checks
-            the UX. Picard reviews the architecture. You get a scored report
-            with every issue ranked by severity — fix the critical ones before
-            you add more surface area.
+            Dax reads the PRD and assessment, orders missions by dependency, and
+            Sisko briefs you on each one before execution. Each mission runs
+            through the full pipeline — architect, build, review, security —
+            without touching anything outside its scope.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Then target specific features with the campaign command:
+            For hands-off execution, add the blitz flag:
           </p>
           <div className="crt-terminal !p-4 mb-6">
-            <code className="text-sm">/campaign --mission &quot;Feature X&quot;</code>
+            <code className="text-sm">/campaign --blitz</code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Single-mission mode builds one feature through the full pipeline —
-            architect, build, review, security, QA — without touching
-            anything else in your codebase.
+            Blitz mode runs autonomously — no confirmation prompts, auto-commits
+            after each mission, auto-debriefs to capture learnings. Walk away
+            and come back to a built project. The Victory Gauntlet at the end is
+            non-negotiable even in blitz.
           </p>
         </section>
 
@@ -135,21 +182,24 @@ export default function ImportPage() {
             WHAT&apos;S NEXT
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Deep-dive into the review tools: run{" "}
+            Deep-dive into the tools: learn how{" "}
             <Link
               href="/tutorial/gauntlet"
               className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
             >
               the Gauntlet
             </Link>{" "}
-            for comprehensive review, or learn how{" "}
+            works (including the{" "}
+            <code className="text-[var(--vf-electric-blue)]">--assess</code>{" "}
+            flag for lightweight pre-build evaluation), or how{" "}
             <Link
               href="/tutorial/campaign"
               className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
             >
               campaigns
             </Link>{" "}
-            break a full PRD into executable missions.
+            break a full PRD into executable missions with checkpoint gauntlets
+            and learned rules.
           </p>
           <p className="text-[var(--vf-text-muted)]">
             Once your imported project is hardened and your new features are
