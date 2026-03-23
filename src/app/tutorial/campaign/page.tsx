@@ -67,23 +67,24 @@ export default function CampaignPage() {
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
             <code className="text-[var(--vf-electric-blue)]">--blitz</code>{" "}
-            combines{" "}
-            <code className="text-[var(--vf-electric-blue)]">--fast</code> and{" "}
-            <code className="text-[var(--vf-electric-blue)]">--autonomous</code>{" "}
-            — reduced review cycles and no pause between missions. Use it when
-            you trust the PRD and want maximum velocity.
+            runs autonomously — no confirmation prompts between missions,
+            auto-commits, auto-debriefs. Full review quality is preserved.
+            Walk away and come back to a built project.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
             <code className="text-[var(--vf-electric-blue)]">--fast</code>{" "}
-            trims review rounds but keeps the pause between missions so you can
-            inspect each one.{" "}
-            <code className="text-[var(--vf-electric-blue)]">--autonomous</code>{" "}
-            removes the pause but keeps full review depth.{" "}
+            trims review rounds (skips Crossfire + Council per mission) but
+            keeps the pause between missions so you can inspect each one.
+            Combine with blitz{" "}
+            (<code className="text-[var(--vf-electric-blue)]">--blitz --fast</code>)
+            for maximum velocity with reduced reviews.{" "}
             <code className="text-[var(--vf-electric-blue)]">--resume</code>{" "}
             picks up from the last checkpoint — essential for multi-session
             campaigns.{" "}
-            <code className="text-[var(--vf-electric-blue)]">--mission N</code>{" "}
-            jumps to a specific mission by number.
+            <code className="text-[var(--vf-electric-blue)]">--plan</code>{" "}
+            updates the PRD without building.{" "}
+            <code className="text-[var(--vf-electric-blue)]">--mission &quot;Name&quot;</code>{" "}
+            jumps to a specific mission.
           </p>
         </section>
 
@@ -101,6 +102,23 @@ export default function CampaignPage() {
             <code className="text-[var(--vf-electric-blue)]">/assemble</code>{" "}
             to execute the build pipeline, and the mission is verified against
             its gates. Repeat until the PRD is fully built.
+          </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Every 4th mission triggers a{" "}
+            <strong className="text-[var(--vf-text)]">checkpoint gauntlet</strong>{" "}
+            — a quick 3-round review of the combined system. Individual missions
+            only review their own scope; checkpoints catch cross-module issues
+            like missing imports, inconsistent auth, or API contract drift
+            between features built in different missions.
+          </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Campaigns also extract{" "}
+            <strong className="text-[var(--vf-text)]">learned rules</strong>{" "}
+            — when the same root cause appears across multiple checkpoints,
+            it becomes a persistent pre-flight check saved in{" "}
+            <code className="text-[var(--vf-electric-blue)]">campaign-state.md</code>.
+            Rules persist across sessions because they live in the file, not in
+            context.
           </p>
           <p className="text-[var(--vf-text-muted)]">
             When the last mission completes, Sisko triggers the Victory
