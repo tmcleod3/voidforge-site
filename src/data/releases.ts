@@ -34,6 +34,9 @@ export const agentAvatars: Record<string, string> = {
   Celebrimbor: "/images/agents/celebrimbor.webp",
   Bashir: "/images/agents/bashir.webp",
   Thanos: "/images/agents/thanos.webp",
+  Kelsier: "/images/agents/kelsier.webp",
+  Tuvok: "/images/agents/tuvok.webp",
+  Dockson: "/images/agents/dockson.webp",
   Haku: "/images/agents/subs/haku.webp",
   Gimli: "/images/agents/subs/gimli.webp",
   Éowyn: "/images/agents/subs/éowyn.webp",
@@ -103,6 +106,11 @@ export const majorEras: Record<string, MajorEra> = {
     title: "The Scanner",
     quote: "The forge sees everything. Deep Current scans, analyzes, proposes. Autonomous intelligence that thinks about what to build next.",
     agent: "Tuvok",
+  },
+  "13": {
+    title: "The Living Dashboard",
+    quote: "The forge watches itself in real-time. Status Line, agent ticker, LAN mode. The dashboard becomes the forge's mirror.",
+    agent: "Fury",
   },
 };
 
