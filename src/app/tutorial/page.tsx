@@ -44,7 +44,7 @@ const paths = [
     title: "THE IMPORT",
     subtitle: "I have an existing project",
     description:
-      "Point VoidForge at your existing codebase. /prd generates a PRD from your code. /gauntlet audits it. /campaign adds new features.",
+      "Point VoidForge at your existing codebase. /assess maps what you have. /prd generates a PRD from reality. /campaign builds what's missing.",
     href: "/tutorial/import",
     color: "var(--vf-neon-green)",
     tier: "Core tier",

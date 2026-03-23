@@ -150,6 +150,20 @@ export default function ScaffoldPage() {
             <code className="text-[var(--vf-electric-blue)]">/devops</code>{" "}
             manually to configure your target before shipping.
           </p>
+          <p className="text-[var(--vf-text-muted)] mt-4 text-sm">
+            <strong className="text-[var(--vf-text)]">Hybrid project?</strong>{" "}
+            If you&apos;re adding VoidForge to an existing codebase rather than
+            starting fresh, consider running{" "}
+            <code className="text-[var(--vf-electric-blue)]">/assess</code>{" "}
+            first to map what you have before writing the PRD. See{" "}
+            <Link
+              href="/tutorial/import"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              The Import Path
+            </Link>{" "}
+            for the full workflow.
+          </p>
         </section>
       </div>
     </div>
