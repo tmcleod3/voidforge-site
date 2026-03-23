@@ -468,7 +468,7 @@ export const commands: Command[] = [
     name: "/gauntlet",
     lead: "Thanos",
     description:
-      "The ultimate test. 5 rounds, 30+ agents across 6 universes, escalating from discovery to adversarial warfare. Review-only — no build. If your project survives the snap, it's ready for anything.",
+      "The ultimate test. 5 rounds, 30+ agents across 8 universes, escalating from discovery to adversarial warfare. Review-only — no build. If your project survives the snap, it's ready for anything.",
     usage: "/gauntlet [--quick] [--security-only] [--ux-only] [--qa-only] [--resume] [--ux-extra] [--infinity]",
     whatHappens: [
       "Round 1: Discovery — all agents read the codebase in parallel",
@@ -680,6 +680,23 @@ export const commands: Command[] = [
       "Living PRD diff view shows how the plan evolved during execution",
     ],
     badge: "NEW in v10.0",
+  },
+  {
+    slug: "assess",
+    tier: "all" as CommandTier,
+    name: "/assess",
+    lead: "Picard",
+    description:
+      "Picard's pre-build assessment — evaluate an existing codebase before a rebuild, migration, or VoidForge onboarding. Chains architecture review, assessment-mode Gauntlet, and PRD gap analysis into a unified 'State of the Codebase' report.",
+    usage: "/assess",
+    whatHappens: [
+      "Picard runs a full architecture scan — schema, integrations, security posture, service boundaries, tech debt",
+      "Thanos runs an assessment Gauntlet (Rounds 1-2 only) — findings grouped by root cause, not domain",
+      "Key detection: abandoned migrations, stubs returning success, auth-free endpoints, dead code",
+      "Dax + Troi run PRD gap analysis — structural and semantic diff of requirements vs implementation",
+      "Produces a unified State of the Codebase report in /logs/assessment.md with remediation plan",
+    ],
+    badge: "NEW in v13.0",
   },
 ];
 

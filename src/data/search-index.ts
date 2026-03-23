@@ -71,9 +71,10 @@ export const searchIndex: SearchEntry[] = [
   { title: "/cultivation", description: "Install the Cultivation growth engine — autonomous marketing infrastructure", path: "/commands/cultivation", category: "Commands" },
   { title: "/current", description: "Tuvok's Deep Current — autonomous campaign intelligence and site scanning", path: "/commands/current", category: "Commands" },
   { title: "/dangerroom", description: "The Danger Room — installable operations dashboard for build/deploy/agent monitoring", path: "/commands/dangerroom", category: "Commands" },
+  { title: "/assess", description: "Picard's pre-build assessment — architecture + assessment gauntlet + PRD gap analysis", path: "/commands/assess", category: "Commands" },
 
   // Patterns
-  { title: "Patterns", description: "19 code patterns across 4 domains with framework implementations", path: "/patterns", category: "Patterns" },
+  { title: "Patterns", description: "20 code patterns across 4 domains with framework implementations", path: "/patterns", category: "Patterns" },
   { title: "API Route", description: "Validation, auth, service call, consistent response", path: "/patterns/api-route", category: "Patterns" },
   { title: "Service", description: "Business logic, ownership checks, typed errors", path: "/patterns/service", category: "Patterns" },
   { title: "Component", description: "Loading, empty, error, success states — keyboard accessible", path: "/patterns/component", category: "Patterns" },
