@@ -1588,6 +1588,16 @@ end`,
     preview: `class RateLimiter {\n  async acquire(): Promise<void> {\n    while (this.tokens <= 0) {\n      await this.waitForRefill();\n    }\n    this.tokens--;\n  }\n}`,
     frameworks: [{ framework: "typescript", label: "TypeScript", language: "TypeScript", code: `class RateLimiter {\n  private tokens: number;\n  private maxTokens: number;\n  private refillRate: number; // tokens per second\n  private lastRefill: number;\n\n  constructor(maxPerSecond: number) {\n    this.maxTokens = maxPerSecond;\n    this.tokens = maxPerSecond;\n    this.refillRate = maxPerSecond;\n    this.lastRefill = Date.now();\n  }\n\n  async acquire(): Promise<void> {\n    this.refill();\n    while (this.tokens <= 0) {\n      await new Promise(r => setTimeout(r, 100));\n      this.refill();\n    }\n    this.tokens--;\n  }\n\n  private refill() {\n    const now = Date.now();\n    const elapsed = (now - this.lastRefill) / 1000;\n    this.tokens = Math.min(this.maxTokens, this.tokens + elapsed * this.refillRate);\n    this.lastRefill = now;\n  }\n}` }],
   },
+  {
+    slug: "third-party-script",
+    name: "third-party-script.ts",
+    title: "Third-Party Script",
+    description: "External script loading with 3 states: loading, ready, error.",
+    teaches: "How to load external scripts (Google Identity, Stripe.js, analytics SDKs) with a proper 3-state machine. The timeout MUST transition to 'error', not stay in 'loading' — an infinite spinner is worse than an error message.",
+    whenToUse: "Any external SDK integration: payment widgets, auth providers, analytics, chat widgets, ad scripts.",
+    preview: `type ScriptState = 'loading' | 'ready' | 'error';\n\nfunction loadScript(src: string) {\n  const el = document.createElement('script');\n  el.onload = () => state = 'ready';\n  el.onerror = () => state = 'error';\n}`,
+    frameworks: [{ framework: "typescript", label: "TypeScript", language: "TypeScript", code: `type ScriptState = 'loading' | 'ready' | 'error';\n\ninterface ThirdPartyScript {\n  state: ScriptState;\n  error: string | null;\n}\n\nfunction loadExternalScript(\n  src: string,\n  timeoutMs = 10_000\n): ThirdPartyScript {\n  const script: ThirdPartyScript = {\n    state: 'loading',\n    error: null,\n  };\n\n  const el = document.createElement('script');\n  el.src = src;\n  el.async = true;\n\n  el.onload = () => {\n    script.state = 'ready';\n    script.error = null;\n  };\n\n  el.onerror = () => {\n    script.state = 'error';\n    script.error = \`Failed to load \${src}\`;\n  };\n\n  document.head.appendChild(el);\n\n  // Timeout — MUST transition to 'error'\n  setTimeout(() => {\n    if (script.state === 'loading') {\n      script.state = 'error';\n      script.error = \`Timed out after \${timeoutMs}ms\`;\n    }\n  }, timeoutMs);\n\n  return script;\n}` }],
+  },
 ];
 
 export function getPattern(slug: string): Pattern | undefined {

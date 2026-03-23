@@ -94,6 +94,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "Revenue Source Adapter", description: "Read-only revenue interface with Stripe + Paddle implementations", path: "/patterns/revenue-source-adapter", category: "Patterns" },
   { title: "OAuth Token Lifecycle", description: "Refresh at 80% TTL, failure escalation, vault integration", path: "/patterns/oauth-token-lifecycle", category: "Patterns" },
   { title: "Outbound Rate Limiter", description: "Token bucket for external API calls with per-platform limits", path: "/patterns/outbound-rate-limiter", category: "Patterns" },
+  { title: "Third-Party Script", description: "External script loading with 3 states: loading, ready, error", path: "/patterns/third-party-script", category: "Patterns" },
 
   // Tutorials
   { title: "The Wizard Path", description: "Start from nothing — Gandalf walks you through everything", path: "/tutorial/wizard", category: "Tutorial" },

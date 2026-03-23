@@ -10,7 +10,7 @@ const groups = [
     label: "WEB",
     tagline: "The foundation. Every web app starts here.",
     color: "var(--vf-electric-blue)",
-    slugs: ["api-route", "service", "component", "middleware", "error-handling", "job-queue", "multi-tenant", "sse-endpoint"],
+    slugs: ["api-route", "service", "component", "middleware", "error-handling", "job-queue", "multi-tenant", "sse-endpoint", "third-party-script"],
   },
   {
     id: "mobile",
