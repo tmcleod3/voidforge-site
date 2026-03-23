@@ -1,6 +1,6 @@
 # Version
 
-**Current:** 12.4.1
+**Current:** 13.0.0
 
 ## Versioning Scheme
 
@@ -14,6 +14,14 @@ This project uses [Semantic Versioning](https://semver.org/):
 
 | Version | Date | Summary |
 |---------|------|---------|
+| 13.0.0 | 2026-03-22 | The Living Dashboard — consolidation, 3-tier UX, LAN mode, Status Line bridge, agent ticker, new panels |
+| 12.6.4 | 2026-03-22 | Inbox triage #130-131 — encryption egress audit, GROUP BY compatibility, v14.0 Day-0 Engine roadmap |
+| 12.6.3 | 2026-03-22 | Inbox triage #129 — acceptance criteria enforcement, gitignore warning, blitz pre-flight, --adr-only mode |
+| 12.6.2 | 2026-03-22 | v13.0 roadmap — LAN mode, Danger Room bug fixes + feature proposals from field reports #127-128 |
+| 12.6.1 | 2026-03-22 | Inbox triage #126 — Learned Rules for campaign checkpoints, historical data validation, PRD evolution workflow |
+| 12.6.0 | 2026-03-22 | Inbox triage #123-125 — /assess command, --assess gauntlet flag, stub detection, migration check, auth-from-day-one, process manager discipline |
+| 12.5.0 | 2026-03-19 | The Full Roster — agent deployment manifests: /review gets 20+ agents, /devops gets 16, /assemble gets 80+ documented |
+| 12.4.2 | 2026-03-19 | Tier-gating: auto-pull wizard/ for Full-tier commands, CLAUDE.md integrity checks, 5 methodology improvements from field reports |
 | 12.4.1 | 2026-03-18 | Missing /dangerroom command, community health files, WORKSHOP.md, inbox triage (#104), branch sync |
 | 12.4.0 | 2026-03-18 | The Autonomy — route optimizer, Tier 2/3 autonomy, circuit breakers, kill switch, deploy freeze |
 | 12.3.0 | 2026-03-18 | The Navigator — Paris's route optimization (included in v12.4 release) |

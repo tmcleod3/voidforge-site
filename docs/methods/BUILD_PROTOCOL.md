@@ -119,9 +119,10 @@ Every phase produces a log file in `/logs/`. See `/docs/methods/BUILD_JOURNAL.md
 5. Check for VoidForge vault (`~/.voidforge/vault.enc`). If present, cross-reference env vars from the PRD against vault contents and provisioning state (`~/.voidforge/runs/*.json`). Distinguish "missing credential" (truly BLOCKED) from "vault-available credential" (resolvable via `voidforge deploy`). (Field report #40)
 6. **Wong loads lessons:** Read `/docs/LESSONS.md`. For each entry matching the current project's framework, database, auth pattern, or integration stack, note it: "Lesson from prior build: [summary]." These inform later phases — e.g., if a lesson says "React useEffect render loops escape review," trace render cycles proactively in Phase 4+. Log matched lessons in phase-00-orient.md.
 7. **Troi confirms PRD extraction:** Troi reads the PRD prose and verifies that Picard's extraction (routes, schema, features, integrations) matches what the PRD actually says. Catches misinterpretations before they propagate through 8+ build phases. Log discrepancies in phase-00-orient.md.
-8. Produce initial ADRs in `/docs/adrs/`
-9. Create `/logs/build-state.md` and `/logs/phase-00-orient.md`
-10. If PRD has critical gaps (no schema, no stack, no features defined): **STOP. Flag to user. Do not proceed.**
+8. **Historical validation for data-dependent systems.** If the project involves trading, financial analysis, pricing, or any domain where the business case depends on real-world data patterns: validate the strategy against historical data BEFORE building infrastructure. Pull trailing 3+ weeks of data from venue/provider APIs, run the analysis, and produce regression tests against historical data points. These regression tests become the ongoing validation suite — re-run weekly (or per-campaign) to detect edge decay. If regression tests start failing mid-campaign, flag dependent strategies for re-evaluation. Do NOT default to "monitor live data for N weeks" when historical data is available — that blocks the entire campaign unnecessarily. (Field report #126)
+9. Produce initial ADRs in `/docs/adrs/`
+10. Create `/logs/build-state.md` and `/logs/phase-00-orient.md`
+11. If PRD has critical gaps (no schema, no stack, no features defined): **STOP. Flag to user. Do not proceed.**
 
 **Phase 0.5 — Picard's Conflict Scan.**
 
@@ -140,11 +141,13 @@ If any contradictions found: present them to the user with specific resolution o
 This catches architecture mistakes that currently escape until Phase 9-11 reviews — where fixing them costs hours instead of minutes.
 
 **Phase 1 — Stark + Kusanagi Scaffold.**
-1. Initialize framework, configs, schema, directory structure, types, utils, root layout
-2. Set up test runner per `/docs/methods/TESTING.md`
-3. Every placeholder references its PRD section
-4. **Tailwind v4 projects:** If framework is Next.js and styling is Tailwind, create `postcss.config.mjs` (`export default { plugins: { "@tailwindcss/postcss": {} } }`) and ensure `globals.css` starts with `@import "tailwindcss" source("../.."). Tailwind v4's implicit scanning breaks in deployed environments when non-source files (methodology docs, build logs) are scanned.
-5. Log to `/logs/phase-01-scaffold.md`
+1. **Migration Completeness Check (existing codebases only):** Before scaffolding, scan for duplicate implementations — same class name, same function name, or same route pattern in multiple directories (e.g., `src/` and `core/`, `v1/` and `v2/`). If found: flag as blocker. An abandoned migration is worse than no migration — two architectures create confusion, duplicate maintenance, and allow each to reference the other. Resolve before proceeding: complete the migration, revert it, or document the boundary. (Field report #125: stubs in `core/services/` returned True without acting while working code in `src/` was never connected.)
+2. **Auth-from-Day-One:** When scaffolding includes HTTP endpoints, require at minimum an API key middleware stub that returns 401 by default. Full auth (JWT, OAuth, 2FA) stays in Phase 3, but every endpoint is locked from birth. The cost of a simple API key check is minutes; the cost of public exposure during Phases 1-2 is catastrophic for financial or data-sensitive systems. (Field report #125: all endpoints shipped with `allow_origins=["*"]`, zero authentication, bound to `0.0.0.0` — existed unprotected for 2+ build phases.)
+3. Initialize framework, configs, schema, directory structure, types, utils, root layout
+4. Set up test runner per `/docs/methods/TESTING.md`
+5. Every placeholder references its PRD section
+6. **Tailwind v4 projects:** If framework is Next.js and styling is Tailwind, create `postcss.config.mjs` (`export default { plugins: { "@tailwindcss/postcss": {} } }`) and ensure `globals.css` starts with `@import "tailwindcss" source("../.."). Tailwind v4's implicit scanning breaks in deployed environments when non-source files (methodology docs, build logs) are scanned.
+7. Log to `/logs/phase-01-scaffold.md`
 
 **Phase 2 — Kusanagi Infrastructure.**
 1. Database (Banner assists) -> Redis -> Environment
@@ -162,7 +165,8 @@ This catches architecture mistakes that currently escape until Phase 9-11 review
 1. Single most important user journey, end-to-end vertical slice
 2. Follow patterns: `/docs/patterns/api-route.ts`, `/docs/patterns/service.ts`, `/docs/patterns/component.tsx`
 3. Write unit tests for core service logic + integration tests for API routes
-4. Log to `/logs/phase-04-core.md`
+4. **Visual intent confirmation:** For visual/layout changes, confirm placement intent (replace vs augment) before coding. "Add logo to hero" and "logo IS the hero" produce very different implementations. Ask: "Should this replace the existing content, or be added alongside it?" (Field report #111)
+5. Log to `/logs/phase-04-core.md`
 
 ### Integration Wiring Check
 

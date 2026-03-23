@@ -91,6 +91,17 @@ Use the Agent tool to run these in parallel — they are independent analysis ta
 - **Picard writes ADRs:** Architecture Decision Records for every non-obvious choice. Status, context, decision, consequences, alternatives.
 - **Riker reviews:** "Number One, does this hold up?" Riker challenges each ADR's trade-offs — are the alternatives truly worse? Are the consequences acceptable? Did we consider the second-order effects? Riker's review prevents architectural decisions made in a vacuum.
 
+### `--adr-only` Lightweight Mode
+
+When architecture work is deferred (e.g., designing auth that won't be built for months), skip the full parallel analysis (Steps 1-4) and go straight to Step 5:
+
+1. Picard reads the relevant PRD sections
+2. Picard writes ADRs capturing decisions, constraints, and alternatives
+3. Riker reviews the ADRs
+4. Deliverable: `/docs/adrs/` only — no ARCHITECTURE.md, no SCALING.md, no FAILURE_MODES.md
+
+This saves ~100K tokens on work that's far from execution. The full bridge crew (Spock, Uhura, Worf, Tuvok, La Forge, Data) deploys when the architecture is about to be built, not when it's first discussed. ADRs capture the "why" cheaply; the detailed analysis can wait. (Field report #129: full 4-agent bridge crew deployed for auth architecture that was then deferred to Phase 4.)
+
 ### Extended Star Trek Roster (activate as needed)
 
 **Janeway (Novel Architectures):** When the standard monolith doesn't fit — event-sourcing, CQRS, serverless, edge computing. Janeway navigates uncharted territory and proposes architectures the team hasn't tried before.
@@ -99,6 +110,22 @@ Use the Agent tool to run these in parallel — they are independent analysis ta
 **Archer (Greenfield):** For new projects — proposes the initial directory structure, module boundaries, naming conventions, and bootstrap sequence. "Where no one has gone before."
 **Kim (API Design):** REST conventions, consistent error shapes, pagination patterns, versioning strategy, GraphQL schema design. API surface architect.
 **Pike (Bold Planning):** In `/campaign` — challenges Dax's mission ordering. "Should we attempt a harder mission first while context is fresh?" Bold decisions about sequencing.
+
+## Architect-to-Campaign Handoff
+
+When `/architect` produces a plan that will be executed via `/campaign`, offer to generate a PRD skeleton from the architecture deliverables. The architect's output (ADRs, component inventory, design decisions) maps directly to PRD sections: ADRs → Tech Stack + System Architecture, component inventory → Core Features, design decisions → Implementation phases. If the user says "build this" after an `/architect` session, route to `/campaign --plan` with the architect's output as input — don't restart the analysis from scratch. (Field report #116)
+
+**Detecting campaign intent:** If the user invokes `/architect --plan` but their request describes a new product/feature (not a review of existing architecture), suggest `/campaign --plan` instead. Signs: "create a new page," "build a feature," "add a subdomain."
+
+## Iterative PRD Evolution via `/architect --plan`
+
+`/architect --plan` supports iterative PRD evolution — multiple rounds of architectural planning where the PRD itself is the deliverable being refined. This is a recognized workflow, not a workaround.
+
+**How it works:** Each `/architect --plan` iteration analyzes the current PRD state, proposes structural improvements (phase ordering, dependency resolution, missing infrastructure, strategy validation), and produces a commit. The PRD evolves across 5-15+ commits before any code is written.
+
+**When to use:** When the project domain is complex enough that a single PRD generation pass can't capture all architectural constraints — trading systems, multi-tenant platforms, real-time collaboration tools, systems with complex data pipelines.
+
+**Commit discipline:** Each iteration commits the PRD changes separately with a descriptive message. The git history becomes the PRD evolution record — `git log docs/PRD.md` shows the reasoning arc. (Field report #126)
 
 ## Data Mutation Parity Check
 

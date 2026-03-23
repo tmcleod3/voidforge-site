@@ -6,40 +6,110 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
-## [0.6.0] - 2026-03-19 — The Dossier
+## [13.0.0] - 2026-03-22
 
 ### Added
-- **Commands page redesign** — accordions replaced with always-visible dossier cards in 2-column grid. 4 color-coded mission groups: STRIKE OPS (orange), FIELD OPS (green), RECON OPS (red), BASE OPS (blue)
-- **Patterns page redesign** — same dossier card treatment with 4 domain groups: WEB (blue), MOBILE (green), GAME (orange), SYSTEMS (purple). Code preview always visible on cards
-- **Tier badges** — All (green) vs Full (purple) with tier legend on commands page. Full-tier commands require wizard (main branch)
-- **Jump nav pills** — horizontal section navigation on commands and patterns pages
-- **Stats bars** — dynamic counts (commands, flags, groups, tiers, patterns, frameworks)
-- **Agent avatars** on command cards from existing image map
-- **Framework badges** on pattern cards (multi-framework vs single)
-- **Stagger animation** — WHAT HAPPENS steps fade-slide in with 80ms delay on command detail pages (CSS-only, respects prefers-reduced-motion)
-- **Ship dates** now visible in prophecy release expansions
-- **Command tier field** (`tier: "all" | "full"`) added to Command data interface
-- **v12.4.1 "The Tier Gate"** added to shipped releases data
+- **LAN mode (`--lan`)** — Private network access for ZeroTier, Tailscale, WireGuard. Binds `0.0.0.0` with optional password, no TOTP/Caddy. Private IP validation covers RFC 1918, CGNAT (Tailscale), IPv6 ULA (ZeroTier).
+- **Status Line bridge** — `scripts/danger-room-feed.sh` connects Claude Code's Status Line API to the Danger Room. Per-session files with atomic writes, 60-second staleness threshold. Powers context gauge + cost display.
+- **Agent activity ticker** — Methodology-driven JSONL logging (not hooks). Hybrid `fs.watch` + 3-second poll fallback. Live agent dispatch events broadcast via WebSocket.
+- **Tests panel** — Structured `test-results.json` data contract with defined schema. New `/api/danger-room/tests` endpoint.
+- **Git status panel** — Branch, uncommitted count, ahead/behind, last commit via `execFile` with 5-second timeout. New `/api/danger-room/git-status` endpoint.
+- **Dashboard config** — `danger-room.config.json` for project-specific panel settings (health endpoint, PM2 process, enabled panels).
+- **Shared `wizard/lib/network.ts`** — `isPrivateIp()` + `isPrivateOrigin()` with numeric octet parsing. Consolidates duplicate implementations.
 
 ### Changed
-- 7 command descriptions rewritten with agent personality (/qa, /test, /review, /devops, /architect, /void, /cultivation)
-- Command detail pages restructured: fragment wrapper, SpeechBubble from lead agent, orange sub-headings, max-w-4xl, "Back to Mission Briefing" CTA
-- Pattern detail pages restructured: same treatment — SpeechBubble, orange headings, consistent layout
-- Prophecy Bombadil quote now derives version/era counts from data (no longer stale)
-- "Mission briefing →" CTA for non-flag commands (was "Full details")
-- OPERATIONS tagline: "Run the forge. Sharpen the blade." (was "The machinery behind the magic")
+- **3-tier information architecture** — Ops tab restructured: Live Feed (context gauge + agent ticker) → Campaign State (timeline + findings + pipeline) → System Status (version + deploy + tests). Visual hierarchy with tier labels and distinct styling.
+- **Tiered polling** — Fast 5s (context), campaign 10s (timeline/findings), slow 60s (version/deploy). Replaces uniform 10-second poll. ~60% reduction in unnecessary network requests.
+- **Dashboard consolidation** — 800+ lines of duplicated code extracted into 3 shared modules (`http-helpers.ts`, `dashboard-data.ts`, `dashboard-ws.ts`). danger-room.ts: 306→113 lines. war-room.ts: 248→67 lines.
+- **War Room wired** — Routes now actually register (was dead code — never imported by server.ts).
+- **Empty states** — Every panel shows actionable guidance when data is missing.
 
 ### Fixed
-- Agent counts: 14→17 leads, 7→8 universes across hero, feature cards, agents page, about page, search index, JSON-LD, layout metadata
-- Pattern count: 21→19 in feature cards, search index, test
-- Broken Tailwind opacity modifiers on hex CSS vars in prophecy-release (silently non-functional)
-- Accordion `aria-controls` referencing nonexistent DOM when collapsed (now always-rendered with `hidden`)
-- Framework tabs: arrow-key navigation, `aria-controls`, roving `tabIndex`, panel `tabIndex`
-- `Math.max()` on empty shipped array returning `-Infinity`
-- Framework tab sort order for typescript/react-native/fastapi
-- Decorative bullets and avatars missing `aria-hidden`
-- Strikethrough items now use `<s>` for screen reader support
-- Dead `isPatch` function removed
+- **Campaign regex** — `parseCampaignState()` rewritten for actual 5-column format. Handles bold markdown status (`**DONE**`). Normalizes vocabulary. Extracts `blockedBy` + `debrief` fields.
+- **Build state artifacts** — `parseBuildState()` explicit trim removes leading `| ` capture artifacts.
+- **Findings counter** — `parseFindings()` reads `build-state.md` "Known Issues" first (curated, open issues only). Falls back to regex scan with defensive logging.
+
+---
+
+## [12.6.4] - 2026-03-22
+
+### Added
+- **Encryption Egress Audit** in security auditor — grep all usages of plaintext variable after encrypting, not just the storage path (DB, Redis, SSE, logs, API responses)
+- **GROUP BY Compatibility Check** in security auditor — random-IV encryption breaks aggregation; add deterministic HMAC hash column
+- **v14.0 roadmap** — The Day-0 Engine: Cultivation onboarding redesign with 7-step guided growth setup
+
+### Fixed
+- Field reports #130, #131 triaged — 2 security methodology fixes applied, 1 feature request roadmapped
+
+---
+
+## [12.6.3] - 2026-03-22
+
+### Changed
+- Campaign planning now **requires acceptance criteria** on every mission before the Prophecy Board is finalized — applies to `--plan` mode too, not just build
+- Kira's Step 0 checks if `campaign-state.md` is **gitignored** and warns immediately — prevents silent data loss on `/clear`
+- Kira's Step 0 includes a **pre-flight checklist**: VERSION.md, package manifest, campaign-state tracking, clean working tree
+
+### Added
+- `/architect --adr-only` lightweight mode — write ADRs without full bridge crew deployment, for deferred architecture decisions
+
+### Fixed
+- Field report #129 triaged — 4 fixes applied, 1 wontfix (--plan --draft solved by git diff)
+
+---
+
+## [12.6.2] - 2026-03-22
+
+### Added
+- **v13.0 roadmap** — The Private Network: `--lan` mode for ZeroTier/Tailscale/WireGuard access, context gauge wiring via Status Line bridge, 3 Danger Room bug fixes, 3 unwired feature plans, 4 new dashboard panel proposals from real-world usage (field reports #127, #128)
+
+---
+
+## [12.6.1] - 2026-03-22
+
+### Changed
+- Campaign Gauntlet checkpoints now extract **Learned Rules** — recurring root causes become pre-flight checks for subsequent missions, with escalation triggers (hardening sprints for >5 HIGH findings, auto-add missions for missing capabilities)
+- Build Protocol Phase 0 validates data-dependent business cases against **historical data** before building infrastructure — no more blocking campaigns on live monitoring
+- Campaign missions for data-dependent systems must re-run **regression test suites** when modifying strategy logic
+
+### Added
+- Iterative PRD evolution workflow documented for `/architect --plan` — multi-commit PRD refinement as a recognized pattern
+- PRD Evolution Log section in PRD template for tracking architectural reasoning across iterations
+
+### Fixed
+- Field report #126 triaged — 3 root causes accepted, 5 file changes applied, issue closed
+
+---
+
+## [12.6.0] - 2026-03-22
+
+### Added
+- **`/assess` command** — Pre-build codebase assessment: chains `/architect` → `/gauntlet --assess` → PRD gap analysis into a unified "State of the Codebase" report. For evaluating existing codebases before a rebuild or VoidForge onboarding.
+- **`--assess` flag for `/gauntlet`** — Assessment-only mode: Rounds 1-2 (Discovery + First Strike), no fix batches. Produces report grouped by root cause. Designed for pre-build evaluation where full 10 rounds would be redundant.
+- **Stub Detection** in QA_ENGINEER.md — Oracle scans for methods that return True/success without side effects (no network calls, no state writes). The most dangerous form of incomplete code. High severity; Critical for financial systems.
+- **Migration Completeness Check** in BUILD_PROTOCOL.md Phase 1 — Before scaffolding, scan for duplicate implementations across directories. Abandoned migrations are flagged as blockers.
+- **Auth-from-Day-One** in BUILD_PROTOCOL.md Phase 1 — HTTP endpoints require API key middleware returning 401 from birth. Full auth stays Phase 3, but the door is locked from day one.
+- **Process Manager Discipline** in DEVOPS_ENGINEER.md — Never kill ports owned by PM2/systemd/Docker directly; always reload through the process manager.
+- **Frontmatter Validation** in CAMPAIGN.md Step 1 — Before Dax analyzes the PRD, validate YAML frontmatter exists. If missing, Sisko runs a 5-question interview to add it.
+- **VM execution test** in GAUNTLET.md build-output verification — Compiled JSX/HTML must be tested in the target runtime, not just built successfully.
+
+### Fixed
+- Field reports #123, #124, #125 triaged — 8 methodology improvements applied, all 3 issues closed
+
+---
+
+## [12.4.2] - 2026-03-19
+
+### Changed
+- Full-tier commands auto-pull `wizard/` from upstream when missing — scaffold/core users get "Pull it? [Y/n]" instead of a dead end
+- CLAUDE.md slash command table has Tier column (All/Full) for all 23 commands
+- Gauntlet Troi verifies CLAUDE.md claims (commands, agents, docs exist at stated paths)
+- Gauntlet Kenobi checks pattern auth completeness (flags presence-only `!!header` checks)
+- Campaign Victory Gauntlet has cross-campaign integration gate
+- Release Manager has CLAUDE.md command table integrity check
+
+### Fixed
+- Field reports #108, #109, #110 triaged — 12 methodology improvements applied
 
 ---
 

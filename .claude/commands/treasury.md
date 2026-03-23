@@ -5,8 +5,21 @@
 Read `/docs/methods/TREASURY.md` for operating rules.
 Read `/docs/methods/HEARTBEAT.md` for daemon architecture.
 
+## Agent Deployment Manifest
+
+**Lead:** Dockson (Cosmere — Mistborn)
+**Core team:**
+- **Steris** — budget allocation, forecasting, contingency plans
+- **Vin** — revenue analytics, attribution, pattern detection
+- **Szeth** — financial compliance, tax records, platform ToS
+- **Breeze** — platform relations, API credentials, OAuth management
+- **Wax** — spend execution, campaign budget management
+
 ## Prerequisites
-This command requires VoidForge Full (main branch). If `wizard/` does not exist, stop: "Treasury requires the wizard server (main branch). You're on scaffold/core. To get the full version: `npx voidforge init` or `git checkout main`."
+If `wizard/` does not exist (scaffold/core users):
+1. Offer: "Treasury requires the wizard server. Pull it from upstream? [Y/n]"
+2. On yes: `git fetch voidforge main 2>/dev/null || git remote add voidforge https://github.com/tmcleod3/voidforge.git && git fetch voidforge main` then `git checkout voidforge/main -- wizard/` then `cd wizard && npm install`
+3. On no: stop with "Run manually: `git checkout voidforge/main -- wizard/`"
 
 ## Context Setup
 1. Check if financial vault exists (`~/.voidforge/treasury/vault.enc`)
