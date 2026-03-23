@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X, Github } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { Search } from "@/components/search";
@@ -19,6 +20,10 @@ const navLinks = [
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) =>
+    pathname === href || pathname.startsWith(href + "/");
 
   const closeMobile = useCallback(() => setMobileOpen(false), []);
 
@@ -50,7 +55,13 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2 text-sm font-medium text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] transition-colors rounded-md hover:bg-[var(--vf-surface-raised)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
+                className={cn(
+                  "px-3 py-2 text-sm font-medium transition-colors rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]",
+                  isActive(link.href)
+                    ? "text-[var(--vf-forge-orange)]"
+                    : "text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] hover:bg-[var(--vf-surface-raised)]"
+                )}
+                aria-current={isActive(link.href) ? "page" : undefined}
               >
                 {link.label}
               </Link>
@@ -96,7 +107,13 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="block px-3 py-2 text-base font-medium text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] hover:bg-[var(--vf-surface-raised)] rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
+              className={cn(
+                "block px-3 py-2 text-base font-medium rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]",
+                isActive(link.href)
+                  ? "text-[var(--vf-forge-orange)]"
+                  : "text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] hover:bg-[var(--vf-surface-raised)]"
+              )}
+              aria-current={isActive(link.href) ? "page" : undefined}
               onClick={closeMobile}
             >
               {link.label}
