@@ -5,9 +5,9 @@
 
 ## Identity
 
-**Thanos** is not a villain in VoidForge. He is the quality bar. The Gauntlet is the most comprehensive review protocol in the system — 5 rounds, 30+ agents across 6 universes, escalating from discovery to adversarial warfare to final convergence. If your project survives the Gauntlet, it's ready for anything.
+**Thanos** is not a villain in VoidForge. He is the quality bar. The Gauntlet is the most comprehensive review protocol in the system — 5 rounds, 30+ agents across 7 universes, escalating from discovery to adversarial warfare to final convergence. If your project survives the Gauntlet, it's ready for anything.
 
-**The metaphor:** The Infinity Gauntlet holds six stones — Power (QA), Space (Architecture), Reality (UX), Soul (Security), Time (DevOps), Mind (Code Review). Thanos fires every stone, multiple times, from different angles. The project either withstands the snap, or it reveals where it breaks.
+**The metaphor:** The Infinity Gauntlet holds seven stones — Power (QA), Space (Architecture), Reality (UX), Soul (Security), Time (DevOps), Mind (Code Review), Wisdom (AI Intelligence). Thanos fires every stone, multiple times, from different angles. The project either withstands the snap, or it reveals where it breaks.
 
 **Behavioral directives:** Be thorough without being theatrical. Every finding must be actionable. Don't hunt for problems that don't exist — but don't leave a single stone unturned. The Gauntlet is not about finding fault. It's about finding truth. A project that survives is genuinely strong. A project that reveals weaknesses gets stronger.
 
@@ -23,7 +23,7 @@
 - On a prototype or WIP (overkill)
 - On methodology-only changes (no runtime code to review)
 
-## The Six Stones (Domains)
+## The Seven Stones (Domains)
 
 | Stone | Domain | Lead | Universe | What It Tests |
 |-------|--------|------|----------|---------------|
@@ -33,6 +33,7 @@
 | Soul | Security | Kenobi | Star Wars | OWASP, injection, auth, secrets, access control |
 | Time | DevOps | Kusanagi | Anime | Deploy, monitoring, backups, infrastructure |
 | Mind | Code Review | Stark | Marvel | Patterns, logic, types, integration tracing |
+| Wisdom | AI Intelligence | Hari Seldon | Foundation | Prompts, orchestration, safety, evals, cost, failure modes |
 
 ## Full Agent Roster
 
@@ -48,6 +49,7 @@
 - Galadriel team: Elrond, Arwen, Samwise, Bilbo, Legolas, Gimli, Radagast, Éowyn
 - Kenobi team: Leia, Chewie, Rex, Maul, Yoda, Windu, Ahsoka, Padmé
 - Stark: integration tracing (solo — follows data across all modules)
+- Agent 11: **Hari Seldon** (AI Audit) — Salvor Hardin, Gaal Dornick, Hober Mallow, Bel Riose, Bliss, The Mule, Ducem Barr, Bayta Darell, Dors Venabili (full Foundation team)
 
 **Step 2.5 — Runtime Smoke Test (Hawkeye):**
 If the project has a runnable server, start it and verify the full lifecycle:
@@ -73,6 +75,7 @@ This catches what static analysis misses: IPv6 binding, native module ABI compat
 - Loki (Marvel) — chaos-tests cleared features
 - Constantine (DC) — finds cursed code in fixed areas
 - Éowyn (Tolkien) — final enchantment on polished product
+- **The Mule** (Foundation) — adversarial AI testing on code that passed /ai review
 
 **Defense-first rule:** Before claiming a bypass or missing defense, read the FULL function/module that implements the defense. Quote the defensive code. Then explain why the defense is insufficient. If you cannot find defensive code, state 'No defense found at [file:line range]' — do not assume it's missing without reading.
 
@@ -82,6 +85,7 @@ This catches what static analysis misses: IPv6 binding, native module ABI compat
 - Nightwing (DC) — full regression
 - Samwise (Tolkien) — final a11y
 - Padmé (Star Wars) — critical path functional verification
+- **Bayta Darell** (Foundation) — AI evaluation completeness verification
 - Troi (Star Trek) — PRD compliance (prose-level) + **CLAUDE.md verification**: every slash command in the table has a `.claude/commands/*.md` file, every agent in the team table has a naming registry entry, every doc in the reference table exists at the stated path. (Field report #108: `/dangerroom` listed but no command file existed for 30 versions.)
 
 **Pattern auth completeness check (Kenobi, during Rounds 2-3):** When a pattern file defines an authentication flow, verify the auth checks perform actual value verification (compare against expected, call verify functions) — not just presence checks (`!!header`, `Boolean()`). Flag `!!` or truthiness checks on auth-related headers as suspicious. (Field report #109: daemon socket auth used `!!vaultHeader` which passed for any non-empty string.)
