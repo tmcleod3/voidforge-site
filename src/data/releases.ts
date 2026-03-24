@@ -896,6 +896,13 @@ export const shipped: Release[] = [
     headline: "4 methodology fixes + 3 lessons from field reports #147-#148.",
     items: ["4 methodology fixes from field report triage", "3 new lessons captured in LESSONS.md", "Continuous improvement from production feedback"],
   },
+  {
+    version: "v15.3.0",
+    date: "2026-03-23",
+    title: "The Chronicle",
+    headline: "9 public docs updated to v15.2.1 — 76 staleness issues fixed across HOLOCRON, patterns README, and methodology references.",
+    items: ["HOLOCRON docs refresh — 76 staleness issues fixed across 9 public documents", "Patterns README updated with current pattern inventory", "Version references aligned across all public-facing documentation"],
+  },
 ];
 
 export const future: FutureRelease[] = [

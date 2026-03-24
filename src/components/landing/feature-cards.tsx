@@ -30,7 +30,7 @@ const features = [
   },
   {
     icon: Terminal,
-    title: "23 SLASH COMMANDS",
+    title: "25 SLASH COMMANDS",
     description:
       "Type /build and watch the forge ignite. /qa summons Batman. /security wakes Kenobi. /imagine generates art. /campaign runs the war. Sisko's orders.",
     href: "/commands",
@@ -38,7 +38,7 @@ const features = [
   },
   {
     icon: Code2,
-    title: "19 CODE PATTERNS",
+    title: "20 CODE PATTERNS",
     description:
       "Battle-tested reference implementations. API routes, services, components, middleware, error handling. Write code that every agent can read.",
     href: "/patterns",
