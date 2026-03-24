@@ -123,6 +123,11 @@ export const majorEras: Record<string, MajorEra> = {
     quote: "The code is built. The tests pass. But it's not real until it's deployed. The forge closes the gap between 'done' and 'live.'",
     agent: "Kusanagi",
   },
+  "16": {
+    title: "The Psychohistorians",
+    quote: "The forge doesn't just write code — it understands AI. Model selection, prompt architecture, tool schemas, evaluations. Psychohistory for the intelligence layer.",
+    agent: "Hari Seldon",
+  },
 };
 
 export const shipped: Release[] = [
@@ -904,11 +909,18 @@ export const shipped: Release[] = [
     headline: "9 public docs updated to v15.2.1 — 76 staleness issues fixed across HOLOCRON, patterns README, and methodology references.",
     items: ["HOLOCRON docs refresh — 76 staleness issues fixed across 9 public documents", "Patterns README updated with current pattern inventory", "Version references aligned across all public-facing documentation"],
   },
+  {
+    version: "v16.0.0",
+    date: "2026-03-24",
+    title: "The Psychohistorians",
+    headline: "Foundation universe. Hari Seldon (18th lead). /ai command. 6 AI patterns. AI Intelligence layer integrated into 8 existing commands.",
+    items: ["Foundation universe (Isaac Asimov) — 9th fictional universe with 12 named agents", "Hari Seldon promoted to 18th lead agent (AI Intelligence Architect)", "/ai command — AI Intelligence Audit: model selection, prompts, tool-use, orchestration, safety, evals", "6 new AI patterns: orchestrator, classifier, router, prompt-template, eval, tool-schema", "AI audit integrated into /assemble, /build, /campaign, /gauntlet, /prd, /qa, /security, /architect", "outbound-rate-limiter pattern now documented in CLAUDE.md"],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
-    version: "v16.0",
+    version: "v17.0",
     title: "The Convergence",
     opacity: 1,
     items: [
