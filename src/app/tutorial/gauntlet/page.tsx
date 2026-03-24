@@ -20,7 +20,7 @@ export default function GauntletPage() {
 
         <SpeechBubble agent="Thanos" universe="marvel">
           I am inevitable — and so is quality when you run the Gauntlet. Five
-          rounds. Thirty agents. Six universes. Every domain your project
+          rounds. Thirty agents. Eight universes. Every domain your project
           touches gets reviewed by specialists who do not pull punches. This is
           review-only — no building, no fixing. Just the truth about whether
           your code is ready to ship.

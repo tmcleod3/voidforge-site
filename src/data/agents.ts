@@ -261,7 +261,7 @@ export const leadAgents: LeadAgent[] = [
     universe: "marvel",
     domain: "The Gauntlet (Comprehensive Review)",
     description:
-      "Not a villain — the quality bar. The Gauntlet is the most comprehensive review in the system: 5 rounds, 30+ agents across 6 universes, escalating from discovery to adversarial warfare. If your project survives the snap, it's ready for anything.",
+      "Not a villain — the quality bar. The Gauntlet is the most comprehensive review in the system: 5 rounds, 30+ agents across 8 universes, escalating from discovery to adversarial warfare. If your project survives the snap, it's ready for anything.",
     quote:
       "I am inevitable. And so is every bug I find.",
     tagline: "I am inevitable.",

@@ -106,7 +106,10 @@ export default function WizardPage() {
           <p className="text-[var(--vf-text-muted)] mb-4">
             When the build completes, Kusanagi handles deployment — Vercel,
             AWS, Railway, Fly, or bare metal. The deploy target was set during
-            the wizard. Infrastructure is not your problem anymore.
+            the wizard. Infrastructure is not your problem anymore. For
+            subsequent deploys, just run{" "}
+            <code className="text-[var(--vf-electric-blue)]">/deploy</code>{" "}
+            — Kusanagi auto-detects, checks, deploys, and verifies health.
           </p>
         </section>
 

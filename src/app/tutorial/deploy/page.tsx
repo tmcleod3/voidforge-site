@@ -96,10 +96,26 @@ export default function DeployPage() {
             DevOps methodology, runs the pre-flight checklist, and executes the
             full deployment sequence for your target.
           </p>
-          <p className="text-[var(--vf-text-muted)]">
+          <p className="text-[var(--vf-text-muted)] mb-4">
             For the Full tier, the Haku wizard handles provisioning
             interactively. For Scaffold and Core tiers, you configure deployment
             manually following Kusanagi&apos;s instructions in the build log.
+          </p>
+          <p className="text-[var(--vf-text-muted)]">
+            You can also deploy anytime with the standalone deploy command:
+          </p>
+          <div className="crt-terminal !p-4 text-sm mt-4 mb-4">
+            <code>/deploy</code>
+          </div>
+          <p className="text-[var(--vf-text-muted)]">
+            Kusanagi auto-detects your target, runs pre-deploy checks (build,
+            tests, clean tree, credentials), executes the deploy, and verifies
+            health. If the health check fails, she rolls back automatically.
+            Use{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              /deploy --dry-run
+            </code>{" "}
+            to preview without deploying.
           </p>
         </section>
 
