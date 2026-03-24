@@ -13,6 +13,7 @@ import {
   Sun,
   Sparkles,
   Flame,
+  Brain,
 } from "lucide-react";
 import {
   leadAgents,
@@ -32,6 +33,7 @@ const universeEmblems: Record<Universe, React.ReactNode> = {
   dune: <Sun className="w-4 h-4" />,
   anime: <Sparkles className="w-4 h-4" />,
   cosmere: <Flame className="w-4 h-4" />,
+  foundation: <Brain className="w-4 h-4" />,
 };
 
 export const metadata: Metadata = {
