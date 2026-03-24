@@ -72,6 +72,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/current", description: "Tuvok's Deep Current — autonomous campaign intelligence and site scanning", path: "/commands/current", category: "Commands" },
   { title: "/dangerroom", description: "The Danger Room — installable operations dashboard for build/deploy/agent monitoring", path: "/commands/dangerroom", category: "Commands" },
   { title: "/assess", description: "Picard's pre-build assessment — architecture + assessment gauntlet + PRD gap analysis", path: "/commands/assess", category: "Commands" },
+  { title: "/deploy", description: "Kusanagi's deploy agent — target detection, health check, rollback, campaign auto-deploy", path: "/commands/deploy", category: "Commands" },
 
   // Patterns
   { title: "Patterns", description: "20 code patterns across 4 domains with framework implementations", path: "/patterns", category: "Patterns" },

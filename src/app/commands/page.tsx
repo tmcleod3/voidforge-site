@@ -31,7 +31,7 @@ const groups = [
     label: "BASE OPS",
     tagline: "Run the forge. Sharpen the blade.",
     color: "var(--vf-electric-blue)",
-    slugs: ["devops", "architect", "git", "void", "thumper", "debrief", "dangerroom"],
+    slugs: ["devops", "deploy", "architect", "git", "void", "thumper", "debrief", "dangerroom"],
   },
 ];
 

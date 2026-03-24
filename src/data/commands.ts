@@ -698,6 +698,28 @@ export const commands: Command[] = [
     ],
     badge: "NEW in v13.0",
   },
+  {
+    slug: "deploy",
+    tier: "all" as CommandTier,
+    name: "/deploy",
+    lead: "Kusanagi",
+    description:
+      "Kusanagi's deploy agent — target detection, pre-deploy checks, deploy execution, health verification, rollback on failure. Supports VPS, Vercel, Railway, Docker, Cloudflare, and static targets.",
+    usage: "/deploy",
+    whatHappens: [
+      "Kusanagi detects your deploy target from PRD frontmatter or project evidence (vercel.json, Dockerfile, SSH_HOST, etc.)",
+      "Levi runs pre-deploy checks: build passes, tests pass, no uncommitted changes, credentials available",
+      "Executes the deploy strategy for your target — git pull + restart for VPS, CLI deploy for Vercel/Railway, docker compose for Docker",
+      "Spike verifies health after deploy: HTTP 200, SSL valid, security headers present, no mixed content",
+      "If health check fails, automatic rollback to previous version with alert",
+    ],
+    arguments: [
+      { flag: "--target", type: "string" as const, valuePlaceholder: "vercel", description: "Override auto-detected deploy target.", effect: "Skip target detection, use specified target." },
+      { flag: "--dry-run", type: "boolean" as const, description: "Show what would happen without deploying.", effect: "Run all checks, print deploy plan, stop before execution." },
+      { flag: "--rollback", type: "boolean" as const, description: "Roll back to the previous deployed version.", effect: "Revert to last known good deploy." },
+    ],
+    badge: "NEW in v15.0",
+  },
 ];
 
 export function getCommand(slug: string): Command | undefined {
