@@ -73,9 +73,10 @@ export const searchIndex: SearchEntry[] = [
   { title: "/dangerroom", description: "The Danger Room — installable operations dashboard for build/deploy/agent monitoring", path: "/commands/dangerroom", category: "Commands" },
   { title: "/assess", description: "Picard's pre-build assessment — architecture + assessment gauntlet + PRD gap analysis", path: "/commands/assess", category: "Commands" },
   { title: "/deploy", description: "Kusanagi's deploy agent — target detection, health check, rollback, campaign auto-deploy", path: "/commands/deploy", category: "Commands" },
+  { title: "/ai", description: "Seldon's AI Intelligence Audit — model selection, prompts, tool-use, orchestration, safety, evals", path: "/commands/ai", category: "Commands" },
 
   // Patterns
-  { title: "Patterns", description: "20 code patterns across 4 domains with framework implementations", path: "/patterns", category: "Patterns" },
+  { title: "Patterns", description: "26 code patterns across 5 domains with framework implementations", path: "/patterns", category: "Patterns" },
   { title: "API Route", description: "Validation, auth, service call, consistent response", path: "/patterns/api-route", category: "Patterns" },
   { title: "Service", description: "Business logic, ownership checks, typed errors", path: "/patterns/service", category: "Patterns" },
   { title: "Component", description: "Loading, empty, error, success states — keyboard accessible", path: "/patterns/component", category: "Patterns" },
@@ -96,6 +97,12 @@ export const searchIndex: SearchEntry[] = [
   { title: "OAuth Token Lifecycle", description: "Refresh at 80% TTL, failure escalation, vault integration", path: "/patterns/oauth-token-lifecycle", category: "Patterns" },
   { title: "Outbound Rate Limiter", description: "Token bucket for external API calls with per-platform limits", path: "/patterns/outbound-rate-limiter", category: "Patterns" },
   { title: "Third-Party Script", description: "External script loading with 3 states: loading, ready, error", path: "/patterns/third-party-script", category: "Patterns" },
+  { title: "AI Orchestrator", description: "Agent loop, tool use, retry, circuit breaker, fallback", path: "/patterns/ai-orchestrator", category: "Patterns" },
+  { title: "AI Classifier", description: "Classification with confidence thresholds, human fallback", path: "/patterns/ai-classifier", category: "Patterns" },
+  { title: "AI Router", description: "Intent-based routing with fallback chains", path: "/patterns/ai-router", category: "Patterns" },
+  { title: "Prompt Template", description: "Versioned prompts with variable injection, testing", path: "/patterns/prompt-template", category: "Patterns" },
+  { title: "AI Eval", description: "Golden datasets, scoring, regression detection", path: "/patterns/ai-eval", category: "Patterns" },
+  { title: "AI Tool Schema", description: "Type-safe tool definitions with provider adapters", path: "/patterns/ai-tool-schema", category: "Patterns" },
 
   // Tutorials
   { title: "The Wizard Path", description: "Start from nothing — Gandalf walks you through everything", path: "/tutorial/wizard", category: "Tutorial" },

@@ -33,6 +33,13 @@ const groups = [
     color: "var(--vf-deep-purple)",
     slugs: ["ad-platform-adapter", "financial-transaction", "daemon-process", "revenue-source-adapter", "oauth-token-lifecycle", "outbound-rate-limiter"],
   },
+  {
+    id: "ai",
+    label: "AI",
+    tagline: "The intelligence layer.",
+    color: "var(--vf-foundation)",
+    slugs: ["ai-orchestrator", "ai-classifier", "ai-router", "prompt-template", "ai-eval", "ai-tool-schema"],
+  },
 ];
 
 const multiFrameworkCount = patterns.filter((p) => p.frameworks.length > 1).length;

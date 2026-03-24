@@ -720,6 +720,23 @@ export const commands: Command[] = [
     ],
     badge: "NEW in v15.0",
   },
+  {
+    slug: "ai",
+    tier: "all" as CommandTier,
+    name: "/ai",
+    lead: "Hari Seldon",
+    description:
+      "Seldon's AI Intelligence Audit — reviews every LLM-powered component in your application. Model selection, prompt architecture, tool-use schemas, orchestration patterns, evaluation strategy, safety, token economics, and observability.",
+    usage: "/ai",
+    whatHappens: [
+      "Hari Seldon maps every AI integration point: SDK imports, prompt files, tool definitions, orchestration patterns",
+      "4 parallel audits: model selection (Salvor Hardin), prompt architecture (Gaal Dornick), tool schemas (Hober Mallow), AI safety (Bliss)",
+      "5 sequential audits: orchestration, evaluation, token economics, observability, versioning",
+      "The Mule runs adversarial AI testing: hallucination probes, prompt injection, context overflow",
+      "Produces AI Architecture report with findings ranked by severity and remediation plan",
+    ],
+    badge: "NEW in v16.0",
+  },
 ];
 
 export function getCommand(slug: string): Command | undefined {
