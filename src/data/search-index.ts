@@ -76,7 +76,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/ai", description: "Seldon's AI Intelligence Audit — model selection, prompts, tool-use, orchestration, safety, evals", path: "/commands/ai", category: "Commands" },
 
   // Patterns
-  { title: "Patterns", description: "26 code patterns across 5 domains with framework implementations", path: "/patterns", category: "Patterns" },
+  { title: "Patterns", description: "30 code patterns across 5 domains with framework implementations", path: "/patterns", category: "Patterns" },
   { title: "API Route", description: "Validation, auth, service call, consistent response", path: "/patterns/api-route", category: "Patterns" },
   { title: "Service", description: "Business logic, ownership checks, typed errors", path: "/patterns/service", category: "Patterns" },
   { title: "Component", description: "Loading, empty, error, success states — keyboard accessible", path: "/patterns/component", category: "Patterns" },
@@ -103,6 +103,10 @@ export const searchIndex: SearchEntry[] = [
   { title: "Prompt Template", description: "Versioned prompts with variable injection, testing", path: "/patterns/prompt-template", category: "Patterns" },
   { title: "AI Eval", description: "Golden datasets, scoring, regression detection", path: "/patterns/ai-eval", category: "Patterns" },
   { title: "AI Tool Schema", description: "Type-safe tool definitions with provider adapters", path: "/patterns/ai-tool-schema", category: "Patterns" },
+  { title: "Database Migration", description: "Safe migrations: backward-compatible adds, batched ops, rollback", path: "/patterns/database-migration", category: "Patterns" },
+  { title: "Data Pipeline", description: "ETL pipeline: typed stages, checkpoint/resume, quality checks", path: "/patterns/data-pipeline", category: "Patterns" },
+  { title: "Backtest Engine", description: "Walk-forward backtesting: no-lookahead, slippage, metrics", path: "/patterns/backtest-engine", category: "Patterns" },
+  { title: "Execution Safety", description: "Trading execution: order validation, position limits, paper/live toggle", path: "/patterns/execution-safety", category: "Patterns" },
 
   // Tutorials
   { title: "The Wizard Path", description: "Start from nothing — Gandalf walks you through everything", path: "/tutorial/wizard", category: "Tutorial" },

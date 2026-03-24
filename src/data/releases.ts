@@ -916,6 +916,13 @@ export const shipped: Release[] = [
     headline: "Foundation universe. Hari Seldon (18th lead). /ai command. 6 AI patterns. AI Intelligence layer integrated into 8 existing commands.",
     items: ["Foundation universe (Isaac Asimov) — 9th fictional universe with 12 named agents", "Hari Seldon promoted to 18th lead agent (AI Intelligence Architect)", "/ai command — AI Intelligence Audit: model selection, prompts, tool-use, orchestration, safety, evals", "6 new AI patterns: orchestrator, classifier, router, prompt-template, eval, tool-schema", "AI audit integrated into /assemble, /build, /campaign, /gauntlet, /prd, /qa, /security, /architect", "outbound-rate-limiter pattern now documented in CLAUDE.md"],
   },
+  {
+    version: "v16.1.0",
+    date: "2026-03-24",
+    title: "The Hardened Methodology",
+    headline: "Migration safety, data pipelines, backtest/execution patterns, dependency health, load testing, branch CI.",
+    items: ["4 new patterns: database-migration, data-pipeline, backtest-engine, execution-safety", "Migration safety checks in build protocol and gauntlet", "Dependency health audits in DevOps methodology", "Load testing guidance in systems architect", "Branch CI integration in campaign methodology", "CLAUDE.md Personality section: honest assessment directive"],
+  },
 ];
 
 export const future: FutureRelease[] = [
