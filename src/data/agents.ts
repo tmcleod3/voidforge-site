@@ -6,7 +6,8 @@ export type Universe =
   | "star-trek"
   | "dune"
   | "anime"
-  | "cosmere";
+  | "cosmere"
+  | "foundation";
 
 export interface LeadAgent {
   slug: string;
@@ -38,6 +39,7 @@ export const universeLabels: Record<Universe, string> = {
   dune: "Dune",
   anime: "Anime",
   cosmere: "Cosmere",
+  foundation: "Foundation",
 };
 
 export const universeColors: Record<Universe, string> = {
@@ -49,6 +51,7 @@ export const universeColors: Record<Universe, string> = {
   dune: "var(--vf-dune)",
   anime: "var(--vf-anime)",
   cosmere: "var(--vf-cosmere)",
+  foundation: "var(--vf-foundation)",
 };
 
 export const leadAgents: LeadAgent[] = [
@@ -318,6 +321,22 @@ export const leadAgents: LeadAgent[] = [
     phasesActive: [0],
     powerLevel: 8,
   },
+  {
+    slug: "seldon",
+    name: "Hari Seldon",
+    realName: "The Psychohistorian, First Foundation",
+    universe: "foundation",
+    domain: "AI Intelligence",
+    description:
+      "The founder of psychohistory — a mathematical framework for predicting the behavior of large systems. Seldon owns the AI intelligence layer: every LLM-powered decision point. Model selection, prompt architecture, tool-use schemas, orchestration patterns, evaluation, and safety.",
+    quote:
+      "The fall is inevitable. The recovery can be guided.",
+    tagline: "Psychohistory for your AI layer.",
+    exclamation: "PREDICTED!",
+    commandsLed: ["/ai"],
+    phasesActive: [0, 4, 5, 9, 11],
+    powerLevel: 9,
+  },
 ];
 
 export const subAgents: SubAgent[] = [
@@ -446,6 +465,19 @@ export const subAgents: SubAgent[] = [
   { name: "Szeth", role: "Compliance — GDPR, CAN-SPAM, ad policies", universe: "cosmere" },
   { name: "Adolin", role: "Brand ambassador — launches, PR, charm", universe: "cosmere" },
   { name: "Marsh", role: "Competitive intel — deep monitoring of competitors", universe: "cosmere" },
+  // Foundation
+  { name: "Salvor Hardin", role: "Model selection — capability matching, cost-performance trade-offs", universe: "foundation" },
+  { name: "Gaal Dornick", role: "Prompt architecture — system prompt design, few-shot strategy, guardrails", universe: "foundation" },
+  { name: "Hober Mallow", role: "Tool-use schemas — function-calling design, parameter typing", universe: "foundation" },
+  { name: "Bel Riose", role: "Orchestration patterns — chains, agents, workflows, reliability", universe: "foundation" },
+  { name: "The Mule", role: "Adversarial AI testing — hallucination, prompt injection, context overflow", universe: "foundation" },
+  { name: "Ducem Barr", role: "Token economics — cost tracking, caching, batching optimization", universe: "foundation" },
+  { name: "Bayta Darell", role: "Evaluation — golden datasets, A/B testing, regression detection", universe: "foundation" },
+  { name: "Bliss", role: "AI safety — alignment, content filtering, PII protection", universe: "foundation" },
+  { name: "R. Daneel Olivaw", role: "Model migration — prompt versioning, behavior regression, pinning", universe: "foundation" },
+  { name: "Dors Venabili", role: "Observability — trace logging, decision audit trails, dashboards", universe: "foundation" },
+  { name: "Janov Pelorat", role: "Context engineering — RAG pipelines, embeddings, retrieval, chunking", universe: "foundation" },
+  { name: "Wanda Seldon", role: "Structured output — schema enforcement, parse-failure retry", universe: "foundation" },
 ];
 
 export function getLeadAgent(slug: string): LeadAgent | undefined {
@@ -471,4 +503,5 @@ export const universes: Universe[] = [
   "dune",
   "anime",
   "cosmere",
+  "foundation",
 ];
