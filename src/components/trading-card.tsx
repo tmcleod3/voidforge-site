@@ -161,32 +161,34 @@ export function TradingCard({
               </span>
             </div>
 
-            {/* Description + inline quote */}
-            <p className="text-[13px] text-[var(--vf-text-muted)] mb-3 leading-relaxed">
-              {description}{" "}
-              <span className="italic" style={{ color }}>
-                &ldquo;{quote}&rdquo;
-              </span>
-            </p>
+            {/* Description + inline quote + commands — scrollable area */}
+            <div className="flex-1 min-h-0 overflow-y-auto mb-2">
+              <p className="text-[13px] text-[var(--vf-text-muted)] mb-3 leading-relaxed">
+                {description}{" "}
+                <span className="italic" style={{ color }}>
+                  &ldquo;{quote}&rdquo;
+                </span>
+              </p>
 
-            {/* Commands */}
-            {commandsLed.length > 0 && (
-              <div className="mb-3">
-                <p className="font-[family-name:var(--font-bangers)] text-xs tracking-wider text-[var(--vf-forge-orange)] mb-1">
-                  COMMANDS
-                </p>
-                <div className="flex gap-1.5 flex-wrap">
-                  {commandsLed.map((cmd) => (
-                    <span
-                      key={cmd}
-                      className="px-2 py-0.5 font-[family-name:var(--font-space-mono)] text-xs bg-[var(--vf-terminal-bg)] text-[var(--vf-terminal-green)] rounded border border-[var(--vf-border)]"
-                    >
-                      {cmd}
-                    </span>
-                  ))}
+              {/* Commands */}
+              {commandsLed.length > 0 && (
+                <div>
+                  <p className="font-[family-name:var(--font-bangers)] text-xs tracking-wider text-[var(--vf-forge-orange)] mb-1">
+                    COMMANDS
+                  </p>
+                  <div className="flex gap-1.5 flex-wrap">
+                    {commandsLed.map((cmd) => (
+                      <span
+                        key={cmd}
+                        className="px-2 py-0.5 font-[family-name:var(--font-space-mono)] text-xs bg-[var(--vf-terminal-bg)] text-[var(--vf-terminal-green)] rounded border border-[var(--vf-border)]"
+                      >
+                        {cmd}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
 
             {/* Power level — compact single line */}
             <div className="mt-auto flex items-center gap-2">
