@@ -112,6 +112,16 @@ export const majorEras: Record<string, MajorEra> = {
     quote: "The forge watches itself in real-time. Status Line, agent ticker, LAN mode. The dashboard becomes the forge's mirror.",
     agent: "Fury",
   },
+  "14": {
+    title: "The Day-0 Engine",
+    quote: "The forge doesn't just build — it launches businesses. Treasury, revenue, ad platforms, budget, creatives, tracking. Day zero to revenue.",
+    agent: "Kelsier",
+  },
+  "15": {
+    title: "The Last Mile",
+    quote: "The code is built. The tests pass. But it's not real until it's deployed. The forge closes the gap between 'done' and 'live.'",
+    agent: "Kusanagi",
+  },
 };
 
 export const shipped: Release[] = [
@@ -844,12 +854,54 @@ export const shipped: Release[] = [
     headline: "Consolidation release. 3-tier UX. LAN mode. Status Line bridge. Agent activity ticker. New dashboard panels.",
     items: ["LAN mode (--lan) — private network access for ZeroTier, Tailscale, WireGuard", "Status Line bridge — connects Claude Code's Status Line API to the Danger Room", "Agent activity ticker — methodology-driven JSONL logging with live WebSocket broadcast", "Tests panel and Git status panel for the Danger Room", "Dashboard config (danger-room.config.json) for project-specific panel settings", "3-tier UX consolidation across the Danger Room interface"],
   },
+  {
+    version: "v13.1.0",
+    date: "2026-03-22",
+    title: "Dashboard Polish",
+    headline: "Break circular import, CORS/CSP LAN, header context gauge, consolidate private IP.",
+    items: ["Fixed circular import in dashboard modules", "CORS/CSP configuration for LAN mode", "Header context gauge for live usage display", "Consolidated private IP validation into shared module"],
+  },
+  {
+    version: "v14.0.0",
+    date: "2026-03-22",
+    title: "The Day-0 Engine",
+    headline: "Cultivation onboarding redesign: treasury, revenue, ad platforms, budget, creatives, tracking, launch. The forge doesn't just build — it launches businesses.",
+    items: ["Cultivation Day-0 Engine — complete onboarding rewrite", "Treasury-first flow: connect revenue before spending", "Ad platform OAuth setup integrated into onboarding", "Budget allocation with safety tiers from day zero", "Creative pipeline with template generation", "Tracking verification before launch"],
+  },
+  {
+    version: "v15.0.0",
+    date: "2026-03-22",
+    title: "The Last Mile",
+    headline: "/deploy command. Campaign auto-deploy. /git --deploy. Drift detector. The gap between 'done' and 'live' closes.",
+    items: ["/deploy command — Kusanagi's deploy agent with target detection, health check, rollback", "Campaign auto-deploy — Victory Gauntlet can trigger deploy automatically", "/git --deploy flag — version bump + deploy in one command", "Drift detector — alerts when deployed code diverges from committed code"],
+  },
+  {
+    version: "v15.1.0",
+    date: "2026-03-23",
+    title: "The Hardening",
+    headline: "Infinity Gauntlet (47 fixes), vault rate-limit + auto-lock, HMAC key rotation, 91 tests with vitest.",
+    items: ["Infinity Gauntlet produced 47 fixes across all domains", "Vault rate-limiting and auto-lock on failed attempts", "HMAC key rotation for authentication", "Migrated to vitest — 91 tests passing", "UX enchantments across dashboard"],
+  },
+  {
+    version: "v15.2.0",
+    date: "2026-03-23",
+    title: "The Cleanup",
+    headline: "Tower-auth split (636→3 modules), SSH security group restriction post-provisioning.",
+    items: ["Tower auth module split from 636 lines into 3 focused modules", "SSH security group restriction after provisioning completes", "Code organization improvements"],
+  },
+  {
+    version: "v15.2.1",
+    date: "2026-03-23",
+    title: "Inbox Triage",
+    headline: "4 methodology fixes + 3 lessons from field reports #147-#148.",
+    items: ["4 methodology fixes from field report triage", "3 new lessons captured in LESSONS.md", "Continuous improvement from production feedback"],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
-    version: "v14.0",
-    title: "The Day-0 Engine",
+    version: "v16.0",
+    title: "The Convergence",
     opacity: 1,
     items: [
       "Build + Grow + Fund in one command — the forge handles the entire product lifecycle",
