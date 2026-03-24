@@ -40,7 +40,7 @@ export function Hero() {
           transition={{ delay: 0.5, duration: 0.5 }}
         >
           The complete guide to building production apps with 140+ AI agents
-          across 8 fictional universes. Drop in a PRD. Run{" "}
+          across 9 fictional universes. Drop in a PRD. Run{" "}
           <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
             /build
           </code>

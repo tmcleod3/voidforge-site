@@ -37,6 +37,7 @@ export const agentAvatars: Record<string, string> = {
   Kelsier: "/images/agents/kelsier.webp",
   Tuvok: "/images/agents/tuvok.webp",
   Dockson: "/images/agents/dockson.webp",
+  "Hari Seldon": "/images/agents/seldon.webp",
   Haku: "/images/agents/subs/haku.webp",
   Gimli: "/images/agents/subs/gimli.webp",
   Éowyn: "/images/agents/subs/éowyn.webp",

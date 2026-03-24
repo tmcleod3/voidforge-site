@@ -93,8 +93,8 @@ describe("Landing Page — Feature Cards", () => {
     render(<FeatureCards />);
     expect(screen.getByText("13-PHASE PROTOCOL")).toBeInTheDocument();
     expect(screen.getByText("140+ NAMED AGENTS")).toBeInTheDocument();
-    expect(screen.getByText("25 SLASH COMMANDS")).toBeInTheDocument();
-    expect(screen.getByText("20 CODE PATTERNS")).toBeInTheDocument();
+    expect(screen.getByText("26 SLASH COMMANDS")).toBeInTheDocument();
+    expect(screen.getByText("26 CODE PATTERNS")).toBeInTheDocument();
     expect(screen.getByText("6 DEPLOY TARGETS")).toBeInTheDocument();
     expect(screen.getByText("3 TIERS")).toBeInTheDocument();
   });
