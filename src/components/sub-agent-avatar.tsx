@@ -9,7 +9,7 @@ interface SubAgentAvatarProps {
 
 export function SubAgentAvatar({ name, color }: SubAgentAvatarProps) {
   const [failed, setFailed] = useState(false);
-  const src = `/images/agents/subs/${name.toLowerCase().replace(/ /g, "-")}.webp`;
+  const src = `/images/agents/subs/${name.toLowerCase().replace(/ /g, "-").replace(/\./g, "")}.webp`;
 
   if (failed) {
     return (
