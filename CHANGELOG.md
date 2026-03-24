@@ -6,30 +6,85 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
-## [0.7.0] - 2026-03-23 — The Alignment
-
-### Added
-- **`/assess` command page** — Picard's pre-build assessment for existing codebases. New command data, RECON OPS group, search index entry.
-- **`third-party-script` pattern page** — External script loading with 3 states. 19 → 20 patterns.
-- **7 shipped releases on prophecy** — v12.5.0 through v13.0.0 added to shipped releases. Future updated to v14.0 (Day-0 Engine).
-- **V13 "The Living Dashboard" era** — Major era entry on prophecy page with Fury as the era agent.
-- **Prophecy avatars for v11-v13** — Kelsier, Tuvok, Dockson added to agent avatar mapping.
-- **Nav active state** — Current page highlighted in orange via `usePathname()`. Works for sub-pages (e.g., `/agents/galadriel` highlights "Agents"). Added `aria-current="page"` for accessibility.
-- **Gauntlet tutorial: `--assess` and `--reckoning` flags** — New modes section with cross-link to /assess command.
-- **Campaign tutorial: checkpoint gauntlets and learned rules** — Every 4th mission auto-triggers quality gate. Persistent learned rules in campaign-state.md.
-- **Scaffold tutorial: hybrid project hint** — Links to Import Path for existing codebases.
+## [15.2.1] - 2026-03-23
 
 ### Changed
-- **Import Path tutorial rewritten** — New 4-step workflow: install core → `/assess` → `/prd` → `/campaign`. Replaces old audit-then-build flow.
-- **Agent counts: "240+" → "140+"** — Accurate to callable agents (17 leads + 127 sub-agents = 144). Updated across hero, comic strip, feature cards, agents page, about page, prophecy, tutorial, meta tags, JSON-LD, and tests.
-- **"7 universes" → "8 universes"** on about page (Cosmere).
-- **Gauntlet "6 universes" → "8 universes"** in command description.
-- **PRD numeric accuracy** — Updated 28 stale claims: agents, leads, commands, patterns, universes, route lists, file counts.
-- **Campaign tutorial `--blitz` description fixed** — Was incorrectly described as `--fast + --autonomous`; blitz is autonomous without implying fast.
-- **Tutorial hub Import card** — Now references `/assess` workflow.
+- **GAUNTLET.md** — Added Dimension 4 (output verification) to Sibling Verification Protocol: verify fixes against real output data to catch false positives in keyword filters (#148)
+- **CAMPAIGN.md** — Victory condition now includes deploy entrypoint verification: confirm Docker CMD / PM2 ecosystem runs the built architecture, not a legacy file (#147)
+- **BUILD_PROTOCOL.md** — Phase 12 Docker smoke test: mandatory check that container entrypoint runs new code before go-live (#147)
+- **DEVOPS_ENGINEER.md** — First deployment checklist: process manager, env vars, log directory, health endpoint, entrypoint verification (#147)
+
+### Added
+- **LESSONS.md** — 3 new lessons: read-before-export (verify source exports before re-exporting), read-before-test (read implementation before writing expectations), numeric context checks (cite actual % from /context)
+
+## [15.2.0] - 2026-03-23
+
+### Changed
+- **tower-auth.ts** split into 3 modules: tower-auth (424 lines — auth core), tower-session (149 lines — sessions/cookies), tower-rate-limit (87 lines — rate limiting). All exports re-exported for backward compatibility.
+- **aws-vps.ts** — SSH security group restricted to deployer's IP post-provisioning (detects IP via checkip.amazonaws.com, revokes 0.0.0.0/0 rule)
+- **ProvisionEvent.status** type now includes `'warning'` for non-fatal alerts
+
+## [15.1.0] - 2026-03-23
+
+### Added
+- **vitest** test framework with `--pool forks` isolation — 91 tests across 8 files (vault, body-parser, tower-auth, network, frontmatter, instance-sizing, safety-tiers, http-helpers)
+- **Vault unlock rate limiting** — 5 attempts/min, lockout after 10 consecutive failures (separate from login rate limits)
+- **Vault auto-lock** — 15-minute idle timeout clears session password
+- **6 proxy modules** — financial-core, daemon-core, oauth-core, revenue-types, ad-platform-core, rate-limiter-core (breaks direct wizard/ → docs/patterns/ imports)
+- **provisioner-registry.ts** — single source of truth for provisioners, credential scoping, GitHub-linked targets
+
+### Changed
+- **Terminal HMAC** — per-boot random 32-byte key replaces vault password as HMAC keying material
+- **sendJson** consolidated from 10 duplicate definitions to 1 shared module in http-helpers.ts (with noCache support)
+- **Health poller** — batch writes (N individual → 1 registry update per poll cycle)
+- **TOTP clock skew** — prunes usedCodes when drift exceeds ±3 steps (prevents lockout after clock jump)
 
 ### Fixed
-- **`--blitz` flag description** in campaign tutorial was factually wrong.
+- **47 Infinity Gauntlet fixes** — provision lock deadlock, vault cache mutation, body-parser non-object bypass, terminal resize NaN crash, Docker healthcheck exec form, CI SSH key leak, RDS hardcoded 'admin', symlink security no-op, autonomy-controller crash safety, secret stripping keyword gaps, and 36 more across 21 files
+- **Accessibility** — skip-nav + noscript on all 7 pages, aria-labelledby on deploy step 1
+
+### Security
+- Secret stripping expanded with allowlist (SAFE_OUTPUT_KEYS) — comprehensive keyword coverage without false positives
+- Error message token regex lowered from 40+ to 16+ characters
+
+---
+
+## [15.0.0] - 2026-03-22
+
+### Added
+- **`/deploy` command** — Kusanagi's deploy agent with 6-step protocol: target detection (VPS/Vercel/Railway/Docker/Static/Cloudflare), pre-deploy checks (Levi), deploy execution, health check (L), rollback (Valkyrie), deploy-state.md logging
+- **Campaign Step 7** — optional auto-deploy after Victory Gauntlet passes. Blitz mode auto-deploys. Deploy failure doesn't revoke Victory.
+- **`/git --deploy` flag** — one-command commit + push + deploy. Coulson commits, Kusanagi deploys.
+- **Deploy drift detector** — `GET /api/danger-room/drift` compares deployed commit against `git rev-parse HEAD`. Catches "pushed but not deployed" scenarios.
+- **Deploy Automation** section in DEVOPS_ENGINEER.md — target detection, deploy state, campaign integration, rollback protocol
+
+### Changed
+- **Deploy panel** reads from `deploy-state.md` (v15.0 format) in addition to `deploy-log.json`
+
+---
+
+## [14.0.0] - 2026-03-22
+
+### Added
+- **Day-0 Cultivation onboarding** — 7-step guided install: treasury → revenue → ad platforms → budget → creatives → tracking → launch. No longer requires a deployed product.
+- **`/grow --setup`** — standalone ad platform onboarding: guided credential collection for Google Ads, Meta, LinkedIn, Twitter, Reddit with per-platform best-fit guidance
+- **Phase 4.5 Launch Preparation** — budget allocation (product-type-aware splits), creative foundation (6 variants via /imagine), tracking & attribution (pixel snippets + conversion events)
+- **Launch activation flow** — summary presentation, user confirmation, platform submission, Danger Room Growth tab wiring
+- **Pre-Revenue Setup** in TREASURY.md — budget tracking before first dollar, auto-detection of payment processors, absolute spend limits for pre-revenue projects
+
+### Changed
+- **Cultivation install no longer requires deployment** — "product should be deployed" prerequisite removed. Day-0 setup works pre-launch, launch day, and post-launch.
+- **Growth Strategist operating rule 1** updated — product deployment required for Phase 1+ (reconnaissance), not for installation
+
+---
+
+## [13.1.0] - 2026-03-22
+
+### Changed
+- **Circular import broken** — `getServerPort`/`getServerHost` extracted to `wizard/lib/server-config.ts`, eliminating the `server.ts ↔ dashboard-ws.ts` cycle
+- **CORS/CSP for LAN mode** — private IP origins accepted via `isPrivateOrigin()` in CORS; `ws://*:PORT` added to CSP `connect-src` for WebSocket
+- **Context gauge always visible** — compact percentage indicator in header bar, color-coded, stays visible when scrolling past Tier 1
+- **Private IP consolidation** — `health-poller.ts` now imports `isPrivateIp` from shared `network.ts` instead of inline checks
 
 ---
 

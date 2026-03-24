@@ -44,7 +44,7 @@ Autonomous campaign execution: read the PRD, figure out what's next, build it, v
 7. **One mission at a time.** Don't plan three missions ahead. Plan one, execute one, reassess.
 8. **Mission scoping follows PRD Section 16** (Launch Sequence) when available.
 9. **After each mission, commit.** Coulson handles versioning.
-10. **Victory condition: all PRD requirements COMPLETE or explicitly BLOCKED with user acknowledgment.** No requirement may be silently skipped. Then one final /assemble --skip-build with Troi compliance check.
+10. **Victory condition: all PRD requirements COMPLETE or explicitly BLOCKED with user acknowledgment.** No requirement may be silently skipped. Then one final /assemble --skip-build with Troi compliance check. **Deploy path verification (field report #147):** If the project has a deploy target (Docker, VPS, etc.), verify the deploy entrypoint (Dockerfile CMD, docker-compose command, PM2 ecosystem) imports from the built architecture, not a legacy file. A campaign that builds new code but deploys old code is not complete.
 11. **Classify requirements.** Code, assets, copy, and infrastructure follow different workflows. Don't mix unbuildable items into code missions.
 12. **Log deviations.** When the build deviates from PRD architecture, update the PRD or log it in campaign-state.md. Never leave a silent contradiction.
 
@@ -80,6 +80,8 @@ Blitz is fully autonomous campaign execution. Sisko does not pause between missi
 - Gauntlet checkpoints still fire every 4 missions
 - `/git` commits after every mission
 - BLOCKED items are still tracked
+
+**Phase completion is NOT a pause point.** When the campaign crosses a phase boundary (Phase 1 → Phase 2, etc.), do NOT stop, summarize, or suggest continuing in a fresh session. Phase boundaries are organizational labels — they are not gates, checkpoints, or rest stops. In blitz mode, the only pause triggers are: (1) context usage exceeds 70%, (2) a BLOCKED item requires user input. Everything else is continuous execution. (Field report #139: agent stopped at phase boundaries twice in a 39-mission blitz despite explicit "don't stop" instructions.)
 
 **Combine with `--fast` explicitly** if you want reduced reviews: `--blitz --fast`
 
@@ -357,7 +359,8 @@ Specifically, you MUST NOT:
    - PRD requirement beyond code → mark BLOCKED in the Prophecy Board with reason
 5. **Consumer verification:** Before marking a mission complete, verify that stored data is consumed. For every new store/preference/setting built in this mission, identify at least one backend consumer that reads it and acts on it. A preference that is stored but never read is dead code and must be flagged. (Field report #99: widget preferences API built with full CRUD + migration, but no pipeline consumer checked preferences before processing — entire feature was a dead end.)
 6. **Troi pre-scan before "all complete" declaration:** Before declaring all requirements COMPLETE or BLOCKED, run a lightweight Troi check: read the PRD's testable sections (features, marketing, dashboard, tiers, emails) and verify semantic completeness — not just route existence. This catches "FAQ section missing" and "social proof not rendered" type gaps that structural diffs miss. Cheaper than deferring to the Victory Gauntlet. (Field report #38: 11 gaps found by Gauntlet that a prior session's "all complete" declaration missed.)
-7. Check: are all PRD requirements COMPLETE or explicitly BLOCKED?
+7. **Debrief enforcement check:** Count debriefs filed this campaign (look for "Debrief: #" entries in campaign-state.md). If `completedMissions > 4` and `debriefCount === 0`, this is a protocol violation — flag immediately: "WARNING: ${completedMissions} missions completed with 0 debriefs filed. The BLITZ GATE requires a debrief after every mission. File debriefs for the most recent 3 missions NOW before proceeding." This catches campaigns where the debrief gate was silently skipped. (Field report #139: 39 missions, 0 debriefs — total knowledge loss.)
+8. Check: are all PRD requirements COMPLETE or explicitly BLOCKED?
    - **No** → loop back to Step 1 (next mission)
    - **Yes** → Step 6 (victory)
 
@@ -398,6 +401,19 @@ This is lighter than a Victory Gauntlet (~13 agents vs 30+) and focused on "can 
 8. Sisko signs off (ONLY after checklist is complete):
 
 > *"The Prophets' plan is fulfilled. The campaign is complete."*
+
+### Step 7 — Deploy (Kusanagi — optional)
+
+After Victory Gauntlet passes and debrief is filed:
+
+1. Check PRD frontmatter for `deploy:` target. If no deploy target → skip.
+2. In normal mode: "Deploy to [target]? [Y/n]"
+3. In `--blitz` mode: auto-deploy (no confirmation needed — the Gauntlet already verified the code)
+4. Run `/deploy` — Kusanagi handles target detection, execution, health check, rollback
+5. If deploy succeeds: update deploy-state.md, Danger Room deploy panel shows live status
+6. If deploy fails: Valkyrie rolls back, logs failure. Campaign still counts as VICTORY (the code is correct; the deploy issue is infrastructure, not code quality).
+
+Deploy is OPTIONAL — Victory means "code is correct and Gauntlet-verified." Deploy means "code is also in production." A campaign can achieve Victory without deploying.
 
 **Victory does NOT mean "everything was built." It means "everything buildable was built correctly, survived the Gauntlet, and everything unbuildable is explicitly acknowledged."**
 
