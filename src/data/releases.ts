@@ -128,6 +128,11 @@ export const majorEras: Record<string, MajorEra> = {
     quote: "The forge doesn't just write code — it understands AI. Model selection, prompt architecture, tool schemas, evaluations. Psychohistory for the intelligence layer.",
     agent: "Hari Seldon",
   },
+  "17": {
+    title: "The Complete Implementation",
+    quote: "No stubs. No placeholders. No functions that lie. Every line does what it says, or it doesn't exist. The forge ships real code.",
+    agent: "Batman",
+  },
 };
 
 export const shipped: Release[] = [
@@ -922,6 +927,27 @@ export const shipped: Release[] = [
     title: "The Hardened Methodology",
     headline: "Migration safety, data pipelines, backtest/execution patterns, dependency health, load testing, branch CI.",
     items: ["4 new patterns: database-migration, data-pipeline, backtest-engine, execution-safety", "Migration safety checks in build protocol and gauntlet", "Dependency health audits in DevOps methodology", "Load testing guidance in systems architect", "Branch CI integration in campaign methodology", "CLAUDE.md Personality section: honest assessment directive"],
+  },
+  {
+    version: "v17.0.0",
+    date: "2026-03-24",
+    title: "The Complete Implementation",
+    headline: "No Stubs Doctrine. P0/P1 security fixes. Cultivation activated with sandbox + Stripe adapters. 74 new tests (167 total). 8 stub files deleted.",
+    items: ["No Stubs Doctrine — never ship functions that return hardcoded success without side effects", "Cultivation activated: sandbox adapters, Stripe revenue integration, heartbeat wiring, growth tabs", "P0/P1 security fixes across vault, auth, and financial modules", "74 new tests (167 total)", "8 stub files deleted and replaced with real implementations"],
+  },
+  {
+    version: "v17.1.0",
+    date: "2026-03-24",
+    title: "The Gauntlet Cleanup",
+    headline: "HMAC vault comparison, negative spend clamping, TypeScript 0 errors, tsc in CI, 26 new tests (193 total), 3 ADRs.",
+    items: ["HMAC vault comparison for constant-time authentication", "Negative spend clamping in financial modules", "TypeScript strict mode — 0 errors across entire codebase", "tsc added to CI pipeline", "26 new tests (193 total)", "3 new Architecture Decision Records"],
+  },
+  {
+    version: "v17.2.0",
+    date: "2026-03-24",
+    title: "The Security Test Pass",
+    headline: "101 new tests for 7 P0 security modules. 294 total tests. Zero TypeScript errors.",
+    items: ["101 new tests covering 7 priority-zero security modules", "Total test count: 294 (from 193)", "Vault, auth, HMAC, financial, and growth modules fully covered", "Zero TypeScript errors maintained"],
   },
 ];
 
