@@ -41,13 +41,16 @@ export default function CultivationPage() {
             Cultivation is VoidForge&apos;s growth provisioner. Where{" "}
             <code className="text-[var(--vf-electric-blue)]">/build</code> creates
             your product, Cultivation creates the machinery that makes people find
-            it. It connects ad platforms (Meta, Google, TikTok), configures
-            analytics pipelines, scaffolds your content calendar, and provisions
-            the financial vault that tracks every dollar in and out.
+            it. It provisions the financial vault, connects revenue tracking,
+            scaffolds ad platforms, and wires up the growth dashboard — all
+            from day zero, before your first customer.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Run it once. It detects what&apos;s already configured and only
-            provisions what&apos;s missing. Safe to re-run at any time.
+            The Day-0 Engine (v14.0) means you don&apos;t wait until launch to
+            set up growth infrastructure. Treasury first, revenue tracking
+            second, ad platforms when you&apos;re ready. Run it once — it
+            detects what&apos;s already configured and only provisions
+            what&apos;s missing. Safe to re-run at any time.
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
@@ -65,41 +68,43 @@ export default function CultivationPage() {
             WHAT GETS INSTALLED
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Cultivation provisions four subsystems. Each one is optional — skip
-            what you don&apos;t need — but together they form the complete growth
-            stack:
+            The Day-0 onboarding walks you through setup in order of
+            importance — treasury first, because you need to track money
+            before you spend it:
           </p>
           <ul className="space-y-3 text-[var(--vf-text-muted)] mb-6">
             <li className="flex items-start gap-3">
-              <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
+              <span className="text-[var(--vf-forge-orange)] mt-1 font-bold">1</span>
               <span>
-                <strong className="text-[var(--vf-text)]">Ad Platform Connections</strong>{" "}
-                — OAuth links to Meta Ads, Google Ads, and TikTok Ads. Credentials
-                stored in the encrypted vault.
+                <strong className="text-[var(--vf-text)]">Financial Foundation</strong>{" "}
+                — Encrypted vault with TOTP 2FA, spending limits, circuit
+                breakers. Connect Mercury, Brex, or enter a manual budget.
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
+              <span className="text-[var(--vf-forge-orange)] mt-1 font-bold">2</span>
               <span>
-                <strong className="text-[var(--vf-text)]">Analytics Setup</strong>{" "}
-                — Event tracking, conversion funnels, and attribution models wired
-                to your existing analytics provider.
+                <strong className="text-[var(--vf-text)]">Revenue Tracking</strong>{" "}
+                — Auto-detects Stripe. Connect for revenue tracking from day
+                zero, or track manually until your first payment arrives.
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
+              <span className="text-[var(--vf-forge-orange)] mt-1 font-bold">3</span>
               <span>
-                <strong className="text-[var(--vf-text)]">Content Pipeline</strong>{" "}
-                — Scaffolds the editorial calendar, content templates, and
-                distribution channels for organic growth.
+                <strong className="text-[var(--vf-text)]">Ad Platforms</strong>{" "}
+                — OAuth links to Meta Ads, Google Ads, TikTok Ads. Deferred
+                to{" "}
+                <code className="text-[var(--vf-electric-blue)]">/grow --setup</code>{" "}
+                — connect when you&apos;re ready to spend.
               </span>
             </li>
             <li className="flex items-start gap-3">
-              <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
+              <span className="text-[var(--vf-forge-orange)] mt-1 font-bold">4</span>
               <span>
-                <strong className="text-[var(--vf-text)]">Financial Vault</strong>{" "}
-                — Encrypted spend tracking, budget allocation, and revenue
-                reconciliation. Protected by TOTP 2FA.
+                <strong className="text-[var(--vf-text)]">Heartbeat Daemon</strong>{" "}
+                — Background service for token refresh, spend monitoring,
+                reconciliation, and A/B test evaluation. Runs 24/7.
               </span>
             </li>
           </ul>
