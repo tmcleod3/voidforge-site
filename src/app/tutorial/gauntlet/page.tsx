@@ -133,8 +133,15 @@ export default function GauntletPage() {
             <code className="text-sm">/gauntlet --reckoning</code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Need the ultimate test? The infinity flag deploys every active agent
-            as its own sub-process — the full roster across all universes:
+            Want the full roster? The muster flag deploys every viable agent
+            across all 9 universes in 3 waves:
+          </p>
+          <div className="crt-terminal !p-4 mb-6">
+            <code className="text-sm">/gauntlet --muster</code>
+          </div>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Need the ultimate test? The infinity flag goes further — every
+            agent as its own sub-process, 10 rounds:
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">/gauntlet --infinity</code>

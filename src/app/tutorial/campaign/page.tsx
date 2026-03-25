@@ -84,7 +84,10 @@ export default function CampaignPage() {
             <code className="text-[var(--vf-electric-blue)]">--plan</code>{" "}
             updates the PRD without building.{" "}
             <code className="text-[var(--vf-electric-blue)]">--mission &quot;Name&quot;</code>{" "}
-            jumps to a specific mission.
+            jumps to a specific mission.{" "}
+            <code className="text-[var(--vf-electric-blue)]">--muster</code>{" "}
+            deploys every viable agent across all 9 universes for each
+            mission — maximum coverage when the stakes are high.
           </p>
         </section>
 
