@@ -363,6 +363,10 @@ export const subAgents: SubAgent[] = [
   { name: "Glorfindel", role: "Complex rendering analysis", universe: "tolkien" },
   { name: "Frodo", role: "Hardest flow endurance testing", universe: "tolkien" },
   { name: "Merry", role: "Pair-verification of edge case fixes", universe: "tolkien" },
+  { name: "Radagast", role: "Edge cases — notices things at the boundaries others overlook", universe: "tolkien" },
+  { name: "Treebeard", role: "Slow, deliberate — doesn't rush decisions", universe: "tolkien" },
+  { name: "Théoden", role: "Rallying — bringing teams together", universe: "tolkien" },
+  { name: "Goldberry", role: "River-daughter — senses what flows upstream, change detection", universe: "tolkien" },
   // Marvel
   { name: "Banner", role: "Database administration", universe: "marvel" },
   { name: "Romanoff", role: "External API integrations", universe: "marvel" },
