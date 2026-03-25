@@ -47,18 +47,9 @@ function AgentCard({
 }
 
 export function SubAgentGrid({ universe, subs, emblem }: SubAgentGridProps) {
-  const [spotlitIndex, setSpotlitIndex] = useState<number>(-1);
-  const spotlit = spotlitIndex >= 0 ? subs[spotlitIndex] : null;
   const uColor = universeColors[universe];
 
-  const openSpotlight = (agent: SubAgent) => {
-    const idx = subs.indexOf(agent);
-    setSpotlitIndex(idx);
-  };
-  const goPrev = () => setSpotlitIndex((i) => (i > 0 ? i - 1 : subs.length - 1));
-  const goNext = () => setSpotlitIndex((i) => (i < subs.length - 1 ? i + 1 : 0));
-
-  // Group by series if any agents have series tags (anime universe)
+  // Group by series if any agents have series tags
   const seriesGroups = useMemo(() => {
     const hasSeries = subs.some((a) => a.series);
     if (!hasSeries) return null;
@@ -71,6 +62,22 @@ export function SubAgentGrid({ universe, subs, emblem }: SubAgentGridProps) {
     }
     return Object.entries(groups);
   }, [subs]);
+
+  // Display order matches visual layout: series-grouped if applicable, otherwise raw
+  const displayOrder = useMemo(() => {
+    if (!seriesGroups) return subs;
+    return seriesGroups.flatMap(([, agents]) => agents);
+  }, [subs, seriesGroups]);
+
+  const [spotlitIndex, setSpotlitIndex] = useState<number>(-1);
+  const spotlit = spotlitIndex >= 0 ? displayOrder[spotlitIndex] : null;
+
+  const openSpotlight = (agent: SubAgent) => {
+    const idx = displayOrder.indexOf(agent);
+    setSpotlitIndex(idx);
+  };
+  const goPrev = () => setSpotlitIndex((i) => (i > 0 ? i - 1 : displayOrder.length - 1));
+  const goNext = () => setSpotlitIndex((i) => (i < displayOrder.length - 1 ? i + 1 : 0));
 
   if (subs.length === 0) return null;
 
