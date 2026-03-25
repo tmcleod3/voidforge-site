@@ -120,7 +120,7 @@ export default function AgentsPage() {
     <>
       <PageHeader
         title="THE COUNCIL"
-        subtitle="18 lead agents. 9 universes. 135+ sub-agents. Flip a card to meet them."
+        subtitle="18 lead agents. 9 universes. 245+ sub-agents. Flip a card to meet them."
       />
 
       <section className="px-4 pb-12">
@@ -166,7 +166,7 @@ export default function AgentsPage() {
             THE FULL ROSTER
           </h2>
           <p className="text-center text-sm text-[var(--vf-text-muted)] mb-10">
-            135+ sub-agents across 9 universes. The specialists behind the leads.
+            245+ sub-agents across 9 universes. The specialists behind the leads.
           </p>
 
           <div className="space-y-10">

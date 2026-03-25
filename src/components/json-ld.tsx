@@ -6,7 +6,7 @@ export function JsonLd() {
     applicationCategory: "DeveloperApplication",
     operatingSystem: "macOS, Linux, Windows",
     description:
-      "The complete guide to building production apps with 140+ AI agents across 9 fictional universes. Drop in a PRD, run /build, ship to production.",
+      "The complete guide to building production apps with 260+ AI agents across 9 fictional universes. Drop in a PRD, run /build, ship to production.",
     url: "https://voidforge.build",
     author: {
       "@type": "Person",

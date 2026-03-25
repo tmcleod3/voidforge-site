@@ -36,7 +36,7 @@ export default function ProphecyPage() {
           <SpeechBubble agent="Bombadil" universe="tolkien">
             Old Tom Bombadil has watched the forge from the beginning.
             {shipped.length} versions across {majorGroups.length} major eras.
-            From 150 named agents to 140+. From a text file to a living
+            From 150 named agents to 260+. From a text file to a living
             methodology. The river keeps flowing, and old Tom keeps singing.
           </SpeechBubble>
         </div>

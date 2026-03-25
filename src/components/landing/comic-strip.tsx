@@ -12,7 +12,7 @@ const panels = [
   },
   {
     image: "/images/panels/panel-agents.webp",
-    title: "140+ AGENTS BUILD IT",
+    title: "260+ AGENTS BUILD IT",
     description: "18 leads. 9 universes. One 13-phase protocol.",
     color: "var(--vf-forge-orange)",
     bg: "from-orange-900/30 to-orange-950/30",

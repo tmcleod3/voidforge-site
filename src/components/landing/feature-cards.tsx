@@ -22,7 +22,7 @@ const features = [
   },
   {
     icon: Users,
-    title: "140+ NAMED AGENTS",
+    title: "260+ NAMED AGENTS",
     description:
       "18 lead agents from Tolkien, Marvel, DC, Star Wars, Star Trek, Dune, Anime, Cosmere, and Foundation. Each with a personality, a methodology, and opinions about your code.",
     href: "/agents",

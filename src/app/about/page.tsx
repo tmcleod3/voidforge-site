@@ -66,7 +66,7 @@ export default function AboutPage() {
             </p>
             <p className="text-[var(--vf-text-muted)] mb-6">
               VoidForge is what happened next. A set of personal notes turned into
-              a methodology. The methodology grew 140+ named agents across 8
+              a methodology. The methodology grew 260+ named agents across 8
               fictional universes. The agents learned a 13-phase build protocol.
               And then Tom pointed the forge at itself and said: <em>&ldquo;Build
               your own website.&rdquo;</em> You&apos;re reading the result.

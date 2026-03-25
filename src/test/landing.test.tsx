@@ -63,7 +63,7 @@ describe("Landing Page — Comic Strip", () => {
   it("renders all 3 panels", () => {
     render(<ComicStrip />);
     expect(screen.getByText("DROP IN A PRD")).toBeInTheDocument();
-    expect(screen.getByText("140+ AGENTS BUILD IT")).toBeInTheDocument();
+    expect(screen.getByText("260+ AGENTS BUILD IT")).toBeInTheDocument();
     expect(screen.getByText("SHIP TO PRODUCTION")).toBeInTheDocument();
   });
 });
@@ -92,7 +92,7 @@ describe("Landing Page — Feature Cards", () => {
   it("renders all 6 feature cards", () => {
     render(<FeatureCards />);
     expect(screen.getByText("13-PHASE PROTOCOL")).toBeInTheDocument();
-    expect(screen.getByText("140+ NAMED AGENTS")).toBeInTheDocument();
+    expect(screen.getByText("260+ NAMED AGENTS")).toBeInTheDocument();
     expect(screen.getByText("26 SLASH COMMANDS")).toBeInTheDocument();
     expect(screen.getByText("30 CODE PATTERNS")).toBeInTheDocument();
     expect(screen.getByText("6 DEPLOY TARGETS")).toBeInTheDocument();
@@ -103,7 +103,7 @@ describe("Landing Page — Feature Cards", () => {
     render(<FeatureCards />);
     const protocolLink = screen.getByText("13-PHASE PROTOCOL").closest("a");
     expect(protocolLink).toHaveAttribute("href", "/protocol");
-    const agentsLink = screen.getByText("140+ NAMED AGENTS").closest("a");
+    const agentsLink = screen.getByText("260+ NAMED AGENTS").closest("a");
     expect(agentsLink).toHaveAttribute("href", "/agents");
   });
 });
