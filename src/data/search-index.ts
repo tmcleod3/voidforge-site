@@ -76,7 +76,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/ai", description: "Seldon's AI Intelligence Audit — model selection, prompts, tool-use, orchestration, safety, evals", path: "/commands/ai", category: "Commands" },
 
   // Patterns
-  { title: "Patterns", description: "30 code patterns across 5 domains with framework implementations", path: "/patterns", category: "Patterns" },
+  { title: "Patterns", description: "31 code patterns across 5 domains with framework implementations", path: "/patterns", category: "Patterns" },
   { title: "API Route", description: "Validation, auth, service call, consistent response", path: "/patterns/api-route", category: "Patterns" },
   { title: "Service", description: "Business logic, ownership checks, typed errors", path: "/patterns/service", category: "Patterns" },
   { title: "Component", description: "Loading, empty, error, success states — keyboard accessible", path: "/patterns/component", category: "Patterns" },
@@ -107,6 +107,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "Data Pipeline", description: "ETL pipeline: typed stages, checkpoint/resume, quality checks", path: "/patterns/data-pipeline", category: "Patterns" },
   { title: "Backtest Engine", description: "Walk-forward backtesting: no-lookahead, slippage, metrics", path: "/patterns/backtest-engine", category: "Patterns" },
   { title: "Execution Safety", description: "Trading execution: order validation, position limits, paper/live toggle", path: "/patterns/execution-safety", category: "Patterns" },
+  { title: "E2E Test", description: "Playwright E2E + axe-core a11y, Page Object Model, network mocking", path: "/patterns/e2e-test", category: "Patterns" },
 
   // Tutorials
   { title: "The Wizard Path", description: "Start from nothing — Gandalf walks you through everything", path: "/tutorial/wizard", category: "Tutorial" },

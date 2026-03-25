@@ -1698,6 +1698,16 @@ end`,
     preview: `const order = validateOrder({\n  symbol: 'BTC/USDT',\n  side: 'buy',\n  size: 0.1,\n}, exchangeRules);\nawait executor.submit(order);`,
     frameworks: [{ framework: "typescript", label: "TypeScript", language: "TypeScript", code: `interface ExchangeRules {\n  tickSize: number;\n  lotSize: number;\n  minNotional: number;\n}\n\nfunction validateOrder(order: Order, rules: ExchangeRules): ValidatedOrder {\n  const size = roundToLot(order.size, rules.lotSize);\n  const price = roundToTick(order.price, rules.tickSize);\n  const notional = size * price;\n  if (notional < rules.minNotional) {\n    throw new Error(\`Below min notional: \${notional} < \${rules.minNotional}\`);\n  }\n  return { ...order, size, price, validated: true };\n}\n\ninterface Executor {\n  submit(order: ValidatedOrder): Promise<Fill>;\n}\n\nclass PaperExecutor implements Executor { /* simulate */ }\nclass LiveExecutor implements Executor { /* real exchange */ }` }],
   },
+  {
+    slug: "e2e-test",
+    name: "e2e-test.ts",
+    title: "E2E Test",
+    description: "Playwright E2E + axe-core a11y, Page Object Model.",
+    teaches: "How to write E2E tests with Playwright: Page Object Model for organization, axe-core a11y scanning as default fixture (every page gets a free a11y check), deterministic state with clean temp dirs, network mocking, auth helpers, and Core Web Vitals measurement.",
+    whenToUse: "Any web application that needs browser-level testing — login flows, multi-page journeys, a11y compliance, visual regression.",
+    preview: `test('homepage loads and is accessible', async ({ page }) => {\n  await page.goto('/');\n  await expect(page.getByRole('heading')).toBeVisible();\n  const results = await new AxeBuilder({ page }).analyze();\n  expect(results.violations).toHaveLength(0);\n});`,
+    frameworks: [{ framework: "typescript", label: "TypeScript", language: "TypeScript", code: `import { test, expect } from '@playwright/test';\nimport AxeBuilder from '@axe-core/playwright';\n\nclass HomePage {\n  constructor(private page: Page) {}\n\n  async goto() {\n    await this.page.goto('/');\n  }\n\n  get heading() {\n    return this.page.getByRole('heading', { level: 1 });\n  }\n}\n\ntest('homepage loads', async ({ page }) => {\n  const home = new HomePage(page);\n  await home.goto();\n  await expect(home.heading).toBeVisible();\n});\n\ntest('homepage is accessible', async ({ page }) => {\n  await page.goto('/');\n  const results = await new AxeBuilder({ page }).analyze();\n  expect(results.violations).toHaveLength(0);\n});` }],
+  },
 ];
 
 export function getPattern(slug: string): Pattern | undefined {
