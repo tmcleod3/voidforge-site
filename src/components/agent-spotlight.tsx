@@ -1,8 +1,11 @@
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SubAgentAvatar } from "@/components/sub-agent-avatar";
+
+function nameToSlug(name: string): string {
+  return name.toLowerCase().replace(/ /g, "-").replace(/[.']/g, "");
+}
 
 interface AgentSpotlightProps {
   agent: { name: string; role: string } | null;
@@ -11,6 +14,9 @@ interface AgentSpotlightProps {
 }
 
 export function AgentSpotlight({ agent, color, onClose }: AgentSpotlightProps) {
+  const [hdLoaded, setHdLoaded] = useState(false);
+  const [hdFailed, setHdFailed] = useState(false);
+
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -20,9 +26,15 @@ export function AgentSpotlight({ agent, color, onClose }: AgentSpotlightProps) {
 
   useEffect(() => {
     if (!agent) return;
+    setHdLoaded(false);
+    setHdFailed(false);
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [agent, handleKeyDown]);
+
+  const slug = agent ? nameToSlug(agent.name) : "";
+  const hdSrc = `/images/agents/subs/hd/${slug}.webp`;
+  const fallbackSrc = `/images/agents/subs/${slug}.webp`;
 
   return (
     <AnimatePresence>
@@ -52,12 +64,22 @@ export function AgentSpotlight({ agent, color, onClose }: AgentSpotlightProps) {
             transition={{ type: "spring", damping: 25, stiffness: 350 }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Portrait */}
+            {/* Portrait — HD with fallback */}
             <div
               className="w-48 h-48 rounded-full mx-auto mb-5 overflow-hidden border-3"
               style={{ borderColor: color }}
             >
-              <SubAgentAvatar name={agent.name} color={color} />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={hdFailed ? fallbackSrc : hdSrc}
+                alt={agent.name}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onLoad={() => setHdLoaded(true)}
+                onError={() => {
+                  if (!hdFailed) setHdFailed(true);
+                }}
+              />
             </div>
 
             {/* Name */}
