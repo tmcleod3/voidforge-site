@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { TradingCard } from "@/components/trading-card";
 import { AccordionItem } from "@/components/accordion";
-import { SubAgentAvatar } from "@/components/sub-agent-avatar";
+import { SubAgentGrid } from "@/components/sub-agent-grid";
 import {
   Sword,
   Shield,
@@ -172,54 +172,14 @@ export default function AgentsPage() {
           <div className="space-y-10">
             {universes.map((universe) => {
               const subs = subAgents.filter((a) => a.universe === universe);
-              const uColor = universeColors[universe];
               if (subs.length === 0) return null;
               return (
-                <div key={universe}>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span
-                      className="w-8 h-8 rounded-full flex items-center justify-center border-2"
-                      style={{ borderColor: uColor, color: uColor, backgroundColor: `${uColor}15` }}
-                    >
-                      {universeEmblems[universe]}
-                    </span>
-                    <h3
-                      className="font-[family-name:var(--font-bangers)] text-xl tracking-wider"
-                      style={{ color: uColor }}
-                    >
-                      {universeLabels[universe].toUpperCase()}
-                    </h3>
-                  </div>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                    {subs.map((agent) => (
-                      <div
-                        key={agent.name}
-                        className="group/sub relative flex items-center gap-3 px-3 py-2.5 rounded-lg bg-[var(--vf-surface-raised)] border border-[var(--vf-border)] hover:border-[var(--vf-forge-orange)]/40 transition-colors cursor-default"
-                      >
-                        <div
-                          className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 border-2 overflow-hidden"
-                          style={{ borderColor: `${uColor}60`, backgroundColor: `${uColor}10` }}
-                        >
-                          <SubAgentAvatar name={agent.name} color={uColor} />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-sm font-medium text-[var(--vf-text)] truncate">
-                            {agent.name}
-                          </p>
-                          <p className="text-[11px] text-[var(--vf-text-muted)] sm:truncate">
-                            {agent.role}
-                          </p>
-                        </div>
-                        {/* Tooltip — desktop only */}
-                        <div className="hidden sm:block absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] rounded-md shadow-lg opacity-0 pointer-events-none group-hover/sub:opacity-100 group-hover/sub:pointer-events-auto transition-opacity duration-150 z-20 w-max max-w-[240px]">
-                          <p className="text-xs font-medium text-[var(--vf-text)] mb-0.5">{agent.name}</p>
-                          <p className="text-[11px] text-[var(--vf-text-muted)]">{agent.role}</p>
-                          <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-[var(--vf-surface-overlay)]" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <SubAgentGrid
+                  key={universe}
+                  universe={universe}
+                  subs={subs}
+                  emblem={universeEmblems[universe]}
+                />
               );
             })}
           </div>
