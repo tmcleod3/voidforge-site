@@ -47,8 +47,16 @@ function AgentCard({
 }
 
 export function SubAgentGrid({ universe, subs, emblem }: SubAgentGridProps) {
-  const [spotlit, setSpotlit] = useState<SubAgent | null>(null);
+  const [spotlitIndex, setSpotlitIndex] = useState<number>(-1);
+  const spotlit = spotlitIndex >= 0 ? subs[spotlitIndex] : null;
   const uColor = universeColors[universe];
+
+  const openSpotlight = (agent: SubAgent) => {
+    const idx = subs.indexOf(agent);
+    setSpotlitIndex(idx);
+  };
+  const goPrev = () => setSpotlitIndex((i) => (i > 0 ? i - 1 : subs.length - 1));
+  const goNext = () => setSpotlitIndex((i) => (i < subs.length - 1 ? i + 1 : 0));
 
   // Group by series if any agents have series tags (anime universe)
   const seriesGroups = useMemo(() => {
@@ -100,7 +108,7 @@ export function SubAgentGrid({ universe, subs, emblem }: SubAgentGridProps) {
                     key={agent.name}
                     agent={agent}
                     color={uColor}
-                    onClick={() => setSpotlit(agent)}
+                    onClick={() => openSpotlight(agent)}
                   />
                 ))}
               </div>
@@ -115,7 +123,7 @@ export function SubAgentGrid({ universe, subs, emblem }: SubAgentGridProps) {
               key={agent.name}
               agent={agent}
               color={uColor}
-              onClick={() => setSpotlit(agent)}
+              onClick={() => openSpotlight(agent)}
             />
           ))}
         </div>
@@ -124,7 +132,9 @@ export function SubAgentGrid({ universe, subs, emblem }: SubAgentGridProps) {
       <AgentSpotlight
         agent={spotlit}
         color={uColor}
-        onClose={() => setSpotlit(null)}
+        onClose={() => setSpotlitIndex(-1)}
+        onPrev={goPrev}
+        onNext={goNext}
       />
     </div>
   );

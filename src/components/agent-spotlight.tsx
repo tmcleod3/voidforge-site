@@ -2,6 +2,7 @@
 
 import { useEffect, useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function nameToSlug(name: string): string {
   return name.toLowerCase().replace(/ /g, "-").replace(/[.']/g, "");
@@ -11,22 +12,24 @@ interface AgentSpotlightProps {
   agent: { name: string; role: string; series?: string } | null;
   color: string;
   onClose: () => void;
+  onPrev?: () => void;
+  onNext?: () => void;
 }
 
-export function AgentSpotlight({ agent, color, onClose }: AgentSpotlightProps) {
-  const [hdLoaded, setHdLoaded] = useState(false);
+export function AgentSpotlight({ agent, color, onClose, onPrev, onNext }: AgentSpotlightProps) {
   const [hdFailed, setHdFailed] = useState(false);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
+      if (e.key === "ArrowLeft" && onPrev) { e.preventDefault(); onPrev(); }
+      if (e.key === "ArrowRight" && onNext) { e.preventDefault(); onNext(); }
     },
-    [onClose]
+    [onClose, onPrev, onNext]
   );
 
   useEffect(() => {
     if (!agent) return;
-    setHdLoaded(false);
     setHdFailed(false);
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
@@ -37,7 +40,7 @@ export function AgentSpotlight({ agent, color, onClose }: AgentSpotlightProps) {
   const fallbackSrc = `/images/agents/subs/${slug}.webp`;
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {agent && (
         <motion.div
           className="fixed inset-0 z-50 flex items-center justify-center"
@@ -52,15 +55,40 @@ export function AgentSpotlight({ agent, color, onClose }: AgentSpotlightProps) {
           {/* Backdrop */}
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
+          {/* Prev button */}
+          {onPrev && (
+            <button
+              type="button"
+              className="absolute left-2 sm:left-6 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-black/60 transition-colors focus-visible:outline-2 focus-visible:outline-[var(--vf-forge-orange)]"
+              onClick={(e) => { e.stopPropagation(); onPrev(); }}
+              aria-label="Previous agent"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+          )}
+
+          {/* Next button */}
+          {onNext && (
+            <button
+              type="button"
+              className="absolute right-2 sm:right-6 z-10 p-2 rounded-full bg-black/40 text-white/70 hover:text-white hover:bg-black/60 transition-colors focus-visible:outline-2 focus-visible:outline-[var(--vf-forge-orange)]"
+              onClick={(e) => { e.stopPropagation(); onNext(); }}
+              aria-label="Next agent"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          )}
+
           {/* Card */}
           <motion.div
-            className="relative comic-panel p-6 max-w-xs w-full mx-4"
+            key={agent.name}
+            className="relative comic-panel p-6 max-w-xs w-full mx-12 sm:mx-4"
             style={{
               background: `linear-gradient(160deg, ${color}20 0%, var(--vf-surface-raised) 40%)`,
             }}
-            initial={{ scale: 0.8, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 10 }}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.95, opacity: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 350 }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -75,7 +103,6 @@ export function AgentSpotlight({ agent, color, onClose }: AgentSpotlightProps) {
                 alt={agent.name}
                 className="w-full h-full object-cover"
                 loading="lazy"
-                onLoad={() => setHdLoaded(true)}
                 onError={() => {
                   if (!hdFailed) setHdFailed(true);
                 }}
@@ -101,18 +128,13 @@ export function AgentSpotlight({ agent, color, onClose }: AgentSpotlightProps) {
             </h3>
 
             {/* Role */}
-            <motion.p
-              className="text-sm text-[var(--vf-text-muted)] text-center leading-relaxed"
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
+            <p className="text-sm text-[var(--vf-text-muted)] text-center leading-relaxed">
               {agent.role}
-            </motion.p>
+            </p>
 
-            {/* Dismiss hint */}
+            {/* Nav hint */}
             <p className="text-[10px] text-[var(--vf-text-muted)] text-center mt-4 opacity-50">
-              TAP ANYWHERE TO CLOSE
+              ← → BROWSE &middot; ESC TO CLOSE
             </p>
           </motion.div>
         </motion.div>
