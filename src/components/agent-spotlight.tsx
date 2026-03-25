@@ -8,7 +8,7 @@ function nameToSlug(name: string): string {
 }
 
 interface AgentSpotlightProps {
-  agent: { name: string; role: string } | null;
+  agent: { name: string; role: string; series?: string } | null;
   color: string;
   onClose: () => void;
 }
@@ -81,6 +81,16 @@ export function AgentSpotlight({ agent, color, onClose }: AgentSpotlightProps) {
                 }}
               />
             </div>
+
+            {/* Series badge */}
+            {agent.series && (
+              <p
+                className="text-[10px] font-bold tracking-widest uppercase text-center mb-1 opacity-60"
+                style={{ color }}
+              >
+                {agent.series}
+              </p>
+            )}
 
             {/* Name */}
             <h3
