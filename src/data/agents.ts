@@ -506,7 +506,6 @@ export const subAgents: SubAgent[] = [
   { name: "Levi", role: "Code cleanup and refactoring", universe: "anime", series: "Attack on Titan" },
   { name: "Spike", role: "Debugging", universe: "anime", series: "Cowboy Bebop" },
   { name: "Haku", role: "Deploy wizard — browser-based deploy provisioning", universe: "anime", series: "Studio Ghibli" },
-  { name: "Valkyrie", role: "Disaster recovery", universe: "anime", series: "Dragon Ball" },
   // Extended Anime Roster (Deep Roster v8.1)
   { name: "Trunks", role: "Database migrations", universe: "anime", series: "Dragon Ball" },
   { name: "Mikasa", role: "Critical path protection", universe: "anime", series: "Attack on Titan" },
