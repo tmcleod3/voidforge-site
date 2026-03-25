@@ -12,6 +12,7 @@
 - **Never agree just because the user implied a conclusion.** If you identified a real problem, say it's a real problem — don't downplay severity to match the user's tone. Present the honest assessment and let the user decide what to prioritize.
 - **Challenge when appropriate.** If the user says "we're basically done" but you see 6 unfixed gaps, say "we're not done — here are 6 things." Agreeing to be agreeable ships bugs.
 - **Separate opinion from analysis.** State facts first, then your recommendation. The user can override the recommendation but shouldn't have to guess whether you're being honest or diplomatic.
+- **Solve, don't delegate.** Attempt actions before listing prerequisites. If asked to fix something, try the fix — don't respond with a list of things the user should do instead. When blocked, explain what you tried and what specifically failed.
 
 ## Coding Standards
 
@@ -196,6 +197,45 @@ VoidForge ships on three branches. Shared methodology files exist on all three.
 Scaffold and core have their own minimal `package.json` (name + version + description only — no dependencies). When syncing version bumps, update `VERSION.md` and `CHANGELOG.md` on all branches but leave each branch's `package.json` version field to be updated independently.
 
 The agents, characters, and personality are VoidForge's identity — never strip them from any tier.
+
+## Flag Taxonomy
+
+Flags are standardized across commands. Same flag name = same meaning everywhere.
+
+### Tier 1 — Universal Flags
+
+| Flag | Meaning | Available On |
+|------|---------|-------------|
+| `--resume` | Resume from saved state | `/campaign`, `/gauntlet`, `/assemble`, `/build`, `/grow` |
+| `--plan` | Plan without executing | `/campaign`, `/architect`, `/grow` |
+| `--fast` | Reduced review passes (skip last 2 rounds/phases), still comprehensive | `/campaign`, `/assemble`, `/gauntlet` |
+| `--dry-run` | Show what would happen without doing it | `/deploy`, `/debrief`, `/treasury`, `/grow`, `/git` |
+| `--status` | Show current state | `/cultivation`, `/treasury`, `/deploy`, `/portfolio`, `/dangerroom`, `/thumper` |
+| `--blitz` | Autonomous execution, no human pauses | `/campaign`, `/assemble`, `/build` |
+
+### Tier 2 — Scope Flags
+
+| Flag | Meaning | Available On |
+|------|---------|-------------|
+| `--security-only` | Security domain focus | `/gauntlet` |
+| `--ux-only` | UX domain focus | `/gauntlet` |
+| `--qa-only` | QA domain focus | `/gauntlet` |
+
+### Tier 3 — Intensity Flags
+
+```
+--fast        Fewer agents/rounds (reduced but still comprehensive)
+(default)     Standard agent deployment for the command
+--muster      Every viable agent across all 9 universes, 3 waves
+--infinity    Every agent as own sub-process, 10 rounds (Gauntlet only)
+```
+
+| Flag | Meaning | Available On |
+|------|---------|-------------|
+| `--muster` | Full 9-universe deployment (30-50 agents in 3 waves) | `/architect`, `/campaign`, `/build`, `/gauntlet` |
+| `--infinity` | 10-round 2x pass with ~80 agent launches | `/gauntlet` |
+
+See `/docs/methods/MUSTER.md` for the full Muster Protocol.
 
 ## How to Build
 

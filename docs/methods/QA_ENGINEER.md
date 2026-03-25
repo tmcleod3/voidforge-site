@@ -123,6 +123,15 @@ When a function delegates to another function (e.g., `handleRequest` calls `proc
 
 **Image Size Audit:** For projects with static images (especially `/imagine` output), check every image in `public/` or `static/`: flag any image > 200KB, flag any image >4x its display dimensions (a 1024px source rendered at 40px is a 97% bandwidth waste). Total asset directory should be < 10MB for marketing sites, < 50MB for apps. If `/imagine` was used, verify Gimli's optimization step (Step 5.5) produced WebP files at 2x display dimensions, not raw 1024px DALL-E PNGs.
 
+### File Upload Coverage Checklist
+For any feature that accepts file uploads, verify the parser handles: PDF, DOCX, XLSX, CSV, TXT, RTF, PPTX, images (PNG/JPG/GIF/WebP). Missing format support should be flagged as Medium. (Field report #149)
+
+### Service Call-Site Verification
+For each new service built in a mission, grep for actual call sites in business logic (not just imports or observation loops). If no business logic calls the service's methods, the service is decorative. Flag as HIGH. (Field report #151)
+
+### Degraded Dependency Testing
+For each external data source (APIs, databases, message queues), test what happens when it returns empty, broken, or partial data. Monitoring and reconciliation systems should degrade gracefully (skip check + warn) not catastrophically (halt all operations). A reconciler that sees "0 local positions" when the parser is broken should not declare MAJOR DIVERGENCE and halt trading. (Field report #152)
+
 ### Tier Enforcement — UI Components
 After checking API routes for tier gating, ALSO search `.tsx` and `.jsx` files for hardcoded tier comparisons (`=== 'PRO'`, `=== 'ENTERPRISE'`, `includes('SCALE')`). These must include ALL paid tiers or use the centralized tier config. Tier drift in UI components is invisible to API-level audits — a paying customer can be blocked from features they paid for by a stale comparison in a settings page.
 (Field report #22: third occurrence of tier drift — fixed in API routes, survived in .tsx settings files.)
@@ -200,6 +209,12 @@ Lucius reviews config separately (reads .env files — sensitive, don't delegate
 ## Step 3.5 — Nightwing Runs Automated Tests
 
 Run the full test suite: `npm test`. Analyze failures. Cross-reference with Oracle, Red Hood, Deathstroke, and Constantine findings. For every bug found in Steps 3A-3E, ask: "Can this be caught by an automated test?" If yes, write the test. See `/docs/methods/TESTING.md` for patterns and conventions.
+
+### Browser Verification Step (when `e2e: yes`)
+
+After unit test review, Batman verifies critical user journeys work in a real browser. Run `npm run test:e2e` and review results. For each failing E2E test, trace to root cause (UI regression, API change, state management). E2E tests are the third regression defense layer: Unit catches logic errors, Integration catches API contract breaks, E2E catches CSS regressions, JS initialization order, cross-component state, and a11y violations invisible to unit tests.
+
+**Huntress — Flaky Test Monitoring:** After the QA pass, Huntress checks E2E test stability. Tests that fail non-deterministically are quarantined with `@flaky` annotation and a tracked fix task. Quarantined tests run in a separate CI job that does not block merges. Common flaky sources: animation timing, network-dependent waits, viewport-sensitive assertions, test isolation failures (shared state between tests).
 
 ## Step 4 — Bug Tracker (MUST MAINTAIN)
 

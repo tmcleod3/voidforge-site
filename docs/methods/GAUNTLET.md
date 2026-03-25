@@ -61,6 +61,8 @@ If the project has a runnable server, start it and verify the full lifecycle:
 
 This catches what static analysis misses: IPv6 binding, native module ABI compatibility, WebSocket frame timing, browser caching, in-memory state lifecycle. (Field report #30: 11 runtime bugs invisible to 5 rounds of code review.)
 
+**Browser smoke test (when `e2e: yes`):** Hawkeye runs `npm run test:e2e` as part of Round 2.5. If E2E tests exist, they replace curl-based endpoint checks for UI routes. API endpoint verification via curl remains for non-UI routes. axe-core results from E2E are included in the Gauntlet findings.
+
 **Env var audit (after smoke test):** If the project uses build-time environment variables (Next.js `NEXT_PUBLIC_*`, Vite `VITE_*`, CRA `REACT_APP_*`), grep the built JS bundle for references and verify each has a non-empty value in the deployment environment. Build succeeding does NOT mean env vars are set — missing build-time vars cause features to silently disappear without errors. (Field report #104: OAuth buttons rendered conditionally on `NEXT_PUBLIC_GOOGLE_CLIENT_ID` which was never created — build passed, buttons vanished.)
 
 **Round 3 — Second Strike (targeted re-verification):**
@@ -193,9 +195,11 @@ If you believe context is limited, run `/context` and report the actual number. 
 
 This rule exists because agents self-justified "efficient" Gauntlets at 28% and 37% context usage, letting bugs through that full rounds would have caught.
 
+**Context excuses are not valid.** "Context is heavy" without a number is not justification for reducing rounds, skipping agents, or deferring work. Run `/context`, report the percentage, and continue. If above 85%: checkpoint and suggest a fresh session. Below 85%: full protocol, no exceptions. (Field report #150)
+
 ## Flags
 
-- `--quick` — Skip Rounds 4 (Crossfire) and 5 (Council). For projects where a lighter review is acceptable. Still 3 rounds, still comprehensive.
+- `--fast` — Skip Rounds 4 (Crossfire) and 5 (Council). For projects where a lighter review is acceptable. Still 3 rounds, still comprehensive. (formerly `--quick` — renamed v17.3 for cross-command consistency)
 - `--security-only` — Run 4 rounds of security only: inventory, full audit, re-probe, adversarial. Kenobi's marathon. For when you specifically need a deep security review.
 - `--ux-only` — Run 4 rounds of UX only: surface map, full audit, re-verify, enchantment. Galadriel's marathon.
 - `--qa-only` — Run 4 rounds of QA only: discovery, full pass, re-probe, adversarial. Batman's marathon.
@@ -255,7 +259,7 @@ Round 5 — Council (6+ agents, each as own sub-process):
 - **Nightwing** — full regression
 - **Samwise** — final a11y audit
 - **Padmé** — critical path functional verification
-- **Troi** — PRD compliance section-by-section
+- **Troi** — PRD compliance section-by-section. **Troi — Browser PRD Compliance:** When E2E infrastructure exists, Troi walks through each PRD user flow in the browser using page objects. Compares rendered content against PRD Sections 2 (routes), 4 (features), and 14 (brand voice). Screenshot evidence logged.
 
 **Pass 2 — Repeat (Rounds 6-10):** Same structure, all agents re-deployed on the fixed codebase. Pass 2 should find zero issues if Pass 1 fixes were correct.
 

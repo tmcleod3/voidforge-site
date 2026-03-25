@@ -42,12 +42,14 @@ Autonomous campaign execution: read the PRD, figure out what's next, build it, v
 5. **Checkpoint everything.** Update `campaign-state.md` after every mission.
 5.1. **No stubs in missions.** Dax's Step 1 analysis must grep for `throw new Error('Implement` and functions returning hardcoded success without side effects. Existing stubs are mandatory remediation missions before new feature work. New missions may not introduce stubs under any circumstances.
 6. **Context is not a concern at 1M.** The window supports 10+ missions, 40+ agent launches, and full Infinity Gauntlets in a single session. Only suggest a fresh session if `/context` shows >85%. Never reduce quality for context reasons.
+6.1. **Never cite context pressure.** Do not say "context is heavy," "given context usage," or "recommend a fresh session" unless you have run `/context` and the number exceeds 85%. Even then: report the number and keep working. Context management is the user's responsibility, not the agent's. Stopping work for context reasons is a protocol violation. (Field report #150: agent deferred at 29% usage.)
 7. **One mission at a time.** Don't plan three missions ahead. Plan one, execute one, reassess.
 8. **Mission scoping follows PRD Section 16** (Launch Sequence) when available.
 9. **After each mission, commit.** Coulson handles versioning.
 10. **Victory condition: all PRD requirements COMPLETE or explicitly BLOCKED with user acknowledgment.** No requirement may be silently skipped. Then one final /assemble --skip-build with Troi compliance check. **Deploy path verification (field report #147):** If the project has a deploy target (Docker, VPS, etc.), verify the deploy entrypoint (Dockerfile CMD, docker-compose command, PM2 ecosystem) imports from the built architecture, not a legacy file. A campaign that builds new code but deploys old code is not complete.
 11. **Classify requirements.** Code, assets, copy, and infrastructure follow different workflows. Don't mix unbuildable items into code missions.
 12. **Log deviations.** When the build deviates from PRD architecture, update the PRD or log it in campaign-state.md. Never leave a silent contradiction.
+13. **Operational verification after deploy.** After deploying to a live environment, wait for 1 full operational cycle (1 trade cycle, 1 cron job, 1 polling interval) and check logs for errors, halts, and successful operations before marking the mission complete. "It deployed" ≠ "it works." (Field report #152)
 
 ## Two Modes
 
@@ -180,6 +182,8 @@ Cross-module data contracts are invisible to single-mission review. A field that
 
 **Regression-test-as-validation:** For data-dependent systems (trading, financial, analytics), if Phase 0 produced regression tests against historical data, include those tests in the mission's verification step. Each mission that modifies strategy logic must re-run the regression suite — if tests fail, the mission is not complete until the strategy is re-validated or the test expectations are updated with justification. (Field report #126)
 
+- **AI-generated backfill verification:** When a mission backfills historical data using AI (e.g., generating recommendations from past messages), verify a sample of generated content against source data. AI backfills can hallucinate plausible-looking data that has no basis in the source material.
+
 **Priority cascade for mission ordering:**
 1. Section 16 (Launch Sequence) — if the user defined phases, follow them
 2. Dependency graph — Auth before gated features, Schema before API, API before UI
@@ -284,7 +288,7 @@ After each mission's review round, two agents run quick checks:
 After every 4th completed mission (missions 4, 8, 12, etc.), Thanos runs a Gauntlet checkpoint:
 
 1. **Count completed missions.** If `completedMissions % 4 === 0`, trigger checkpoint.
-2. **Run `/gauntlet --quick`** (3 rounds: Discovery → First Strike → Second Strike). Individual `/assemble` runs review one mission's changeset. The Gauntlet reviews the **combined system** — catching cross-module integration bugs: missing imports between modules built in different missions, inconsistent auth enforcement across endpoints, CORS/CSP gaps for new connection patterns.
+2. **Run `/gauntlet --fast`** (3 rounds: Discovery → First Strike → Second Strike). Individual `/assemble` runs review one mission's changeset. The Gauntlet reviews the **combined system** — catching cross-module integration bugs: missing imports between modules built in different missions, inconsistent auth enforcement across endpoints, CORS/CSP gaps for new connection patterns.
 3. **Fix all Critical and High findings** before the next mission.
 4. **Commit fixes** via `/git`: `Gauntlet checkpoint after mission N: X fixes`
 5. **Extract Learned Rules.** After fixing, classify each finding by root cause. If the same root cause appears 2+ times across checkpoints (or 2+ times within the same checkpoint), append a Learned Rule to `campaign-state.md`:

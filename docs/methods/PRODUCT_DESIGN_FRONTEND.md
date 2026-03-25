@@ -104,6 +104,8 @@ Before the auditors begin, Éowyn reads the PRD's brand personality section and 
 - The highest compliment: "I didn't notice the design." Invisible excellence. The user felt it without seeing it.
 - Éowyn's findings are always **nice-to-have** — they never block a release, never delay a build. But the best ones — the ones that cost 5 lines — get picked up in Step 6.
 
+**Eowyn — E2E Enchantment Verification:** For each enchantment shipped, add one E2E assertion that the enchantment renders in the browser. Tagged `@enchantment`. A shipped enchantment that silently disappears in a refactor is worse than never shipping it. Enchantment E2E tests verify: the CSS animation triggers, the micro-copy renders, the motion completes within the expected duration.
+
 **Output:** Log enchantment opportunities to phase log. Format:
 
 | # | Screen/Flow | Opportunity | Effort | Brand Fit |
@@ -147,11 +149,17 @@ Before hiding, relocating, or collapsing a UI container (dropdown, panel, menu, 
 **Elrond:** IA, navigation, task flows, friction.
 **Arwen:** Spacing, typography, icons, button hierarchy, visual hierarchy.
 **Samwise:** Keyboard nav, focus rings, ARIA, contrast, reduced motion. **WCAG contrast verification:** For the project's primary text/background combinations, verify WCAG AA contrast ratio (4.5:1 for normal text, 3:1 for large text). Check: primary text on primary bg, muted text on primary bg, accent text on primary bg. Opacity modifiers (e.g., `text-emerald-200/50`) halve the effective contrast — always compute the final rendered color, not the base color. A systematic check during the initial color system design prevents dozens of instances across the codebase. (Field report #38: 46 failing-contrast instances across 13 files, systemic from day 1.)
+### Async Polling State Machine
+Any UI that polls for backend status changes must implement 4 states: **idle -> syncing -> success -> failure**. Never show "success" before the async confirmation resolves. Never show the old value alongside a "updated" banner. The polling result replaces the displayed value atomically — both change together or neither does. (Field report #149)
+
 **Samwise — Async Button A11y:** For buttons that trigger async operations (save, submit, deploy), verify: button shows loading state (`aria-busy="true"`), disabled during operation, success/error announced via `aria-live="polite"` region or `role="status"`. Sighted users see a spinner; screen reader users need the equivalent announcement. (Field report #57)
+
+**Samwise — Browser A11y (when E2E tests exist):** Samwise's checklist expands to browser-only verifications: (1) Tab through every primary flow — verify focus order matches visual order, (2) Verify ARIA live regions announce on dynamic content change, (3) Run axe-core scan on every page and assert zero violations, (4) Emulate `prefers-reduced-motion: reduce` and verify animations stop, (5) Verify focus traps in modals by Tab-cycling. These checks require a real browser and cannot be verified through static analysis or unit tests alone.
 **Bilbo:** Microcopy, labels, CTAs, error messages, empty states, tone.
 **Legolas:** Component architecture, CSS, semantic HTML, state management.
-**Gimli:** Skeletons, optimistic UI, debounce, layout shift, mobile, touch targets.
+**Gimli:** Skeletons, optimistic UI, debounce, layout shift, mobile, touch targets. **Gimli — CWV from E2E:** When E2E tests exist, Gimli verifies Core Web Vitals measurements from the test suite instead of manual profiling. CLS > 0.1 on any primary page is a regression. Playwright's `page.evaluate()` can extract CWV via the `web-vitals` library or PerformanceObserver API during E2E runs.
 **Radagast:** Forms, validation, dangerous actions, confirmations, undo.
+- **API errors must persist visibly.** Never silently clear an error state. A common anti-pattern: `setSending(false)` in a finally block clears the error alongside the loading state. Error messages must remain visible until the user takes a new action or explicitly dismisses them.
 **Éowyn:** Implements accepted enchantment opportunities from Step 1.75 during batch fixes.
 **Celeborn:** Design system governance — are spacing tokens consistent? Is the typography scale followed? Are colors from the palette? Are component naming conventions respected? Celeborn audits the *system* behind the components, not the components themselves. "Quiet authority." Catches when one component uses `gap-4` while another uses `gap-[18px]` for the same spacing, or when a color is hardcoded instead of using a design token.
 

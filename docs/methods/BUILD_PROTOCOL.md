@@ -166,7 +166,8 @@ This catches architecture mistakes that currently escape until Phase 9-11 review
 2. **Auth-from-Day-One:** When scaffolding includes HTTP endpoints, require at minimum an API key middleware stub that returns 401 by default. Full auth (JWT, OAuth, 2FA) stays in Phase 3, but every endpoint is locked from birth. The cost of a simple API key check is minutes; the cost of public exposure during Phases 1-2 is catastrophic for financial or data-sensitive systems. (Field report #125: all endpoints shipped with `allow_origins=["*"]`, zero authentication, bound to `0.0.0.0` — existed unprotected for 2+ build phases.)
 3. Initialize framework, configs, schema, directory structure, types, utils, root layout
 4. Set up test runner per `/docs/methods/TESTING.md`
-5. Every placeholder references its PRD section
+5. When `e2e: yes` in frontmatter, include Playwright setup in test runner initialization: install `@playwright/test`, create `playwright.config.ts`, write 1 smoke test that verifies the app loads in a browser.
+6. Every placeholder references its PRD section
 6. **Tailwind v4 projects:** If framework is Next.js and styling is Tailwind, create `postcss.config.mjs` (`export default { plugins: { "@tailwindcss/postcss": {} } }`) and ensure `globals.css` starts with `@import "tailwindcss" source("../.."). Tailwind v4's implicit scanning breaks in deployed environments when non-source files (methodology docs, build logs) are scanned.
 7. Log to `/logs/phase-01-scaffold.md`
 
@@ -196,10 +197,19 @@ See `docs/patterns/database-migration.ts` for reference implementations.
 1. Single most important user journey, end-to-end vertical slice
 2. Follow patterns: `/docs/patterns/api-route.ts`, `/docs/patterns/service.ts`, `/docs/patterns/component.tsx`
 3. Write unit tests for core service logic + integration tests for API routes
-4. **Visual intent confirmation:** For visual/layout changes, confirm placement intent (replace vs augment) before coding. "Add logo to hero" and "logo IS the hero" produce very different implementations. Ask: "Should this replace the existing content, or be added alongside it?" (Field report #111)
+4. When `e2e: yes`, write one E2E test for the core user journey. This test becomes the canary for all future regressions — if this test breaks, the build is broken.
+5. **Visual intent confirmation:** For visual/layout changes, confirm placement intent (replace vs augment) before coding. "Add logo to hero" and "logo IS the hero" produce very different implementations. Ask: "Should this replace the existing content, or be added alongside it?" (Field report #111)
 5. Log to `/logs/phase-04-core.md`
 
 **AI Gate (conditional — if `ai: yes` in frontmatter):** After the vertical slice is built, Hari Seldon reviews the first AI integration point. Validates: model selection, prompt structure, basic error handling, eval strategy exists. If no AI features in this phase, skip.
+
+### Integration Verification Gate (after each service)
+After building a service, verify at least one consumer calls it at the point of decision (not just imports it). Grep for actual call sites: `serviceName.methodName(`. If a service is imported but never called from business logic, flag as CRITICAL — it's decorative, not functional. Building a RiskGuard and wiring it into an observation loop is NOT the same as having strategies call `riskGuard.checkLimits()` before executing. (Field report #151: CapitalAllocator built and "wired" but strategies used hardcoded limits — $25K orders on $5K account.)
+
+- **Class instantiation check:** Grep for new class definitions created in this build phase. Verify each is instantiated in the application entrypoint (not just imported). A class with passing unit tests but never instantiated in `main()` or `app.ts` is decorative code.
+
+### Data Flow Verification Checkpoint (after Phase 3 wiring)
+Before building features that consume data, verify the pipeline works end-to-end: source -> storage -> consumer. Log one real data point at each stage. If any stage returns zeros, empty arrays, or placeholder data — stop and fix the pipeline before proceeding. Features built on broken data pipelines pass all tests but fail in production. (Field report #152: WebSocket manager had placeholder _update_candles(); all downstream features saw zeros.)
 
 ### Integration Wiring Check
 
@@ -211,6 +221,7 @@ After building a new service, worker, or pipeline, verify it's connected to the 
 5. **Parameter threading check:** For any feature that passes context (user_id, org_id, tenant_id) through multiple layers, trace the parameter from the HTTP boundary to the final DB query. Verify each intermediate function accepts and forwards the parameter. A grep for the parameter name in each file on the call chain is the minimum check. (Field report #99: entire per-user fetch pipeline was a no-op — user_id computed then silently discarded at the function boundary.)
 6. **Frontend route registration:** For every new page component or tab, verify a corresponding route exists in the router configuration (App.tsx, router.ts, or equivalent). For every new API endpoint consumed by frontend, verify the fetch call exists. Grep `Route.*path=` or framework equivalent in the router file after adding new pages. (Field report #99: ConnectionsTab built but unreachable — no route in App.tsx.)
 7. **Consumer verification:** For new configuration/preference stores, verify at least one consumer reads the stored values and changes behavior accordingly. A preference that is stored but never read is dead code. (Field report #99: widget preferences API built but no pipeline consumer checked preferences before processing.)
+8. **Cross-language contract check:** When the project has multiple languages (e.g., Python backend + TypeScript frontend), verify field names match across boundaries. A Python model returning `sender` while TypeScript expects `sender_jid` causes silent data loss. Grep both codebases for shared entity field names.
 
 New infrastructure that isn't wired to consumers is dead code. This check runs at the end of every build mission, not deferred to review. (Field report #33: entire enrichment pipeline was dead code — orchestrator built but never connected to conversation engine.)
 
@@ -247,7 +258,7 @@ New infrastructure that isn't wired to consumers is dead code. This check runs a
 The review phases use a double-pass pattern: find → fix → re-verify. This catches fix-induced regressions — the #1 source of shipped bugs.
 
 *Pass 1 — Find (parallel):*
-1. Batman executes `/docs/methods/QA_ENGINEER.md` through Step 5 (find + fix). Oracle, Red Hood, Alfred, Deathstroke, Constantine scan in parallel.
+1. Batman executes `/docs/methods/QA_ENGINEER.md` through Step 5 (find + fix). Oracle, Red Hood, Alfred, Deathstroke, Constantine scan in parallel. When E2E tests exist, run `npm run test:e2e` alongside unit tests. E2E failures in the review cycle are treated as findings.
 2. Galadriel executes `/docs/methods/PRODUCT_DESIGN_FRONTEND.md` through Step 6. Elrond, Arwen, Samwise analyze in parallel.
 3. Kenobi executes `/docs/methods/SECURITY_AUDITOR.md` Phase 1-2. Leia, Chewie, Rex, Maul scan in parallel, then Yoda, Windu, Ahsoka, Padmé sequentially.
 4. If AI code exists, Hari Seldon runs alongside Batman, Galadriel, and Kenobi in the review cycle. Seldon deploys: Salvor Hardin (models) + Gaal Dornick (prompts) + Hober Mallow (tools) + Bliss (safety) in parallel.
