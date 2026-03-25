@@ -513,6 +513,83 @@ export const subAgents: SubAgent[] = [
   { name: "Hughes", role: "Observability and logging", universe: "anime" },
   { name: "Calcifer", role: "Daemon management", universe: "anime" },
   { name: "Duo", role: "Teardown and decommission", universe: "anime" },
+  // Extended Anime — Dragon Ball
+  { name: "Goku", role: "Raw power — scales to any challenge", universe: "anime" },
+  { name: "Piccolo", role: "Strategic tactician — mentors others", universe: "anime" },
+  { name: "Bulma", role: "Engineering genius — builds anything", universe: "anime" },
+  { name: "Gohan", role: "Hidden power — steps up when needed", universe: "anime" },
+  { name: "Krillin", role: "Underestimated — reliable, always shows up", universe: "anime" },
+  { name: "Beerus", role: "Destroyer — tears down what's broken", universe: "anime" },
+  { name: "Whis", role: "Calm precision — trains gods", universe: "anime" },
+  // Extended Anime — Evangelion
+  { name: "Misato", role: "Operations commander — runs the show", universe: "anime" },
+  { name: "Rei", role: "Quiet precision — handles most dangerous tasks", universe: "anime" },
+  { name: "Asuka", role: "Fierce competitor — performance-obsessed", universe: "anime" },
+  { name: "Kaworu", role: "Brief appearance — solves everything", universe: "anime" },
+  { name: "Kaji", role: "Intelligence — finds hidden information", universe: "anime" },
+  // Extended Anime — Attack on Titan
+  { name: "Armin", role: "Strategy — finds the clever solution", universe: "anime" },
+  { name: "Hange", role: "Experimentation — scientific approach to testing", universe: "anime" },
+  { name: "Sasha", role: "Resource management", universe: "anime" },
+  { name: "Jean", role: "Pragmatic — does what needs to be done", universe: "anime" },
+  // Extended Anime — Cowboy Bebop
+  { name: "Jet", role: "Maintenance — keeps the ship running", universe: "anime" },
+  { name: "Faye", role: "Resourceful — works with what she has", universe: "anime" },
+  { name: "Ed", role: "Chaos hacker — finds anything on the network", universe: "anime" },
+  // Extended Anime — Demon Slayer
+  { name: "Tanjiro", role: "Persistent — never gives up", universe: "anime" },
+  { name: "Rengoku", role: "Set your heart ablaze — intense monitoring", universe: "anime" },
+  { name: "Giyu", role: "Silent guardian — background protection", universe: "anime" },
+  { name: "Zenitsu", role: "Panics but performs — handles alerts", universe: "anime" },
+  // Extended Anime — Code Geass
+  { name: "Lelouch", role: "Master strategist — orchestration", universe: "anime" },
+  { name: "C.C.", role: "Immortal — long-running persistent processes", universe: "anime" },
+  { name: "Suzaku", role: "Speed and power — execution", universe: "anime" },
+  { name: "Kallen", role: "Fighter pilot — handles hardest deployments", universe: "anime" },
+  // Extended Anime — FMA
+  { name: "Riza", role: "Precision — backup and protection", universe: "anime" },
+  { name: "Winry", role: "Mechanic — fixes and maintains systems", universe: "anime" },
+  // Extended Anime — Jujutsu Kaisen
+  { name: "Gojo", role: "Limitless — handles infinite scale", universe: "anime" },
+  { name: "Nanami", role: "9-to-5 reliable — structured operations", universe: "anime" },
+  { name: "Todo", role: "Brute force when needed", universe: "anime" },
+  { name: "Nobara", role: "Hammer and nails — direct problem solving", universe: "anime" },
+  // Extended Anime — Chainsaw Man
+  { name: "Denji", role: "Raw determination — never stops", universe: "anime" },
+  { name: "Power", role: "Chaotic but effective", universe: "anime" },
+  { name: "Kishibe", role: "The trainer — hardens others", universe: "anime" },
+  // Extended Anime — Dr. Stone
+  { name: "Chrome", role: "Discovery — finds resources", universe: "anime" },
+  { name: "Gen", role: "Persuasion and documentation", universe: "anime" },
+  { name: "Kohaku", role: "Speed and strength — rapid response", universe: "anime" },
+  // Extended Anime — Frieren
+  { name: "Frieren", role: "Patient — long-term perspective", universe: "anime" },
+  { name: "Fern", role: "Disciplined precision — follows protocol", universe: "anime" },
+  { name: "Himmel", role: "The hero others remember — legacy systems", universe: "anime" },
+  // Extended Anime — Mob Psycho 100
+  { name: "Mob", role: "Quiet power — handles 100% capacity", universe: "anime" },
+  { name: "Reigen", role: "Ultimate debugger — talks through anything", universe: "anime" },
+  // Extended Anime — Studio Ghibli
+  { name: "Howl", role: "Transformation — handles system migration", universe: "anime" },
+  { name: "Totoro", role: "Guardian spirit — watches over the system", universe: "anime" },
+  { name: "Nausicaä", role: "Environmental awareness — resource management", universe: "anime" },
+  { name: "Ashitaka", role: "Curse-bearer — handles technical debt", universe: "anime" },
+  // Extended Anime — Gundam
+  { name: "Heero", role: "Mission-focused — deploy and destroy", universe: "anime" },
+  { name: "Zechs", role: "Rival perspective — adversarial testing", universe: "anime" },
+  // Extended Anime — Solo Leveling
+  { name: "Sung", role: "Shadow army — spawns worker processes", universe: "anime" },
+  { name: "Beru", role: "Loyal lieutenant — most powerful sub-process", universe: "anime" },
+  // Extended Anime — Samurai Champloo
+  { name: "Mugen", role: "Unpredictable — chaos testing", universe: "anime" },
+  { name: "Jin", role: "Disciplined — structured approach", universe: "anime" },
+  // Extended Anime — Reincarnated as a Slime
+  { name: "Rimuru", role: "Universal adapter — absorbs everything", universe: "anime" },
+  { name: "Veldora", role: "Sealed power — dormant capabilities", universe: "anime" },
+  { name: "Milim", role: "Overwhelming force — load testing", universe: "anime" },
+  // Extended Anime — Kids on the Slope
+  { name: "Kaoru", role: "Harmony — brings systems together", universe: "anime" },
+  { name: "Sentaro", role: "Rhythm and timing — cron jobs, scheduling", universe: "anime" },
   // Cosmere (Growth & Treasury — 8th Universe, v11.0)
   { name: "Vin", role: "Analytics — pattern detection, metric tracking, attribution", universe: "cosmere" },
   { name: "Shallan", role: "Content & creative — copy, brand, visual identity", universe: "cosmere" },
