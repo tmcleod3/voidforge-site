@@ -1708,6 +1708,16 @@ end`,
     preview: `test('homepage loads and is accessible', async ({ page }) => {\n  await page.goto('/');\n  await expect(page.getByRole('heading')).toBeVisible();\n  const results = await new AxeBuilder({ page }).analyze();\n  expect(results.violations).toHaveLength(0);\n});`,
     frameworks: [{ framework: "typescript", label: "TypeScript", language: "TypeScript", code: `import { test, expect } from '@playwright/test';\nimport AxeBuilder from '@axe-core/playwright';\n\nclass HomePage {\n  constructor(private page: Page) {}\n\n  async goto() {\n    await this.page.goto('/');\n  }\n\n  get heading() {\n    return this.page.getByRole('heading', { level: 1 });\n  }\n}\n\ntest('homepage loads', async ({ page }) => {\n  const home = new HomePage(page);\n  await home.goto();\n  await expect(home.heading).toBeVisible();\n});\n\ntest('homepage is accessible', async ({ page }) => {\n  await page.goto('/');\n  const results = await new AxeBuilder({ page }).analyze();\n  expect(results.violations).toHaveLength(0);\n});` }],
   },
+  {
+    slug: "browser-review",
+    name: "browser-review.ts",
+    title: "Browser Review",
+    description: "Browser-based agent review: console capture, behavioral walkthroughs, security inspection.",
+    teaches: "How to give review agents browser eyes during /qa, /ux, /security, and /gauntlet passes. Captures console errors, performs behavioral walkthroughs (click flows, form submissions), and inspects security headers — all as evidence for triage, not deterministic tests.",
+    whenToUse: "Any /qa, /ux, /security, or /gauntlet review pass where the app has a running browser interface. Complements e2e-test.ts (which is for CI).",
+    preview: `async function browserReview(page: Page) {\n  const errors: string[] = [];\n  page.on('console', m => {\n    if (m.type() === 'error') errors.push(m.text());\n  });\n  await page.goto('/');\n  return { errors, screenshot: await page.screenshot() };\n}`,
+    frameworks: [{ framework: "typescript", label: "TypeScript", language: "TypeScript", code: `import { chromium, Page } from 'playwright';\n\nasync function browserReview(url: string) {\n  const browser = await chromium.launch();\n  const page = await browser.newPage();\n  const errors: string[] = [];\n\n  page.on('console', (msg) => {\n    if (msg.type() === 'error') errors.push(msg.text());\n  });\n\n  await page.goto(url);\n  const screenshot = await page.screenshot({ fullPage: true });\n\n  // Check security headers\n  const response = await page.goto(url);\n  const headers = response?.headers() ?? {};\n  const security = {\n    csp: !!headers['content-security-policy'],\n    hsts: !!headers['strict-transport-security'],\n    xFrame: !!headers['x-frame-options'],\n  };\n\n  await browser.close();\n  return { errors, screenshot, security };\n}` }],
+  },
 ];
 
 export function getPattern(slug: string): Pattern | undefined {

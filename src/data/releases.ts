@@ -968,6 +968,20 @@ export const shipped: Release[] = [
     headline: "Playwright E2E + axe-core a11y (21 browser tests). Browser verification in 6 method docs. e2e-test.ts pattern. 315 total tests.",
     items: ["Playwright E2E testing with axe-core a11y scanning (21 browser tests)", "New e2e-test.ts pattern — Page Object Model, a11y fixtures, network mocking", "Browser verification added to 6 method docs (QA, Security, Frontend, Testing, Backend, DevOps)", "315 total tests across unit, integration, and E2E", "'Solve, don't delegate' personality directive"],
   },
+  {
+    version: "v18.1.0",
+    date: "2026-03-25",
+    title: "The Eyes",
+    headline: "browser-review.ts pattern. Console error capture, behavioral walkthroughs, security inspection. Browser intelligence in QA, UX, Security, Gauntlet.",
+    items: ["New browser-review.ts pattern — give review agents browser eyes during /qa, /ux, /security, /gauntlet", "Console error capture as evidence for triage", "Behavioral walkthroughs: click flows, form submissions, navigation paths", "Security header inspection (CSP, HSTS, X-Frame-Options)", "32 total patterns"],
+  },
+  {
+    version: "v18.2.0",
+    date: "2026-03-25",
+    title: "The Dogfood",
+    headline: "Browser intelligence applied to VoidForge itself. 6 a11y heading fixes. CDN fallback for tower. Security verified clean.",
+    items: ["VoidForge dogfooded with browser review — 6 a11y heading fixes", "CDN fallback for Avengers Tower dashboard", "Security headers verified clean across all endpoints"],
+  },
 ];
 
 export const future: FutureRelease[] = [

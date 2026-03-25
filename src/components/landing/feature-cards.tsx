@@ -38,7 +38,7 @@ const features = [
   },
   {
     icon: Code2,
-    title: "31 CODE PATTERNS",
+    title: "32 CODE PATTERNS",
     description:
       "Battle-tested reference implementations. API routes, services, components, middleware, error handling. Write code that every agent can read.",
     href: "/patterns",
