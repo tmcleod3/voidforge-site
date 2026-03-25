@@ -133,6 +133,11 @@ export const majorEras: Record<string, MajorEra> = {
     quote: "No stubs. No placeholders. No functions that lie. Every line does what it says, or it doesn't exist. The forge ships real code.",
     agent: "Batman",
   },
+  "18": {
+    title: "The Proving Ground",
+    quote: "You can review code all day. But until you open a browser and watch it run, you're guessing. The proving ground doesn't lie.",
+    agent: "Batman",
+  },
 };
 
 export const shipped: Release[] = [
@@ -949,11 +954,25 @@ export const shipped: Release[] = [
     headline: "101 new tests for 7 P0 security modules. 294 total tests. Zero TypeScript errors.",
     items: ["101 new tests covering 7 priority-zero security modules", "Total test count: 294 (from 193)", "Vault, auth, HMAC, financial, and growth modules fully covered", "Zero TypeScript errors maintained"],
   },
+  {
+    version: "v17.3.0",
+    date: "2026-03-24",
+    title: "The Muster",
+    headline: "--muster flag for full 9-universe agent deployment. Flag nomenclature standardized across 13 files. Flag Taxonomy in CLAUDE.md.",
+    items: ["--muster flag — deploy every viable agent across all 9 universes in 3 waves", "Flag nomenclature standardized (8 fixes across 13 files)", "Flag Taxonomy added to CLAUDE.md: Tier 1 (universal), Tier 2 (scope), Tier 3 (intensity)", "MUSTER.md method doc — full roster deployment protocol"],
+  },
+  {
+    version: "v18.0.0",
+    date: "2026-03-24",
+    title: "The Proving Ground",
+    headline: "Playwright E2E + axe-core a11y (21 browser tests). Browser verification in 6 method docs. e2e-test.ts pattern. 315 total tests.",
+    items: ["Playwright E2E testing with axe-core a11y scanning (21 browser tests)", "New e2e-test.ts pattern — Page Object Model, a11y fixtures, network mocking", "Browser verification added to 6 method docs (QA, Security, Frontend, Testing, Backend, DevOps)", "315 total tests across unit, integration, and E2E", "'Solve, don't delegate' personality directive"],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
-    version: "v17.0",
+    version: "v19.0",
     title: "The Convergence",
     opacity: 1,
     items: [
