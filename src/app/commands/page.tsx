@@ -151,9 +151,12 @@ export default function CommandsPage() {
                       {group.label}
                     </h2>
                     {forgeLabsGroup.has(group.id) && (
-                      <span className="px-2 py-0.5 text-[9px] rounded bg-amber-900/30 text-amber-400 border border-amber-600/30 font-bold tracking-wider">
-                        FORGE LABS
-                      </span>
+                      <Link
+                        href="/forge-labs"
+                        className="px-2 py-0.5 text-[9px] rounded bg-amber-900/30 text-amber-400 border border-amber-600/30 font-bold tracking-wider hover:bg-amber-900/50 transition-colors"
+                      >
+                        FORGE LABS &rarr;
+                      </Link>
                     )}
                   </div>
                   <p className="text-xs text-[var(--vf-text-muted)] italic">

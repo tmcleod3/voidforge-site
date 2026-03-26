@@ -139,9 +139,17 @@ export default function TutorialPage() {
               tools.
             </SpeechBubble>
 
-            <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-cosmere, #b8860b)] mb-4 mt-6">
-              GROWTH &amp; OPERATIONS
-            </h2>
+            <div className="flex items-center gap-3 mt-6 mb-4">
+              <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-cosmere, #b8860b)]">
+                GROWTH &amp; OPERATIONS
+              </h2>
+              <Link
+                href="/forge-labs"
+                className="px-2 py-0.5 text-[9px] rounded bg-amber-900/30 text-amber-400 border border-amber-600/30 font-bold tracking-wider hover:bg-amber-900/50 transition-colors"
+              >
+                FORGE LABS &rarr;
+              </Link>
+            </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {growthTools.map((tool) => (

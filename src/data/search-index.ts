@@ -11,6 +11,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "Install", description: "Install VoidForge: prerequisites, three tiers, and troubleshooting", path: "/tutorial/install", category: "Learn" },
   { title: "First Build", description: "Write your first PRD, run /build, and watch the 13-phase protocol", path: "/tutorial/first-build", category: "Learn" },
   { title: "Deploy", description: "Deploy your VoidForge app to any of 6 targets", path: "/tutorial/deploy", category: "Learn" },
+  { title: "Forge Labs", description: "Experimental protocols for growth, revenue, intelligence, and operations. Assembly required.", path: "/forge-labs", category: "Learn" },
 
   // Protocol
   { title: "Protocol", description: "The 13-phase build protocol explained phase-by-phase", path: "/protocol", category: "Protocol" },

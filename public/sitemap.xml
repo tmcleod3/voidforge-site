@@ -11,6 +11,7 @@
   <url><loc>https://voidforge.build/patterns</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://voidforge.build/prophecy</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://voidforge.build/about</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://voidforge.build/forge-labs</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://voidforge.build/protocol/orient</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/protocol/scaffold</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/protocol/infrastructure</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
