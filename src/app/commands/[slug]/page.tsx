@@ -6,7 +6,10 @@ import { SpeechBubble } from "@/components/speech-bubble";
 import { TrackView } from "@/components/track-view";
 import { commands, getCommand } from "@/data/commands";
 import { CommandArgs } from "@/components/command-args";
+import { ForgeLabsBanner } from "@/components/forge-labs-banner";
 import { leadAgents, type Universe } from "@/data/agents";
+
+const forgeLabsSlugs = new Set(["cultivation", "dangerroom", "grow", "treasury", "portfolio"]);
 
 interface CommandPageProps {
   params: Promise<{ slug: string }>;
@@ -53,6 +56,12 @@ export default async function CommandPage({ params }: CommandPageProps) {
           <SpeechBubble agent={speakingAgent} universe={universe}>
             {cmd.description}
           </SpeechBubble>
+
+          {forgeLabsSlugs.has(cmd.slug) && (
+            <div className="mt-6">
+              <ForgeLabsBanner feature={cmd.name} />
+            </div>
+          )}
         </div>
       </section>
 
