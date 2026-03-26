@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { display } from "@/data/stats";
 
 const panels = [
   {
@@ -12,8 +13,8 @@ const panels = [
   },
   {
     image: "/images/panels/panel-agents.webp",
-    title: "260+ AGENTS BUILD IT",
-    description: "18 leads. 9 universes. One 13-phase protocol.",
+    title: `${display.agents} AGENTS BUILD IT`,
+    description: `${display.leads} leads. ${display.universes} universes. One 13-phase protocol.`,
     color: "var(--vf-forge-orange)",
     bg: "from-orange-900/30 to-orange-950/30",
   },

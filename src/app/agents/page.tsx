@@ -39,7 +39,7 @@ const universeEmblems: Record<Universe, React.ReactNode> = {
 export const metadata: Metadata = {
   title: "Agents",
   description:
-    "Meet the Council: 18 lead agents across 9 fictional universes, commanding 125+ sub-agents.",
+    `Meet the Council: ${leadAgents.length} lead agents across ${universes.length} fictional universes, commanding ${subAgents.length}+ sub-agents.`,
 };
 
 function UniverseRoster({ universe }: { universe: Universe }) {
@@ -120,7 +120,7 @@ export default function AgentsPage() {
     <>
       <PageHeader
         title="THE COUNCIL"
-        subtitle="18 lead agents. 9 universes. 245+ sub-agents. Flip a card to meet them."
+        subtitle={`${leadAgents.length} lead agents. ${universes.length} universes. ${subAgents.length}+ sub-agents. Flip a card to meet them.`}
       />
 
       <section className="px-4 pb-12">

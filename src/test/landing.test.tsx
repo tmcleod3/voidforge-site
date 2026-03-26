@@ -44,6 +44,7 @@ import { Hero } from "@/components/landing/hero";
 import { ComicStrip } from "@/components/landing/comic-strip";
 import { InstallSection } from "@/components/landing/install-section";
 import { FeatureCards } from "@/components/landing/feature-cards";
+import { display } from "@/data/stats";
 
 describe("Landing Page — Hero", () => {
   it("renders the VoidForge title", () => {
@@ -63,7 +64,7 @@ describe("Landing Page — Comic Strip", () => {
   it("renders all 3 panels", () => {
     render(<ComicStrip />);
     expect(screen.getByText("DROP IN A PRD")).toBeInTheDocument();
-    expect(screen.getByText("260+ AGENTS BUILD IT")).toBeInTheDocument();
+    expect(screen.getByText(`${display.agents} AGENTS BUILD IT`)).toBeInTheDocument();
     expect(screen.getByText("SHIP TO PRODUCTION")).toBeInTheDocument();
   });
 });
@@ -92,9 +93,9 @@ describe("Landing Page — Feature Cards", () => {
   it("renders all 6 feature cards", () => {
     render(<FeatureCards />);
     expect(screen.getByText("13-PHASE PROTOCOL")).toBeInTheDocument();
-    expect(screen.getByText("260+ NAMED AGENTS")).toBeInTheDocument();
-    expect(screen.getByText("26 SLASH COMMANDS")).toBeInTheDocument();
-    expect(screen.getByText("32 CODE PATTERNS")).toBeInTheDocument();
+    expect(screen.getByText(`${display.agents} NAMED AGENTS`)).toBeInTheDocument();
+    expect(screen.getByText(`${display.commands} SLASH COMMANDS`)).toBeInTheDocument();
+    expect(screen.getByText(`${display.patterns} CODE PATTERNS`)).toBeInTheDocument();
     expect(screen.getByText("6 DEPLOY TARGETS")).toBeInTheDocument();
     expect(screen.getByText("3 TIERS")).toBeInTheDocument();
   });
@@ -103,7 +104,7 @@ describe("Landing Page — Feature Cards", () => {
     render(<FeatureCards />);
     const protocolLink = screen.getByText("13-PHASE PROTOCOL").closest("a");
     expect(protocolLink).toHaveAttribute("href", "/protocol");
-    const agentsLink = screen.getByText("260+ NAMED AGENTS").closest("a");
+    const agentsLink = screen.getByText(`${display.agents} NAMED AGENTS`).closest("a");
     expect(agentsLink).toHaveAttribute("href", "/agents");
   });
 });
