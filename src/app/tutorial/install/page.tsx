@@ -77,17 +77,20 @@ export default function InstallPage() {
               <span>
                 <strong className="text-[var(--vf-text)]">Claude Code</strong>{" "}
                 — Anthropic&apos;s coding CLI. This is the engine that runs
-                every agent, every command, every build phase.{" "}
+                every agent, every command, every build phase. Install with:{" "}
+                <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
+                  curl -fsSL https://claude.ai/install.sh | bash
+                </code>{" "}
+                then authenticate with your Anthropic API key. See the{" "}
                 <a
                   href="https://docs.anthropic.com/en/docs/claude-code/overview"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
                 >
-                  Install Claude Code
-                </a>
-                , then authenticate with your Anthropic API key before
-                proceeding.
+                  Claude Code docs
+                </a>{" "}
+                for details.
               </span>
             </li>
             <li className="flex items-start gap-3">
@@ -277,6 +280,17 @@ export default function InstallPage() {
               <strong className="text-[var(--vf-text)]">VS Code users:</strong>{" "}
               Open the integrated terminal (Ctrl+`) and you&apos;re ready.
               Works with PowerShell, Command Prompt, Git Bash, or WSL.
+            </p>
+            <p className="text-[var(--vf-text-muted)] mt-3">
+              For a detailed Windows walkthrough, see the{" "}
+              <a
+                href="https://github.com/tmcleod3/voidforge/blob/main/docs/QUICKSTART-WINDOWS.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+              >
+                Windows Quickstart Guide
+              </a>.
             </p>
           </div>
         </section>

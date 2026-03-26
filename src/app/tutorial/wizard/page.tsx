@@ -55,16 +55,11 @@ export default function WizardPage() {
           <p className="text-[var(--vf-text-muted)] mb-4">
             <strong className="text-[var(--vf-text)]">Claude Code</strong> —
             Anthropic&apos;s coding CLI. This is the engine that runs every
-            agent, every command, every build phase.{" "}
-            <a
-              href="https://docs.anthropic.com/en/docs/claude-code/overview"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
-            >
-              Install Claude Code
-            </a>
-            , then authenticate with your Anthropic API key.
+            agent, every command, every build phase. Install with:{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              curl -fsSL https://claude.ai/install.sh | bash
+            </code>{" "}
+            then authenticate with your Anthropic API key.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
             <strong className="text-[var(--vf-text)]">Git</strong> — for
