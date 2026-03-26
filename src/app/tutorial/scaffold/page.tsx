@@ -55,6 +55,12 @@ export default function ScaffoldPage() {
             SDK, or any runtime dependencies. It&apos;s pure methodology — add
             your own stack on top.
           </p>
+          <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+            <strong className="text-[var(--vf-forge-orange)]">Windows users:</strong>{" "}
+            This is your fastest path. No npm install means no native module
+            compilation, no C++ build tools, no node-gyp headaches. Just Git and
+            Claude Code.
+          </p>
         </section>
 
         <section className="mt-12">

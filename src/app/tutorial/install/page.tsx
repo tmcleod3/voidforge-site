@@ -8,14 +8,16 @@ import { TableOfContents } from "@/components/table-of-contents";
 import { TutorialProgress } from "@/components/tutorial-progress";
 
 export const metadata: Metadata = {
-  title: "Install",
+  title: "How to Install VoidForge",
   description:
-    "Install VoidForge: prerequisites, three tiers, and troubleshooting.",
+    "Install VoidForge: prerequisites, three tiers, OS verification, and Windows setup notes.",
 };
 
 const tocItems = [
   { id: "prerequisites", label: "Prerequisites" },
+  { id: "verify-your-tools", label: "Verify Your Tools" },
   { id: "three-tiers", label: "The Three Tiers" },
+  { id: "windows-notes", label: "Windows Notes" },
 ];
 
 export default function InstallPage() {
@@ -119,6 +121,56 @@ export default function InstallPage() {
 
         <section className="mt-12">
           <h2
+            id="verify-your-tools"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            VERIFY YOUR TOOLS
+          </h2>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Open your terminal and run these three commands. If any fails,
+            install the missing tool using the links above.
+          </p>
+          <div className="crt-terminal !p-4 mb-6 space-y-3">
+            <div className="flex items-start gap-3">
+              <code className="text-sm">
+                <span className="text-[var(--vf-text-muted)]">$ </span>
+                node --version
+              </code>
+              <span className="text-[var(--vf-text-muted)] text-xs mt-0.5">
+                → v18.x or higher
+              </span>
+            </div>
+            <div className="flex items-start gap-3">
+              <code className="text-sm">
+                <span className="text-[var(--vf-text-muted)]">$ </span>
+                git --version
+              </code>
+              <span className="text-[var(--vf-text-muted)] text-xs mt-0.5">
+                → any version
+              </span>
+            </div>
+            <div className="flex items-start gap-3">
+              <code className="text-sm">
+                <span className="text-[var(--vf-text-muted)]">$ </span>
+                claude --version
+              </code>
+              <span className="text-[var(--vf-text-muted)] text-xs mt-0.5">
+                → Claude Code CLI
+              </span>
+            </div>
+          </div>
+          <p className="text-[var(--vf-text-muted)] text-sm">
+            All three green? You&apos;re ready to forge. If{" "}
+            <code className="text-[var(--vf-electric-blue)]">node</code> or{" "}
+            <code className="text-[var(--vf-electric-blue)]">git</code>{" "}
+            isn&apos;t found, install them using the links above and restart your
+            terminal.
+          </p>
+        </section>
+
+        <section className="mt-12">
+          <h2
             id="three-tiers"
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
@@ -185,6 +237,47 @@ export default function InstallPage() {
                 <CopyButton text="git clone --branch core https://github.com/tmcleod3/voidforge.git my-project" />
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="mt-12">
+          <h2
+            id="windows-notes"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            WINDOWS NOTES
+          </h2>
+          <div className="comic-panel bg-[var(--vf-surface-raised)] p-6 space-y-4">
+            <p className="text-[var(--vf-text-muted)]">
+              <strong className="text-[var(--vf-text)]">PowerShell 7+</strong>{" "}
+              supports the <code className="text-[var(--vf-electric-blue)]">&&</code>{" "}
+              syntax in our install commands. If you&apos;re using the older
+              Windows PowerShell 5.1, run each command separately instead of
+              chaining with <code className="text-[var(--vf-electric-blue)]">&&</code>.
+            </p>
+            <p className="text-[var(--vf-text-muted)]">
+              <strong className="text-[var(--vf-text)]">npm install fails?</strong>{" "}
+              The Full tier compiles native modules that need C++ build tools.
+              If you see <code className="text-[var(--vf-electric-blue)]">node-gyp</code>{" "}
+              errors, either install{" "}
+              <a
+                href="https://visualstudio.microsoft.com/visual-cpp-build-tools/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+              >
+                Visual C++ Build Tools
+              </a>{" "}
+              or skip npm entirely — use the{" "}
+              <strong className="text-[var(--vf-forge-orange)]">Scaffold tier</strong>{" "}
+              instead. It needs only Git, no native compilation.
+            </p>
+            <p className="text-[var(--vf-text-muted)]">
+              <strong className="text-[var(--vf-text)]">VS Code users:</strong>{" "}
+              Open the integrated terminal (Ctrl+`) and you&apos;re ready.
+              Works with PowerShell, Command Prompt, Git Bash, or WSL.
+            </p>
           </div>
         </section>
 
