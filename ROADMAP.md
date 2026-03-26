@@ -1,17 +1,17 @@
 # ROADMAP — VoidForge Marketing Site
 
-## v4 — The Alignment (Campaign Active)
+## v4 — The Alignment (COMPLETE — 2026-03-26)
 
 Sync with VoidForge v19.0.0, fix content accuracy, eliminate stale-count bugs, mark growth tools as experimental.
 
 | Mission | Name | Status | Scope |
 |---------|------|--------|-------|
-| 1 | The Foundations | PLANNED | robots.txt domain fix, Claude Code install links, wizard NPX rewrite, prerequisite download links |
-| 2 | The Data Sync | PLANNED | 3 new patterns (stablecoin-adapter, ad-billing-adapter, funding-plan), v19.0.0 "The Funding Rail" shipped release, future releases refresh, 8→9 universes (4 locations), 17→18 leads |
-| 3 | The Living Counts | PLANNED | Create stats.ts with computed counts derived from data arrays. Replace ~15 hardcoded count strings across components. Eliminates the stale-count bug class permanently. |
-| 4 | The Welcome Mat | PLANNED | Install page expansion: OS verification checklist, Windows-specific notes (PowerShell, node-pty), prerequisite download links (nodejs.org, git-scm.com), Scaffold recommendation for Windows users |
-| 5 | The Forge Labs | PLANNED | Growth & Operations tutorials (Cultivation, Grow, Treasury, Danger Room) get experimental "Forge Labs" treatment — creative warning banner, tutorial hub badges, honest copy about what's required |
-| 6 | The Chronicle | PLANNED | PRD historical marker + count updates, SEO title optimization across 15 tutorial pages, campaign wrap-up |
+| 1 | The Foundations | COMPLETE | robots.txt domain fix, Claude Code install links, wizard NPX rewrite, prerequisite download links |
+| 2 | The Data Sync | COMPLETE | 3 new patterns (stablecoin-adapter, ad-billing-adapter, funding-plan), v19.0.0 "The Funding Rail" shipped release, future releases refresh, 8→9 universes, 17→18 leads |
+| 3 | The Living Counts | COMPLETE | Created stats.ts with computed counts. Replaced hardcoded counts in feature-cards, comic-strip, agents page, tests. Eliminated stale-count bug class. |
+| 4 | The Welcome Mat | COMPLETE | Install page: "Verify Your Tools" section, "Windows Notes" section, Scaffold recommendation for Windows, SEO title |
+| 5 | The Forge Labs | COMPLETE | ForgeLabsBanner component, banners on 4 growth tutorials, FORGE LABS badges on tutorial hub, Bilbo speech updated |
+| 6 | The Chronicle | COMPLETE | SEO title optimization across 8 tutorial pages |
 
 ### Dependencies
 
