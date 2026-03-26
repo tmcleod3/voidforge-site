@@ -2,7 +2,9 @@
 
 > **"From nothing, everything."**
 > This page was built by the Forge itself. Galadriel wrote the frontend. Bilbo wrote the copy. Stark wired the API. Batman tested every link. Kenobi checked every door. Picard approved the architecture. Kusanagi deployed it. Coulson tagged the release. Bombadil made sure VoidForge stayed sharp the whole time. Chani watched from the desert.
-> Built by Thomas McLeod. Forged by 140+ AI agents across 8 fictional universes.
+> Built by Thomas McLeod. Forged by 260+ AI agents across 9 fictional universes.
+
+> **📋 Document Status (March 2026):** This PRD was written in March 2024 and describes VoidForge.build at its original launch scope. The site has since grown from 97 planned pages to 140+ actual pages, from 8 to 9 universes (Foundation added in v16.0.0), from 17 to 18 lead agents (Hari Seldon), from 24 to 26 commands (/deploy, /ai), and from 20 to 35 code patterns. Growth & Operations tools (Cultivation, Treasury, Grow, Danger Room) were added beyond original scope and are marked as **Forge Labs** (experimental). Tutorial section expanded from 3 to 15 pages. Current live stats are always at [/prophecy](https://voidforge.build/prophecy). Key counts below have been updated to reflect March 2026 reality.
 
 ---
 
@@ -37,8 +39,8 @@ hostname: "voidforge.build"
 ## 1. Product Vision
 
 - **Name:** VoidForge.build (alternate candidates considered: ForgeManual.dev, VoidForgeHQ.com, VoidForge.dev — VoidForge.build selected as the canonical brand domain)
-- **One-liner:** The complete guide to building production apps with 140+ AI agents.
-- **What it does:** VoidForge.build is the landing page, tutorial hub, and reference manual for the VoidForge open-source methodology framework. It teaches developers how to install VoidForge, understand the 13-phase build protocol, use all 24 slash commands, and leverage a roster of 140+ named AI agents (17 leads) across 8 fictional universes to ship full-stack applications from a single Product Requirements Document. The site is itself built by VoidForge — a self-referential proof of the system's capability.
+- **One-liner:** The complete guide to building production apps with 260+ AI agents.
+- **What it does:** VoidForge.build is the landing page, tutorial hub, and reference manual for the VoidForge open-source methodology framework. It teaches developers how to install VoidForge, understand the 13-phase build protocol, use all 26 slash commands, and leverage a roster of 260+ named AI agents (18 leads) across 9 fictional universes to ship full-stack applications from a single Product Requirements Document. The site is itself built by VoidForge — a self-referential proof of the system's capability.
 - **Who it's for:** Developers and technical founders who use Claude Code (or want to start) and want a structured, repeatable process for turning a PRD into a deployed production application. They're comfortable on the command line, they've probably cloned a GitHub repo before, and they want their AI coding workflow to go from "vibes" to "protocol."
 - **Brand personality:** Kooky, mythic, irreverent. Think pulp sci-fi novel covers from the 1950s colliding with 90s comic book action panels and Tolkien's maps. The vibe is Roy Lichtenstein painting a starship bridge while Gandalf debugs the warp core. It is NOT corporate. It is NOT minimalist. It is NOT a typical developer docs site. It is loud, colorful, character-driven, and FUN — but the content underneath is dead serious and production-grade.
 
@@ -86,13 +88,13 @@ hostname: "voidforge.build"
 /tutorial/deploy            → Deployment walkthrough: Haku wizard, 6 targets, going live
 /protocol                   → The 13-phase build protocol explained phase-by-phase
 /protocol/[phase-slug]      → Individual phase detail page (13 pages: orient, scaffold, infrastructure, auth, core-feature, supporting, integrations, admin, marketing, qa, ux, security, deploy, launch)
-/agents                     → The Council: all 17 lead agents with universe breakdowns
-/agents/[universe-slug]     → Universe detail page (8 pages: tolkien, marvel, dc, star-wars, star-trek, dune, anime, cosmere)
-/agents/[agent-slug]        → Individual agent profile page (17 leads: galadriel, stark, batman, kenobi, picard, kusanagi, coulson, bombadil, chani, fury, sisko, celebrimbor, bashir, thanos, kelsier, dockson, tuvok)
-/commands                   → All 24 slash commands with usage, examples, agent assignments
-/commands/[command-slug]    → Individual command page (24 pages: build, qa, test, security, ux, review, devops, architect, git, void, thumper, assemble, campaign, imagine, debrief, gauntlet, prd, grow, treasury, portfolio, cultivation, current, dangerroom, assess)
-/patterns                   → 20 code patterns overview with framework tabs
-/patterns/[pattern-slug]    → Individual pattern page (7 pages: api-route, service, component, middleware, error-handling, job-queue, multi-tenant)
+/agents                     → The Council: all 18 lead agents with universe breakdowns
+/agents/[universe-slug]     → Universe detail page (9 pages: tolkien, marvel, dc, star-wars, star-trek, dune, anime, cosmere, foundation)
+/agents/[agent-slug]        → Individual agent profile page (18 leads: galadriel, stark, batman, kenobi, picard, kusanagi, coulson, bombadil, chani, fury, sisko, celebrimbor, bashir, thanos, kelsier, dockson, tuvok, seldon)
+/commands                   → All 26 slash commands with usage, examples, agent assignments
+/commands/[command-slug]    → Individual command page (26 pages: build, qa, test, security, ux, review, devops, architect, git, void, thumper, assemble, campaign, imagine, debrief, gauntlet, prd, grow, treasury, portfolio, cultivation, current, dangerroom, assess, deploy, ai)
+/patterns                   → 35 code patterns overview with framework tabs
+/patterns/[pattern-slug]    → Individual pattern page (35 pages: api-route, service, component, middleware, error-handling, job-queue, multi-tenant, and 28 more)
 /prophecy                   → The roadmap (what's shipped, what's next, what's far out)
 /about                      → Thomas McLeod bio, project story, "built by the Forge" narrative
 /github                     → Redirect to https://github.com/tmcleod3/voidforge
@@ -162,9 +164,9 @@ This is a static site. There are no backend services. All content is compiled at
 **User flow:**
 1. User arrives at voidforge.build (from GitHub README link, social media, or search)
 2. Full-viewport hero section loads with animated comic-panel layout: VoidForge logo rendered in pulp sci-fi title treatment, animated starburst behind it, tagline "From nothing, everything." in Bangers font
-3. Scroll reveals a 3-panel comic strip that summarizes the pitch: Panel 1 — "DROP IN A PRD" (shows a document falling into a glowing forge), Panel 2 — "140+ AGENTS BUILD IT" (shows the 17 lead agents in action-pose silhouettes), Panel 3 — "SHIP TO PRODUCTION" (shows a rocket launching with a green checkmark)
+3. Scroll reveals a 3-panel comic strip that summarizes the pitch: Panel 1 — "DROP IN A PRD" (shows a document falling into a glowing forge), Panel 2 — "260+ AGENTS BUILD IT" (shows the 18 lead agents in action-pose silhouettes), Panel 3 — "SHIP TO PRODUCTION" (shows a rocket launching with a green checkmark)
 4. Below the strip: quick-start install command with copy button, GitHub star count badge, latest version badge
-5. Scroll further: 6 feature cards in a 2x3 grid (13-Phase Protocol, 140+ Named Agents, 24 Slash Commands, 20 Code Patterns, 6 Deploy Targets, 3 Tiers). Each card has a Lichtenstein-style halftone background, bold heading, 2-sentence description, and link to the relevant deep page
+5. Scroll further: 6 feature cards in a 2x3 grid (13-Phase Protocol, 260+ Named Agents, 26 Slash Commands, 35 Code Patterns, 6 Deploy Targets, 3 Tiers). Each card has a Lichtenstein-style halftone background, bold heading, 2-sentence description, and link to the relevant deep page
 6. Footer: "Built by VoidForge. Written by Bilbo. Designed by Galadriel. Tested by Batman. Deployed by Kusanagi. Created by Thomas McLeod." with GitHub link and LinkedIn link
 
 **Data model:** None — all static content.
@@ -247,8 +249,8 @@ This is a static site. There are no backend services. All content is compiled at
 
 **User flow:**
 1. User navigates to /agents
-2. Sees "The Council" — 17 lead agent cards in a responsive grid, each with: agent name, real character name, universe emblem, domain label, a 2-sentence personality description, power level bar, and a 3D-flippable trading card revealing commands, phases, and a memorable quote
-3. Below The Council: universe selector tabs (Tolkien, Marvel, DC, Star Wars, Star Trek, Dune, Anime) — clicking a tab shows all agents from that universe in a scrollable roster
+2. Sees "The Council" — 18 lead agent cards in a responsive grid, each with: agent name, real character name, universe emblem, domain label, a 2-sentence personality description, power level bar, and a 3D-flippable trading card revealing commands, phases, and a memorable quote
+3. Below The Council: universe selector tabs (Tolkien, Marvel, DC, Star Wars, Star Trek, Dune, Anime, Cosmere, Foundation) — clicking a tab shows all agents from that universe in a scrollable roster
 4. Each agent in the roster shows: character name, role description, and the personality line from NAMING_REGISTRY.md (e.g., "Vegeta — Pride, relentless optimization, 'it's over 9000' (monitoring)")
 5. Clicking a lead agent card links to /agents/[agent-slug] — a full-page profile with: universe, domain, behavioral directives (from the method doc), sub-agent roster (from NAMING_REGISTRY.md), which slash commands they lead, which build phases they participate in, power level, and a memorable quote
 6. Clicking a universe tab links to /agents/[universe-slug] — shows all characters from that universe with their roles
@@ -271,7 +273,7 @@ type Agent = {
   subAgents: SubAgent[];  // From naming registry
 };
 
-type Universe = "tolkien" | "marvel" | "dc" | "star-wars" | "star-trek" | "dune" | "anime" | "cosmere";
+type Universe = "tolkien" | "marvel" | "dc" | "star-wars" | "star-trek" | "dune" | "anime" | "cosmere" | "foundation";
 
 type SubAgent = {
   name: string;
@@ -301,7 +303,7 @@ type SubAgent = {
 
 **User flow:**
 1. User navigates to /commands
-2. Sees all 24 slash commands in a table: command name, lead agent, and 1-sentence description
+2. Sees all 26 slash commands in a table: command name, lead agent, and 1-sentence description
 3. Each row links to /commands/[command-slug]
 4. Individual command pages show: full usage instructions, which agent leads it, what happens when you run it (step-by-step), example terminal output (styled as a retro CRT terminal with green-on-black text and scanline overlay), related commands, and tips
 
@@ -328,7 +330,7 @@ type SubAgent = {
 
 **User flow:**
 1. User navigates to /patterns
-2. Sees 20 pattern cards in a grid: pattern name, what it teaches, and a 3-line code preview
+2. Sees 35 pattern cards in a grid: pattern name, what it teaches, and a 3-line code preview
 3. Each card links to /patterns/[pattern-slug]
 4. Individual pattern pages show: the full reference implementation with syntax highlighting, a "What This Pattern Teaches" explainer, framework adaptation tabs (Next.js, Express, Django, Rails) showing how the same pattern looks in each framework, and a "When To Use This" section
 
@@ -426,21 +428,21 @@ content/
 │   ├── index.mdx              ← /agents hub (The Council)
 │   ├── leads/
 │   │   ├── galadriel.mdx      ← /agents/galadriel
-│   │   └── ... (17 lead files)
+│   │   └── ... (18 lead files)
 │   └── universes/
 │       ├── tolkien.mdx        ← /agents/tolkien
-│       └── ... (8 universe files)
+│       └── ... (9 universe files)
 ├── commands/
 │   ├── index.mdx              ← /commands hub
-│   └── build.mdx, qa.mdx, ... (24 command files)
+│   └── build.mdx, qa.mdx, ... (26 command files)
 ├── patterns/
 │   ├── index.mdx              ← /patterns hub
-│   └── api-route.mdx, ... (20 pattern files)
+│   └── api-route.mdx, ... (35 pattern files)
 ├── prophecy.mdx               ← /prophecy
 └── about.mdx                  ← /about
 ```
 
-Total content files: 97 pages (17 leads + 8 universes + 14 phases + 24 commands + 20 patterns + 4 tutorial + 10 other).
+Total content files: ~140 pages (18 leads + 9 universes + 14 phases + 26 commands + 35 patterns + 15 tutorial + 10 other). Originally 97 at launch; expanded through campaigns v1-v3.
 
 ---
 
@@ -582,7 +584,7 @@ Specific voice rules:
 - **Body text** is clear and technical underneath the fun — the aesthetic is loud, but the instructions are precise
 - **Agent speech bubbles** are written in the character's voice: Picard is measured and strategic; Batman is terse and investigative; Bilbo is warm and narrative; Kusanagi is efficient and technical
 - **Code examples** are never cute — they're real, working code. The fun is in the design, not in the variable names
-- **Numbers are always specific**: "140+ agents across 8 universes" not "lots of agents"
+- **Numbers are always specific**: "260+ agents across 9 universes" not "lots of agents"
 - **Self-referential humor** is encouraged: "This page was Phase 8 of its own build process"
 
 ### Example Microcopy
@@ -742,8 +744,8 @@ Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ pref
 - Protocol hub (/protocol) with 13-phase timeline visualization
 - 14 individual phase pages (0-13) sourced from BUILD_PROTOCOL.md
 - Agent directory hub (/agents) with The Council grid and universe tabs
-- 17 lead agent profile pages
-- 8 universe roster pages
+- 18 lead agent profile pages
+- 9 universe roster pages
 - Agent data model (TypeScript const from NAMING_REGISTRY.md)
 
 **Dependencies:** Phase 3 (content pipeline, speech bubbles, TOC component).
@@ -751,7 +753,7 @@ Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ pref
 **Done criteria:**
 - Timeline renders all 14 phases with correct lead agents
 - All phase pages have complete content from BUILD_PROTOCOL.md
-- Agent grid shows all 17 leads with correct universe colors
+- Agent grid shows all 18 leads with correct universe colors
 - Universe tabs switch correctly and show full rosters
 - Anime universe pagination works (72 agents, 20 per page)
 - All cross-links between agents, phases, and commands resolve
@@ -764,7 +766,7 @@ Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ pref
 - Commands hub (/commands) with mission-briefing table
 - 15 individual command pages sourced from .claude/commands/*.md
 - CRT terminal component for command output examples
-- Patterns hub (/patterns) with 20 pattern cards
+- Patterns hub (/patterns) with 35 pattern cards
 - 7 individual pattern pages with framework tabs
 - Prophecy page (/prophecy) with roadmap timeline
 - About page (/about) with creator story and "built by the Forge" narrative
@@ -773,8 +775,8 @@ Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ pref
 **Dependencies:** Phase 4 (content pipeline proven, design system complete).
 
 **Done criteria:**
-- All 24 command pages render with terminal output examples
-- All 20 pattern pages render with framework tab switching
+- All 26 command pages render with terminal output examples
+- All 35 pattern pages render with framework tab switching
 - Prophecy timeline shows shipped vs future with correct visual distinction
 - About page has working LinkedIn link (opens new tab) and GitHub link
 - /github redirects to https://github.com/tmcleod3/voidforge

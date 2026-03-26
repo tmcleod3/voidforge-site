@@ -220,6 +220,8 @@ After unit test review, Batman verifies critical user journeys work in a real br
 
 After running E2E tests, if the project has a running server, Batman launches the review browser (per `browser-review.ts` pattern) and performs targeted forensic checks:
 
+0. **MANDATORY: Screenshot every page.** Before any forensic work, navigate to every primary route and take a screenshot. The agent MUST read each screenshot via the Read tool and inspect for: blank pages, error states, broken layouts, missing content. This is the "proof of life" gate — if a page is visibly broken, it's a finding before any deeper analysis begins.
+
 1. **Console error sweep:** Navigate to every primary route. Capture all `pageerror` and `console.error` events (filtered per `browser-review.ts` pattern). Each uncaught exception is an automatic **High** finding with the error message, stack trace, and URL.
 
 2. **Error state gallery:** For each primary API endpoint, use `page.route()` to force a 500 response. Screenshot the page. Verify: (a) user sees a meaningful error message, (b) page remains navigable, (c) no leaked internals (stack traces, SQL queries, file paths) in the error display.
@@ -229,6 +231,8 @@ After running E2E tests, if the project has a running server, Batman launches th
 4. **Network failure simulation:** Use `page.route('**/*', route => route.abort())` on API calls. Navigate the primary flow. Verify: loading states resolve (no infinite spinners), error messages appear, retry buttons exist where applicable.
 
 Screenshots are evidence — taken when issues are found, attached to findings. Not taken for every assertion.
+
+**Post-fix screenshot verification:** After fixing any UI-affecting bug, re-take the screenshot and verify the fix renders correctly. Do not rely on "the code looks right" — confirm visually. A fix that breaks rendering differently than the original bug is worse than no fix.
 
 ## Step 4 — Bug Tracker (MUST MAINTAIN)
 

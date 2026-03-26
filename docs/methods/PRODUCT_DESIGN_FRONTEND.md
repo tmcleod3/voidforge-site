@@ -80,7 +80,7 @@ Trace the primary user flow step by step. This is a narrative walkthrough, not a
 **Browser-Assisted Walkthrough (when app is runnable):**
 
 1. Launch review browser via `browser-review.ts` pattern. Navigate to each primary route.
-2. **Proof of life:** Screenshot each page at desktop viewport. Binary gate: page renders content (not blank, not error, not stuck spinner).
+2. **MANDATORY: Screenshot every page.** Save screenshots to temp directory. The agent MUST read each screenshot via the Read tool and visually analyze it for: layout integrity, content completeness, visual hierarchy, spacing consistency, state correctness. This is how Galadriel "sees" the product — without screenshots, the review is code-reading, not visual review. Take at desktop viewport (1440x900) for primary analysis.
 3. **Behavioral verification:** Click every button, link, tab on primary routes. After each click, verify something visible changed (DOM mutation, navigation, modal). Flag non-responsive interactive elements.
 4. **Form interaction:** Fill every form. Verify: focus rings visible on Tab, validation triggers on blur/submit, error messages appear next to correct fields, success state shows after valid submission.
 5. **Keyboard walkthrough:** Tab through each page. Verify: focus order matches visual order, no focus traps except intentional modals, Escape closes overlays.
@@ -166,6 +166,8 @@ Any UI that polls for backend status changes must implement 4 states: **idle -> 
 **Samwise — Async Button A11y:** For buttons that trigger async operations (save, submit, deploy), verify: button shows loading state (`aria-busy="true"`), disabled during operation, success/error announced via `aria-live="polite"` region or `role="status"`. Sighted users see a spinner; screen reader users need the equivalent announcement. (Field report #57)
 
 **Samwise — Browser A11y (when E2E tests exist):** Samwise's checklist expands to browser-only verifications: (1) Tab through every primary flow — verify focus order matches visual order, (2) Verify ARIA live regions announce on dynamic content change, (3) Run axe-core scan on every page and assert zero violations, (4) Emulate `prefers-reduced-motion: reduce` and verify animations stop, (5) Verify focus traps in modals by Tab-cycling. These checks require a real browser and cannot be verified through static analysis or unit tests alone.
+
+**Samwise — Gallery/grid navigation order:** Gallery/grid navigation order must match visual rendering order, not data source order. If items are visually grouped by category, keyboard Tab/arrow navigation must follow the visual groups — not the raw data array index.
 
 **Samwise — Browser Review A11y (when review browser is available):** When browser review is available, Samwise runs axe-core via the review browser on every primary route (supplementing the E2E test axe-core scans). Captures: focus order verification via Tab walkthrough, `prefers-reduced-motion` emulation, `prefers-color-scheme: dark` emulation if dark mode exists.
 **Bilbo:** Microcopy, labels, CTAs, error messages, empty states, tone.

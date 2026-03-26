@@ -28,6 +28,7 @@
 - **Small batches.** One flow per batch, max ~200 lines changed. Verify after each.
 - **Commits:** Small, explainable in one sentence.
 - **No stubs.** Never ship a function that returns hardcoded success without side effects, throws `'Implement...'`, or logs without acting. If a feature isn't ready, don't create the file — document it as planned in ROADMAP.md. Sandbox adapters with realistic fake data are full implementations, not stubs.
+- **Screenshot every page during review.** When reviewing a runnable application (`/qa`, `/ux`, `/gauntlet`), start the server, take screenshots of every page via Playwright, and READ them via the Read tool. The agent must visually inspect each screenshot. Without screenshots, the review is code-reading — not visual verification. Screenshots are saved to a temp directory, not committed.
 
 ## Build Journal — Log Everything
 
@@ -99,7 +100,7 @@ Reference implementations in `/docs/patterns/`. Match these shapes when writing.
 | `/void` | Bombadil's forge sync — update VoidForge methodology from upstream | All |
 | `/thumper` | Chani's worm rider — Telegram bridge with Gom Jabbar authentication | Full |
 | `/assemble` | Fury's Initiative — full pipeline: architect → build → 3x review → UX → 2x security → devops → QA → test → crossfire → council | All |
-| `/gauntlet` | Thanos's Comprehensive Review — 5 rounds, 30+ agents, 7 universes. Review-only (no build). 4x QA, 4x UX, 4x security, crossfire, council. The ultimate test. | All |
+| `/gauntlet` | Thanos's Comprehensive Review — 5 rounds, 30+ agents, 9 universes. Review-only (no build). 4x QA, 4x UX, 4x security, crossfire, council. The ultimate test. | All |
 | `/campaign` | Sisko's War Room — read the PRD, pick the next mission, finish the fight, repeat until done | All |
 | `/imagine` | Celebrimbor's Forge — AI image generation from PRD visual descriptions | All |
 | `/debrief` | Bashir's Field Report — post-mortem analysis, upstream feedback via GitHub issues | All |
@@ -112,6 +113,45 @@ Reference implementations in `/docs/patterns/`. Match these shapes when writing.
 | `/ai` | Seldon's AI Intelligence Audit — model selection, prompts, tool-use, orchestration, safety, evals | All |
 
 **Tier key:** `All` = works on main, scaffold, and core. `Full` = requires `wizard/` directory (main branch only). Full-tier commands will warn scaffold/core users to switch branches.
+
+## Flag Taxonomy
+
+Flags are standardized across commands. Same flag name = same meaning everywhere.
+
+### Tier 1 — Universal Flags
+
+| Flag | Meaning | Available On |
+|------|---------|-------------|
+| `--resume` | Resume from saved state | `/campaign`, `/gauntlet`, `/assemble`, `/build`, `/grow` |
+| `--plan` | Plan without executing | `/campaign`, `/architect`, `/grow` |
+| `--fast` | Reduced review passes (skip last 2 rounds/phases), still comprehensive | `/campaign`, `/assemble`, `/gauntlet` |
+| `--dry-run` | Show what would happen without doing it | `/deploy`, `/debrief`, `/treasury`, `/grow`, `/git` |
+| `--status` | Show current state | `/cultivation`, `/treasury`, `/deploy`, `/portfolio`, `/dangerroom`, `/thumper` |
+| `--blitz` | Autonomous execution, no human pauses | `/campaign`, `/assemble`, `/build` |
+
+### Tier 2 — Scope Flags
+
+| Flag | Meaning | Available On |
+|------|---------|-------------|
+| `--security-only` | Security domain focus | `/gauntlet` |
+| `--ux-only` | UX domain focus | `/gauntlet` |
+| `--qa-only` | QA domain focus | `/gauntlet` |
+
+### Tier 3 — Intensity Flags
+
+```
+--fast        Fewer agents/rounds (reduced but still comprehensive)
+(default)     Standard agent deployment for the command
+--muster      Every viable agent across all 9 universes, 3 waves
+--infinity    Every agent as own sub-process, 10 rounds (Gauntlet only)
+```
+
+| Flag | Meaning | Available On |
+|------|---------|-------------|
+| `--muster` | Full 9-universe deployment (30-50 agents in 3 waves) | `/architect`, `/campaign`, `/build`, `/gauntlet` |
+| `--infinity` | 10-round 2x pass with ~80 agent launches | `/gauntlet` |
+
+See `/docs/methods/MUSTER.md` for the full Muster Protocol.
 
 ## Docs Reference
 
@@ -148,7 +188,8 @@ Reference implementations in `/docs/patterns/`. Match these shapes when writing.
 | **PRD Generator** | `/docs/methods/PRD_GENERATOR.md` | Sisko — when generating a PRD from scratch |
 | **Meta-Workflow** | `/docs/META_WORKFLOW.md` | How to use VoidForge to develop VoidForge — campaigns on self, anti-patterns, feedback loop |
 | **AI Intelligence** | `/docs/methods/AI_INTELLIGENCE.md` | When project uses LLM/AI features |
-| **Patterns** | `/docs/patterns/` | When writing code (30 reference implementations) |
+| **The Muster** | `/docs/methods/MUSTER.md` | When using `--muster` flag on any command |
+| **Patterns** | `/docs/patterns/` | When writing code (35 reference implementations) |
 | **Lessons** | `/docs/LESSONS.md` | Cross-project learnings |
 
 ## The Team
@@ -197,45 +238,6 @@ VoidForge ships on three branches. Shared methodology files exist on all three.
 Scaffold and core have their own minimal `package.json` (name + version + description only — no dependencies). When syncing version bumps, update `VERSION.md` and `CHANGELOG.md` on all branches but leave each branch's `package.json` version field to be updated independently.
 
 The agents, characters, and personality are VoidForge's identity — never strip them from any tier.
-
-## Flag Taxonomy
-
-Flags are standardized across commands. Same flag name = same meaning everywhere.
-
-### Tier 1 — Universal Flags
-
-| Flag | Meaning | Available On |
-|------|---------|-------------|
-| `--resume` | Resume from saved state | `/campaign`, `/gauntlet`, `/assemble`, `/build`, `/grow` |
-| `--plan` | Plan without executing | `/campaign`, `/architect`, `/grow` |
-| `--fast` | Reduced review passes (skip last 2 rounds/phases), still comprehensive | `/campaign`, `/assemble`, `/gauntlet` |
-| `--dry-run` | Show what would happen without doing it | `/deploy`, `/debrief`, `/treasury`, `/grow`, `/git` |
-| `--status` | Show current state | `/cultivation`, `/treasury`, `/deploy`, `/portfolio`, `/dangerroom`, `/thumper` |
-| `--blitz` | Autonomous execution, no human pauses | `/campaign`, `/assemble`, `/build` |
-
-### Tier 2 — Scope Flags
-
-| Flag | Meaning | Available On |
-|------|---------|-------------|
-| `--security-only` | Security domain focus | `/gauntlet` |
-| `--ux-only` | UX domain focus | `/gauntlet` |
-| `--qa-only` | QA domain focus | `/gauntlet` |
-
-### Tier 3 — Intensity Flags
-
-```
---fast        Fewer agents/rounds (reduced but still comprehensive)
-(default)     Standard agent deployment for the command
---muster      Every viable agent across all 9 universes, 3 waves
---infinity    Every agent as own sub-process, 10 rounds (Gauntlet only)
-```
-
-| Flag | Meaning | Available On |
-|------|---------|-------------|
-| `--muster` | Full 9-universe deployment (30-50 agents in 3 waves) | `/architect`, `/campaign`, `/build`, `/gauntlet` |
-| `--infinity` | 10-round 2x pass with ~80 agent launches | `/gauntlet` |
-
-See `/docs/methods/MUSTER.md` for the full Muster Protocol.
 
 ## How to Build
 
