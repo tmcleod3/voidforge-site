@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
+import { ForgeLabsBanner } from "@/components/forge-labs-banner";
 
 export const metadata: Metadata = {
   title: "The Danger Room",
@@ -20,6 +21,8 @@ export default function DangerRoomPage() {
           &larr; Tutorial Hub
         </Link>
         <PageHeader title="THE DANGER ROOM" subtitle="Grow Track — Step 4" />
+
+        <ForgeLabsBanner feature="The Danger Room" />
 
         <SpeechBubble agent="Fury" universe="marvel">
           I didn&apos;t build SHIELD by reading log files. The Danger Room gives

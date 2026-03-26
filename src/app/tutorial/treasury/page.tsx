@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
+import { ForgeLabsBanner } from "@/components/forge-labs-banner";
 
 export const metadata: Metadata = {
   title: "Manage Treasury",
@@ -20,6 +21,8 @@ export default function TreasuryPage() {
           &larr; Tutorial Hub
         </Link>
         <PageHeader title="MANAGE TREASURY" subtitle="Grow Track — Step 3" />
+
+        <ForgeLabsBanner feature="Treasury" />
 
         <SpeechBubble agent="Dockson" universe="cosmere">
           Every boxing counts. I track revenue from Stripe, Paddle, and Mercury.

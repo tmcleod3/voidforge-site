@@ -52,10 +52,10 @@ const paths = [
 ] as const;
 
 const growthTools = [
-  { icon: Sprout, title: "Cultivation", description: "Install the growth engine", href: "/tutorial/cultivation" },
-  { icon: TrendingUp, title: "Growth", description: "Run growth campaigns", href: "/tutorial/grow" },
-  { icon: Landmark, title: "Treasury", description: "Manage money", href: "/tutorial/treasury" },
-  { icon: Monitor, title: "Danger Room", description: "Mission control", href: "/tutorial/dangerroom" },
+  { icon: Sprout, title: "Cultivation", description: "Install the growth engine", href: "/tutorial/cultivation", forgeLabs: true },
+  { icon: TrendingUp, title: "Growth", description: "Run growth campaigns", href: "/tutorial/grow", forgeLabs: true },
+  { icon: Landmark, title: "Treasury", description: "Manage money", href: "/tutorial/treasury", forgeLabs: true },
+  { icon: Monitor, title: "Danger Room", description: "Mission control", href: "/tutorial/dangerroom", forgeLabs: true },
 ] as const;
 
 export default function TutorialPage() {
@@ -134,7 +134,9 @@ export default function TutorialPage() {
           <div className="border-t border-[var(--vf-border)] pt-10 mt-4">
             <SpeechBubble agent="Bilbo" universe="tolkien">
               Building is only half the story. These tools help your creation
-              find its audience, manage its money, and watch itself work.
+              find its audience, manage its money, and watch itself work. They
+              are powerful — but still being forged. Bring your engineering
+              tools.
             </SpeechBubble>
 
             <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-cosmere, #b8860b)] mb-4 mt-6">
@@ -155,6 +157,11 @@ export default function TutorialPage() {
                   <p className="text-[10px] text-[var(--vf-text-muted)]">
                     {tool.description}
                   </p>
+                  {tool.forgeLabs && (
+                    <span className="inline-block mt-1.5 text-[8px] px-1.5 py-0.5 rounded bg-amber-900/30 text-amber-400 border border-amber-600/30 font-bold tracking-wider">
+                      FORGE LABS
+                    </span>
+                  )}
                 </Link>
               ))}
             </div>

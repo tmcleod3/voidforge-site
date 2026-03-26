@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
+import { ForgeLabsBanner } from "@/components/forge-labs-banner";
 
 export const metadata: Metadata = {
   title: "Run Growth",
@@ -20,6 +21,8 @@ export default function GrowPage() {
           &larr; Tutorial Hub
         </Link>
         <PageHeader title="RUN GROWTH" subtitle="Grow Track — Step 2" />
+
+        <ForgeLabsBanner feature="Growth" />
 
         <SpeechBubble agent="Kelsier" universe="cosmere">
           The crew is assembled. Vin reads the data. Navani optimizes every

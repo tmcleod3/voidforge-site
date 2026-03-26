@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
+import { ForgeLabsBanner } from "@/components/forge-labs-banner";
 
 export const metadata: Metadata = {
   title: "Install Cultivation",
@@ -20,6 +21,8 @@ export default function CultivationPage() {
           &larr; Tutorial Hub
         </Link>
         <PageHeader title="INSTALL CULTIVATION" subtitle="Grow Track — Step 1" />
+
+        <ForgeLabsBanner feature="Cultivation" />
 
         <SpeechBubble agent="Kelsier" universe="cosmere">
           Every heist needs infrastructure before the crew moves. Cultivation
