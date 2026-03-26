@@ -43,6 +43,12 @@ const agentLore: Record<string, { img: string; line: string }> = {
   Ahsoka: { img: "/images/agents/subs/ahsoka.webp", line: "Secrets management audit." },
   "Padmé": { img: "/images/agents/subs/padmé.webp", line: "Compliance review." },
   "Éowyn": { img: "/images/agents/subs/éowyn.webp", line: "Enchantment and delight." },
+  Celeborn: { img: "/images/agents/subs/celeborn.webp", line: "Design system consistency." },
+  Cyborg: { img: "/images/agents/subs/cyborg.webp", line: "System integration testing." },
+  Raven: { img: "/images/agents/subs/raven.webp", line: "Dark-path analysis." },
+  Troi: { img: "/images/agents/subs/troi.webp", line: "PRD compliance." },
+  "Wonder Woman": { img: "/images/agents/subs/wonder-woman.webp", line: "Functional verification." },
+  Wong: { img: "/images/agents/subs/wong.webp", line: "Lessons and patterns." },
 };
 
 export const metadata: Metadata = {
