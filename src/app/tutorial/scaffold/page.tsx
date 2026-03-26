@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 
 export const metadata: Metadata = {
-  title: "The Scaffold Path",
+  title: "VoidForge Scaffold — Methodology Only",
   description:
     "You know your stack and have a plan. The scaffold gives you the methodology — you bring the vision.",
 };

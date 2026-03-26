@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 
 export const metadata: Metadata = {
-  title: "The Wizard Path",
+  title: "VoidForge Wizard — Start From Nothing",
   description:
     "You have nothing but an idea. The wizard builds everything — PRD, code, infrastructure, deploy.",
 };

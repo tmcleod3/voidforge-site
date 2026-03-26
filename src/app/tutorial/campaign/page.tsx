@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 
 export const metadata: Metadata = {
-  title: "Run a Campaign",
+  title: "Run a VoidForge Campaign — PRD to Production",
   description:
     "Sisko reads the PRD, picks missions, and runs /assemble for each — full war-room autonomy with /campaign.",
 };

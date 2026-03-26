@@ -7,7 +7,7 @@ import { TutorialProgress } from "@/components/tutorial-progress";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "First Build",
+  title: "Your First VoidForge Build",
   description:
     "Write your first PRD, run /build, and watch the 13-phase protocol in action.",
 };

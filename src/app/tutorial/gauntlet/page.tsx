@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 
 export const metadata: Metadata = {
-  title: "The Gauntlet",
+  title: "Run the VoidForge Gauntlet — Comprehensive Review",
   description:
     "5 rounds, 30+ agents, every domain reviewed. If your project survives the Gauntlet, it ships.",
 };

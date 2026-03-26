@@ -7,7 +7,7 @@ import { TableOfContents } from "@/components/table-of-contents";
 import { TutorialProgress } from "@/components/tutorial-progress";
 
 export const metadata: Metadata = {
-  title: "Deploy",
+  title: "Deploy Your VoidForge App",
   description:
     "Deploy your VoidForge app to any of 6 targets: VPS, Vercel, Railway, Cloudflare, Docker, or static.",
 };

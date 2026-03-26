@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 
 export const metadata: Metadata = {
-  title: "The Import Path",
+  title: "Import an Existing Project into VoidForge",
   description:
     "You have code already. The forge assesses what exists, generates a PRD from reality, and builds what's missing.",
 };

@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Tutorial",
+  title: "VoidForge Tutorial — Getting Started Guide",
   description:
     "Three paths into the forge: wizard (start from nothing), scaffold (you have a plan), or import (you have code). Plus growth tools.",
 };
