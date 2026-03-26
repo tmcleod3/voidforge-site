@@ -55,7 +55,16 @@ export default function InstallPage() {
               <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
               <span>
                 <strong className="text-[var(--vf-text)]">Node.js 18+</strong>{" "}
-                — Check with{" "}
+                — The runtime that powers the forge.{" "}
+                <a
+                  href="https://nodejs.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                >
+                  Download from nodejs.org
+                </a>{" "}
+                (LTS recommended). Verify with{" "}
                 <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
                   node --version
                 </code>
@@ -65,7 +74,17 @@ export default function InstallPage() {
               <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
               <span>
                 <strong className="text-[var(--vf-text)]">Claude Code</strong>{" "}
-                — Anthropic&apos;s CLI tool. Install and authenticate before
+                — Anthropic&apos;s coding CLI. This is the engine that runs
+                every agent, every command, every build phase.{" "}
+                <a
+                  href="https://docs.anthropic.com/en/docs/claude-code/overview"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                >
+                  Install Claude Code
+                </a>
+                , then authenticate with your Anthropic API key before
                 proceeding.
               </span>
             </li>
@@ -73,10 +92,29 @@ export default function InstallPage() {
               <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
               <span>
                 <strong className="text-[var(--vf-text)]">Git</strong> —
-                Required for Scaffold and Core tiers.
+                Required for all tiers.{" "}
+                <a
+                  href="https://git-scm.com/downloads"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                >
+                  Download from git-scm.com
+                </a>
+                . Verify with{" "}
+                <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
+                  git --version
+                </code>
               </span>
             </li>
           </ul>
+
+          <SpeechBubble agent="Kusanagi" universe="anime">
+            Windows? PowerShell works. macOS or Linux? Your default terminal
+            works. If npm gives you trouble on Windows, the Scaffold tier is your
+            fastest path — no native compilation, no npm headaches. Just git
+            clone and go.
+          </SpeechBubble>
         </section>
 
         <section className="mt-12">

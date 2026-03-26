@@ -40,20 +40,48 @@ export default function WizardPage() {
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
             <strong className="text-[var(--vf-text)]">Node.js 18+</strong> —
-            the runtime that powers the forge. If you can run{" "}
-            <code className="text-[var(--vf-electric-blue)]">node --version</code>{" "}
-            and see 18 or higher, you&apos;re good.
+            the runtime that powers the forge.{" "}
+            <a
+              href="https://nodejs.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              Download it here
+            </a>
+            {" "}(LTS recommended). Verify with{" "}
+            <code className="text-[var(--vf-electric-blue)]">node --version</code>.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
             <strong className="text-[var(--vf-text)]">Claude Code</strong> —
-            Anthropic&apos;s CLI for Claude. This is the engine that runs every
-            agent, every command, every build phase. Install it once and it
-            handles the rest.
+            Anthropic&apos;s coding CLI. This is the engine that runs every
+            agent, every command, every build phase.{" "}
+            <a
+              href="https://docs.anthropic.com/en/docs/claude-code/overview"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              Install Claude Code
+            </a>
+            , then authenticate with your Anthropic API key.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            <strong className="text-[var(--vf-text)]">A terminal.</strong>{" "}
+            <strong className="text-[var(--vf-text)]">Git</strong> — for
+            cloning the forge.{" "}
+            <a
+              href="https://git-scm.com/downloads"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              Download from git-scm.com
+            </a>
+            .
+          </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
             That&apos;s it. No IDE plugins, no cloud accounts, no credit cards.
-            Just a prompt and an idea.
+            Just a terminal, the tools above, and an idea.
           </p>
         </section>
 
@@ -66,10 +94,20 @@ export default function WizardPage() {
             START THE WIZARD
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            One command. Gandalf takes it from here.
+            Clone the forge. Gandalf takes it from here.
           </p>
-          <div className="crt-terminal !p-4 mb-6">
-            <code className="text-sm">npx voidforge init</code>
+          <div className="crt-terminal !p-4 mb-6 space-y-2">
+            <div>
+              <code className="text-sm">
+                git clone https://github.com/tmcleod3/voidforge.git my-project
+              </code>
+            </div>
+            <div>
+              <code className="text-sm">cd my-project && npm install</code>
+            </div>
+            <div>
+              <code className="text-sm">npm run wizard</code>
+            </div>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
             Gandalf&apos;s interactive wizard walks you through everything —
