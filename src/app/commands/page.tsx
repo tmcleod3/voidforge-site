@@ -4,6 +4,9 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { commands } from "@/data/commands";
 
+const forgeLabsGroup = new Set(["growth"]);
+const forgeLabsCards = new Set(["grow", "cultivation", "current", "treasury", "portfolio", "dangerroom"]);
+
 const groups = [
   {
     id: "strike",
@@ -140,12 +143,19 @@ export default function CommandsPage() {
                   className="border-l-4 pl-4 mb-6"
                   style={{ borderColor: group.color }}
                 >
-                  <h2
-                    className="font-[family-name:var(--font-bangers)] text-2xl tracking-wider"
-                    style={{ color: group.color }}
-                  >
-                    {group.label}
-                  </h2>
+                  <div className="flex items-center gap-3">
+                    <h2
+                      className="font-[family-name:var(--font-bangers)] text-2xl tracking-wider"
+                      style={{ color: group.color }}
+                    >
+                      {group.label}
+                    </h2>
+                    {forgeLabsGroup.has(group.id) && (
+                      <span className="px-2 py-0.5 text-[9px] rounded bg-amber-900/30 text-amber-400 border border-amber-600/30 font-bold tracking-wider">
+                        FORGE LABS
+                      </span>
+                    )}
+                  </div>
                   <p className="text-xs text-[var(--vf-text-muted)] italic">
                     {group.tagline}
                   </p>
@@ -184,6 +194,11 @@ export default function CommandsPage() {
                           <span className="text-xs text-[var(--vf-text-muted)]">
                             {cmd.lead}
                           </span>
+                          {forgeLabsCards.has(cmd.slug) && !forgeLabsGroup.has(group.id) && (
+                            <span className="px-1.5 py-0.5 text-[8px] rounded bg-amber-900/30 text-amber-400 border border-amber-600/30 font-bold tracking-wider">
+                              FORGE LABS
+                            </span>
+                          )}
                           <span
                             className="ml-auto px-1.5 py-0.5 text-[9px] rounded font-bold uppercase tracking-wider"
                             style={{
