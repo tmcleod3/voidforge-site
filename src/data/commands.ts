@@ -468,7 +468,7 @@ export const commands: Command[] = [
     name: "/gauntlet",
     lead: "Thanos",
     description:
-      "The ultimate test. 5 rounds, 30+ agents across 8 universes, escalating from discovery to adversarial warfare. Review-only — no build. If your project survives the snap, it's ready for anything.",
+      "The ultimate test. 5 rounds, 30+ agents across 9 universes, escalating from discovery to adversarial warfare. Review-only — no build. If your project survives the snap, it's ready for anything.",
     usage: "/gauntlet [--quick] [--security-only] [--ux-only] [--qa-only] [--resume] [--ux-extra] [--infinity]",
     whatHappens: [
       "Round 1: Discovery — all agents read the codebase in parallel",
@@ -524,7 +524,7 @@ export const commands: Command[] = [
         flag: "--infinity",
         type: "boolean",
         description:
-          "The Infinity Gauntlet. Ten rounds, two full passes. Every active agent deployed as its own dedicated sub-process — not combined, not summarized. ~60-80 agent launches across all 8 universes. The full roster called off the bench.",
+          "The Infinity Gauntlet. Ten rounds, two full passes. Every active agent deployed as its own dedicated sub-process — not combined, not summarized. ~60-80 agent launches across all 9 universes. The full roster called off the bench.",
         effect: "10 rounds (2x full pass). Every agent gets its own launch, context, and findings.",
       },
     ],

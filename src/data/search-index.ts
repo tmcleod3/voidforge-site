@@ -30,7 +30,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "Launch", description: "Phase 13: Final verification and go-live", path: "/protocol/launch", category: "Protocol" },
 
   // Agents
-  { title: "The Council", description: "All 17 lead agents with universe breakdowns", path: "/agents", category: "Agents" },
+  { title: "The Council", description: "All 18 lead agents with universe breakdowns", path: "/agents", category: "Agents" },
   { title: "Galadriel", description: "Frontend & UX lead — Tolkien universe", path: "/agents/galadriel", category: "Agents" },
   { title: "Stark", description: "Backend engineer — Marvel universe", path: "/agents/stark", category: "Agents" },
   { title: "Batman", description: "QA & testing — DC universe", path: "/agents/batman", category: "Agents" },
@@ -76,7 +76,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/ai", description: "Seldon's AI Intelligence Audit — model selection, prompts, tool-use, orchestration, safety, evals", path: "/commands/ai", category: "Commands" },
 
   // Patterns
-  { title: "Patterns", description: "32 code patterns across 5 domains with framework implementations", path: "/patterns", category: "Patterns" },
+  { title: "Patterns", description: "35 code patterns across 6 domains with framework implementations", path: "/patterns", category: "Patterns" },
   { title: "API Route", description: "Validation, auth, service call, consistent response", path: "/patterns/api-route", category: "Patterns" },
   { title: "Service", description: "Business logic, ownership checks, typed errors", path: "/patterns/service", category: "Patterns" },
   { title: "Component", description: "Loading, empty, error, success states — keyboard accessible", path: "/patterns/component", category: "Patterns" },

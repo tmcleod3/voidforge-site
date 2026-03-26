@@ -982,18 +982,41 @@ export const shipped: Release[] = [
     headline: "Browser intelligence applied to VoidForge itself. 6 a11y heading fixes. CDN fallback for tower. Security verified clean.",
     items: ["VoidForge dogfooded with browser review — 6 a11y heading fixes", "CDN fallback for Avengers Tower dashboard", "Security headers verified clean across all endpoints"],
   },
+  {
+    version: "v19.0.0",
+    date: "2026-03-25",
+    title: "The Funding Rail",
+    headline: "Stablecoin treasury to ad billing. Circle, Mercury, Google/Meta billing adapters. 8 heartbeat jobs, 6 circuit breakers, funding policy engine. 3 new patterns (35 total).",
+    items: [
+      "Stablecoin Ad Funding Rail — USDC → Circle off-ramp → Mercury bank → Google/Meta billing pipeline",
+      "3 new patterns: stablecoin-adapter, ad-billing-adapter, funding-plan (35 total)",
+      "8 new heartbeat daemon jobs — stablecoin balance, off-ramp poll, settlement monitor, runway forecast",
+      "6 circuit breakers — provider down, SLA breach, reconciliation mismatch, invoice shortfall, debit failure, daily cap",
+      "Treasury planner, funding policy engine, reconciliation engine (3-way matching)",
+      "Google Ads billing adapter (invoice reads, settlement instructions) + Meta Ads billing adapter (debit projection)",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
-    version: "v19.0",
+    version: "v20.0",
     title: "The Convergence",
     opacity: 1,
     items: [
       "Build + Grow + Fund in one command — the forge handles the entire product lifecycle",
       "Cross-project orchestration — one campaign manages multiple repos as a single product",
       "Marketplace of pre-built project templates with growth playbooks",
+    ],
+  },
+  {
+    version: "v21.0",
+    title: "The Self-Forging Forge",
+    opacity: 0.7,
+    items: [
       "The forge builds the forge — VoidForge generates its own next version",
+      "Methodology A/B testing — compare agent configurations across projects",
+      "Natural language deploy — describe what you want, the forge provisions it",
     ],
   },
 ];
