@@ -14,6 +14,7 @@ import {
   Zap,
   Shield,
 } from "lucide-react";
+import { SpeechBubble } from "@/components/speech-bubble";
 
 const tools = [
   {
@@ -227,28 +228,47 @@ export default function ForgeLabsPage() {
       </div>
 
       {/* ── What Are Forge Labs ── */}
-      <section className="px-4 pb-12">
-        <div className="mx-auto max-w-3xl text-center">
+      <section className="px-4 pb-8">
+        <div className="mx-auto max-w-3xl">
           <motion.h2
-            className="font-[family-name:var(--font-bangers)] text-3xl sm:text-4xl tracking-wider text-amber-400 mb-6"
+            className="font-[family-name:var(--font-bangers)] text-3xl sm:text-4xl tracking-wider text-amber-400 mb-6 text-center"
             initial={reduceMotion ? {} : { opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
             THE DEEP FORGE
           </motion.h2>
-          <p className="text-[var(--vf-text-muted)] text-lg leading-relaxed mb-4">
+
+          <SpeechBubble agent="Bilbo" universe="tolkien">
+            Now, I&apos;ve told you about the building — the phases, the agents,
+            the protocol. That&apos;s the <em>safe</em> part of the story. But
+            every good adventure has a chapter where the map runs out and the
+            path gets... interesting. Welcome to Forge Labs. The tools here are
+            forged from the same fire as everything else — they just haven&apos;t
+            been tested by every traveler yet. Pack provisions. Bring a torch.
+            And maybe a debugger.
+          </SpeechBubble>
+
+          <p className="text-[var(--vf-text-muted)] text-lg leading-relaxed mb-4 text-center">
             VoidForge builds your product. Forge Labs connects it to everything
             else — ad platforms, bank accounts, analytics dashboards, live
             monitoring. These tools are <strong className="text-[var(--vf-text)]">real</strong>,{" "}
             <strong className="text-[var(--vf-text)]">powerful</strong>, and{" "}
             <strong className="text-[var(--vf-text)]">operational</strong>.
           </p>
-          <p className="text-[var(--vf-text-muted)] text-lg leading-relaxed">
+          <p className="text-[var(--vf-text-muted)] text-lg leading-relaxed text-center mb-8">
             But they need your engineering. API keys need configuring. Platform
             accounts need creating. Integrations need debugging. The Forge gives
             you the framework — you bring the connections.
           </p>
+
+          <SpeechBubble agent="Kelsier" universe="cosmere">
+            Every heist needs a crew, and this crew is ready. But the job
+            isn&apos;t planned yet — that&apos;s your part. I&apos;ve built
+            the tools to run growth campaigns, track revenue, manage ad spend,
+            and forecast runway. You bring the platform accounts and the nerve
+            to connect real money to real ads.
+          </SpeechBubble>
         </div>
       </section>
 
@@ -295,8 +315,28 @@ export default function ForgeLabsPage() {
         </div>
       </section>
 
+      {/* ── Agent banter ── */}
+      <section className="px-4 pb-8">
+        <div className="mx-auto max-w-3xl">
+          <SpeechBubble agent="Fury" universe="marvel">
+            The Danger Room doesn&apos;t need any of this growth infrastructure
+            to run. You can open it right now — build monitoring, agent
+            activity, deploy status. It&apos;s mission control, not a growth
+            tool. But once Kelsier&apos;s crew is wired up? The growth tabs
+            light up too.
+          </SpeechBubble>
+
+          <SpeechBubble agent="Dockson" universe="cosmere">
+            Every boxing counts. Treasury tracks where the money comes from,
+            where it goes, and sounds the alarm when the numbers don&apos;t
+            match. But I need bank API keys and revenue platform credentials
+            to do my job. No keys, no ledger.
+          </SpeechBubble>
+        </div>
+      </section>
+
       {/* ── Tool Cards ── */}
-      <section className="px-4 pb-24">
+      <section className="px-4 pb-16">
         <div className="mx-auto max-w-5xl">
           <motion.h2
             className="font-[family-name:var(--font-bangers)] text-3xl sm:text-4xl tracking-wider text-center text-[var(--vf-text)] mb-12"
@@ -410,6 +450,19 @@ export default function ForgeLabsPage() {
         </div>
       </section>
 
+      {/* ── Where to Start ── */}
+      <section className="px-4 pb-8">
+        <div className="mx-auto max-w-3xl">
+          <SpeechBubble agent="Tuvok" universe="star-trek">
+            Logic dictates a clear entry sequence. The Danger Room operates
+            independently — open it immediately for build and deploy monitoring.
+            For growth features, install Cultivation first: it creates the
+            treasury vault that Growth, Treasury, and Deep Current depend on.
+            The order is not arbitrary.
+          </SpeechBubble>
+        </div>
+      </section>
+
       {/* ── Bottom CTA ── */}
       <section className="px-4 pb-24">
         <div className="mx-auto max-w-3xl text-center">
@@ -423,22 +476,34 @@ export default function ForgeLabsPage() {
           <h2 className="font-[family-name:var(--font-bangers)] text-2xl sm:text-3xl tracking-wider text-amber-400 mb-4">
             THE FORGE IS HOT. BRING GLOVES.
           </h2>
+          <p className="text-[var(--vf-text-muted)] mb-3">
+            <strong className="text-[var(--vf-text)]">Want mission control now?</strong>{" "}
+            The Danger Room works without any setup — open it for build
+            monitoring, agent activity, and deploy status.
+          </p>
           <p className="text-[var(--vf-text-muted)] mb-8">
-            Start with Cultivation — it provisions everything else. Once your
-            treasury vault is live, the other tools unlock.
+            <strong className="text-[var(--vf-text)]">Want growth tools?</strong>{" "}
+            Start with Cultivation — it creates the treasury vault that powers
+            Growth, Treasury, Portfolio, and Deep Current.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/tutorial/dangerroom"
+              className="px-6 py-3 bg-[var(--vf-comic-red)] text-white font-bold rounded-md hover:brightness-110 transition-all font-[family-name:var(--font-bangers)] tracking-wider"
+            >
+              OPEN DANGER ROOM &rarr;
+            </Link>
             <Link
               href="/tutorial/cultivation"
               className="px-6 py-3 bg-amber-600 text-black font-bold rounded-md hover:bg-amber-500 transition-colors font-[family-name:var(--font-bangers)] tracking-wider"
             >
-              START WITH CULTIVATION &rarr;
+              INSTALL CULTIVATION &rarr;
             </Link>
             <Link
               href="/tutorial"
-              className="px-6 py-3 border-2 border-amber-600/50 text-amber-400 font-bold rounded-md hover:bg-amber-900/20 transition-colors font-[family-name:var(--font-bangers)] tracking-wider"
+              className="px-6 py-3 border-2 border-[var(--vf-border)] text-[var(--vf-text-muted)] font-bold rounded-md hover:bg-[var(--vf-surface-overlay)] transition-colors font-[family-name:var(--font-bangers)] tracking-wider"
             >
-              BACK TO TUTORIAL HUB
+              TUTORIAL HUB
             </Link>
           </div>
         </div>

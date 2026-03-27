@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FlaskConical } from "lucide-react";
 
 interface ForgeLabsBannerProps {
@@ -35,10 +36,16 @@ export function ForgeLabsBanner({ feature }: ForgeLabsBannerProps) {
               <strong className="text-[var(--vf-text)]">your</strong>{" "}
               engineering.
             </p>
-            <p className="text-xs text-amber-600/80">
+            <p className="text-xs text-amber-600/80 mb-3">
               API keys. Platform accounts. Debugging skills. Full tier only.
               Here be dragons.
             </p>
+            <Link
+              href="/forge-labs"
+              className="text-xs font-bold tracking-wider text-amber-400 hover:text-amber-300 transition-colors"
+            >
+              WHAT IS FORGE LABS? &rarr;
+            </Link>
           </div>
         </div>
       </div>
