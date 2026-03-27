@@ -51,6 +51,10 @@
   <url><loc>https://voidforge.build/agents/celebrimbor</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/agents/bashir</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/agents/thanos</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/agents/kelsier</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/agents/dockson</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/agents/tuvok</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/agents/seldon</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/agents/tolkien</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/agents/marvel</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/agents/dc</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
@@ -58,6 +62,8 @@
   <url><loc>https://voidforge.build/agents/star-trek</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/agents/dune</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/agents/anime</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/agents/cosmere</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/agents/foundation</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/commands/build</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/commands/qa</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/commands/test</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
@@ -74,6 +80,17 @@
   <url><loc>https://voidforge.build/commands/imagine</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/commands/debrief</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/commands/gauntlet</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/commands/prd</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/commands/grow</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/commands/treasury</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/commands/portfolio</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/commands/cultivation</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/commands/current</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/commands/dangerroom</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/commands/assess</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/commands/deploy</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/commands/ai</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/commands/vault</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/patterns/api-route</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/patterns/service</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/patterns/component</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
@@ -81,4 +98,32 @@
   <url><loc>https://voidforge.build/patterns/error-handling</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/patterns/job-queue</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/patterns/multi-tenant</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/mobile-screen</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/mobile-service</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/game-loop</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/game-state</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/game-entity</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/sse-endpoint</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/ad-platform-adapter</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/financial-transaction</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/daemon-process</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/revenue-source-adapter</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/oauth-token-lifecycle</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/outbound-rate-limiter</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/third-party-script</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/ai-orchestrator</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/ai-classifier</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/ai-router</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/prompt-template</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/ai-eval</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/ai-tool-schema</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/database-migration</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/data-pipeline</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/backtest-engine</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/execution-safety</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/e2e-test</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/browser-review</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/stablecoin-adapter</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/ad-billing-adapter</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/funding-plan</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
 </urlset>

@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { Analytics } from "@/components/analytics";
 import { Starfield } from "@/components/starfield";
 import { JsonLd } from "@/components/json-ld";
+import { display } from "@/data/stats";
 import "./globals.css";
 
 const bangers = Bangers({
@@ -33,7 +34,7 @@ export const metadata: Metadata = {
     default: "VoidForge — From Nothing, Everything",
   },
   description:
-    "The complete guide to building production apps with 260+ AI agents across 9 fictional universes. Drop in a PRD, run /build, ship to production.",
+    `The complete guide to building production apps with ${display.agents} AI agents across ${display.universes} fictional universes. Drop in a PRD, run /build, ship to production.`,
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "https://voidforge.build"
   ),
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
         url: "/images/og-image.png",
         width: 1792,
         height: 1024,
-        alt: "VoidForge — From Nothing, Everything. 260+ AI agents across 9 fictional universes.",
+        alt: `VoidForge — From Nothing, Everything. ${display.agents} AI agents across ${display.universes} fictional universes.`,
       },
     ],
   },

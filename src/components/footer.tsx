@@ -67,6 +67,11 @@ export function Footer() {
                   Prophecy
                 </Link>
               </li>
+              <li>
+                <Link href="/forge-labs" className="text-sm text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] transition-colors">
+                  Forge Labs
+                </Link>
+              </li>
             </ul>
           </div>
 

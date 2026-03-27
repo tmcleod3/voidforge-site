@@ -737,6 +737,29 @@ export const commands: Command[] = [
     ],
     badge: "NEW in v16.0",
   },
+  {
+    slug: "vault",
+    tier: "all" as CommandTier,
+    name: "/vault",
+    lead: "Hari Seldon",
+    description:
+      "Seldon's Time Vault — distill session intelligence into a portable briefing for session handoff. Preserves decisions, failed approaches, cross-module relationships, and execution plans so the next session starts informed.",
+    usage: "/vault [--seal] [--open] [--list] [--for <target>]",
+    whatHappens: [
+      "Gaal Dornick gathers persisted state: build logs, campaign state, git history, deploy status",
+      "Hari Seldon extracts session intelligence — decisions, failed approaches, cross-module relationships, agent findings",
+      "Psychohistorical compression: a 3-hour session becomes a 1-paragraph briefing with per-task file lists",
+      "Jake Sisko writes the vault file to /logs/vault-YYYY-MM-DD.md with YAML frontmatter",
+      "Produces a pickup prompt the next session can paste verbatim to recover context in under 60 seconds",
+    ],
+    arguments: [
+      { flag: "--seal", type: "boolean" as const, description: "Auto-confirm and write without review.", effect: "Skip the review step, seal the vault immediately." },
+      { flag: "--open", type: "boolean" as const, description: "Read and display the most recent vault file.", effect: "Print the last vault briefing to the console." },
+      { flag: "--list", type: "boolean" as const, description: "List all vault files with dates and summaries.", effect: "Show all sealed vaults in chronological order." },
+      { flag: "--for", type: "string" as const, valuePlaceholder: "campaign", description: "Tailor the briefing for a specific audience.", effect: "Adjust vault content for campaign (next session), colleague (human handoff), or trigger (cron pickup)." },
+    ],
+    badge: "NEW in v19.2",
+  },
 ];
 
 export function getCommand(slug: string): Command | undefined {

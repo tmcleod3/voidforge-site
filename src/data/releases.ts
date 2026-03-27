@@ -138,6 +138,11 @@ export const majorEras: Record<string, MajorEra> = {
     quote: "You can review code all day. But until you open a browser and watch it run, you're guessing. The proving ground doesn't lie.",
     agent: "Batman",
   },
+  "19": {
+    title: "The Funding Rail",
+    quote: "The forge doesn't just build — it funds itself. Stablecoins to invoices, adapters to autopilot. The money pipeline is alive.",
+    agent: "Dockson",
+  },
 };
 
 export const shipped: Release[] = [
@@ -994,6 +999,34 @@ export const shipped: Release[] = [
       "6 circuit breakers — provider down, SLA breach, reconciliation mismatch, invoice shortfall, debit failure, daily cap",
       "Treasury planner, funding policy engine, reconciliation engine (3-way matching)",
       "Google Ads billing adapter (invoice reads, settlement instructions) + Meta Ads billing adapter (debit projection)",
+    ],
+  },
+  {
+    version: "v19.1.0",
+    date: "2026-03-26",
+    title: "The Live Wire",
+    headline: "Production intelligence: adapter factory, Mercury/billing wiring, auto-funding execution, WAL recovery. 66 new financial tests (380 total). All 9 Muster-identified gaps resolved.",
+    items: [
+      "Adapter factory — config-driven adapter selection from encrypted vault, zero hard-coded instantiations",
+      "Auto-funding execution — approved funding plans automatically execute off-ramps (APPROVED → PENDING_SETTLEMENT → SETTLED)",
+      "WAL recovery + rotation — daemon startup resumes incomplete operations, 7-file rotation on pending-ops",
+      "66 new financial tests: funding-policy (22), reconciliation-engine (17), platform-planner (15), sandbox-stablecoin (12)",
+      "Billing jobs wired — Google invoice scan and Meta debit monitor read real data via adapter factory",
+      "Mercury wired — bank-settlement-monitor reads real bank balance via adapter factory",
+      "Circle stable IDs — listCompletedTransfers uses Circle payout ID, not random UUID",
+    ],
+  },
+  {
+    version: "v19.2.0",
+    date: "2026-03-26",
+    title: "The Wider Net",
+    headline: "TikTok billing adapter. AdPlatform type widened to 7 platforms. Adapter factory extensibility proven. 385 total tests.",
+    items: [
+      "TikTok billing adapter — spend monitoring, debit projection, MONITORED_ONLY classification via Marketing API",
+      "AdPlatform type widened from google | meta to 7-platform union (+ tiktok, linkedin, twitter, reddit, snap)",
+      "5 new TikTok billing tests — capability detection, spend projection, normalized state",
+      "Adapter extensibility proven — adding a new billing platform: 3 files, same pattern every time",
+      "/vault command — Seldon's Time Vault for session intelligence preservation and handoff",
     ],
   },
 ];

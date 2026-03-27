@@ -166,7 +166,7 @@ export default function AgentsPage() {
             THE FULL ROSTER
           </h2>
           <p className="text-center text-sm text-[var(--vf-text-muted)] mb-10">
-            245+ sub-agents across 9 universes. The specialists behind the leads.
+            {subAgents.length}+ sub-agents across {universes.length} universes. The specialists behind the leads.
           </p>
 
           <div className="space-y-10">

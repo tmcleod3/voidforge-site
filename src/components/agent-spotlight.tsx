@@ -50,6 +50,7 @@ export function AgentSpotlight({ agent, color, onClose, onPrev, onNext }: AgentS
           transition={{ duration: 0.15 }}
           onClick={onClose}
           role="dialog"
+          aria-modal="true"
           aria-label={`${agent.name} spotlight`}
         >
           {/* Backdrop */}

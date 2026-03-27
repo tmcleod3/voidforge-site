@@ -141,7 +141,7 @@ export default function AboutPage() {
             <p className="text-[var(--vf-text-muted)] mb-6">
               This website is Phase 8 of its own build process. The PRD was
               written. <code className="text-[var(--vf-electric-blue)]">/build</code> was
-              typed. The agents woke up. And 62 pages later, you&apos;re reading
+              typed. The agents woke up. And 120+ pages later, you&apos;re reading
               the result.
             </p>
 

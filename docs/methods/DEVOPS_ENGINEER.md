@@ -78,6 +78,10 @@ Deployable, observable, recoverable, maintainable. Automate everything done more
 
 **Levi — Deployment:** `/scripts/deploy.sh` — Pull → Install (npm ci) → Generate ORM → Migrate → Build → Reload (zero-downtime PM2 cluster) → Health check → Auto-rollback on failure. `/scripts/rollback.sh` for manual rollback.
 
+**PostgreSQL privilege revocation:** When setting up PostgreSQL with multiple roles: revoke from PUBLIC first, then grant to authorized roles. `REVOKE ALL ON SCHEMA public FROM PUBLIC; GRANT USAGE ON SCHEMA public TO app_role;` Default PostgreSQL grants PUBLIC access to the public schema — this must be explicitly removed.
+
+**htpasswd format:** For nginx basic auth, use `htpasswd -B` (bcrypt). The `apr1` (MD5) format has inconsistent support across nginx builds and platforms.
+
 **Spike — Networking:** Reverse proxy (Caddy/Nginx) with HTTPS, gzip, security headers. SSL on all domains/subdomains. Auto-renewal. HSTS. DNS records. SPF/DKIM/DMARC for email.
 
 **PM2 Config:** Web in cluster mode (≥2 instances). Workers in fork mode. Memory limits. Auto-start on reboot (`pm2 startup` + `pm2 save`). Log rotation.
@@ -211,6 +215,12 @@ If health check fails after deploy:
 - CPU at 100% on a single core → event loop blocking (Node.js)
 
 **Load testing is NOT a VoidForge automation.** VoidForge tells you to do it and what to look for. The actual test requires infrastructure and traffic generation tools that are project-specific.
+
+## Build Output Protection
+
+**Deploy safety: backup build output before running build.** Before running `npm run build`, `next build`, or equivalent, backup the existing build output directory (`.next/`, `dist/`, `build/`). If the build fails, restore the backup so the previous working build can still be served. Pattern: `cp -r .next .next.bak && npm run build || (rm -rf .next && mv .next.bak .next && echo "Build failed, restored previous build" && exit 1)`. A failed build that destroys the previous working output means zero deployable code until the build is fixed. (Triage fix from field report batch #149-#153.)
+
+**PM2 discipline: never `pm2 delete` + `pm2 start` without `--cwd`.** Always specify the working directory explicitly: `pm2 start ecosystem.config.js --cwd /path/to/project`. Without `--cwd`, PM2 resolves paths relative to the current shell directory, which may differ from the project root — especially in deploy scripts that `cd` between operations. A `pm2 start` from the wrong directory silently starts the process with wrong paths, serving 404s on every route. (Triage fix from field report batch #149-#153.)
 
 ## Deploy Safety Rules
 

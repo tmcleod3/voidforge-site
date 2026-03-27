@@ -34,7 +34,7 @@ const groups = [
     label: "BASE OPS",
     tagline: "Run the forge. Sharpen the blade.",
     color: "var(--vf-electric-blue)",
-    slugs: ["devops", "deploy", "architect", "git", "void", "thumper", "debrief", "dangerroom"],
+    slugs: ["devops", "deploy", "architect", "git", "void", "vault", "thumper", "debrief", "dangerroom"],
   },
 ];
 
@@ -56,6 +56,7 @@ const agentImages: Record<string, string> = {
   Kelsier: "/images/agents/kelsier.webp",
   Dockson: "/images/agents/dockson.webp",
   Tuvok: "/images/agents/tuvok.webp",
+  "Hari Seldon": "/images/agents/seldon.webp",
 };
 
 const flagCount = commands.filter((c) => c.arguments && c.arguments.length > 0).length;

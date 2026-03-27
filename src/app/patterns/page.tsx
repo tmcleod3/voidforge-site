@@ -31,7 +31,7 @@ const groups = [
     label: "SYSTEMS",
     tagline: "Infrastructure that runs itself.",
     color: "var(--vf-deep-purple)",
-    slugs: ["ad-platform-adapter", "financial-transaction", "daemon-process", "revenue-source-adapter", "oauth-token-lifecycle", "outbound-rate-limiter", "database-migration", "data-pipeline", "backtest-engine", "execution-safety", "e2e-test", "browser-review"],
+    slugs: ["ad-platform-adapter", "financial-transaction", "daemon-process", "revenue-source-adapter", "oauth-token-lifecycle", "outbound-rate-limiter", "database-migration", "data-pipeline", "backtest-engine", "execution-safety", "e2e-test", "browser-review", "stablecoin-adapter", "ad-billing-adapter", "funding-plan"],
   },
   {
     id: "ai",

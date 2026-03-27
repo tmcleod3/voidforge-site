@@ -9,7 +9,7 @@ import { CommandArgs } from "@/components/command-args";
 import { ForgeLabsBanner } from "@/components/forge-labs-banner";
 import { leadAgents, type Universe } from "@/data/agents";
 
-const forgeLabsSlugs = new Set(["cultivation", "dangerroom", "grow", "treasury", "portfolio"]);
+const forgeLabsSlugs = new Set(["cultivation", "dangerroom", "grow", "treasury", "portfolio", "current"]);
 
 interface CommandPageProps {
   params: Promise<{ slug: string }>;

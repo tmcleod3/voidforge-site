@@ -27,7 +27,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "QA Audit", description: "Phase 9: Quality assurance and bug fixing", path: "/protocol/qa", category: "Protocol" },
   { title: "UX Audit", description: "Phase 10: UX review and accessibility", path: "/protocol/ux", category: "Protocol" },
   { title: "Security Audit", description: "Phase 11: OWASP audit and hardening", path: "/protocol/security", category: "Protocol" },
-  { title: "Deploy", description: "Phase 12: Deployment and infrastructure", path: "/protocol/deploy-phase", category: "Protocol" },
+  { title: "Deploy", description: "Phase 12: Deployment and infrastructure", path: "/protocol/deploy", category: "Protocol" },
   { title: "Launch", description: "Phase 13: Final verification and go-live", path: "/protocol/launch", category: "Protocol" },
 
   // Agents
@@ -46,6 +46,12 @@ export const searchIndex: SearchEntry[] = [
   { title: "Celebrimbor", description: "Forge artist, image generation — Tolkien universe", path: "/agents/celebrimbor", category: "Agents" },
   { title: "Bashir", description: "Field medic, post-mortem analysis — Star Trek universe", path: "/agents/bashir", category: "Agents" },
   { title: "Thanos", description: "The Gauntlet — comprehensive 5-round review — Marvel universe", path: "/agents/thanos", category: "Agents" },
+  { title: "Kelsier", description: "Growth strategist — Cosmere universe", path: "/agents/kelsier", category: "Agents" },
+  { title: "Dockson", description: "Treasury and financial operations — Cosmere universe", path: "/agents/dockson", category: "Agents" },
+  { title: "Tuvok", description: "Deep Current intelligence — Star Trek universe", path: "/agents/tuvok", category: "Agents" },
+  { title: "Hari Seldon", description: "AI intelligence auditor — Foundation universe", path: "/agents/seldon", category: "Agents" },
+  { title: "Cosmere Universe", description: "Growth and financial agents: Kelsier, Dockson, Vin, Navani, Steris, and more", path: "/agents/cosmere", category: "Agents" },
+  { title: "Foundation Universe", description: "AI intelligence agents: Hari Seldon, Salvor Hardin, Gaal Dornick, The Mule, and more", path: "/agents/foundation", category: "Agents" },
 
   // Commands
   { title: "Commands", description: "All slash commands across 4 mission groups with usage and examples", path: "/commands", category: "Commands" },
@@ -75,6 +81,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/assess", description: "Picard's pre-build assessment — architecture + assessment gauntlet + PRD gap analysis", path: "/commands/assess", category: "Commands" },
   { title: "/deploy", description: "Kusanagi's deploy agent — target detection, health check, rollback, campaign auto-deploy", path: "/commands/deploy", category: "Commands" },
   { title: "/ai", description: "Seldon's AI Intelligence Audit — model selection, prompts, tool-use, orchestration, safety, evals", path: "/commands/ai", category: "Commands" },
+  { title: "/vault", description: "Seldon's Time Vault — distill session intelligence into portable briefing for session handoff", path: "/commands/vault", category: "Commands" },
 
   // Patterns
   { title: "Patterns", description: "35 code patterns across 6 domains with framework implementations", path: "/patterns", category: "Patterns" },
@@ -110,6 +117,9 @@ export const searchIndex: SearchEntry[] = [
   { title: "Execution Safety", description: "Trading execution: order validation, position limits, paper/live toggle", path: "/patterns/execution-safety", category: "Patterns" },
   { title: "E2E Test", description: "Playwright E2E + axe-core a11y, Page Object Model, network mocking", path: "/patterns/e2e-test", category: "Patterns" },
   { title: "Browser Review", description: "Browser-based agent review: console capture, walkthroughs, security inspection", path: "/patterns/browser-review", category: "Patterns" },
+  { title: "Stablecoin Adapter", description: "Off-ramp lifecycle, Circle reference implementation, settlement tracking", path: "/patterns/stablecoin-adapter", category: "Patterns" },
+  { title: "Ad Billing Adapter", description: "Billing capability classification, invoice/debit monitoring, 7-platform support", path: "/patterns/ad-billing-adapter", category: "Patterns" },
+  { title: "Funding Plan", description: "Branded Cents, FundingPlan FSM, policy engine, reconciliation", path: "/patterns/funding-plan", category: "Patterns" },
 
   // Tutorials
   { title: "The Wizard Path", description: "Start from nothing — Gandalf walks you through everything", path: "/tutorial/wizard", category: "Tutorial" },
