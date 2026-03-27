@@ -1,7 +1,11 @@
 {
   "name": "voidforge-site",
   "version": "0.7.0",
+  "description": "Marketing site for VoidForge — the AI agent methodology framework",
   "private": true,
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
