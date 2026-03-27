@@ -14,7 +14,64 @@ import {
   Zap,
   Shield,
 } from "lucide-react";
-import { SpeechBubble } from "@/components/speech-bubble";
+
+/** Compact agent aside — small portrait + one-liner, floats beside content */
+function AgentAside({
+  name,
+  img,
+  children,
+  side = "right",
+}: {
+  name: string;
+  img: string;
+  children: React.ReactNode;
+  side?: "left" | "right";
+}) {
+  return (
+    <div
+      className={`flex items-start gap-2.5 max-w-xs text-xs ${
+        side === "right" ? "ml-auto" : "mr-auto"
+      } my-4`}
+    >
+      {side === "left" && (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src={img}
+          alt=""
+          aria-hidden="true"
+          className="w-8 h-8 rounded-full border border-amber-600/40 object-cover flex-shrink-0"
+        />
+      )}
+      <div
+        className={`px-3 py-2 rounded-lg bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] ${
+          side === "right" ? "text-right" : "text-left"
+        }`}
+      >
+        <span className="font-bold text-amber-400 block mb-0.5">{name}</span>
+        <span className="text-[var(--vf-text-muted)] leading-relaxed">
+          {children}
+        </span>
+      </div>
+      {side === "right" && (
+        /* eslint-disable-next-line @next/next/no-img-element */
+        <img
+          src={img}
+          alt=""
+          aria-hidden="true"
+          className="w-8 h-8 rounded-full border border-amber-600/40 object-cover flex-shrink-0"
+        />
+      )}
+    </div>
+  );
+}
+
+const agentAvatars: Record<string, string> = {
+  Kelsier: "/images/agents/kelsier.webp",
+  Dockson: "/images/agents/dockson.webp",
+  Tuvok: "/images/agents/tuvok.webp",
+  Fury: "/images/agents/fury.webp",
+  Steris: "/images/agents/subs/steris.webp",
+};
 
 const tools = [
   {
@@ -22,6 +79,7 @@ const tools = [
     icon: Sprout,
     name: "CULTIVATION",
     lead: "Kelsier",
+    avatar: agentAvatars.Kelsier,
     command: "/cultivation",
     tagline: "Plant the seeds before the first customer arrives.",
     description:
@@ -37,10 +95,11 @@ const tools = [
     icon: TrendingUp,
     name: "GROWTH",
     lead: "Kelsier",
+    avatar: agentAvatars.Kelsier,
     command: "/grow",
     tagline: "The 6-phase protocol that turns launches into traction.",
     description:
-      "Audit → Analytics → SEO → Ads → Social → Outreach. Kelsier's crew runs the heist. Vin reads the data. Navani optimizes the technical SEO. Dalinar watches the competition. Six phases, each with agents who specialize.",
+      "Audit, Analytics, SEO, Ads, Social, Outreach. Kelsier's crew runs the heist. Vin reads the data. Navani optimizes the technical SEO. Dalinar watches the competition. Six phases, each with agents who specialize.",
     what: "SEO audit, ad campaign creation, content pipeline, social scheduling, outreach automation",
     needs: "Connected ad platforms (via Cultivation), analytics access, content strategy",
     tutorial: "/tutorial/grow",
@@ -52,6 +111,7 @@ const tools = [
     icon: Landmark,
     name: "TREASURY",
     lead: "Dockson",
+    avatar: agentAvatars.Dockson,
     command: "/treasury",
     tagline: "Every boxing counts. Track it. Guard it. Report it.",
     description:
@@ -67,6 +127,7 @@ const tools = [
     icon: Briefcase,
     name: "PORTFOLIO",
     lead: "Steris",
+    avatar: agentAvatars.Steris,
     command: "/portfolio",
     tagline: "See all your projects. One dashboard. One truth.",
     description:
@@ -82,6 +143,7 @@ const tools = [
     icon: Radar,
     name: "DEEP CURRENT",
     lead: "Tuvok",
+    avatar: agentAvatars.Tuvok,
     command: "/current",
     tagline: "The intelligence network that never sleeps.",
     description:
@@ -97,6 +159,7 @@ const tools = [
     icon: Monitor,
     name: "DANGER ROOM",
     lead: "Fury",
+    avatar: agentAvatars.Fury,
     command: "/dangerroom",
     tagline: "One screen. Every signal. Real time.",
     description:
@@ -128,7 +191,6 @@ export default function ForgeLabsPage() {
     <>
       {/* ── Hero ── */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden px-4">
-        {/* Animated caution-stripe background */}
         <div
           className="absolute inset-0 opacity-[0.06]"
           aria-hidden="true"
@@ -137,7 +199,6 @@ export default function ForgeLabsPage() {
               "repeating-linear-gradient(135deg, #b8860b 0px, #b8860b 20px, transparent 20px, transparent 40px)",
           }}
         />
-        {/* Radial amber glow */}
         <div
           className="absolute inset-0"
           aria-hidden="true"
@@ -227,9 +288,9 @@ export default function ForgeLabsPage() {
         />
       </div>
 
-      {/* ── What Are Forge Labs ── */}
-      <section className="px-4 pb-8">
-        <div className="mx-auto max-w-3xl">
+      {/* ── The Deep Forge ── */}
+      <section className="px-4 pb-12">
+        <div className="mx-auto max-w-4xl">
           <motion.h2
             className="font-[family-name:var(--font-bangers)] text-3xl sm:text-4xl tracking-wider text-amber-400 mb-6 text-center"
             initial={reduceMotion ? {} : { opacity: 0 }}
@@ -239,41 +300,38 @@ export default function ForgeLabsPage() {
             THE DEEP FORGE
           </motion.h2>
 
-          <SpeechBubble agent="Bilbo" universe="tolkien">
-            Now, I&apos;ve told you about the building — the phases, the agents,
-            the protocol. That&apos;s the <em>safe</em> part of the story. But
-            every good adventure has a chapter where the map runs out and the
-            path gets... interesting. Welcome to Forge Labs. The tools here are
-            forged from the same fire as everything else — they just haven&apos;t
-            been tested by every traveler yet. Pack provisions. Bring a torch.
-            And maybe a debugger.
-          </SpeechBubble>
+          <div className="max-w-3xl mx-auto">
+            <p className="text-[var(--vf-text-muted)] text-lg leading-relaxed mb-4 text-center">
+              VoidForge builds your product. Forge Labs connects it to everything
+              else — ad platforms, bank accounts, analytics dashboards, live
+              monitoring. These tools are <strong className="text-[var(--vf-text)]">real</strong>,{" "}
+              <strong className="text-[var(--vf-text)]">powerful</strong>, and{" "}
+              <strong className="text-[var(--vf-text)]">operational</strong>.
+            </p>
 
-          <p className="text-[var(--vf-text-muted)] text-lg leading-relaxed mb-4 text-center">
-            VoidForge builds your product. Forge Labs connects it to everything
-            else — ad platforms, bank accounts, analytics dashboards, live
-            monitoring. These tools are <strong className="text-[var(--vf-text)]">real</strong>,{" "}
-            <strong className="text-[var(--vf-text)]">powerful</strong>, and{" "}
-            <strong className="text-[var(--vf-text)]">operational</strong>.
-          </p>
-          <p className="text-[var(--vf-text-muted)] text-lg leading-relaxed text-center mb-8">
-            But they need your engineering. API keys need configuring. Platform
-            accounts need creating. Integrations need debugging. The Forge gives
-            you the framework — you bring the connections.
-          </p>
+            <AgentAside name="Bilbo" img="/images/agents/subs/bilbo.webp" side="right">
+              Every good adventure has a chapter where the map runs out and the
+              path gets... interesting. Pack provisions. Bring a torch. And
+              maybe a debugger.
+            </AgentAside>
 
-          <SpeechBubble agent="Kelsier" universe="cosmere">
-            Every heist needs a crew, and this crew is ready. But the job
-            isn&apos;t planned yet — that&apos;s your part. I&apos;ve built
-            the tools to run growth campaigns, track revenue, manage ad spend,
-            and forecast runway. You bring the platform accounts and the nerve
-            to connect real money to real ads.
-          </SpeechBubble>
+            <p className="text-[var(--vf-text-muted)] text-lg leading-relaxed text-center">
+              But they need your engineering. API keys need configuring. Platform
+              accounts need creating. Integrations need debugging. The Forge gives
+              you the framework — you bring the connections.
+            </p>
+
+            <AgentAside name="Kelsier" img="/images/agents/kelsier.webp" side="left">
+              The crew is ready. The tools are forged. But the job
+              isn&apos;t planned yet — that&apos;s your part. Bring platform
+              accounts and the nerve to connect real money to real ads.
+            </AgentAside>
+          </div>
         </div>
       </section>
 
-      {/* ── What You'll Need ── */}
-      <section className="px-4 pb-16">
+      {/* ── Before You Enter ── */}
+      <section className="px-4 pb-12">
         <div className="mx-auto max-w-3xl">
           <div
             className="comic-panel p-6"
@@ -315,28 +373,8 @@ export default function ForgeLabsPage() {
         </div>
       </section>
 
-      {/* ── Agent banter ── */}
-      <section className="px-4 pb-8">
-        <div className="mx-auto max-w-3xl">
-          <SpeechBubble agent="Fury" universe="marvel">
-            The Danger Room doesn&apos;t need any of this growth infrastructure
-            to run. You can open it right now — build monitoring, agent
-            activity, deploy status. It&apos;s mission control, not a growth
-            tool. But once Kelsier&apos;s crew is wired up? The growth tabs
-            light up too.
-          </SpeechBubble>
-
-          <SpeechBubble agent="Dockson" universe="cosmere">
-            Every boxing counts. Treasury tracks where the money comes from,
-            where it goes, and sounds the alarm when the numbers don&apos;t
-            match. But I need bank API keys and revenue platform credentials
-            to do my job. No keys, no ledger.
-          </SpeechBubble>
-        </div>
-      </section>
-
       {/* ── Tool Cards ── */}
-      <section className="px-4 pb-16">
+      <section className="px-4 pb-8">
         <div className="mx-auto max-w-5xl">
           <motion.h2
             className="font-[family-name:var(--font-bangers)] text-3xl sm:text-4xl tracking-wider text-center text-[var(--vf-text)] mb-12"
@@ -357,7 +395,7 @@ export default function ForgeLabsPage() {
             {tools.map((tool) => (
               <motion.div key={tool.slug} variants={anim}>
                 <div
-                  className="comic-panel bg-[var(--vf-surface-raised)] h-full flex flex-col group hover:bg-[var(--vf-surface-overlay)] transition-colors"
+                  className="comic-panel bg-[var(--vf-surface-raised)] h-full flex flex-col group hover:bg-[var(--vf-surface-overlay)] transition-colors relative"
                   style={{ borderColor: `${tool.color}40` }}
                 >
                   {/* Caution stripe */}
@@ -367,7 +405,17 @@ export default function ForgeLabsPage() {
                       background: `repeating-linear-gradient(135deg, ${tool.color} 0px, ${tool.color} 8px, transparent 8px, transparent 16px)`,
                     }}
                   />
-                  <div className="p-6 flex flex-col flex-1">
+
+                  {/* Agent avatar — upper right */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={tool.avatar}
+                    alt={`${tool.lead} — runs ${tool.command}`}
+                    className="absolute top-4 right-4 w-12 h-12 rounded-full border-2 object-cover shadow-lg"
+                    style={{ borderColor: `${tool.color}80` }}
+                  />
+
+                  <div className="p-6 pr-20 flex flex-col flex-1">
                     {/* Header */}
                     <div className="flex items-center gap-3 mb-3">
                       <div
@@ -450,16 +498,26 @@ export default function ForgeLabsPage() {
         </div>
       </section>
 
-      {/* ── Where to Start ── */}
+      {/* ── Scattered agent asides after cards ── */}
       <section className="px-4 pb-8">
-        <div className="mx-auto max-w-3xl">
-          <SpeechBubble agent="Tuvok" universe="star-trek">
-            Logic dictates a clear entry sequence. The Danger Room operates
-            independently — open it immediately for build and deploy monitoring.
-            For growth features, install Cultivation first: it creates the
-            treasury vault that Growth, Treasury, and Deep Current depend on.
+        <div className="mx-auto max-w-4xl">
+          <AgentAside name="Fury" img="/images/agents/fury.webp" side="right">
+            The Danger Room doesn&apos;t need Cultivation. Open it now —
+            build monitoring, agent activity, deploy status. Growth tabs
+            light up after Kelsier&apos;s crew is wired.
+          </AgentAside>
+
+          <AgentAside name="Dockson" img="/images/agents/dockson.webp" side="left">
+            No keys, no ledger. Treasury needs bank API credentials and
+            revenue platform access. I track every boxing — but only if
+            you give me eyes on the accounts.
+          </AgentAside>
+
+          <AgentAside name="Tuvok" img="/images/agents/tuvok.webp" side="right">
+            Logical entry: Danger Room first (no setup). Cultivation second
+            (creates the vault). Growth, Treasury, and Deep Current follow.
             The order is not arbitrary.
-          </SpeechBubble>
+          </AgentAside>
         </div>
       </section>
 
