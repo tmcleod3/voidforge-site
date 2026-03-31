@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -18,6 +18,8 @@ interface AgentSpotlightProps {
 
 export function AgentSpotlight({ agent, color, onClose, onPrev, onNext }: AgentSpotlightProps) {
   const [hdFailed, setHdFailed] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -31,8 +33,18 @@ export function AgentSpotlight({ agent, color, onClose, onPrev, onNext }: AgentS
   useEffect(() => {
     if (!agent) return;
     setHdFailed(false);
+    // Save the element that had focus before the spotlight opened
+    previousFocusRef.current = document.activeElement as HTMLElement | null;
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    // Focus the dialog container on open
+    requestAnimationFrame(() => {
+      dialogRef.current?.focus();
+    });
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      // Restore focus to the previously focused element when closing
+      previousFocusRef.current?.focus();
+    };
   }, [agent, handleKeyDown]);
 
   const slug = agent ? nameToSlug(agent.name) : "";
@@ -43,7 +55,9 @@ export function AgentSpotlight({ agent, color, onClose, onPrev, onNext }: AgentS
     <AnimatePresence mode="wait">
       {agent && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center"
+          ref={dialogRef}
+          tabIndex={-1}
+          className="fixed inset-0 z-50 flex items-center justify-center outline-none"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

@@ -81,7 +81,7 @@ export function FeatureCards() {
             >
               <Link
                 href={feature.href}
-                className="block comic-panel halftone bg-[var(--vf-surface-raised)] p-6 h-full group hover:border-[var(--vf-forge-orange)] transition-colors"
+                className="block comic-panel halftone bg-[var(--vf-surface-raised)] p-6 h-full group hover:border-[var(--vf-forge-orange)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
               >
                 <feature.icon
                   className="w-8 h-8 mb-4"
