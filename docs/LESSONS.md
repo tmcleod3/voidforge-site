@@ -72,3 +72,10 @@
 **Lesson:** Vercel's CSS optimizer rejects valid CSS features that browsers and local PostCSS accept (`attr(data-text)`, CSS variables in `@keyframes`). Local `next build` passes but `vercel` (preview deploy) fails. This class of bug is invisible to all VoidForge review agents since they analyze source code, not platform build output.
 **Action:** Add preview deploy verification to `/devops` and `/void`. After significant CSS changes or forge syncs, run a platform preview build before declaring done.
 **Promoted to:** Not yet. Confirmed: `/void` Step 4.5 (preview verification) was added to FORGE_KEEPER.md upstream.
+
+### PRD drifts into a historical snapshot after sustained /campaign work
+**Agent:** Bashir | **Category:** methodology gap
+**Context:** VoidForge Marketing Site — v0.7.0, 19+ versions, multiple campaigns. /assess found PRD written March 2024 diverged significantly from March 2026 codebase.
+**Lesson:** `/campaign` and `/build` read the PRD as source of truth, but no phase or gate requires updating the PRD when campaigns add features, expand tutorials, or upgrade dependencies. Over 19 versions: content architecture changed (PRD says `content/` MDX, actual is `src/data/*.ts`), dependency versions drifted (shiki ^1.0 vs ^3.0, tailwind-merge ^2.0 vs ^3.0), feature counts diverged (PRD says 26 commands/35 patterns/3 tutorials/~97 pages, actual is 27/37/15/131), and deploy model changed (PRD says Vercel Git integration, actual is CLI deploy). The PRD became a historical snapshot rather than living documentation, causing `/architect` and `/assess` to spend cycles detecting drift instead of finding real issues.
+**Action:** (1) Add a "PRD Sync Gate" to `/campaign` mission completion: before declaring victory, diff PRD counts/routes/dependencies/architecture against reality, auto-flag drift. (2) Add to `/git` release flow: Coulson verifies PRD version counts match data file counts before tagging a release.
+**Promoted to:** Not yet — first occurrence. File upstream as field report for methodology review.

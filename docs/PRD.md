@@ -4,7 +4,7 @@
 > This page was built by the Forge itself. Galadriel wrote the frontend. Bilbo wrote the copy. Stark wired the API. Batman tested every link. Kenobi checked every door. Picard approved the architecture. Kusanagi deployed it. Coulson tagged the release. Bombadil made sure VoidForge stayed sharp the whole time. Chani watched from the desert.
 > Built by Thomas McLeod. Forged by 260+ AI agents across 9 fictional universes.
 
-> **📋 Document Status (March 2026):** This PRD was written in March 2024 and describes VoidForge.build at its original launch scope. The site has since grown from 97 planned pages to 140+ actual pages, from 8 to 9 universes (Foundation added in v16.0.0), from 17 to 18 lead agents (Hari Seldon), from 24 to 26 commands (/deploy, /ai), and from 20 to 35 code patterns. Growth & Operations tools (Cultivation, Treasury, Grow, Danger Room) were added beyond original scope and are marked as **Forge Labs** (experimental). Tutorial section expanded from 3 to 15 pages. Current live stats are always at [/prophecy](https://voidforge.build/prophecy). Key counts below have been updated to reflect March 2026 reality.
+> **📋 Document Status (March 2026, updated 2026-03-30):** This PRD was written in March 2024 and describes VoidForge.build at its original launch scope. The site has since grown from 97 planned pages to 131 generated pages (28 route templates), from 8 to 9 universes (Foundation added in v16.0.0), from 17 to 18 lead agents (Hari Seldon), from 24 to 27 commands (/deploy, /ai, /vault), and from 20 to 40 code patterns. Growth & Operations tools (Cultivation, Treasury, Grow, Danger Room) were added beyond original scope and are marked as **Forge Labs** (experimental). Tutorial section expanded from 3 to 15 pages. Content architecture diverged from original MDX plan — content lives in `src/data/*.ts` TypeScript data files and page component JSX, not a `content/` MDX directory. Deployment is via Vercel CLI (`npx vercel --prod`), not Git-integrated auto-deploy. Current live stats are always at [/prophecy](https://voidforge.build/prophecy). Key counts below have been updated to reflect March 2026 reality.
 
 ---
 
@@ -127,30 +127,38 @@ This is a static site. There are no backend services. All content is compiled at
 ```json
 {
   "dependencies": {
+    "@mdx-js/react": "^3.0.0",
+    "@next/mdx": "^15.0.0",
+    "@shikijs/rehype": "^3.0.0",
+    "clsx": "^2.0.0",
+    "framer-motion": "^11.0.0",
+    "fuse.js": "^7.1.0",
+    "lucide-react": "^0.400.0",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "framer-motion": "^11.0.0",
-    "lucide-react": "^0.400.0",
-    "@next/mdx": "^15.0.0",
-    "@mdx-js/react": "^3.0.0",
-    "remark-gfm": "^4.0.0",
-    "rehype-slug": "^6.0.0",
     "rehype-autolink-headings": "^7.0.0",
-    "@shikijs/rehype": "^1.0.0",
-    "shiki": "^1.0.0",
-    "fuse.js": "^7.1.0",
-    "clsx": "^2.0.0",
-    "tailwind-merge": "^2.0.0"
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.0",
+    "shiki": "^3.0.0",
+    "tailwind-merge": "^3.0.0"
   },
   "devDependencies": {
-    "tailwindcss": "^4.0.0",
-    "@tailwindcss/typography": "^0.5.0",
-    "typescript": "^5.5.0",
-    "@types/react": "^19.0.0",
+    "@eslint/eslintrc": "^3.0.0",
+    "@tailwindcss/postcss": "^4.2.1",
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/react": "^16.0.0",
+    "@types/mdx": "^2.0.0",
     "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
     "eslint": "^9.0.0",
-    "eslint-config-next": "^15.0.0"
+    "eslint-config-next": "^15.0.0",
+    "jsdom": "^26.0.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^3.0.0"
   }
 }
 ```
@@ -409,40 +417,38 @@ Not applicable. This is a public static site with no user accounts, no login, an
 
 Not applicable. No database. All content is compiled from markdown/MDX source files at build time.
 
+**Note (2026-03-30):** The original plan specified a `content/` directory with MDX files. During implementation, the architecture evolved to use TypeScript data files (`src/data/*.ts`) and inline JSX in page components (`src/app/*/page.tsx`). This provides type safety, computed statistics, and `generateStaticParams()` integration that MDX files alone would not support.
+
 Content source files are organized as:
 
 ```
-content/
-├── tutorial/
-│   ├── index.mdx              ← /tutorial hub
-│   ├── install.mdx            ← /tutorial/install
-│   ├── first-build.mdx        ← /tutorial/first-build
-│   └── deploy.mdx             ← /tutorial/deploy
-├── protocol/
-│   ├── index.mdx              ← /protocol hub
-│   └── phases/
-│       ├── orient.mdx         ← /protocol/orient
-│       ├── scaffold.mdx       ← /protocol/scaffold
-│       └── ... (13 phase files)
-├── agents/
-│   ├── index.mdx              ← /agents hub (The Council)
-│   ├── leads/
-│   │   ├── galadriel.mdx      ← /agents/galadriel
-│   │   └── ... (18 lead files)
-│   └── universes/
-│       ├── tolkien.mdx        ← /agents/tolkien
-│       └── ... (9 universe files)
-├── commands/
-│   ├── index.mdx              ← /commands hub
-│   └── build.mdx, qa.mdx, ... (26 command files)
-├── patterns/
-│   ├── index.mdx              ← /patterns hub
-│   └── api-route.mdx, ... (35 pattern files)
-├── prophecy.mdx               ← /prophecy
-└── about.mdx                  ← /about
+src/data/
+├── agents.ts          ← 18 lead agents + sub-agents, universe mapping
+├── commands.ts        ← 27 slash commands with arguments and usage
+├── patterns.ts        ← 40 code patterns with framework tabs
+├── protocol.ts        ← 14 build phases (0-13) with gates
+├── releases.ts        ← Version history for /prophecy
+├── search-index.ts    ← Site-wide search entries
+└── stats.ts           ← Computed counts (auto-derived from data arrays)
+
+src/app/
+├── page.tsx                    ← Landing page (hero, comic strip, features)
+├── tutorial/page.tsx           ← Tutorial hub (15 tutorial pages)
+├── protocol/page.tsx           ← Protocol hub
+├── protocol/[slug]/page.tsx    ← 14 phase detail pages
+├── agents/page.tsx             ← Agent directory (The Council)
+├── agents/[slug]/page.tsx      ← 18 leads + 9 universes = 27 pages
+├── commands/page.tsx           ← Command reference hub
+├── commands/[slug]/page.tsx    ← 27 command pages
+├── patterns/page.tsx           ← Pattern gallery hub
+├── patterns/[slug]/page.tsx    ← 40 pattern pages
+├── prophecy/page.tsx           ← Roadmap
+├── about/page.tsx              ← Creator story
+├── forge-labs/page.tsx         ← Experimental growth tools
+└── github/page.tsx             ← Redirect to GitHub repo
 ```
 
-Total content files: ~140 pages (18 leads + 9 universes + 14 phases + 26 commands + 35 patterns + 15 tutorial + 10 other). Originally 97 at launch; expanded through campaigns v1-v3.
+Total generated pages: 131 (from 28 route templates). Originally 97 planned; expanded through campaigns v1-v4.
 
 ---
 
@@ -625,12 +631,13 @@ Specific voice rules:
 **Vercel** — Free tier for static sites.
 
 **Setup:**
-1. Connect GitHub repo (tmcleod3/voidforge-site) to Vercel
+1. Vercel CLI deploy (`npx vercel --prod`) — NOT Git-integrated auto-deploy
 2. Framework preset: Next.js
 3. Build command: `next build` (output: static export)
 4. Output directory: `out/`
 5. Node.js version: 20.x
 6. Install command: `npm ci`
+7. Vercel Project: `voidforge-marketing-site` (prj_ozWJal9XKeK2JZSCecLKhsMYPU0g)
 
 ### Process Management
 

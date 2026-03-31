@@ -1,5 +1,37 @@
 # ROADMAP — VoidForge Marketing Site
 
+## v5 — The Reality Check (IN PROGRESS — 2026-03-30)
+
+Sync with VoidForge v19.3.0, apply assessment findings, fix data gaps, harden a11y, expand tests. Source: Picard's `/assess` pass (6 agents, 9 root causes, ~80 findings).
+
+| Mission | Name | Status | Scope |
+|---------|------|--------|-------|
+| 1 | The Void Sync | PENDING | Sync 19 methodology files from VoidForge v19.3.0, commit sync |
+| 2 | The New Patterns | PENDING | Add 5 new patterns (ad-billing-adapter, funding-plan, stablecoin-adapter, browser-review, e2e-test) to patterns.ts + search index. Update stats to 40 patterns. |
+| 3 | The Data Fix | PENDING | Add 7 missing universes to search-index.ts. Fix "13-phase" → "14-phase" descriptions in commands.ts. Fix phase count in search-index.ts. |
+| 4 | The Dead Code Sweep | PENDING | Remove 3 unused variables (UniverseRoster, minorKey, phasesActive). Add `"prebuild": "rm -rf .next"` to package.json. |
+| 5 | The Accessibility Pass | PENDING | Fix focus management in sub-agent-grid spotlight. Increase --vf-text-muted contrast. Add focus-visible outlines to feature card links. Add width/height to comic-strip images. |
+| 6 | The Test Expansion | PENDING | Add data integrity tests (all slugs resolve), search index completeness test, dynamic route tests, component tests. Target: 25+ tests. |
+| 7 | The Chronicle | PENDING | Update prophecy/releases with v5 entry. Final PRD count sync. Commit everything. |
+
+### Dependencies
+
+```
+Mission 1 ─────────────────────────────── (independent — void sync)
+Mission 2 ──── depends on ──── Mission 1 (new patterns need synced methodology)
+Mission 3 ─────────────────────────────── (independent — data fixes)
+Mission 4 ─────────────────────────────── (independent — cleanup)
+Mission 5 ─────────────────────────────── (independent — a11y)
+Mission 6 ──── depends on ──── Missions 2-5 (tests validate all changes)
+Mission 7 ──── depends on ──── Missions 1-6 (chronicles completed work)
+```
+
+### Source
+
+Picard's Pre-Build Assessment (`/assess`) with 6 parallel agents: Spock (data), Uhura (integrations), Batman (QA), Galadriel (UX/a11y), Kenobi (security), Kusanagi (infra). Findings grouped into 9 root causes. VoidForge void sync from v19.2.0 to v19.3.0 (19 files, 78 insertions).
+
+---
+
 ## v4 — The Alignment (COMPLETE — 2026-03-26)
 
 Sync with VoidForge v19.0.0, fix content accuracy, eliminate stale-count bugs, mark growth tools as experimental.
