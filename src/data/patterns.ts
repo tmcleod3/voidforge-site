@@ -1702,51 +1702,503 @@ end`,
     slug: "e2e-test",
     name: "e2e-test.ts",
     title: "E2E Test",
-    description: "Playwright E2E + axe-core a11y, Page Object Model.",
-    teaches: "How to write E2E tests with Playwright: Page Object Model for organization, axe-core a11y scanning as default fixture (every page gets a free a11y check), deterministic state with clean temp dirs, network mocking, auth helpers, and Core Web Vitals measurement.",
-    whenToUse: "Any web application that needs browser-level testing — login flows, multi-page journeys, a11y compliance, visual regression.",
+    description: "Playwright E2E + axe-core a11y: page objects, auth helpers, network mocks, CWV measurement.",
+    teaches: "How to write E2E tests with Playwright: Page Object Model for organization, axe-core a11y scanning as default fixture (every page gets a free a11y check), deterministic state with clean temp dirs, auth helpers for login flows, network mocking for API isolation, and Core Web Vitals measurement via PerformanceObserver.",
+    whenToUse: "Any web application that needs browser-level testing -- login flows, multi-page journeys, a11y compliance, visual regression.",
     preview: `test('homepage loads and is accessible', async ({ page }) => {\n  await page.goto('/');\n  await expect(page.getByRole('heading')).toBeVisible();\n  const results = await new AxeBuilder({ page }).analyze();\n  expect(results.violations).toHaveLength(0);\n});`,
-    frameworks: [{ framework: "typescript", label: "TypeScript", language: "TypeScript", code: `import { test, expect } from '@playwright/test';\nimport AxeBuilder from '@axe-core/playwright';\n\nclass HomePage {\n  constructor(private page: Page) {}\n\n  async goto() {\n    await this.page.goto('/');\n  }\n\n  get heading() {\n    return this.page.getByRole('heading', { level: 1 });\n  }\n}\n\ntest('homepage loads', async ({ page }) => {\n  const home = new HomePage(page);\n  await home.goto();\n  await expect(home.heading).toBeVisible();\n});\n\ntest('homepage is accessible', async ({ page }) => {\n  await page.goto('/');\n  const results = await new AxeBuilder({ page }).analyze();\n  expect(results.violations).toHaveLength(0);\n});` }],
+    frameworks: [
+      { framework: "playwright", label: "TypeScript / Playwright", language: "TypeScript", code: `import { test, expect, type Page } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+// Page Object Model
+class DashboardPage {
+  constructor(private page: Page) {}
+
+  async goto() {
+    await this.page.goto('/dashboard');
+  }
+  get heading() {
+    return this.page.getByRole('heading', { name: /dashboard/i });
+  }
+  get projectList() {
+    return this.page.getByRole('list', { name: /projects/i });
+  }
+}
+
+// Auth helper — reusable login fixture
+async function loginAs(page: Page, email: string, password: string) {
+  await page.goto('/login');
+  await page.getByLabel('Email').fill(email);
+  await page.getByLabel('Password').fill(password);
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await page.waitForURL('/dashboard');
+}
+
+// Network mock — isolate from real API
+test('dashboard shows projects', async ({ page }) => {
+  await page.route('**/api/projects', (route) =>
+    route.fulfill({
+      json: [{ id: '1', name: 'Acme' }, { id: '2', name: 'Beta' }],
+    })
+  );
+  await loginAs(page, 'test@example.com', 'password');
+  const dash = new DashboardPage(page);
+  await dash.goto();
+  await expect(dash.projectList.getByRole('listitem')).toHaveCount(2);
+});
+
+// a11y audit — every page gets a free check
+test('dashboard is accessible', async ({ page }) => {
+  await page.goto('/dashboard');
+  const results = await new AxeBuilder({ page }).analyze();
+  expect(results.violations).toHaveLength(0);
+});` },
+      { framework: "pytest", label: "Python / pytest", language: "Python", code: `import pytest
+from playwright.sync_api import Page, expect
+
+class DashboardPage:
+    """Page Object for the dashboard."""
+    def __init__(self, page: Page):
+        self.page = page
+
+    def goto(self):
+        self.page.goto("/dashboard")
+
+    @property
+    def heading(self):
+        return self.page.get_by_role("heading", name="Dashboard")
+
+    @property
+    def project_items(self):
+        return self.page.get_by_role("list", name="Projects").get_by_role("listitem")
+
+
+def login_as(page: Page, email: str, password: str):
+    page.goto("/login")
+    page.get_by_label("Email").fill(email)
+    page.get_by_label("Password").fill(password)
+    page.get_by_role("button", name="Sign in").click()
+    page.wait_for_url("/dashboard")
+
+
+def test_dashboard_shows_projects(page: Page):
+    page.route("**/api/projects", lambda route: route.fulfill(
+        json=[{"id": "1", "name": "Acme"}, {"id": "2", "name": "Beta"}]
+    ))
+    login_as(page, "test@example.com", "password")
+    dash = DashboardPage(page)
+    dash.goto()
+    expect(dash.project_items).to_have_count(2)
+
+
+def test_dashboard_is_accessible(page: Page):
+    from axe_playwright_python.sync_playwright import Axe
+    page.goto("/dashboard")
+    results = Axe().run(page)
+    assert len(results.violations) == 0` },
+    ],
   },
   {
     slug: "browser-review",
     name: "browser-review.ts",
     title: "Browser Review",
-    description: "Browser-based agent review: console capture, behavioral walkthroughs, security inspection.",
-    teaches: "How to give review agents browser eyes during /qa, /ux, /security, and /gauntlet passes. Captures console errors, performs behavioral walkthroughs (click flows, form submissions), and inspects security headers — all as evidence for triage, not deterministic tests.",
+    description: "Browser intelligence: console errors, behavioral walkthroughs, a11y audit, visual inspection.",
+    teaches: "How to give review agents browser eyes during /qa, /ux, /security, and /gauntlet passes. Captures console errors, performs behavioral walkthroughs (click flows, form submissions), runs axe-core a11y audits, inspects security headers, and screenshots every page -- all as evidence for triage, not deterministic tests.",
     whenToUse: "Any /qa, /ux, /security, or /gauntlet review pass where the app has a running browser interface. Complements e2e-test.ts (which is for CI).",
     preview: `async function browserReview(page: Page) {\n  const errors: string[] = [];\n  page.on('console', m => {\n    if (m.type() === 'error') errors.push(m.text());\n  });\n  await page.goto('/');\n  return { errors, screenshot: await page.screenshot() };\n}`,
-    frameworks: [{ framework: "typescript", label: "TypeScript", language: "TypeScript", code: `import { chromium, Page } from 'playwright';\n\nasync function browserReview(url: string) {\n  const browser = await chromium.launch();\n  const page = await browser.newPage();\n  const errors: string[] = [];\n\n  page.on('console', (msg) => {\n    if (msg.type() === 'error') errors.push(msg.text());\n  });\n\n  await page.goto(url);\n  const screenshot = await page.screenshot({ fullPage: true });\n\n  // Check security headers\n  const response = await page.goto(url);\n  const headers = response?.headers() ?? {};\n  const security = {\n    csp: !!headers['content-security-policy'],\n    hsts: !!headers['strict-transport-security'],\n    xFrame: !!headers['x-frame-options'],\n  };\n\n  await browser.close();\n  return { errors, screenshot, security };\n}` }],
+    frameworks: [
+      { framework: "playwright", label: "TypeScript / Playwright", language: "TypeScript", code: `import { chromium, type Page } from 'playwright';
+import AxeBuilder from '@axe-core/playwright';
+
+interface ReviewReport {
+  url: string;
+  consoleErrors: string[];
+  a11yViolations: { id: string; impact: string; nodes: number }[];
+  securityHeaders: Record<string, boolean>;
+  screenshot: Buffer;
+}
+
+async function browserReview(url: string): Promise<ReviewReport> {
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  const consoleErrors: string[] = [];
+
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') consoleErrors.push(msg.text());
+  });
+
+  const response = await page.goto(url, { waitUntil: 'networkidle' });
+  const headers = response?.headers() ?? {};
+
+  // a11y audit via axe-core
+  const axe = await new AxeBuilder({ page }).analyze();
+  const a11yViolations = axe.violations.map((v) => ({
+    id: v.id,
+    impact: v.impact ?? 'unknown',
+    nodes: v.nodes.length,
+  }));
+
+  // Security header inspection
+  const securityHeaders = {
+    csp: !!headers['content-security-policy'],
+    hsts: !!headers['strict-transport-security'],
+    xFrame: !!headers['x-frame-options'],
+    xContent: !!headers['x-content-type-options'],
+  };
+
+  const screenshot = await page.screenshot({ fullPage: true });
+  await browser.close();
+
+  return { url, consoleErrors, a11yViolations, securityHeaders, screenshot };
+}` },
+      { framework: "selenium", label: "Python / Selenium", language: "Python", code: `from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from axe_selenium_python import Axe
+from dataclasses import dataclass, field
+
+@dataclass
+class ReviewReport:
+    url: str
+    console_errors: list[str] = field(default_factory=list)
+    a11y_violations: list[dict] = field(default_factory=list)
+    security_headers: dict[str, bool] = field(default_factory=dict)
+    screenshot_path: str = ""
+
+def browser_review(url: str, output_dir: str = "/tmp") -> ReviewReport:
+    opts = Options()
+    opts.add_argument("--headless=new")
+    driver = webdriver.Chrome(options=opts)
+
+    try:
+        driver.get(url)
+
+        # Console errors via browser logs
+        logs = driver.get_log("browser")
+        errors = [e["message"] for e in logs if e["level"] == "SEVERE"]
+
+        # a11y audit via axe-core
+        axe = Axe(driver)
+        axe.inject()
+        results = axe.run()
+        violations = [
+            {"id": v["id"], "impact": v["impact"], "nodes": len(v["nodes"])}
+            for v in results["violations"]
+        ]
+
+        # Screenshot
+        path = f"{output_dir}/review_{url.replace('/', '_')}.png"
+        driver.save_screenshot(path)
+
+        return ReviewReport(
+            url=url,
+            console_errors=errors,
+            a11y_violations=violations,
+            screenshot_path=path,
+        )
+    finally:
+        driver.quit()` },
+    ],
   },
   {
     slug: "stablecoin-adapter",
     name: "stablecoin-adapter.ts",
     title: "Stablecoin Adapter",
-    description: "Off-ramp lifecycle, balance reads, transfer tracking with Circle reference implementation.",
-    teaches: "How to build a stablecoin treasury adapter: read wallet balances, initiate off-ramps (USDC → fiat), track transfer lifecycle through pending/settled/failed states, and integrate with Circle's Business Account API.",
+    description: "Stablecoin off-ramp: Circle USDC adapter, transfer lifecycle, settlement.",
+    teaches: "How to build a stablecoin treasury adapter: read wallet balances, initiate off-ramps (USDC to fiat), track transfer lifecycle through pending/settled/failed states, poll for settlement confirmation, and integrate with Circle's Business Account API as a reference implementation.",
     whenToUse: "When your treasury uses stablecoin funding and needs to convert crypto to fiat for operational expenses like ad spend or vendor payments.",
     preview: `interface StablecoinAdapter {\n  getBalance(): Promise<BalanceCents>;\n  initiateOfframp(amount: Cents): Promise<Transfer>;\n  getTransferStatus(id: string): Promise<TransferState>;\n}`,
-    frameworks: [{ framework: "typescript", label: "TypeScript", language: "TypeScript", code: `// Circle Business Account adapter\nimport { Cents, TransferState } from './types';\n\ninterface StablecoinAdapter {\n  getBalance(): Promise<Cents>;\n  initiateOfframp(amountCents: Cents, destination: string): Promise<{ transferId: string }>;\n  getTransferStatus(transferId: string): Promise<TransferState>;\n}\n\n// States: PENDING_APPROVAL → PENDING_SETTLEMENT → SETTLED | FAILED` }],
+    frameworks: [
+      { framework: "typescript", label: "TypeScript", language: "TypeScript", code: `type Cents = number & { readonly __brand: 'Cents' };
+
+type TransferState =
+  | 'PENDING_APPROVAL'
+  | 'PENDING_SETTLEMENT'
+  | 'SETTLED'
+  | 'FAILED';
+
+interface Transfer {
+  id: string;
+  amountCents: Cents;
+  state: TransferState;
+  destinationBankId: string;
+  createdAt: string;
+  settledAt?: string;
+}
+
+interface StablecoinAdapter {
+  getBalance(): Promise<Cents>;
+  initiateOfframp(amountCents: Cents, destBankId: string): Promise<Transfer>;
+  getTransferStatus(transferId: string): Promise<TransferState>;
+  pollUntilSettled(transferId: string, intervalMs?: number): Promise<Transfer>;
+}
+
+class CircleUSDCAdapter implements StablecoinAdapter {
+  constructor(private apiKey: string, private baseUrl: string) {}
+
+  async getBalance(): Promise<Cents> {
+    const resp = await fetch(\`\${this.baseUrl}/v1/businessAccount/balances\`, {
+      headers: { Authorization: \`Bearer \${this.apiKey}\` },
+    });
+    const data = await resp.json();
+    const usdc = data.data.available.find((b: { currency: string }) => b.currency === 'USD');
+    return Math.round(parseFloat(usdc?.amount ?? '0') * 100) as Cents;
+  }
+
+  async pollUntilSettled(transferId: string, intervalMs = 30_000): Promise<Transfer> {
+    for (let i = 0; i < 100; i++) {
+      const state = await this.getTransferStatus(transferId);
+      if (state === 'SETTLED' || state === 'FAILED') {
+        return this.getTransfer(transferId);
+      }
+      await new Promise((r) => setTimeout(r, intervalMs));
+    }
+    throw new Error(\`Transfer \${transferId} did not settle within timeout\`);
+  }
+}` },
+      { framework: "fastapi", label: "Python / FastAPI", language: "Python", code: `from enum import Enum
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from typing import NewType
+import httpx, asyncio
+
+Cents = NewType("Cents", int)
+
+class TransferState(str, Enum):
+    PENDING_APPROVAL = "PENDING_APPROVAL"
+    PENDING_SETTLEMENT = "PENDING_SETTLEMENT"
+    SETTLED = "SETTLED"
+    FAILED = "FAILED"
+
+@dataclass(frozen=True)
+class Transfer:
+    id: str
+    amount_cents: Cents
+    state: TransferState
+    destination_bank_id: str
+
+class StablecoinAdapter(ABC):
+    @abstractmethod
+    async def get_balance(self) -> Cents: ...
+    @abstractmethod
+    async def initiate_offramp(self, amount: Cents, dest: str) -> Transfer: ...
+    @abstractmethod
+    async def get_transfer_status(self, tid: str) -> TransferState: ...
+
+class CircleUSDCAdapter(StablecoinAdapter):
+    def __init__(self, api_key: str, base_url: str):
+        self._client = httpx.AsyncClient(
+            base_url=base_url,
+            headers={"Authorization": f"Bearer {api_key}"},
+        )
+
+    async def get_balance(self) -> Cents:
+        resp = await self._client.get("/v1/businessAccount/balances")
+        data = resp.json()["data"]["available"]
+        usdc = next((b for b in data if b["currency"] == "USD"), None)
+        return Cents(round(float(usdc["amount"]) * 100)) if usdc else Cents(0)
+
+    async def poll_until_settled(
+        self, tid: str, interval: float = 30.0, max_attempts: int = 100
+    ) -> Transfer:
+        for _ in range(max_attempts):
+            state = await self.get_transfer_status(tid)
+            if state in (TransferState.SETTLED, TransferState.FAILED):
+                return await self._get_transfer(tid)
+            await asyncio.sleep(interval)
+        raise TimeoutError(f"Transfer {tid} did not settle")` },
+    ],
   },
   {
     slug: "ad-billing-adapter",
     name: "ad-billing-adapter.ts",
     title: "Ad Billing Adapter",
-    description: "Billing capability classification, invoice reads, settlement instructions for ad platforms.",
-    teaches: "How to classify ad platform billing capabilities (FULLY_FUNDABLE vs MONITORED_ONLY vs UNSUPPORTED), read invoices and billing state from Google Ads and Meta Ads, and generate settlement instructions for treasury integration.",
+    description: "Ad platform billing: invoice reads, debit tracking, spend projection.",
+    teaches: "How to classify ad platform billing capabilities (FULLY_FUNDABLE vs MONITORED_ONLY vs UNSUPPORTED), read invoices and billing state from Google Ads and Meta Ads, track debit events in real time, project future spend from historical burn rate, and generate settlement instructions for treasury integration.",
     whenToUse: "When connecting ad platforms to a treasury system and you need to understand each platform's billing rail capabilities before automating funding.",
     preview: `type BillingCapability =\n  | 'FULLY_FUNDABLE'\n  | 'MONITORED_ONLY'\n  | 'UNSUPPORTED';\n\ninterface AdBillingAdapter {\n  classifyBilling(): Promise<BillingCapability>;\n  getInvoices(): Promise<Invoice[]>;\n}`,
-    frameworks: [{ framework: "typescript", label: "TypeScript", language: "TypeScript", code: `type BillingCapability = 'FULLY_FUNDABLE' | 'MONITORED_ONLY' | 'UNSUPPORTED';\n\ninterface AdBillingAdapter {\n  classifyBilling(): Promise<BillingCapability>;\n  getOutstandingInvoices(): Promise<Invoice[]>;\n  getSettlementInstructions(invoiceId: string): Promise<SettlementInstruction>;\n}\n\n// Google Ads: monthly invoicing → FULLY_FUNDABLE\n// Meta Ads: direct debit/extended credit → FULLY_FUNDABLE\n// Others: MONITORED_ONLY (campaign ops, no billing automation)` }],
+    frameworks: [
+      { framework: "typescript", label: "TypeScript", language: "TypeScript", code: `type BillingCapability = 'FULLY_FUNDABLE' | 'MONITORED_ONLY' | 'UNSUPPORTED';
+type Cents = number & { readonly __brand: 'Cents' };
+
+interface Invoice {
+  id: string;
+  platformId: string;
+  amountCents: Cents;
+  dueDate: string;
+  status: 'OPEN' | 'PAID' | 'OVERDUE';
+}
+
+interface AdBillingAdapter {
+  classifyBilling(): Promise<BillingCapability>;
+  getOutstandingInvoices(): Promise<Invoice[]>;
+  getRecentDebits(since: Date): Promise<Cents>;
+  projectSpend(days: number): Promise<Cents>;
+  getSettlementInstructions(invoiceId: string): Promise<SettlementInstruction>;
+}
+
+class GoogleAdsBilling implements AdBillingAdapter {
+  async classifyBilling() { return 'FULLY_FUNDABLE' as const; }
+
+  async getOutstandingInvoices(): Promise<Invoice[]> {
+    const resp = await this.client.customers.invoices.list({
+      customerId: this.accountId,
+      issueStatus: 'OPEN',
+    });
+    return resp.invoices.map((inv) => ({
+      id: inv.resourceName,
+      platformId: 'google-ads',
+      amountCents: toCents(inv.totalAmountMicros / 1_000_000) as Cents,
+      dueDate: inv.dueDate,
+      status: 'OPEN',
+    }));
+  }
+
+  async projectSpend(days: number): Promise<Cents> {
+    const recent = await this.getRecentDebits(daysAgo(30));
+    const dailyBurn = (recent / 30) as Cents;
+    return (dailyBurn * days) as Cents;
+  }
+}` },
+      { framework: "fastapi", label: "Python / FastAPI", language: "Python", code: `from enum import Enum
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from datetime import date, timedelta
+
+class BillingCapability(str, Enum):
+    FULLY_FUNDABLE = "FULLY_FUNDABLE"
+    MONITORED_ONLY = "MONITORED_ONLY"
+    UNSUPPORTED = "UNSUPPORTED"
+
+@dataclass(frozen=True)
+class Invoice:
+    id: str
+    platform_id: str
+    amount_cents: int
+    due_date: date
+    status: str  # OPEN | PAID | OVERDUE
+
+class AdBillingAdapter(ABC):
+    @abstractmethod
+    async def classify_billing(self) -> BillingCapability: ...
+    @abstractmethod
+    async def get_outstanding_invoices(self) -> list[Invoice]: ...
+    @abstractmethod
+    async def get_recent_debits(self, since: date) -> int: ...
+    @abstractmethod
+    async def project_spend(self, days: int) -> int: ...
+
+class MetaAdsBilling(AdBillingAdapter):
+    async def classify_billing(self) -> BillingCapability:
+        return BillingCapability.FULLY_FUNDABLE
+
+    async def project_spend(self, days: int) -> int:
+        debits = await self.get_recent_debits(
+            date.today() - timedelta(days=30)
+        )
+        daily_burn = debits // 30
+        return daily_burn * days` },
+    ],
   },
   {
     slug: "funding-plan",
     name: "funding-plan.ts",
     title: "Funding Plan",
-    description: "Branded Cents type, FundingPlan FSM, runway calculation, reconciliation matching.",
-    teaches: "How to model financial plans as a finite state machine: DRAFT → APPROVED → EXECUTING → SETTLED, with branded currency types (Cents), runway forecasting, and 3-way reconciliation matching across provider transfers, bank settlements, and platform spend.",
+    description: "Treasury funding pipeline: state machine, policy engine, rebalancing.",
+    teaches: "How to model financial plans as a finite state machine: DRAFT → APPROVED → EXECUTING → SETTLED, with branded currency types (Cents), a policy engine that enforces approval thresholds and cooling periods, runway forecasting, automatic rebalancing triggers, and 3-way reconciliation matching across provider transfers, bank settlements, and platform spend.",
     whenToUse: "When building a treasury planner that needs to track funding lifecycle from off-ramp initiation through bank settlement and platform spend reconciliation.",
     preview: `type FundingPlanState =\n  | 'DRAFT' | 'APPROVED'\n  | 'EXECUTING' | 'SETTLED' | 'FAILED';\n\ninterface FundingPlan {\n  id: string;\n  state: FundingPlanState;\n  amountCents: Cents;\n  reason: string;\n}`,
-    frameworks: [{ framework: "typescript", label: "TypeScript", language: "TypeScript", code: `// Branded Cents type for financial safety\ntype Cents = number & { readonly __brand: 'Cents' };\n\ntype FundingPlanState = 'DRAFT' | 'APPROVED' | 'EXECUTING' | 'PENDING_SETTLEMENT' | 'SETTLED' | 'FAILED';\n\ninterface FundingPlan {\n  id: string;\n  state: FundingPlanState;\n  amountCents: Cents;\n  reason: string;\n  sourceProvider: string;\n  destinationBank: string;\n  createdAt: string;\n  settledAt?: string;\n}\n\n// Reconciliation matches:\n// provider transfer + bank transaction + platform spend/invoice` }],
+    frameworks: [
+      { framework: "typescript", label: "TypeScript", language: "TypeScript", code: `type Cents = number & { readonly __brand: 'Cents' };
+
+type FundingPlanState =
+  | 'DRAFT' | 'APPROVED' | 'EXECUTING'
+  | 'PENDING_SETTLEMENT' | 'SETTLED' | 'FAILED';
+
+interface FundingPlan {
+  id: string;
+  state: FundingPlanState;
+  amountCents: Cents;
+  reason: string;
+  sourceProvider: string;
+  destinationBank: string;
+  createdAt: string;
+  settledAt?: string;
+}
+
+interface FundingPolicy {
+  maxAutoApprovalCents: Cents;
+  coolingPeriodMs: number;
+  requiresDualApproval: (amount: Cents) => boolean;
+}
+
+const VALID_TRANSITIONS: Record<FundingPlanState, FundingPlanState[]> = {
+  DRAFT: ['APPROVED', 'FAILED'],
+  APPROVED: ['EXECUTING', 'FAILED'],
+  EXECUTING: ['PENDING_SETTLEMENT', 'FAILED'],
+  PENDING_SETTLEMENT: ['SETTLED', 'FAILED'],
+  SETTLED: [],
+  FAILED: ['DRAFT'],
+};
+
+function transition(plan: FundingPlan, next: FundingPlanState): FundingPlan {
+  if (!VALID_TRANSITIONS[plan.state].includes(next)) {
+    throw new Error(\`Invalid: \${plan.state} → \${next}\`);
+  }
+  return { ...plan, state: next };
+}
+
+function shouldRebalance(
+  runway: Cents, threshold: Cents, policy: FundingPolicy
+): boolean {
+  return runway < threshold;
+}` },
+      { framework: "fastapi", label: "Python / FastAPI", language: "Python", code: `from enum import Enum
+from dataclasses import dataclass, field
+from datetime import datetime
+from typing import NewType
+
+Cents = NewType("Cents", int)
+
+class PlanState(str, Enum):
+    DRAFT = "DRAFT"
+    APPROVED = "APPROVED"
+    EXECUTING = "EXECUTING"
+    PENDING_SETTLEMENT = "PENDING_SETTLEMENT"
+    SETTLED = "SETTLED"
+    FAILED = "FAILED"
+
+VALID_TRANSITIONS: dict[PlanState, list[PlanState]] = {
+    PlanState.DRAFT: [PlanState.APPROVED, PlanState.FAILED],
+    PlanState.APPROVED: [PlanState.EXECUTING, PlanState.FAILED],
+    PlanState.EXECUTING: [PlanState.PENDING_SETTLEMENT, PlanState.FAILED],
+    PlanState.PENDING_SETTLEMENT: [PlanState.SETTLED, PlanState.FAILED],
+    PlanState.SETTLED: [],
+    PlanState.FAILED: [PlanState.DRAFT],
+}
+
+@dataclass
+class FundingPlan:
+    id: str
+    state: PlanState
+    amount_cents: Cents
+    reason: str
+    source_provider: str
+    destination_bank: str
+    created_at: datetime = field(default_factory=datetime.utcnow)
+
+    def transition(self, next_state: PlanState) -> None:
+        if next_state not in VALID_TRANSITIONS[self.state]:
+            raise ValueError(f"Invalid: {self.state} → {next_state}")
+        self.state = next_state
+
+@dataclass
+class FundingPolicy:
+    max_auto_approval: Cents
+    cooling_period_seconds: int
+
+    def needs_manual_approval(self, amount: Cents) -> bool:
+        return amount > self.max_auto_approval` },
+    ],
   },
 ];
 

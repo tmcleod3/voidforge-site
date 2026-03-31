@@ -28,7 +28,7 @@ export const commands: Command[] = [
     name: "/build",
     lead: "All agents",
     description:
-      "Execute the full 13-phase build protocol from PRD to production.",
+      "Execute the full 14-phase build protocol from PRD to production.",
     usage: "/build",
     whatHappens: [
       "Picard reads and validates the PRD frontmatter",
@@ -231,7 +231,7 @@ export const commands: Command[] = [
     whatHappens: [
       "Fury assembles all agents into a single devastating pipeline",
       "Picard runs architecture review first",
-      "Full /build protocol executes (13 phases)",
+      "Full /build protocol executes (14 phases)",
       "Triple code review pass (Picard × 3)",
       "Galadriel's UX/a11y audit",
       "Double security audit (Kenobi × 2)",

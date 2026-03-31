@@ -9,12 +9,12 @@ export const searchIndex: SearchEntry[] = [
   // Tutorial
   { title: "Tutorial", description: "Step-by-step guide to using VoidForge", path: "/tutorial", category: "Learn" },
   { title: "Install", description: "Install VoidForge: prerequisites, three tiers, and troubleshooting", path: "/tutorial/install", category: "Learn" },
-  { title: "First Build", description: "Write your first PRD, run /build, and watch the 13-phase protocol", path: "/tutorial/first-build", category: "Learn" },
+  { title: "First Build", description: "Write your first PRD, run /build, and watch the 14-phase protocol", path: "/tutorial/first-build", category: "Learn" },
   { title: "Deploy", description: "Deploy your VoidForge app to any of 6 targets", path: "/tutorial/deploy", category: "Learn" },
   { title: "Forge Labs", description: "Experimental protocols for growth, revenue, intelligence, and operations. Assembly required.", path: "/forge-labs", category: "Learn" },
 
   // Protocol
-  { title: "Protocol", description: "The 13-phase build protocol explained phase-by-phase", path: "/protocol", category: "Protocol" },
+  { title: "Protocol", description: "The 14-phase build protocol explained phase-by-phase", path: "/protocol", category: "Protocol" },
   { title: "Orient", description: "Phase 0: Read the PRD, assess the project, create the plan", path: "/protocol/orient", category: "Protocol" },
   { title: "Scaffold", description: "Phase 1: Project setup, dependencies, configuration", path: "/protocol/scaffold", category: "Protocol" },
   { title: "Infrastructure", description: "Phase 2: Database, cache, queues, external services", path: "/protocol/infrastructure", category: "Protocol" },
@@ -50,12 +50,19 @@ export const searchIndex: SearchEntry[] = [
   { title: "Dockson", description: "Treasury and financial operations — Cosmere universe", path: "/agents/dockson", category: "Agents" },
   { title: "Tuvok", description: "Deep Current intelligence — Star Trek universe", path: "/agents/tuvok", category: "Agents" },
   { title: "Hari Seldon", description: "AI intelligence auditor — Foundation universe", path: "/agents/seldon", category: "Agents" },
+  { title: "Middle-earth Universe", description: "Frontend, UX, and forge agents: Galadriel, Bombadil, Celebrimbor, Elrond, Samwise, and more", path: "/agents/tolkien", category: "Agents" },
+  { title: "Marvel Universe", description: "Backend, release, pipeline, and review agents: Stark, Coulson, Fury, Thanos, Banner, and more", path: "/agents/marvel", category: "Agents" },
+  { title: "DC Universe", description: "QA and testing agents: Batman, Oracle, Red Hood, Nightwing, Deathstroke, and more", path: "/agents/dc", category: "Agents" },
+  { title: "Star Wars Universe", description: "Security and audit agents: Kenobi, Leia, Maul, Yoda, Ahsoka, and more", path: "/agents/star-wars", category: "Agents" },
+  { title: "Star Trek Universe", description: "Architecture, campaign, intelligence, and medic agents: Picard, Sisko, Bashir, Tuvok, Data, and more", path: "/agents/star-trek", category: "Agents" },
+  { title: "Dune Universe", description: "Communications and relay agents: Chani, Paul, Stilgar, Thufir Hawat, Duncan Idaho, and more", path: "/agents/dune", category: "Agents" },
+  { title: "Anime Universe", description: "DevOps and infrastructure agents: Kusanagi, Senku, Levi, Spike, Vegeta, and more", path: "/agents/anime", category: "Agents" },
   { title: "Cosmere Universe", description: "Growth and financial agents: Kelsier, Dockson, Vin, Navani, Steris, and more", path: "/agents/cosmere", category: "Agents" },
   { title: "Foundation Universe", description: "AI intelligence agents: Hari Seldon, Salvor Hardin, Gaal Dornick, The Mule, and more", path: "/agents/foundation", category: "Agents" },
 
   // Commands
   { title: "Commands", description: "All slash commands across 4 mission groups with usage and examples", path: "/commands", category: "Commands" },
-  { title: "/build", description: "Execute the full 13-phase build protocol", path: "/commands/build", category: "Commands" },
+  { title: "/build", description: "Execute the full 14-phase build protocol", path: "/commands/build", category: "Commands" },
   { title: "/qa", description: "Batman's full QA pass with double-pass verification", path: "/commands/qa", category: "Commands" },
   { title: "/test", description: "Batman's test-writing mode — coverage analysis and test architecture", path: "/commands/test", category: "Commands" },
   { title: "/security", description: "Kenobi's OWASP audit with red-team verification", path: "/commands/security", category: "Commands" },
@@ -115,11 +122,11 @@ export const searchIndex: SearchEntry[] = [
   { title: "Data Pipeline", description: "ETL pipeline: typed stages, checkpoint/resume, quality checks", path: "/patterns/data-pipeline", category: "Patterns" },
   { title: "Backtest Engine", description: "Walk-forward backtesting: no-lookahead, slippage, metrics", path: "/patterns/backtest-engine", category: "Patterns" },
   { title: "Execution Safety", description: "Trading execution: order validation, position limits, paper/live toggle", path: "/patterns/execution-safety", category: "Patterns" },
-  { title: "E2E Test", description: "Playwright E2E + axe-core a11y, Page Object Model, network mocking", path: "/patterns/e2e-test", category: "Patterns" },
-  { title: "Browser Review", description: "Browser-based agent review: console capture, walkthroughs, security inspection", path: "/patterns/browser-review", category: "Patterns" },
-  { title: "Stablecoin Adapter", description: "Off-ramp lifecycle, Circle reference implementation, settlement tracking", path: "/patterns/stablecoin-adapter", category: "Patterns" },
-  { title: "Ad Billing Adapter", description: "Billing capability classification, invoice/debit monitoring, 7-platform support", path: "/patterns/ad-billing-adapter", category: "Patterns" },
-  { title: "Funding Plan", description: "Branded Cents, FundingPlan FSM, policy engine, reconciliation", path: "/patterns/funding-plan", category: "Patterns" },
+  { title: "E2E Test", description: "Playwright E2E + axe-core a11y: page objects, auth helpers, network mocks, CWV measurement", path: "/patterns/e2e-test", category: "Patterns" },
+  { title: "Browser Review", description: "Browser intelligence: console errors, behavioral walkthroughs, a11y audit, visual inspection", path: "/patterns/browser-review", category: "Patterns" },
+  { title: "Stablecoin Adapter", description: "Stablecoin off-ramp: Circle USDC adapter, transfer lifecycle, settlement", path: "/patterns/stablecoin-adapter", category: "Patterns" },
+  { title: "Ad Billing Adapter", description: "Ad platform billing: invoice reads, debit tracking, spend projection", path: "/patterns/ad-billing-adapter", category: "Patterns" },
+  { title: "Funding Plan", description: "Treasury funding pipeline: state machine, policy engine, rebalancing", path: "/patterns/funding-plan", category: "Patterns" },
 
   // Tutorials
   { title: "The Wizard Path", description: "Start from nothing — Gandalf walks you through everything", path: "/tutorial/wizard", category: "Tutorial" },
