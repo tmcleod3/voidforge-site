@@ -15,7 +15,6 @@ interface TradingCardProps {
   tagline: string;
   exclamation: string;
   commandsLed: string[];
-  phasesActive: number[];
   powerLevel: number;
 }
 
@@ -53,7 +52,6 @@ export function TradingCard({
   tagline,
   exclamation,
   commandsLed,
-  phasesActive,
   powerLevel,
 }: TradingCardProps) {
   const [flipped, setFlipped] = useState(false);

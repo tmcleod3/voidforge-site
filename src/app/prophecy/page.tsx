@@ -98,7 +98,6 @@ export default function ProphecyPage() {
                     {minorGroups.map(([minorKey, minorReleases]) => (
                       <MinorGroup
                         key={minorKey}
-                        minorKey={minorKey}
                         releases={minorReleases}
                         isLatest={
                           major === maxMajor && minorKey === lastMinorKey

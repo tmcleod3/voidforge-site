@@ -11,7 +11,6 @@ import {
 } from "@/data/releases";
 
 interface MinorGroupProps {
-  minorKey: string;
   releases: Release[];
   isLatest?: boolean;
 }
@@ -22,7 +21,7 @@ function displayVersion(version: string): string {
 }
 
 /** Renders a minor version group (e.g., all v7.3.x releases) */
-export function MinorGroup({ minorKey, releases, isLatest }: MinorGroupProps) {
+export function MinorGroup({ releases, isLatest }: MinorGroupProps) {
   const [open, setOpen] = useState(isLatest ?? false);
   const contentId = useId();
   const lead = releases[0];
