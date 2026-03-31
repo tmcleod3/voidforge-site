@@ -1029,6 +1029,19 @@ export const shipped: Release[] = [
       "/vault command — Seldon's Time Vault for session intelligence preservation and handoff",
     ],
   },
+  {
+    version: "v19.3.0",
+    date: "2026-03-30",
+    title: "The Field Surgeon",
+    headline: "22 field reports triaged, 13 fixes promoted, 5 patterns documented. Multi-environment isolation. Testing anti-patterns. Assessment findings reduced to 0.",
+    items: [
+      "Multi-environment isolation — 8-point checklist in DevOps: separate users, credentials, storage, Redis auth, worktree model, git hooks, Docker port audit",
+      "4 testing anti-patterns documented — error format migration, source-code string assertions, standalone test handlers, version-agnostic assertions",
+      "HTML sanitizer preservation — DOMPurify client-fallback detection for JSX with React hooks",
+      "Schema.sql sync gate in Phase 12 — IF NOT EXISTS post-processing, reference file freshness",
+      "5 new patterns documented: ad-billing-adapter, funding-plan, stablecoin-adapter, browser-review, e2e-test (40 total)",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [

@@ -6,13 +6,13 @@ Sync with VoidForge v19.3.0, apply assessment findings, fix data gaps, harden a1
 
 | Mission | Name | Status | Scope |
 |---------|------|--------|-------|
-| 1 | The Void Sync | PENDING | Sync 19 methodology files from VoidForge v19.3.0, commit sync |
-| 2 | The New Patterns | PENDING | Add 5 new patterns (ad-billing-adapter, funding-plan, stablecoin-adapter, browser-review, e2e-test) to patterns.ts + search index. Update stats to 40 patterns. |
-| 3 | The Data Fix | PENDING | Add 7 missing universes to search-index.ts. Fix "13-phase" → "14-phase" descriptions in commands.ts. Fix phase count in search-index.ts. |
-| 4 | The Dead Code Sweep | PENDING | Remove 3 unused variables (UniverseRoster, minorKey, phasesActive). Add `"prebuild": "rm -rf .next"` to package.json. |
-| 5 | The Accessibility Pass | PENDING | Fix focus management in sub-agent-grid spotlight. Increase --vf-text-muted contrast. Add focus-visible outlines to feature card links. Add width/height to comic-strip images. |
-| 6 | The Test Expansion | PENDING | Add data integrity tests (all slugs resolve), search index completeness test, dynamic route tests, component tests. Target: 25+ tests. |
-| 7 | The Chronicle | PENDING | Update prophecy/releases with v5 entry. Final PRD count sync. Commit everything. |
+| 1 | The Void Sync | COMPLETE | Synced 19 methodology files from VoidForge v19.3.0, PRD reality sync, assessment report |
+| 2 | The New Patterns | COMPLETE | Expanded 5 patterns with full code examples + multi-framework tabs. Added playwright/pytest/selenium framework types. |
+| 3 | The Data Fix | COMPLETE | Added 7 missing universes to search-index.ts. Fixed "13-phase" → "14-phase" in 5 locations. |
+| 4 | The Dead Code Sweep | COMPLETE | Removed UniverseRoster (78 lines), minorKey, phasesActive. Added prebuild cache fix. |
+| 5 | The Accessibility Pass | COMPLETE | Focus management in spotlight dialog. Contrast #9696b0→#b0b0c8. Focus-visible outlines on feature cards. |
+| 6 | The Test Expansion | COMPLETE | 3 new test files: data-integrity (14), search-index (7), components (19). 9 → 49 tests. |
+| 7 | The Chronicle | COMPLETE | v19.3.0 release entry, ROADMAP status, final build verified. |
 
 ### Dependencies
 
