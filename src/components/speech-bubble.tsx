@@ -20,6 +20,8 @@ const agentImageMap: Record<string, string> = {
   Kelsier: "/images/agents/kelsier.webp",
   Dockson: "/images/agents/dockson.webp",
   Tuvok: "/images/agents/tuvok.webp",
+  Boromir: "/images/agents/subs/boromir.webp",
+  Wong: "/images/agents/subs/wong.webp",
 };
 
 interface SpeechBubbleProps {
