@@ -1042,6 +1042,34 @@ export const shipped: Release[] = [
       "5 new patterns documented: ad-billing-adapter, funding-plan, stablecoin-adapter, browser-review, e2e-test (40 total)",
     ],
   },
+  {
+    version: "v19.4.0",
+    date: "2026-03-31",
+    title: "The Last Mile",
+    headline: "Real campaign execution — Google Ads API v17, Meta Marketing API v19.0, TikTok Marketing API v1.3. 4 adapters, 5 daemon handlers, 0 stubs remain.",
+    items: [
+      "Real campaign execution — Google Ads API v17, Meta Marketing API v19.0, TikTok Marketing API v1.3",
+      "4 campaign adapters: sandbox (realistic fake metrics), Google, Meta, TikTok",
+      "All 5 daemon heartbeat handlers wired to real platform adapters — 0 stubs remain",
+      "Live campaign metrics in the Danger Room: CTR, CPC, ROAS, updated every 5 minutes",
+      "Status polling + freeze/unfreeze all campaigns instantly",
+      "454 total tests (403 → 454)",
+    ],
+  },
+  {
+    version: "v19.5.0",
+    date: "2026-03-31",
+    title: "The Blueprint Path",
+    headline: "Fourth entry path: drop a pre-written PRD, run /blueprint, start building. Wong discovers docs, Boromir challenges assumptions, Kusanagi provisions.",
+    items: [
+      "Fourth entry path: drop a pre-written PRD, run /blueprint, start building",
+      "/blueprint command: validate → discover docs → merge directives → provision → campaign",
+      "--challenge flag: Boromir argues against the PRD before building",
+      "Wong discovers supporting docs (ADRs, ops playbooks, reference materials)",
+      "Wizard auto-detection: recognizes pre-existing PRD and offers blueprint path",
+      "499 total tests (454 → 499), 28 slash commands",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [

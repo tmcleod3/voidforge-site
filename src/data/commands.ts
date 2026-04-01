@@ -760,6 +760,49 @@ export const commands: Command[] = [
     ],
     badge: "NEW in v19.2",
   },
+  {
+    slug: "blueprint",
+    tier: "all" as CommandTier,
+    name: "/blueprint",
+    lead: "Picard (Star Trek)",
+    description:
+      "The Blueprint Path — validate a pre-written PRD, discover supporting docs, merge directives, provision infrastructure, and hand off to /campaign for autonomous build.",
+    usage: "/blueprint [--challenge] [--dry-run] [--plan]",
+    whatHappens: [
+      "Picard validates PRD YAML frontmatter and structural completeness",
+      "Wong discovers supporting documents — ADRs, operations playbooks, reference materials in docs/",
+      "Directives from discovered docs are merged into CLAUDE.md (idempotent append)",
+      "Kusanagi provisions infrastructure based on PRD deploy target",
+      "Sisko receives validated PRD + context and starts /campaign",
+    ],
+    arguments: [
+      {
+        flag: "--challenge",
+        type: "boolean",
+        description:
+          "Boromir argues against the PRD before building",
+        effect:
+          "Adds adversarial review step — Boromir challenges assumptions, identifies risks",
+      },
+      {
+        flag: "--dry-run",
+        type: "boolean",
+        description:
+          "Show what would happen without executing",
+        effect:
+          "Validates PRD and discovers docs but doesn't provision or start campaign",
+      },
+      {
+        flag: "--plan",
+        type: "boolean",
+        description:
+          "Plan the campaign without executing",
+        effect:
+          "Produces mission breakdown from validated PRD without building",
+      },
+    ],
+    badge: "NEW in v19.5",
+  },
 ];
 
 export function getCommand(slug: string): Command | undefined {

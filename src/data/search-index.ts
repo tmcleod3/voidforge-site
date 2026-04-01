@@ -89,6 +89,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/deploy", description: "Kusanagi's deploy agent — target detection, health check, rollback, campaign auto-deploy", path: "/commands/deploy", category: "Commands" },
   { title: "/ai", description: "Seldon's AI Intelligence Audit — model selection, prompts, tool-use, orchestration, safety, evals", path: "/commands/ai", category: "Commands" },
   { title: "/vault", description: "Seldon's Time Vault — distill session intelligence into portable briefing for session handoff", path: "/commands/vault", category: "Commands" },
+  { title: "/blueprint", description: "The Blueprint Path — validate a pre-written PRD, discover docs, merge directives, provision, and start campaign", path: "/commands/blueprint", category: "Commands" },
 
   // Patterns
   { title: "Patterns", description: "35 code patterns across 6 domains with framework implementations", path: "/patterns", category: "Patterns" },
