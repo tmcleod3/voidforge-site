@@ -133,6 +133,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "The Wizard Path", description: "Start from nothing — Gandalf walks you through everything", path: "/tutorial/wizard", category: "Tutorial" },
   { title: "The Scaffold Path", description: "You know your stack — write PRD, run campaign, ship", path: "/tutorial/scaffold", category: "Tutorial" },
   { title: "The Import Path", description: "Existing project — point VoidForge at your code", path: "/tutorial/import", category: "Tutorial" },
+  { title: "Blueprint Tutorial", description: "Fourth entry path: bring your own PRD, validate with Picard, discover docs with Wong, provision with Kusanagi, build with Sisko", path: "/tutorial/blueprint", category: "Tutorial" },
 
   // Other
   { title: "Prophecy", description: "The roadmap: what's shipped, what's next, what's far out", path: "/prophecy", category: "Roadmap" },

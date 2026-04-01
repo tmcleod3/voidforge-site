@@ -36,7 +36,7 @@ const paths = [
     subtitle: "I have a complete spec already",
     description:
       "You bring a finished PRD. Picard validates it, discovers supporting docs, provisions infrastructure, and hands off to /campaign for autonomous build.",
-    href: "/commands/blueprint",
+    href: "/tutorial/blueprint",
     color: "var(--vf-forge-yellow, #f5a623)",
     tier: "Full tier",
   },

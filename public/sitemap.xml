@@ -8,6 +8,7 @@
   <url><loc>https://voidforge.build/tutorial/wizard</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://voidforge.build/tutorial/scaffold</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://voidforge.build/tutorial/import</loc><priority>0.7</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://voidforge.build/tutorial/blueprint</loc><priority>0.8</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://voidforge.build/tutorial/prd</loc><priority>0.6</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://voidforge.build/tutorial/campaign</loc><priority>0.6</priority><changefreq>weekly</changefreq></url>
   <url><loc>https://voidforge.build/tutorial/gauntlet</loc><priority>0.6</priority><changefreq>weekly</changefreq></url>

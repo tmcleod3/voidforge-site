@@ -67,7 +67,7 @@ const features = [
     title: "THE BLUEPRINT PATH",
     description:
       "Already have a spec? Drop your PRD, run /blueprint. Picard validates, Wong discovers docs, Kusanagi provisions, Sisko builds.",
-    href: "/commands/blueprint",
+    href: "/tutorial/blueprint",
     color: "var(--vf-electric-blue)",
   },
 ] as const;
