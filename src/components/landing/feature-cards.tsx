@@ -9,6 +9,7 @@ import {
   Code2,
   Globe,
   GitBranch,
+  Map,
 } from "lucide-react";
 import { display } from "@/data/stats";
 
@@ -60,6 +61,14 @@ const features = [
       "Full: the whole forge with wizards and provisioners. Scaffold: methodology only. Core: ultra-light, drop into anything. Pick your weapon.",
     href: "/tutorial/install",
     color: "var(--vf-forge-yellow)",
+  },
+  {
+    icon: Map,
+    title: "THE BLUEPRINT PATH",
+    description:
+      "Already have a spec? Drop your PRD, run /blueprint. Picard validates, Wong discovers docs, Kusanagi provisions, Sisko builds.",
+    href: "/commands/blueprint",
+    color: "var(--vf-electric-blue)",
   },
 ] as const;
 
