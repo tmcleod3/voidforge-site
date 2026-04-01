@@ -42,8 +42,11 @@ export function AgentSpotlight({ agent, color, onClose, onPrev, onNext }: AgentS
     });
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-      // Restore focus to the previously focused element when closing
-      previousFocusRef.current?.focus();
+      // Restore focus to the previously focused element when closing,
+      // but only if it's still connected to the DOM (not stale)
+      if (previousFocusRef.current?.isConnected) {
+        previousFocusRef.current.focus();
+      }
     };
   }, [agent, handleKeyDown]);
 

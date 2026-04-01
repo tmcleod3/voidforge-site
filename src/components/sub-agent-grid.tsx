@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useCallback } from "react";
 import { SubAgentAvatar } from "@/components/sub-agent-avatar";
 import { AgentSpotlight } from "@/components/agent-spotlight";
 import type { SubAgent, Universe } from "@/data/agents";
@@ -71,13 +71,26 @@ export function SubAgentGrid({ universe, subs, emblem }: SubAgentGridProps) {
 
   const [spotlitIndex, setSpotlitIndex] = useState<number>(-1);
   const spotlit = spotlitIndex >= 0 ? displayOrder[spotlitIndex] : null;
+  const navigatingRef = useRef(false);
 
   const openSpotlight = (agent: SubAgent) => {
     const idx = displayOrder.indexOf(agent);
     setSpotlitIndex(idx);
   };
-  const goPrev = () => setSpotlitIndex((i) => (i > 0 ? i - 1 : displayOrder.length - 1));
-  const goNext = () => setSpotlitIndex((i) => (i < displayOrder.length - 1 ? i + 1 : 0));
+
+  const goPrev = useCallback(() => {
+    if (navigatingRef.current) return;
+    navigatingRef.current = true;
+    setSpotlitIndex((i) => (i > 0 ? i - 1 : displayOrder.length - 1));
+    requestAnimationFrame(() => { navigatingRef.current = false; });
+  }, [displayOrder.length]);
+
+  const goNext = useCallback(() => {
+    if (navigatingRef.current) return;
+    navigatingRef.current = true;
+    setSpotlitIndex((i) => (i < displayOrder.length - 1 ? i + 1 : 0));
+    requestAnimationFrame(() => { navigatingRef.current = false; });
+  }, [displayOrder.length]);
 
   if (subs.length === 0) return null;
 
