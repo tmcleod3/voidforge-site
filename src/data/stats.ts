@@ -8,17 +8,17 @@ import { leadAgents, subAgents, universes } from "./agents";
 import { commands } from "./commands";
 
 export const stats = {
-  /** Total code patterns (e.g., 35) */
+  /** Total code patterns */
   totalPatterns: patterns.length,
-  /** Lead agents (e.g., 18) */
+  /** Lead agents */
   totalLeads: leadAgents.length,
-  /** All named characters — leads + sub-agents (e.g., 260+) */
+  /** All named characters — leads + sub-agents */
   totalAgents: leadAgents.length + subAgents.length,
-  /** Fictional universes (e.g., 9) */
+  /** Fictional universes */
   totalUniverses: universes.length,
-  /** Slash commands (e.g., 26) */
+  /** Slash commands */
   totalCommands: commands.length,
-  /** Sub-agents only (e.g., 245+) */
+  /** Sub-agents only */
   totalSubAgents: subAgents.length,
 };
 

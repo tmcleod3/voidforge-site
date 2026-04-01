@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     default: "VoidForge — From Nothing, Everything",
   },
   description:
-    `The complete guide to building production apps with ${display.agents} AI agents across ${display.universes} fictional universes. Drop in a PRD, run /build, ship to production.`,
+    `AI-powered development methodology. ${display.commands} commands, ${display.agents} agents, ${display.universes} universes, ${display.patterns} patterns. From PRD to production with campaign-driven autonomous builds.`,
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL || "https://voidforge.build"
   ),
@@ -42,6 +42,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "VoidForge",
+    title: "VoidForge — From Nothing, Everything",
+    description:
+      `AI-powered development methodology. ${display.commands} commands, ${display.agents} agents, ${display.universes} universes. From PRD to production with campaign-driven autonomous builds.`,
     images: [
       {
         url: "/images/og-image.png",
@@ -53,6 +56,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    title: "VoidForge — From Nothing, Everything",
+    description:
+      `AI-powered development methodology. ${display.commands} commands, ${display.agents} agents, ${display.universes} universes. From PRD to production with campaign-driven autonomous builds.`,
     images: ["/images/og-image.png"],
   },
   robots: {

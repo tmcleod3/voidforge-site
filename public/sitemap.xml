@@ -91,6 +91,7 @@
   <url><loc>https://voidforge.build/commands/deploy</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/commands/ai</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/commands/vault</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/commands/blueprint</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/patterns/api-route</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/patterns/service</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/patterns/component</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>

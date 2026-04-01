@@ -8,7 +8,7 @@ export function JsonLd() {
     applicationCategory: "DeveloperApplication",
     operatingSystem: "macOS, Linux, Windows",
     description:
-      `The complete guide to building production apps with ${display.agents} AI agents across ${display.universes} fictional universes. Drop in a PRD, run /build, ship to production.`,
+      `AI-powered development methodology. ${display.commands} commands, ${display.agents} agents, ${display.universes} universes, ${display.patterns} code patterns. From PRD to production with campaign-driven autonomous builds.`,
     url: "https://voidforge.build",
     author: {
       "@type": "Person",
