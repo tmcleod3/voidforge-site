@@ -1,18 +1,32 @@
 # ROADMAP — VoidForge Marketing Site
 
-## v5 — The Reality Check (IN PROGRESS — 2026-03-30)
+## v6 — The Blueprint (COMPLETE — 2026-03-31)
 
-Sync with VoidForge v19.3.0, apply assessment findings, fix data gaps, harden a11y, expand tests. Source: Picard's `/assess` pass (6 agents, 9 root causes, ~80 findings).
+Sync with VoidForge v19.5.0, wire marketing copy for v19.4+v19.5, add /blueprint command, deep UX muster, deploy.
 
 | Mission | Name | Status | Scope |
 |---------|------|--------|-------|
-| 1 | The Void Sync | COMPLETE | Synced 19 methodology files from VoidForge v19.3.0, PRD reality sync, assessment report |
-| 2 | The New Patterns | COMPLETE | Expanded 5 patterns with full code examples + multi-framework tabs. Added playwright/pytest/selenium framework types. |
-| 3 | The Data Fix | COMPLETE | Added 7 missing universes to search-index.ts. Fixed "13-phase" → "14-phase" in 5 locations. |
-| 4 | The Dead Code Sweep | COMPLETE | Removed UniverseRoster (78 lines), minorKey, phasesActive. Added prebuild cache fix. |
-| 5 | The Accessibility Pass | COMPLETE | Focus management in spotlight dialog. Contrast #9696b0→#b0b0c8. Focus-visible outlines on feature cards. |
-| 6 | The Test Expansion | COMPLETE | 3 new test files: data-integrity (14), search-index (7), components (19). 9 → 49 tests. |
-| 7 | The Chronicle | COMPLETE | v19.3.0 release entry, ROADMAP status, final build verified. |
+| 1 | Void Sync v19.5.0 | COMPLETE | 12 shared files synced: /blueprint command, 3 pattern impls, Gauntlet fixes, HOLOCRON updates |
+| 2 | New Data | COMPLETE | /blueprint as 28th command, v19.4+v19.5 releases, search index entry |
+| 3 | Landing Refresh | COMPLETE | Hero v19.5 spotlight callout, 7th feature card "Blueprint Path" |
+| 4 | Tutorial + Team | COMPLETE | 4-path tutorial hub (wizard/blueprint/scaffold/import), 9 universes section on about page |
+| 5 | UX Muster Fixes | COMPLETE | 2 Critical + 2 High fixes: spotlight nav guard, tutorial progress, clipboard check, focus restoration |
+| 6 | SEO Overhaul | COMPLETE | Dynamic OG/Twitter meta, JSON-LD, sitemap, stats cleanup |
+| 7 | Chronicle | COMPLETE | ROADMAP, final verification, deploy |
+
+### Source
+
+VoidForge void sync v19.3.0 → v19.5.0 (12 files, 624 insertions). Marketing copy from upstream `docs/marketing/v19-release-copy.md`. Galadriel's UX Muster (30 findings: 2 Critical, 4 High, 10 Medium, 9 Low, 4 Enchantment).
+
+---
+
+## v5 — The Reality Check (COMPLETE — 2026-03-30)
+
+Sync with VoidForge v19.3.0, apply assessment findings, fix data gaps, harden a11y, expand tests.
+
+| Mission | Name | Status |
+|---------|------|--------|
+| 1-7 | Void Sync + Patterns + Data + Dead Code + A11y + Tests + Chronicle | ALL COMPLETE |
 
 ### Dependencies
 
