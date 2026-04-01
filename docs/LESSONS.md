@@ -79,3 +79,17 @@
 **Lesson:** `/campaign` and `/build` read the PRD as source of truth, but no phase or gate requires updating the PRD when campaigns add features, expand tutorials, or upgrade dependencies. Over 19 versions: content architecture changed (PRD says `content/` MDX, actual is `src/data/*.ts`), dependency versions drifted (shiki ^1.0 vs ^3.0, tailwind-merge ^2.0 vs ^3.0), feature counts diverged (PRD says 26 commands/35 patterns/3 tutorials/~97 pages, actual is 27/37/15/131), and deploy model changed (PRD says Vercel Git integration, actual is CLI deploy). The PRD became a historical snapshot rather than living documentation, causing `/architect` and `/assess` to spend cycles detecting drift instead of finding real issues.
 **Action:** (1) Add a "PRD Sync Gate" to `/campaign` mission completion: before declaring victory, diff PRD counts/routes/dependencies/architecture against reality, auto-flag drift. (2) Add to `/git` release flow: Coulson verifies PRD version counts match data file counts before tagging a release.
 **Promoted to:** Not yet — first occurrence. File upstream as field report for methodology review.
+
+### Tutorials must show the full terminal-to-CLI flow, not just slash commands
+**Agent:** Galadriel (UX review) | **Category:** antipattern
+**Context:** VoidForge Marketing Site v0.8.0 — all 7 core tutorials showed `/build`, `/blueprint`, `/campaign` etc. as standalone terminal commands
+**Lesson:** VoidForge slash commands run inside the Claude Code interactive CLI, not in a system terminal. Every tutorial showed `/blueprint` in a CRT terminal block as if the user types it in bash — but a new user would get `zsh: no such file or directory`. The fix required adding `claude` launch instructions, "How slash commands work" callout boxes, and "(inside Claude Code)" context notes to all 7 tutorials. This was invisible to every agent during build/review because agents already know the convention.
+**Action:** Every tutorial that shows a slash command must first show `cd my-project && claude` in its own terminal block, with text explaining it launches Claude Code. Add a callout box explaining the `/` convention on first use. Marketing site copy reviewers should test-read as a first-time user.
+**Promoted to:** Not yet — first occurrence. Affects all downstream VoidForge projects with tutorials.
+
+### Speech bubble avatar maps must include sub-agents used in tutorials
+**Agent:** Batman | **Category:** gotcha
+**Context:** VoidForge Marketing Site v0.8.0 — Boromir and Wong avatars showed fallback dots instead of images on /tutorial/blueprint
+**Lesson:** The `agentImageMap` in speech-bubble.tsx only contained lead agents (18 entries). When a tutorial used a sub-agent (Boromir, Wong) in a SpeechBubble, the avatar fell back to a colored dot. The images existed at `/images/agents/subs/` but weren't registered in the map. This was caught by the user, not by any automated test or review agent.
+**Action:** When adding SpeechBubble components for new agents, verify the agent exists in `agentImageMap`. Add a test that checks all agents used in SpeechBubble components have corresponding entries in the map.
+**Promoted to:** Not yet
