@@ -97,10 +97,11 @@ export function Header() {
       <nav
         id="mobile-nav"
         className={cn(
-          "md:hidden border-t border-[var(--vf-border)] bg-[var(--vf-void)]",
-          mobileOpen ? "block" : "hidden"
+          "md:hidden border-t border-[var(--vf-border)] bg-[var(--vf-void)] overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out",
+          mobileOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
         )}
         aria-label="Mobile navigation"
+        aria-hidden={!mobileOpen}
       >
         <div className="px-4 py-3 space-y-1">
           {navLinks.map((link) => (

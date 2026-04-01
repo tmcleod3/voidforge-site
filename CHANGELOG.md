@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v0.9.0] - 2026-04-01
+
+### Added
+- **CI/CD pipeline** — GitHub Actions workflows for lint, typecheck, test, and build on PRs; auto-deploy to Vercel on main merge
+- **Page count gate** — CI fails if static export drops below 100 pages
+
+### Changed
+- **Mobile menu transition** — smooth slide-down animation replacing instant block/hidden toggle
+- **Copy button pulse** — subtle green glow pulses twice after the initial celebrate pop
+- **Trading card starburst** — now appears on tap for touch devices via `:active` and `@media (hover: none)`
+- **About page semantic landmarks** — creator card wrapped in `<article>`, content sections use `<section>` with `aria-labelledby`
+
+---
+
 ## [Site v0.8.0] - 2026-03-31
 
 ### Added

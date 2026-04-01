@@ -17,7 +17,7 @@ export default function AboutPage() {
       <section className="px-4 pb-24">
         <div className="mx-auto max-w-3xl">
           {/* Creator card */}
-          <div className="comic-panel bg-[var(--vf-surface-raised)] p-8 mb-8">
+          <article className="comic-panel bg-[var(--vf-surface-raised)] p-8 mb-8" aria-labelledby="creator-name">
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -26,7 +26,7 @@ export default function AboutPage() {
                 className="w-32 h-32 rounded-full border-4 border-[var(--vf-forge-orange)] object-cover flex-shrink-0"
               />
               <div>
-                <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                <h2 id="creator-name" className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
                   THOMAS MCLEOD
                 </h2>
                 <p className="text-sm text-[var(--vf-text-muted)] italic">
@@ -124,7 +124,7 @@ export default function AboutPage() {
                 VIEW THE SOURCE
               </TrackedLink>
             </div>
-          </div>
+          </article>
 
           <SpeechBubble agent="Bilbo" universe="tolkien">
             I&apos;ve been writing Tom&apos;s copy since v3.0. He&apos;s the
@@ -134,8 +134,8 @@ export default function AboutPage() {
           </SpeechBubble>
 
           {/* Built by the Forge */}
-          <div className="mt-12">
-            <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
+          <section className="mt-12" aria-labelledby="built-by-forge">
+            <h2 id="built-by-forge" className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
               BUILT BY THE FORGE
             </h2>
             <p className="text-[var(--vf-text-muted)] mb-6">
@@ -160,11 +160,11 @@ export default function AboutPage() {
               of. Then I tested the ones you didn&apos;t think of. That&apos;s
               the job.
             </SpeechBubble>
-          </div>
+          </section>
 
           {/* The 9 Universes */}
-          <div className="mt-12">
-            <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-4">
+          <section className="mt-12" aria-labelledby="nine-universes">
+            <h2 id="nine-universes" className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-4">
               THE 9 UNIVERSES
             </h2>
             <p className="text-[var(--vf-text-muted)] mb-6">
@@ -231,7 +231,7 @@ export default function AboutPage() {
                 </div>
               ))}
             </div>
-          </div>
+          </section>
         </div>
       </section>
     </>
