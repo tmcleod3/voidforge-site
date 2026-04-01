@@ -6,6 +6,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v0.8.0] - 2026-03-31
+
+### Added
+- **Blueprint tutorial page** (`/tutorial/blueprint`) — full 6-section tutorial matching wizard depth, with Picard/Wong/Boromir/Kusanagi speech bubbles
+- **4-path tutorial hub** — wizard, blueprint, scaffold, import shown as 2x2 card grid
+- **v19.5 landing page spotlight** — "From spec to shipped" hero callout + Blueprint Path feature card (7th)
+- **9 universes section** on about page with domain descriptions
+- **/blueprint command** (28th) with `--challenge`, `--dry-run`, `--plan` flags
+- **v19.4.0 + v19.5.0** release entries on prophecy page
+- **5 patterns expanded** with full code examples and multi-framework tabs
+- **7 universe pages** added to search index (tolkien, marvel, dc, star-wars, star-trek, dune, anime)
+- **40 new tests** — data integrity (14), search index (7), components (19). Total: 49 tests across 5 files
+- **Dynamic SEO metadata** — OG/Twitter tags use auto-computed counts from stats.ts
+
+### Changed
+- **7 tutorials overhauled** (wizard, first-build, blueprint, scaffold, import, campaign, gauntlet) — every slash command now shows explicit `claude` launch step, "How slash commands work" callout boxes, "(inside Claude Code)" context notes
+- **PRD updated** to match March 2026 reality — content architecture, dependencies, counts, deploy model
+- **VoidForge methodology synced** v19.2.0 → v19.5.0 (31 files, 700+ insertions)
+
+### Fixed
+- **2 Critical UX fixes** — agent spotlight navigation race condition, tutorial progress error handling
+- **2 High UX fixes** — clipboard fallback return value check, stale focus restoration safety
+- **Muted text contrast** #9696b0 → #b0b0c8 (WCAG AA ~7.8:1 ratio)
+- **Focus-visible outlines** on feature card links
+- **Build cache fragility** — prebuild script clears stale `.next` cache
+- **Phase count descriptions** — "13-phase" → "14-phase" in 5 locations
+- **Boromir + Wong avatars** not loading in speech bubbles
+
+### Removed
+- **UniverseRoster** dead component (78 lines)
+- **Unused parameters** — minorKey, phasesActive destructuring
+
+---
+
 ## [19.5.0] - 2026-03-31
 
 ### Added
