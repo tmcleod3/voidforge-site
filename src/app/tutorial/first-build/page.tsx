@@ -101,16 +101,47 @@ deploy: "vercel"
             RUN /BUILD
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Open Claude Code in your project directory and type:
+            Open your terminal, navigate to your project directory, and launch
+            Claude Code:
           </p>
-          <div className="crt-terminal !p-4 text-sm mb-4">
-            <code>/build</code>
+          <div className="crt-terminal !p-4 text-sm mb-4 space-y-2">
+            <div className="text-[var(--vf-text-muted)] text-xs mb-1"># In your terminal:</div>
+            <div>
+              <code>cd my-project</code>
+            </div>
+            <div>
+              <code>claude</code>
+            </div>
           </div>
-          <p className="text-[var(--vf-text-muted)]">
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            This launches Claude Code. It automatically reads the CLAUDE.md
+            file in your project, which loads the entire VoidForge methodology.
+            Inside Claude Code, type:
+          </p>
+          <div className="crt-terminal !p-4 text-sm mb-4 space-y-2">
+            <div className="text-[var(--vf-text-muted)] text-xs mb-1"># Inside Claude Code:</div>
+            <div>
+              <code>/build</code>
+            </div>
+          </div>
+          <p className="text-[var(--vf-text-muted)] mb-4">
             Picard reads your PRD. Stark and Kusanagi scaffold the project.
             The agents work through each phase, writing code, running tests,
             and verifying gates. Every decision is logged to{" "}
             <code className="text-[var(--vf-electric-blue)]">/logs/</code>.
+          </p>
+          <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+            <strong className="text-[var(--vf-forge-orange)]">How slash commands work:</strong>{" "}
+            Every VoidForge command starting with{" "}
+            <code className="text-[var(--vf-electric-blue)]">/</code> is a slash
+            command inside Claude Code. You type them at the Claude Code prompt,
+            not your system terminal. Launch Claude Code with{" "}
+            <code className="text-[var(--vf-electric-blue)]">claude</code> in
+            your terminal first, then type{" "}
+            <code className="text-[var(--vf-electric-blue)]">/build</code>,{" "}
+            <code className="text-[var(--vf-electric-blue)]">/campaign</code>,{" "}
+            <code className="text-[var(--vf-electric-blue)]">/gauntlet</code>,
+            etc.
           </p>
         </section>
 

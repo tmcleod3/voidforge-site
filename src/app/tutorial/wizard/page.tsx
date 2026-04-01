@@ -129,20 +129,56 @@ export default function WizardPage() {
             BUILD AND DEPLOY
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            After the wizard finishes, the build runs automatically. Picard
-            reads the PRD, assigns agents, and the 13-phase protocol executes
-            end to end. If you want to trigger it manually later:
+            After the wizard finishes, your PRD is ready. Now launch Claude
+            Code — the AI coding CLI that runs every VoidForge agent:
           </p>
-          <div className="crt-terminal !p-4 mb-6">
-            <code className="text-sm">/build</code>
+          <div className="crt-terminal !p-4 mb-4 space-y-2">
+            <div className="text-[var(--vf-text-muted)] text-xs mb-1"># In your terminal:</div>
+            <div>
+              <code className="text-sm">claude</code>
+            </div>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            When the build completes, Kusanagi handles deployment — Vercel,
-            AWS, Railway, Fly, or bare metal. The deploy target was set during
-            the wizard. Infrastructure is not your problem anymore. For
-            subsequent deploys, just run{" "}
-            <code className="text-[var(--vf-electric-blue)]">/deploy</code>{" "}
-            — Kusanagi auto-detects, checks, deploys, and verifies health.
+            This opens the Claude Code CLI in your project directory. Claude
+            reads the CLAUDE.md methodology file automatically. Now type the
+            build command at the Claude Code prompt:
+          </p>
+          <div className="crt-terminal !p-4 mb-4 space-y-2">
+            <div className="text-[var(--vf-text-muted)] text-xs mb-1"># Inside Claude Code:</div>
+            <div>
+              <code className="text-sm">/build</code>
+            </div>
+          </div>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Picard reads your PRD, assigns agents, and the 13-phase protocol
+            executes end to end. When the build completes, deploy by typing
+            at the Claude Code prompt:
+          </p>
+          <div className="crt-terminal !p-4 mb-4 space-y-2">
+            <div className="text-[var(--vf-text-muted)] text-xs mb-1"># Inside Claude Code:</div>
+            <div>
+              <code className="text-sm">/deploy</code>
+            </div>
+          </div>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Kusanagi handles deployment — Vercel, AWS, Railway, Fly, or bare
+            metal. The deploy target was set during the wizard. Infrastructure
+            is not your problem anymore. Kusanagi auto-detects, checks,
+            deploys, and verifies health.
+          </p>
+          <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+            <strong className="text-[var(--vf-forge-orange)]">How slash commands work:</strong>{" "}
+            Every VoidForge command starting with{" "}
+            <code className="text-[var(--vf-electric-blue)]">/</code> is a slash
+            command inside Claude Code. You type them at the Claude Code prompt,
+            not your system terminal. Launch Claude Code with{" "}
+            <code className="text-[var(--vf-electric-blue)]">claude</code> in
+            your terminal first, then type{" "}
+            <code className="text-[var(--vf-electric-blue)]">/build</code>,{" "}
+            <code className="text-[var(--vf-electric-blue)]">/deploy</code>,{" "}
+            <code className="text-[var(--vf-electric-blue)]">/campaign</code>,{" "}
+            <code className="text-[var(--vf-electric-blue)]">/gauntlet</code>,
+            etc.
           </p>
         </section>
 

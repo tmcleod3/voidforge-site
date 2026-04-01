@@ -167,9 +167,40 @@ export default function BlueprintPage() {
           >
             RUN /BLUEPRINT
           </h2>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            First, launch Claude Code in your project directory:
+          </p>
+          <div className="crt-terminal !p-4 mb-6 space-y-2">
+            <div>
+              <code className="text-sm">cd my-project</code>
+            </div>
+            <div>
+              <code className="text-sm">claude</code>
+            </div>
+          </div>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            This launches Claude Code in your project directory. Claude
+            automatically reads the CLAUDE.md methodology file, which loads
+            VoidForge&apos;s agents and commands. At the Claude Code prompt,
+            type:
+          </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">/blueprint</code>
           </div>
+          <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] mb-6">
+            <strong className="text-[var(--vf-forge-orange)]">How slash commands work:</strong>{" "}
+            All VoidForge commands starting with{" "}
+            <code className="text-[var(--vf-electric-blue)]">/</code> run inside
+            Claude Code, not your system terminal. Launch Claude Code with{" "}
+            <code className="text-[var(--vf-electric-blue)]">claude</code> in
+            your terminal first. You&apos;ll see a{" "}
+            <code className="text-[var(--vf-electric-blue)]">&gt;</code> prompt
+            — that&apos;s where you type{" "}
+            <code className="text-[var(--vf-electric-blue)]">/blueprint</code>,{" "}
+            <code className="text-[var(--vf-electric-blue)]">/campaign</code>,{" "}
+            <code className="text-[var(--vf-electric-blue)]">/gauntlet</code>,
+            and all other slash commands.
+          </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
             Here&apos;s what happens under the hood (see{" "}
             <Link
@@ -231,7 +262,8 @@ export default function BlueprintPage() {
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
             For extra confidence, add{" "}
-            <code className="text-[var(--vf-electric-blue)]">--challenge</code>:
+            <code className="text-[var(--vf-electric-blue)]">--challenge</code>{" "}
+            (inside Claude Code):
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">/blueprint --challenge</code>
@@ -262,7 +294,7 @@ export default function BlueprintPage() {
             BUILD AND DEPLOY
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Once validated, run the campaign:
+            Once validated, run the campaign (inside Claude Code):
           </p>
           <div className="crt-terminal !p-4 mb-6 space-y-2">
             <div>

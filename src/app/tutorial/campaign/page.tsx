@@ -27,6 +27,18 @@ export default function CampaignPage() {
           runs automatically. That&apos;s how you ship.
         </SpeechBubble>
 
+        <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] mt-8">
+          <strong className="text-[var(--vf-text)]">How slash commands work:</strong>{" "}
+          All VoidForge commands starting with{" "}
+          <code className="text-[var(--vf-electric-blue)]">/</code> run inside
+          Claude Code, not your system terminal. Launch Claude Code with{" "}
+          <code className="text-[var(--vf-electric-blue)]">claude</code> in your
+          project directory, then type commands like{" "}
+          <code className="text-[var(--vf-electric-blue)]">/campaign</code> at
+          the{" "}
+          <code className="text-[var(--vf-electric-blue)]">&gt;</code> prompt.
+        </p>
+
         <section className="mt-12">
           <h2
             id="what-is-a-campaign"
@@ -60,10 +72,12 @@ export default function CampaignPage() {
             KEY FLAGS
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            The fastest way to launch a campaign:
+            Launch Claude Code in your project directory, then start a campaign:
           </p>
           <div className="crt-terminal !p-4 mb-6">
-            <code className="text-sm">/campaign --blitz</code>
+            <code className="text-sm">
+              claude{"\n"}&gt; /campaign --blitz
+            </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
             <code className="text-[var(--vf-electric-blue)]">--blitz</code>{" "}

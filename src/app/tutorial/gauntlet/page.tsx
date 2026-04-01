@@ -26,6 +26,18 @@ export default function GauntletPage() {
           your code is ready to ship.
         </SpeechBubble>
 
+        <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] mt-8">
+          <strong className="text-[var(--vf-text)]">How slash commands work:</strong>{" "}
+          All VoidForge commands starting with{" "}
+          <code className="text-[var(--vf-electric-blue)]">/</code> run inside
+          Claude Code, not your system terminal. Launch Claude Code with{" "}
+          <code className="text-[var(--vf-electric-blue)]">claude</code> in your
+          project directory, then type commands like{" "}
+          <code className="text-[var(--vf-electric-blue)]">/gauntlet</code> at
+          the{" "}
+          <code className="text-[var(--vf-electric-blue)]">&gt;</code> prompt.
+        </p>
+
         <section className="mt-12">
           <h2
             id="what-is-the-gauntlet"
@@ -40,8 +52,13 @@ export default function GauntletPage() {
             across QA, UX, security, architecture, and code quality to find
             every issue before your users do.
           </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            In your project directory, launch Claude Code and run the Gauntlet:
+          </p>
           <div className="crt-terminal !p-4 mb-6">
-            <code className="text-sm">/gauntlet</code>
+            <code className="text-sm">
+              claude{"\n"}&gt; /gauntlet
+            </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
             Run it after a{" "}

@@ -54,6 +54,32 @@ export default function ImportPage() {
             provisioners, no runtime dependencies. Point Claude Code at it and
             the forge absorbs the methodology.
           </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Now launch Claude Code from your project directory:
+          </p>
+          <div className="crt-terminal !p-4 mb-6">
+            <code className="text-sm">
+              cd my-project{"\n"}claude
+            </code>
+          </div>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            This launches Claude Code. It reads the CLAUDE.md from the core you
+            just cloned and loads the VoidForge methodology. All slash commands
+            below are typed at the Claude Code prompt.
+          </p>
+          <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+            <strong className="text-[var(--vf-text)]">How slash commands work:</strong>{" "}
+            All VoidForge commands starting with{" "}
+            <code className="text-[var(--vf-electric-blue)]">/</code> run inside
+            Claude Code, not your system terminal. Launch Claude Code with{" "}
+            <code className="text-[var(--vf-electric-blue)]">claude</code>, then
+            type{" "}
+            <code className="text-[var(--vf-electric-blue)]">/assess</code>,{" "}
+            <code className="text-[var(--vf-electric-blue)]">/prd</code>,{" "}
+            <code className="text-[var(--vf-electric-blue)]">/campaign</code>,
+            etc. at the{" "}
+            <code className="text-[var(--vf-electric-blue)]">&gt;</code> prompt.
+          </p>
         </section>
 
         <section className="mt-12">

@@ -78,12 +78,39 @@ export default function ScaffoldPage() {
             using the template format — YAML frontmatter plus markdown sections.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            If you want a guided interview instead, let Sisko extract it from
-            you:
+            If you want a guided interview instead, launch Claude Code first:
+          </p>
+          <div className="crt-terminal !p-4 mb-6 space-y-2">
+            <div>
+              <code className="text-sm">cd my-project</code>
+            </div>
+            <div>
+              <code className="text-sm">claude</code>
+            </div>
+          </div>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            This opens the Claude Code CLI in your project directory. Claude
+            automatically reads the CLAUDE.md methodology file, which loads
+            VoidForge&apos;s agents and commands. At the Claude Code prompt,
+            type:
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">/prd</code>
           </div>
+          <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] mb-6">
+            <strong className="text-[var(--vf-forge-orange)]">How slash commands work:</strong>{" "}
+            All VoidForge commands starting with{" "}
+            <code className="text-[var(--vf-electric-blue)]">/</code> run inside
+            Claude Code, not your system terminal. Launch Claude Code with{" "}
+            <code className="text-[var(--vf-electric-blue)]">claude</code> in
+            your terminal first. You&apos;ll see a{" "}
+            <code className="text-[var(--vf-electric-blue)]">&gt;</code> prompt
+            — that&apos;s where you type{" "}
+            <code className="text-[var(--vf-electric-blue)]">/prd</code>,{" "}
+            <code className="text-[var(--vf-electric-blue)]">/campaign</code>,{" "}
+            <code className="text-[var(--vf-electric-blue)]">/gauntlet</code>,
+            and all other slash commands.
+          </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
             Sisko asks targeted questions about your product, stack, users, and
             deploy target, then generates the complete PRD with proper
@@ -110,7 +137,7 @@ export default function ScaffoldPage() {
             RUN THE CAMPAIGN
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Launch the full autonomous build with a single command:
+            Launch the full autonomous build (inside Claude Code):
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">/campaign --blitz</code>
@@ -138,14 +165,14 @@ export default function ScaffoldPage() {
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
             After the campaign completes, run the standalone Gauntlet for a
-            final pass:
+            final pass (inside Claude Code):
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">/gauntlet</code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
             Generate marketing assets and screenshots from your PRD&apos;s
-            visual descriptions:
+            visual descriptions (inside Claude Code):
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">/imagine --scan</code>
@@ -154,7 +181,7 @@ export default function ScaffoldPage() {
             Then deploy. Kusanagi reads the deploy target from your PRD
             frontmatter and handles the infrastructure — or run{" "}
             <code className="text-[var(--vf-electric-blue)]">/devops</code>{" "}
-            manually to configure your target before shipping.
+            inside Claude Code to configure your target before shipping.
           </p>
           <p className="text-[var(--vf-text-muted)] mt-4 text-sm">
             <strong className="text-[var(--vf-text)]">Hybrid project?</strong>{" "}
