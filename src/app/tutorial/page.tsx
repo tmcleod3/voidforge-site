@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import {
   Wand2,
+  ClipboardCheck,
   FileCode,
   Import,
   Sprout,
@@ -15,7 +16,7 @@ import {
 export const metadata: Metadata = {
   title: "VoidForge Tutorial — Getting Started Guide",
   description:
-    "Three paths into the forge: wizard (start from nothing), scaffold (you have a plan), or import (you have code). Plus growth tools.",
+    "Four paths into the forge: wizard (start from nothing), blueprint (you have a spec), scaffold (you have a plan), or import (you have code). Plus growth tools.",
 };
 
 const paths = [
@@ -27,6 +28,16 @@ const paths = [
       "Gandalf walks you through everything. The wizard generates your PRD, builds the project, and deploys it. Zero blank-page problem.",
     href: "/tutorial/wizard",
     color: "var(--vf-electric-blue)",
+    tier: "Full tier",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "THE BLUEPRINT",
+    subtitle: "I have a complete spec already",
+    description:
+      "You bring a finished PRD. Picard validates it, discovers supporting docs, provisions infrastructure, and hands off to /campaign for autonomous build.",
+    href: "/commands/blueprint",
+    color: "var(--vf-forge-yellow, #f5a623)",
     tier: "Full tier",
   },
   {
@@ -69,16 +80,17 @@ export default function TutorialPage() {
       <section className="px-4 pb-8">
         <div className="mx-auto max-w-4xl">
           <SpeechBubble agent="Bilbo" universe="tolkien">
-            Three paths into the forge. The wizard holds your hand. The scaffold
-            trusts your instincts. The import respects what you&apos;ve already
-            built. Pick the one that fits — they all lead to the same place.
+            Four paths into the forge. The wizard holds your hand. The blueprint
+            trusts your spec. The scaffold trusts your instincts. The import
+            respects what you&apos;ve already built. Pick the one that fits —
+            they all lead to the same place.
           </SpeechBubble>
         </div>
       </section>
 
       <section className="px-4 pb-12">
         <div className="mx-auto max-w-4xl">
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2">
             {paths.map((path) => (
               <Link
                 key={path.href}
@@ -121,7 +133,8 @@ export default function TutorialPage() {
         <div className="mx-auto max-w-4xl">
           <SpeechBubble agent="Picard" universe="star-trek">
             The wizard is for first contact — when you need guidance through
-            every decision. The scaffold is for officers who know their mission
+            every decision. The blueprint is for captains who arrive with orders
+            already written. The scaffold is for officers who know their mission
             and want the forge to execute. The import is for joining a crew
             already in flight.
           </SpeechBubble>

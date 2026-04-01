@@ -161,6 +161,77 @@ export default function AboutPage() {
               the job.
             </SpeechBubble>
           </div>
+
+          {/* The 9 Universes */}
+          <div className="mt-12">
+            <h2 className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-4">
+              THE 9 UNIVERSES
+            </h2>
+            <p className="text-[var(--vf-text-muted)] mb-6">
+              260+ agents drawn from 9 fictional universes. Each universe owns a
+              domain. The characters aren&apos;t decoration — they&apos;re how
+              VoidForge organizes expertise.
+            </p>
+
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  universe: "Star Trek",
+                  domain:
+                    "Architecture and campaign strategy",
+                },
+                {
+                  universe: "Marvel",
+                  domain:
+                    "Code review and pipeline orchestration",
+                },
+                {
+                  universe: "DC",
+                  domain:
+                    "QA — Batman\u2019s team finds bugs that don\u2019t want to be found",
+                },
+                {
+                  universe: "Tolkien",
+                  domain:
+                    "UX — Galadriel\u2019s enchantments make interfaces feel inevitable",
+                },
+                {
+                  universe: "Star Wars",
+                  domain:
+                    "Security — Kenobi\u2019s team audits design, not just code",
+                },
+                {
+                  universe: "Anime",
+                  domain:
+                    "DevOps — Kusanagi\u2019s team deploys, monitors, and recovers",
+                },
+                {
+                  universe: "Dune",
+                  domain: "Remote control",
+                },
+                {
+                  universe: "Cosmere",
+                  domain: "Growth and treasury",
+                },
+                {
+                  universe: "Foundation",
+                  domain: "AI intelligence",
+                },
+              ].map((u) => (
+                <div
+                  key={u.universe}
+                  className="comic-panel bg-[var(--vf-surface-raised)] p-4"
+                >
+                  <h3 className="font-[family-name:var(--font-bangers)] text-lg tracking-wider text-[var(--vf-forge-orange)] mb-1">
+                    {u.universe}
+                  </h3>
+                  <p className="text-sm text-[var(--vf-text-muted)]">
+                    {u.domain}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </>
