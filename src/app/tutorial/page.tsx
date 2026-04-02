@@ -155,14 +155,14 @@ export default function TutorialPage() {
           <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-text)] mb-4">
             CORE JOURNEY
           </h2>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
               { icon: Download, title: "Install", description: "Prerequisites, 3 tiers, first setup", href: "/tutorial/install", step: "Step 1" },
               { icon: Hammer, title: "First Build", description: "Write a PRD, run /build, ship", href: "/tutorial/first-build", step: "Step 2" },
               { icon: Rocket, title: "Deploy", description: "Go live with 6 deploy targets", href: "/tutorial/deploy", step: "Step 3" },
             ].map((item) => (
               <Link key={item.href} href={item.href} className="group comic-panel bg-[var(--vf-surface-raised)] p-4 text-center hover:border-[var(--vf-forge-orange)] transition-colors">
-                <item.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-electric-blue)]" />
+                <item.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-electric-blue)]" aria-hidden="true" />
                 <h3 className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-text)] group-hover:text-[var(--vf-forge-orange)] transition-colors">
                   {item.title}
                 </h3>
@@ -188,7 +188,7 @@ export default function TutorialPage() {
               { icon: Sparkles, title: "Imagine", description: "AI image generation with /imagine", href: "/tutorial/imagine" },
             ].map((item) => (
               <Link key={item.href} href={item.href} className="group comic-panel bg-[var(--vf-surface-raised)] p-4 text-center hover:border-[var(--vf-forge-orange)] transition-colors">
-                <item.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-deep-purple, #8b5cf6)]" />
+                <item.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-deep-purple, #8b5cf6)]" aria-hidden="true" />
                 <h3 className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-text)] group-hover:text-[var(--vf-forge-orange)] transition-colors">
                   {item.title}
                 </h3>
@@ -227,9 +227,9 @@ export default function TutorialPage() {
                 <Link
                   key={tool.href}
                   href={tool.href}
-                  className="group comic-panel bg-[var(--vf-surface-raised)] p-4 text-center group-hover:border-[var(--vf-forge-orange)] transition-colors"
+                  className="group comic-panel bg-[var(--vf-surface-raised)] p-4 text-center hover:border-[var(--vf-forge-orange)] transition-colors"
                 >
-                  <tool.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-cosmere, #b8860b)]" />
+                  <tool.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-cosmere, #b8860b)]" aria-hidden="true" />
                   <h3 className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-text)] group-hover:text-[var(--vf-forge-orange)] transition-colors">
                     {tool.title}
                   </h3>

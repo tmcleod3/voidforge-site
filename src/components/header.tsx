@@ -120,7 +120,7 @@ export function Header() {
               {link.label}
             </Link>
           ))}
-          <div className="px-3 py-2">
+          <div className="py-2">
             <Search />
           </div>
           <a
