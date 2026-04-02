@@ -128,4 +128,5 @@
   <url><loc>https://voidforge.build/patterns/stablecoin-adapter</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/patterns/ad-billing-adapter</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://voidforge.build/patterns/funding-plan</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://voidforge.build/patterns/combobox</loc><priority>0.6</priority><changefreq>monthly</changefreq></url>
 </urlset>

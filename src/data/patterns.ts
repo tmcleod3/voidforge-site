@@ -2200,6 +2200,100 @@ class FundingPolicy:
         return amount > self.max_auto_approval` },
     ],
   },
+  {
+    slug: "combobox",
+    name: "combobox.tsx",
+    title: "Combobox",
+    description:
+      "Accessible combobox with value source management, keyboard nav, async search.",
+    teaches:
+      "How to build a combobox that correctly manages two value sources (display value when closed, search query when open) without losing keystrokes when the dropdown closes mid-type.",
+    whenToUse:
+      "Any searchable dropdown, autocomplete, or type-ahead selector. Especially important when the dropdown can close during typing (short queries, no results).",
+    preview: `function useCombobox<T>(options: ComboboxOptions<T>) {\n  const [isOpen, setIsOpen] = useState(false)\n  const [query, setQuery] = useState("")\n  // Two value sources: display vs search\n}`,
+    frameworks: [
+      {
+        framework: "nextjs",
+        label: "React",
+        language: "TypeScript",
+        code: `import { useState, useRef, useCallback, useEffect } from 'react';
+
+// Two value sources: display (closed) vs search (open)
+// Never let close events switch the source mid-keystroke
+interface ComboboxOptions<T> {
+  items: T[];
+  getLabel: (item: T) => string;
+  onSelect: (item: T) => void;
+  filterFn?: (item: T, query: string) => boolean;
+}
+
+function useCombobox<T>({ items, getLabel, onSelect, filterFn }: ComboboxOptions<T>) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [selectedItem, setSelectedItem] = useState<T | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Display value when closed, search query when open
+  const displayValue = isOpen
+    ? query
+    : selectedItem ? getLabel(selectedItem) : "";
+
+  const filtered = items.filter((item) =>
+    filterFn ? filterFn(item, query) : getLabel(item).toLowerCase().includes(query.toLowerCase())
+  );
+
+  const handleSelect = useCallback((item: T) => {
+    setSelectedItem(item);
+    setQuery("");
+    setIsOpen(false);
+    onSelect(item);
+  }, [onSelect]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelectedIndex((i) => Math.min(i + 1, filtered.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelectedIndex((i) => Math.max(i - 1, 0));
+    } else if (e.key === "Enter" && selectedIndex >= 0) {
+      e.preventDefault();
+      handleSelect(filtered[selectedIndex]);
+    } else if (e.key === "Escape") {
+      setIsOpen(false);
+    }
+  }, [filtered, selectedIndex, handleSelect]);
+
+  return { displayValue, isOpen, filtered, selectedIndex, inputRef, setQuery, setIsOpen, handleKeyDown, handleSelect };
+}`,
+      },
+      {
+        framework: "django",
+        label: "Django + HTMX",
+        language: "HTML",
+        code: `<!-- Server-filtered results via hx-get, debounced -->
+<div x-data="{ open: false, query: '' }">
+  <input
+    type="text"
+    role="combobox"
+    aria-expanded="open"
+    aria-autocomplete="list"
+    x-model="query"
+    @focus="open = true"
+    @keydown.escape="open = false"
+    hx-get="/api/search"
+    hx-trigger="keyup changed delay:300ms"
+    hx-target="#results"
+    hx-vals='js:{"q": document.querySelector("[role=combobox]").value}'
+  />
+  <ul id="results" role="listbox" x-show="open">
+    <!-- HTMX injects server-filtered <li role="option"> elements -->
+  </ul>
+</div>`,
+      },
+    ],
+  },
 ];
 
 export function getPattern(slug: string): Pattern | undefined {

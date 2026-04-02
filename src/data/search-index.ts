@@ -92,7 +92,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/blueprint", description: "The Blueprint Path — validate a pre-written PRD, discover docs, merge directives, provision, and start campaign", path: "/commands/blueprint", category: "Commands" },
 
   // Patterns
-  { title: "Patterns", description: "35 code patterns across 6 domains with framework implementations", path: "/patterns", category: "Patterns" },
+  { title: "Patterns", description: "36 code patterns across 6 domains with framework implementations", path: "/patterns", category: "Patterns" },
   { title: "API Route", description: "Validation, auth, service call, consistent response", path: "/patterns/api-route", category: "Patterns" },
   { title: "Service", description: "Business logic, ownership checks, typed errors", path: "/patterns/service", category: "Patterns" },
   { title: "Component", description: "Loading, empty, error, success states — keyboard accessible", path: "/patterns/component", category: "Patterns" },
@@ -128,6 +128,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "Stablecoin Adapter", description: "Stablecoin off-ramp: Circle USDC adapter, transfer lifecycle, settlement", path: "/patterns/stablecoin-adapter", category: "Patterns" },
   { title: "Ad Billing Adapter", description: "Ad platform billing: invoice reads, debit tracking, spend projection", path: "/patterns/ad-billing-adapter", category: "Patterns" },
   { title: "Funding Plan", description: "Treasury funding pipeline: state machine, policy engine, rebalancing", path: "/patterns/funding-plan", category: "Patterns" },
+  { title: "Combobox", description: "Accessible combobox with value source management, keyboard nav, async search", path: "/patterns/combobox", category: "Patterns" },
 
   // Tutorials
   { title: "The Wizard Path", description: "Start from nothing — Gandalf walks you through everything", path: "/tutorial/wizard", category: "Tutorial" },
