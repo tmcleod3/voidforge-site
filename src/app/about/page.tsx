@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "About",
   description:
     "Thomas McLeod — serial entrepreneur, engineer, father, and creator of VoidForge.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

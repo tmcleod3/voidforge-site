@@ -24,6 +24,7 @@ export const metadata: Metadata = {
   title: "VoidForge Tutorial — Getting Started Guide",
   description:
     "Four paths into the forge: wizard (start from nothing), blueprint (you have a spec), scaffold (you have a plan), or import (you have code). Plus growth tools.",
+  alternates: { canonical: "/tutorial" },
 };
 
 const paths = [

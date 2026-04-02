@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import { Hero } from "@/components/landing/hero";
 import { ComicStrip } from "@/components/landing/comic-strip";
 import { InstallSection } from "@/components/landing/install-section";
 import { FeatureCards } from "@/components/landing/feature-cards";
+import { display } from "@/data/stats";
+
+export const metadata: Metadata = {
+  title: "VoidForge — From Nothing, Everything",
+  description: `AI-powered development methodology. ${display.commands} commands, ${display.agents} agents, ${display.universes} universes, ${display.patterns} patterns. From PRD to production.`,
+  alternates: { canonical: "/" },
+};
 
 export default function HomePage() {
   return (

@@ -47,6 +47,7 @@ const multiFrameworkCount = patterns.filter((p) => p.frameworks.length > 1).leng
 export const metadata: Metadata = {
   title: "Patterns",
   description: `${patterns.length} reference code patterns covering API routes, services, components, middleware, error handling, mobile, game dev, financial transactions, SSE, OAuth, and more.`,
+  alternates: { canonical: "/patterns" },
 };
 
 function frameworkLabel(count: number, frameworks: { label: string }[]): string {

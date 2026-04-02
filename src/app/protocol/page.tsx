@@ -55,6 +55,7 @@ export const metadata: Metadata = {
   title: "Protocol",
   description:
     "The 13-phase build protocol: from PRD to production in a structured, gate-verified sequence.",
+  alternates: { canonical: "/protocol" },
 };
 
 export default function ProtocolPage() {

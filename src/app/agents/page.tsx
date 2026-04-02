@@ -37,6 +37,7 @@ export const metadata: Metadata = {
   title: "Agents",
   description:
     `Meet the Council: ${leadAgents.length} lead agents across ${universes.length} fictional universes, commanding ${subAgents.length}+ sub-agents.`,
+  alternates: { canonical: "/agents" },
 };
 
 export default function AgentsPage() {

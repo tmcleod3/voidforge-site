@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "Prophecy",
   description:
     "The VoidForge roadmap: what's shipped, what's next, and what's coming from the distant stars.",
+  alternates: { canonical: "/prophecy" },
 };
 
 const majorGroups = groupByMajor(shipped);
