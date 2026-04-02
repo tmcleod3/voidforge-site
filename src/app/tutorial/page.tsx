@@ -11,6 +11,13 @@ import {
   TrendingUp,
   Landmark,
   Monitor,
+  Download,
+  Hammer,
+  Rocket,
+  ScrollText,
+  Swords,
+  Shield,
+  Sparkles,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -138,6 +145,56 @@ export default function TutorialPage() {
             and want the forge to execute. The import is for joining a crew
             already in flight.
           </SpeechBubble>
+        </div>
+      </section>
+
+      {/* Core Journey */}
+      <section className="px-4 pb-8">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-text)] mb-4">
+            CORE JOURNEY
+          </h2>
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { icon: Download, title: "Install", description: "Prerequisites, 3 tiers, first setup", href: "/tutorial/install", step: "Step 1" },
+              { icon: Hammer, title: "First Build", description: "Write a PRD, run /build, ship", href: "/tutorial/first-build", step: "Step 2" },
+              { icon: Rocket, title: "Deploy", description: "Go live with 6 deploy targets", href: "/tutorial/deploy", step: "Step 3" },
+            ].map((item) => (
+              <Link key={item.href} href={item.href} className="group comic-panel bg-[var(--vf-surface-raised)] p-4 text-center hover:border-[var(--vf-forge-orange)] transition-colors">
+                <item.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-electric-blue)]" />
+                <h3 className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-text)] group-hover:text-[var(--vf-forge-orange)] transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-[10px] text-[var(--vf-text-muted)] mb-1">{item.description}</p>
+                <span className="text-[9px] px-1.5 py-0.5 rounded bg-[var(--vf-surface-overlay)] text-[var(--vf-electric-blue)] font-bold">{item.step}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Ship & Review */}
+      <section className="px-4 pb-8">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-text)] mb-4">
+            SHIP &amp; REVIEW
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { icon: ScrollText, title: "Write a PRD", description: "Generate a spec with /prd", href: "/tutorial/prd" },
+              { icon: Swords, title: "Run a Campaign", description: "Execute missions with /campaign", href: "/tutorial/campaign" },
+              { icon: Shield, title: "The Gauntlet", description: "30+ agents review everything", href: "/tutorial/gauntlet" },
+              { icon: Sparkles, title: "Imagine", description: "AI image generation with /imagine", href: "/tutorial/imagine" },
+            ].map((item) => (
+              <Link key={item.href} href={item.href} className="group comic-panel bg-[var(--vf-surface-raised)] p-4 text-center hover:border-[var(--vf-forge-orange)] transition-colors">
+                <item.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-deep-purple, #8b5cf6)]" />
+                <h3 className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-text)] group-hover:text-[var(--vf-forge-orange)] transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-[10px] text-[var(--vf-text-muted)]">{item.description}</p>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

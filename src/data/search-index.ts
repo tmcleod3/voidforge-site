@@ -135,6 +135,10 @@ export const searchIndex: SearchEntry[] = [
   { title: "The Scaffold Path", description: "You know your stack — write PRD, run campaign, ship", path: "/tutorial/scaffold", category: "Tutorial" },
   { title: "The Import Path", description: "Existing project — point VoidForge at your code", path: "/tutorial/import", category: "Tutorial" },
   { title: "Blueprint Tutorial", description: "Fourth entry path: bring your own PRD, validate with Picard, discover docs with Wong, provision with Kusanagi, build with Sisko", path: "/tutorial/blueprint", category: "Tutorial" },
+  { title: "Write a PRD", description: "Generate a complete product spec with Sisko's /prd command", path: "/tutorial/prd", category: "Tutorial" },
+  { title: "Run a Campaign", description: "Execute a full PRD with /campaign — autonomous mission sequencing", path: "/tutorial/campaign", category: "Tutorial" },
+  { title: "The Gauntlet", description: "Put your project through 30+ agent review with /gauntlet", path: "/tutorial/gauntlet", category: "Tutorial" },
+  { title: "Imagine", description: "AI image generation from PRD visual descriptions with /imagine", path: "/tutorial/imagine", category: "Tutorial" },
 
   // Other
   { title: "Prophecy", description: "The roadmap: what's shipped, what's next, what's far out", path: "/prophecy", category: "Roadmap" },

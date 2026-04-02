@@ -120,6 +120,9 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+          <div className="px-3 py-2">
+            <Search />
+          </div>
           <a
             href="https://github.com/tmcleod3/voidforge"
             target="_blank"
