@@ -1,5 +1,31 @@
 # ROADMAP — VoidForge Marketing Site
 
+## v8 — The Living Docs (IN PROGRESS — 2026-04-01)
+
+Wire all void sync content changes into the marketing site. Every new capability (ADR-035 Operational Learnings, field report rules, command enhancements) must be visible to site visitors.
+
+| Mission | Name | Status | Scope |
+|---------|------|--------|-------|
+| 1 | The Learnings System | PENDING | Update /debrief, /vault, /build, /campaign, /architect, /assemble command descriptions to reflect LEARNINGS.md integration |
+| 2 | The Field Reports | PENDING | Update /qa, /security, /gauntlet descriptions with new rules (CSP execution, read-operation guards, enum consistency, semantic verification) |
+| 3 | The Release Entry | PENDING | Add void sync release to releases.ts for Prophecy page. Update protocol.ts Phase 0 to mention LEARNINGS.md |
+| 4 | The Chronicle | PENDING | ROADMAP, CHANGELOG, version bump, verify, deploy |
+
+### Dependencies
+
+```
+Mission 1 ─────────────────────────────── (independent — command descriptions)
+Mission 2 ─────────────────────────────── (independent — command descriptions)
+Mission 3 ──── depends on ──── Missions 1-2 (release entry summarizes all changes)
+Mission 4 ──── depends on ──── Missions 1-3 (chronicles completed work)
+```
+
+### Source
+
+Content audit of void sync changes vs. site data. 14 findings: 4 High, 6 Medium, 4 Low. Root cause: v7 audited data structure but not data content — command descriptions were stale.
+
+---
+
 ## v7 — The Architect's Eye (COMPLETE — 2026-04-01)
 
 Void sync (18 files, ADR-035 Operational Learnings), full 8-agent Muster architecture review, fix all Critical/High findings, SEO hardening, test expansion.
