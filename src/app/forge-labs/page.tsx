@@ -65,13 +65,7 @@ function AgentAside({
   );
 }
 
-const agentAvatars: Record<string, string> = {
-  Kelsier: "/images/agents/kelsier.webp",
-  Dockson: "/images/agents/dockson.webp",
-  Tuvok: "/images/agents/tuvok.webp",
-  Fury: "/images/agents/fury.webp",
-  Steris: "/images/agents/subs/steris.webp",
-};
+import { agentImages as agentAvatars } from "@/lib/agent-images";
 
 const tools = [
   {

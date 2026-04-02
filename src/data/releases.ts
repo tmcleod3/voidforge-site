@@ -19,32 +19,13 @@ export interface FutureRelease {
   items: string[];
 }
 
-export const agentAvatars: Record<string, string> = {
-  Galadriel: "/images/agents/galadriel.webp",
-  Stark: "/images/agents/stark.webp",
-  Batman: "/images/agents/batman.webp",
-  Kenobi: "/images/agents/kenobi.webp",
-  Picard: "/images/agents/picard.webp",
-  Kusanagi: "/images/agents/kusanagi.webp",
-  Coulson: "/images/agents/coulson.webp",
-  Bombadil: "/images/agents/bombadil.webp",
-  Chani: "/images/agents/chani.webp",
-  Fury: "/images/agents/fury.webp",
-  Sisko: "/images/agents/sisko.webp",
-  Celebrimbor: "/images/agents/celebrimbor.webp",
-  Bashir: "/images/agents/bashir.webp",
-  Thanos: "/images/agents/thanos.webp",
-  Kelsier: "/images/agents/kelsier.webp",
-  Tuvok: "/images/agents/tuvok.webp",
-  Dockson: "/images/agents/dockson.webp",
-  "Hari Seldon": "/images/agents/seldon.webp",
-  Haku: "/images/agents/subs/haku.webp",
-  Gimli: "/images/agents/subs/gimli.webp",
-  Éowyn: "/images/agents/subs/éowyn.webp",
-};
+import { agentImages } from "@/lib/agent-images";
+
+/** Re-export for backwards compatibility */
+export const agentAvatars = agentImages;
 
 export function extractAgents(text: string): string[] {
-  return Object.keys(agentAvatars).filter((name) => text.includes(name));
+  return Object.keys(agentImages).filter((name) => text.includes(name));
 }
 
 export const majorEras: Record<string, MajorEra> = {

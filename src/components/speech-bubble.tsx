@@ -1,28 +1,6 @@
 import { cn } from "@/lib/cn";
 import { universeColors, type Universe } from "@/data/agents";
-
-const agentImageMap: Record<string, string> = {
-  Galadriel: "/images/agents/galadriel.webp",
-  Stark: "/images/agents/stark.webp",
-  Batman: "/images/agents/batman.webp",
-  Kenobi: "/images/agents/kenobi.webp",
-  Picard: "/images/agents/picard.webp",
-  Kusanagi: "/images/agents/kusanagi.webp",
-  Coulson: "/images/agents/coulson.webp",
-  Bombadil: "/images/agents/bombadil.webp",
-  Chani: "/images/agents/chani.webp",
-  Fury: "/images/agents/fury.webp",
-  Sisko: "/images/agents/sisko.webp",
-  Bilbo: "/images/agents/bilbo.webp",
-  Celebrimbor: "/images/agents/celebrimbor.webp",
-  Bashir: "/images/agents/bashir.webp",
-  Thanos: "/images/agents/thanos.webp",
-  Kelsier: "/images/agents/kelsier.webp",
-  Dockson: "/images/agents/dockson.webp",
-  Tuvok: "/images/agents/tuvok.webp",
-  Boromir: "/images/agents/subs/boromir.webp",
-  Wong: "/images/agents/subs/wong.webp",
-};
+import { getAgentImage } from "@/lib/agent-images";
 
 interface SpeechBubbleProps {
   agent: string;
@@ -38,7 +16,7 @@ export function SpeechBubble({
   className,
 }: SpeechBubbleProps) {
   const color = universe ? universeColors[universe] : "var(--vf-forge-orange)";
-  const imageSrc = agentImageMap[agent];
+  const imageSrc = getAgentImage(agent);
 
   return (
     <div className={cn("my-6", className)}>
