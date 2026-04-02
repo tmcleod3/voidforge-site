@@ -1,5 +1,37 @@
 # ROADMAP — VoidForge Marketing Site
 
+## v7 — The Architect's Eye (IN PROGRESS — 2026-04-01)
+
+Void sync (18 files, ADR-035 Operational Learnings), full 8-agent Muster architecture review, fix all Critical/High findings, SEO hardening, test expansion.
+
+| Mission | Name | Status | Scope |
+|---------|------|--------|-------|
+| 1 | The New Pattern | PENDING | Add combobox.tsx (36th pattern) to patterns.ts, search-index.ts, sitemap. Wire void sync commit. |
+| 2 | The Missing Seven | PENDING | Surface all 15 tutorials from hub. Add 8 missing tutorials to search index. Add Search to mobile nav. |
+| 3 | The SEO Foundation | PENDING | Dynamic sitemap.ts, canonical URLs on all pages, BreadcrumbList JSON-LD, Forge Labs metadata fix, home page metadata. |
+| 4 | The Consistency Tests | PENDING | Bidirectional pattern↔file and command↔file tests, search index completeness, generateStaticParams validation. |
+| 5 | The Data Cleanup | PENDING | Consolidate 3 agent image maps, fix duplicate release titles, protocol accordion detail links, Bilbo image fix, misc Low fixes. |
+| 6 | The PRD Reconciliation | PENDING | Sweep all stale numbers (commands: 28, patterns: 36, pages: 134+). Reconcile 5 feature descriptions with actual implementation. |
+| 7 | The Chronicle | PENDING | ROADMAP, CHANGELOG, version bump, deploy, UX muster verification. |
+
+### Dependencies
+
+```
+Mission 1 ─────────────────────────────── (independent — new pattern data)
+Mission 2 ─────────────────────────────── (independent — tutorial hub + search)
+Mission 3 ──── depends on ──── Mission 1 (sitemap needs pattern entry)
+Mission 4 ──── depends on ──── Missions 1-2 (tests validate new data)
+Mission 5 ─────────────────────────────── (independent — data cleanup)
+Mission 6 ──── depends on ──── Missions 1-5 (PRD numbers need final counts)
+Mission 7 ──── depends on ──── Missions 1-6 (chronicles completed work)
+```
+
+### Source
+
+8-agent Muster architecture review (Picard, Galadriel, Batman, Kusanagi, Navani, Troi, Riker, Constantine). 21 findings: 3 Critical, 7 High, 6 Medium, 4 Low, 1 Enchantment. Void sync 18 files (ADR-035 wiring + field reports #258/#259/#263).
+
+---
+
 ## v6 — The Blueprint (COMPLETE — 2026-03-31)
 
 Sync with VoidForge v19.5.0, wire marketing copy for v19.4+v19.5, add /blueprint command, deep UX muster, deploy.
