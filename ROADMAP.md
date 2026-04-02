@@ -1,15 +1,15 @@
 # ROADMAP — VoidForge Marketing Site
 
-## v8 — The Living Docs (IN PROGRESS — 2026-04-01)
+## v8 — The Living Docs (COMPLETE — 2026-04-01)
 
 Wire all void sync content changes into the marketing site. Every new capability (ADR-035 Operational Learnings, field report rules, command enhancements) must be visible to site visitors.
 
 | Mission | Name | Status | Scope |
 |---------|------|--------|-------|
-| 1 | The Learnings System | PENDING | Update /debrief, /vault, /build, /campaign, /architect, /assemble command descriptions to reflect LEARNINGS.md integration |
-| 2 | The Field Reports | PENDING | Update /qa, /security, /gauntlet descriptions with new rules (CSP execution, read-operation guards, enum consistency, semantic verification) |
-| 3 | The Release Entry | PENDING | Add void sync release to releases.ts for Prophecy page. Update protocol.ts Phase 0 to mention LEARNINGS.md |
-| 4 | The Chronicle | PENDING | ROADMAP, CHANGELOG, version bump, verify, deploy |
+| 1 | The Learnings System | COMPLETE | Update /debrief, /vault, /build, /campaign, /architect, /assemble command descriptions to reflect LEARNINGS.md integration |
+| 2 | The Field Reports | COMPLETE | Update /qa, /security, /gauntlet descriptions with new rules (CSP execution, read-operation guards, enum consistency, semantic verification) |
+| 3 | The Release Entry | COMPLETE | Add void sync release to releases.ts for Prophecy page. Update protocol.ts Phase 0 to mention LEARNINGS.md |
+| 4 | The Chronicle | COMPLETE | ROADMAP, CHANGELOG, version bump, verify, deploy |
 
 ### Dependencies
 

@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v1.1.0] - 2026-04-01
+
+### Changed
+- **9 command descriptions updated** to reflect ADR-035 Operational Learnings and field report rules: /build (learnings load, signature-first, build artifact verification), /debrief (learning extraction to LEARNINGS.md), /vault (session-end learnings sync), /campaign (learnings load, entity selector completeness), /architect (learnings load, geographic test matrix), /assemble (learnings load), /qa (learnings load, data-UI enum consistency), /security (learnings load, read-operation guards, CSP execution verification), /gauntlet (semantic verification)
+- **Protocol Phase 0** now mentions LEARNINGS.md alongside LESSONS.md in Wong's supporting role
+
+### Added
+- **v19.5.x "The Long Memory" release** on Prophecy page — ADR-035 Operational Learnings system and 7 field report rules
+
+---
+
 ## [Site v1.0.0] - 2026-04-01
 
 ### Added
