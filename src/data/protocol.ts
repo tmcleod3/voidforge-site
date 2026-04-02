@@ -14,9 +14,9 @@ export const phases: Phase[] = [
     slug: "orient",
     name: "Orient",
     lead: "Picard",
-    supporting: ["All agents read PRD", "Wong (loads lessons)", "Troi (PRD verification)"],
+    supporting: ["All agents read PRD", "Wong (loads lessons + operational learnings)", "Troi (PRD verification)"],
     summary:
-      "Read the PRD. Validate frontmatter. Extract architecture. Wong loads LESSONS.md. Troi verifies extraction. Phase 0.5: Picard's Conflict Scan.",
+      "Read the PRD. Validate frontmatter. Extract architecture. Wong loads LESSONS.md and project-scoped LEARNINGS.md. Troi verifies extraction. Phase 0.5: Picard's Conflict Scan.",
   },
   {
     number: 1,

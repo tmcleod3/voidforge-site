@@ -1051,6 +1051,23 @@ export const shipped: Release[] = [
       "499 total tests (454 → 499), 28 slash commands",
     ],
   },
+  {
+    version: "v19.5.x",
+    date: "2026-04-01",
+    title: "The Long Memory",
+    headline: "The forge remembers what it learned. Operational learnings persist across sessions — API quirks, decision rationale, root causes. 12 agents now read LEARNINGS.md at startup.",
+    items: [
+      "ADR-035: Operational Learnings (docs/LEARNINGS.md) — project-scoped knowledge that persists across sessions",
+      "/debrief extracts learnings (O'Brien + Nog), /vault catches them at session end",
+      "/build, /campaign, /architect, /assemble, /qa, /security load learnings at startup",
+      "Signature-first rule: read actual function signatures before writing calls",
+      "CSP execution verification: verify scripts run under the policy, not just that headers exist",
+      "Read-operation guards: protect reads, not just writes",
+      "Data-UI enum consistency: verify backend enums match frontend display values",
+      "Semantic verification: check meaning, not just types (Gauntlet crossfire)",
+      "50-entry cap with staleness tracking and promotion pipeline to LESSONS.md",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [
