@@ -4,7 +4,7 @@
 > This page was built by the Forge itself. Galadriel wrote the frontend. Bilbo wrote the copy. Stark wired the API. Batman tested every link. Kenobi checked every door. Picard approved the architecture. Kusanagi deployed it. Coulson tagged the release. Bombadil made sure VoidForge stayed sharp the whole time. Chani watched from the desert.
 > Built by Thomas McLeod. Forged by 260+ AI agents across 9 fictional universes.
 
-> **📋 Document Status (March 2026, updated 2026-03-30):** This PRD was written in March 2024 and describes VoidForge.build at its original launch scope. The site has since grown from 97 planned pages to 131 generated pages (28 route templates), from 8 to 9 universes (Foundation added in v16.0.0), from 17 to 18 lead agents (Hari Seldon), from 24 to 27 commands (/deploy, /ai, /vault), and from 20 to 40 code patterns. Growth & Operations tools (Cultivation, Treasury, Grow, Danger Room) were added beyond original scope and are marked as **Forge Labs** (experimental). Tutorial section expanded from 3 to 15 pages. Content architecture diverged from original MDX plan — content lives in `src/data/*.ts` TypeScript data files and page component JSX, not a `content/` MDX directory. Deployment is via Vercel CLI (`npx vercel --prod`), not Git-integrated auto-deploy. Current live stats are always at [/prophecy](https://voidforge.build/prophecy). Key counts below have been updated to reflect March 2026 reality.
+> **📋 Document Status (March 2026, updated 2026-04-01):** This PRD was written in March 2024 and describes VoidForge.build at its original launch scope. The site has since grown from 97 planned pages to 135 generated pages (28 route templates), from 8 to 9 universes (Foundation added in v16.0.0), from 17 to 18 lead agents (Hari Seldon), from 24 to 28 commands (/deploy, /ai, /vault, /blueprint), and from 20 to 36 code patterns. Growth & Operations tools (Cultivation, Treasury, Grow, Danger Room) were added beyond original scope and are marked as **Forge Labs** (experimental). Tutorial section expanded from 3 to 15 pages. CI/CD pipeline added with dynamic sitemap. Content architecture diverged from original MDX plan — content lives in `src/data/*.ts` TypeScript data files and page component JSX, not a `content/` MDX directory. Deployment is via Vercel CLI (`npx vercel --prod`), not Git-integrated auto-deploy. Current live stats are always at [/prophecy](https://voidforge.build/prophecy). Key counts below have been updated to reflect April 2026 reality.
 
 ---
 
@@ -40,7 +40,7 @@ hostname: "voidforge.build"
 
 - **Name:** VoidForge.build (alternate candidates considered: ForgeManual.dev, VoidForgeHQ.com, VoidForge.dev — VoidForge.build selected as the canonical brand domain)
 - **One-liner:** The complete guide to building production apps with 260+ AI agents.
-- **What it does:** VoidForge.build is the landing page, tutorial hub, and reference manual for the VoidForge open-source methodology framework. It teaches developers how to install VoidForge, understand the 13-phase build protocol, use all 26 slash commands, and leverage a roster of 260+ named AI agents (18 leads) across 9 fictional universes to ship full-stack applications from a single Product Requirements Document. The site is itself built by VoidForge — a self-referential proof of the system's capability.
+- **What it does:** VoidForge.build is the landing page, tutorial hub, and reference manual for the VoidForge open-source methodology framework. It teaches developers how to install VoidForge, understand the 13-phase build protocol, use all 28 slash commands, and leverage a roster of 260+ named AI agents (18 leads) across 9 fictional universes to ship full-stack applications from a single Product Requirements Document. The site is itself built by VoidForge — a self-referential proof of the system's capability.
 - **Who it's for:** Developers and technical founders who use Claude Code (or want to start) and want a structured, repeatable process for turning a PRD into a deployed production application. They're comfortable on the command line, they've probably cloned a GitHub repo before, and they want their AI coding workflow to go from "vibes" to "protocol."
 - **Brand personality:** Kooky, mythic, irreverent. Think pulp sci-fi novel covers from the 1950s colliding with 90s comic book action panels and Tolkien's maps. The vibe is Roy Lichtenstein painting a starship bridge while Gandalf debugs the warp core. It is NOT corporate. It is NOT minimalist. It is NOT a typical developer docs site. It is loud, colorful, character-driven, and FUN — but the content underneath is dead serious and production-grade.
 
@@ -91,10 +91,10 @@ hostname: "voidforge.build"
 /agents                     → The Council: all 18 lead agents with universe breakdowns
 /agents/[universe-slug]     → Universe detail page (9 pages: tolkien, marvel, dc, star-wars, star-trek, dune, anime, cosmere, foundation)
 /agents/[agent-slug]        → Individual agent profile page (18 leads: galadriel, stark, batman, kenobi, picard, kusanagi, coulson, bombadil, chani, fury, sisko, celebrimbor, bashir, thanos, kelsier, dockson, tuvok, seldon)
-/commands                   → All 26 slash commands with usage, examples, agent assignments
-/commands/[command-slug]    → Individual command page (26 pages: build, qa, test, security, ux, review, devops, architect, git, void, thumper, assemble, campaign, imagine, debrief, gauntlet, prd, grow, treasury, portfolio, cultivation, current, dangerroom, assess, deploy, ai)
-/patterns                   → 35 code patterns overview with framework tabs
-/patterns/[pattern-slug]    → Individual pattern page (35 pages: api-route, service, component, middleware, error-handling, job-queue, multi-tenant, and 28 more)
+/commands                   → All 28 slash commands with usage, examples, agent assignments
+/commands/[command-slug]    → Individual command page (28 pages: build, qa, test, security, ux, review, devops, architect, git, void, thumper, assemble, campaign, imagine, debrief, gauntlet, prd, grow, treasury, portfolio, cultivation, current, dangerroom, assess, deploy, ai, vault, blueprint)
+/patterns                   → 36 code patterns overview with framework tabs
+/patterns/[pattern-slug]    → Individual pattern page (36 pages: api-route, service, component, middleware, error-handling, job-queue, multi-tenant, and 29 more)
 /prophecy                   → The roadmap (what's shipped, what's next, what's far out)
 /about                      → Thomas McLeod bio, project story, "built by the Forge" narrative
 /github                     → Redirect to https://github.com/tmcleod3/voidforge
@@ -174,7 +174,7 @@ This is a static site. There are no backend services. All content is compiled at
 2. Full-viewport hero section loads with animated comic-panel layout: VoidForge logo rendered in pulp sci-fi title treatment, animated starburst behind it, tagline "From nothing, everything." in Bangers font
 3. Scroll reveals a 3-panel comic strip that summarizes the pitch: Panel 1 — "DROP IN A PRD" (shows a document falling into a glowing forge), Panel 2 — "260+ AGENTS BUILD IT" (shows the 18 lead agents in action-pose silhouettes), Panel 3 — "SHIP TO PRODUCTION" (shows a rocket launching with a green checkmark)
 4. Below the strip: quick-start install command with copy button, GitHub star count badge, latest version badge
-5. Scroll further: 6 feature cards in a 2x3 grid (13-Phase Protocol, 260+ Named Agents, 26 Slash Commands, 35 Code Patterns, 6 Deploy Targets, 3 Tiers). Each card has a Lichtenstein-style halftone background, bold heading, 2-sentence description, and link to the relevant deep page
+5. Scroll further: 6 feature cards in a 2x3 grid (13-Phase Protocol, 260+ Named Agents, 28 Slash Commands, 36 Code Patterns, 6 Deploy Targets, 3 Tiers). Each card has a Lichtenstein-style halftone background, bold heading, 2-sentence description, and link to the relevant deep page
 6. Footer: "Built by VoidForge. Written by Bilbo. Designed by Galadriel. Tested by Batman. Deployed by Kusanagi. Created by Thomas McLeod." with GitHub link and LinkedIn link
 
 **Data model:** None — all static content.
@@ -311,7 +311,7 @@ type SubAgent = {
 
 **User flow:**
 1. User navigates to /commands
-2. Sees all 26 slash commands in a table: command name, lead agent, and 1-sentence description
+2. Sees all 28 slash commands in a table: command name, lead agent, and 1-sentence description
 3. Each row links to /commands/[command-slug]
 4. Individual command pages show: full usage instructions, which agent leads it, what happens when you run it (step-by-step), example terminal output (styled as a retro CRT terminal with green-on-black text and scanline overlay), related commands, and tips
 
@@ -338,7 +338,7 @@ type SubAgent = {
 
 **User flow:**
 1. User navigates to /patterns
-2. Sees 35 pattern cards in a grid: pattern name, what it teaches, and a 3-line code preview
+2. Sees 36 pattern cards in a grid: pattern name, what it teaches, and a 3-line code preview
 3. Each card links to /patterns/[pattern-slug]
 4. Individual pattern pages show: the full reference implementation with syntax highlighting, a "What This Pattern Teaches" explainer, framework adaptation tabs (Next.js, Express, Django, Rails) showing how the same pattern looks in each framework, and a "When To Use This" section
 
@@ -424,8 +424,8 @@ Content source files are organized as:
 ```
 src/data/
 ├── agents.ts          ← 18 lead agents + sub-agents, universe mapping
-├── commands.ts        ← 27 slash commands with arguments and usage
-├── patterns.ts        ← 40 code patterns with framework tabs
+├── commands.ts        ← 28 slash commands with arguments and usage
+├── patterns.ts        ← 36 code patterns with framework tabs
 ├── protocol.ts        ← 14 build phases (0-13) with gates
 ├── releases.ts        ← Version history for /prophecy
 ├── search-index.ts    ← Site-wide search entries
@@ -439,16 +439,16 @@ src/app/
 ├── agents/page.tsx             ← Agent directory (The Council)
 ├── agents/[slug]/page.tsx      ← 18 leads + 9 universes = 27 pages
 ├── commands/page.tsx           ← Command reference hub
-├── commands/[slug]/page.tsx    ← 27 command pages
+├── commands/[slug]/page.tsx    ← 28 command pages
 ├── patterns/page.tsx           ← Pattern gallery hub
-├── patterns/[slug]/page.tsx    ← 40 pattern pages
+├── patterns/[slug]/page.tsx    ← 36 pattern pages
 ├── prophecy/page.tsx           ← Roadmap
 ├── about/page.tsx              ← Creator story
 ├── forge-labs/page.tsx         ← Experimental growth tools
 └── github/page.tsx             ← Redirect to GitHub repo
 ```
 
-Total generated pages: 131 (from 28 route templates). Originally 97 planned; expanded through campaigns v1-v4.
+Total generated pages: 135 (from 28 route templates). Originally 97 planned; expanded through campaigns v1-v4.
 
 ---
 
@@ -773,7 +773,7 @@ Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ pref
 - Commands hub (/commands) with mission-briefing table
 - 15 individual command pages sourced from .claude/commands/*.md
 - CRT terminal component for command output examples
-- Patterns hub (/patterns) with 35 pattern cards
+- Patterns hub (/patterns) with 36 pattern cards
 - 7 individual pattern pages with framework tabs
 - Prophecy page (/prophecy) with roadmap timeline
 - About page (/about) with creator story and "built by the Forge" narrative
@@ -782,8 +782,8 @@ Total: 4 environment variables. No secrets — all are public (NEXT_PUBLIC_ pref
 **Dependencies:** Phase 4 (content pipeline proven, design system complete).
 
 **Done criteria:**
-- All 26 command pages render with terminal output examples
-- All 35 pattern pages render with framework tab switching
+- All 28 command pages render with terminal output examples
+- All 36 pattern pages render with framework tab switching
 - Prophecy timeline shows shipped vs future with correct visual distinction
 - About page has working LinkedIn link (opens new tab) and GitHub link
 - /github redirects to https://github.com/tmcleod3/voidforge
