@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v1.2.0] - 2026-04-01
+
+### Added
+- **Learnings tutorial page** (`/tutorial/learnings`) — full lifecycle explanation: what goes in, what stays out, the 6-step pipeline (discover → extract → approve → catch → read → promote), guardrails (50 cap, 90d staleness, 2+ project promotion), and 8 commands that use it
+- **8th feature card on landing page** — "The Long Memory" linking to learnings tutorial
+- **Protocol page callout** — "The Long Memory" section explaining LEARNINGS.md before Phase 0 timeline
+- **Tutorial hub** — learnings added to Ship & Review section (5th card)
+- **Search index** — learnings tutorial discoverable via site search
+
+---
+
 ## [Site v1.1.0] - 2026-04-01
 
 ### Changed

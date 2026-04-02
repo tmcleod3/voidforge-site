@@ -10,6 +10,7 @@ import {
   Globe,
   GitBranch,
   Map,
+  Brain,
 } from "lucide-react";
 import { display } from "@/data/stats";
 
@@ -69,6 +70,14 @@ const features = [
       "Already have a spec? Drop your PRD, run /blueprint. Picard validates, Wong discovers docs, Kusanagi provisions, Sisko builds.",
     href: "/tutorial/blueprint",
     color: "var(--vf-electric-blue)",
+  },
+  {
+    icon: Brain,
+    title: "THE LONG MEMORY",
+    description:
+      "The forge remembers. API quirks, decision rationale, root causes — persisted across sessions. Every agent reads LEARNINGS.md at startup. Your next build starts where the last one left off.",
+    href: "/tutorial/learnings",
+    color: "var(--vf-forge-yellow)",
   },
 ] as const;
 

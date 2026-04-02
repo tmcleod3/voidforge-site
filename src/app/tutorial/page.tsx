@@ -18,6 +18,7 @@ import {
   Swords,
   Shield,
   Sparkles,
+  Brain,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -180,12 +181,13 @@ export default function TutorialPage() {
           <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-text)] mb-4">
             SHIP &amp; REVIEW
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
             {[
               { icon: ScrollText, title: "Write a PRD", description: "Generate a spec with /prd", href: "/tutorial/prd" },
-              { icon: Swords, title: "Run a Campaign", description: "Execute missions with /campaign", href: "/tutorial/campaign" },
-              { icon: Shield, title: "The Gauntlet", description: "30+ agents review everything", href: "/tutorial/gauntlet" },
-              { icon: Sparkles, title: "Imagine", description: "AI image generation with /imagine", href: "/tutorial/imagine" },
+              { icon: Swords, title: "Campaign", description: "Execute missions with /campaign", href: "/tutorial/campaign" },
+              { icon: Shield, title: "Gauntlet", description: "30+ agents review everything", href: "/tutorial/gauntlet" },
+              { icon: Sparkles, title: "Imagine", description: "AI image generation", href: "/tutorial/imagine" },
+              { icon: Brain, title: "Learnings", description: "Cross-session memory", href: "/tutorial/learnings" },
             ].map((item) => (
               <Link key={item.href} href={item.href} className="group comic-panel bg-[var(--vf-surface-raised)] p-4 text-center hover:border-[var(--vf-forge-orange)] transition-colors">
                 <item.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-deep-purple, #8b5cf6)]" aria-hidden="true" />

@@ -77,6 +77,30 @@ export default function ProtocolPage() {
         </div>
       </section>
 
+      {/* Operational Learnings callout */}
+      <section className="px-4 pb-12">
+        <div className="mx-auto max-w-4xl">
+          <div className="comic-panel bg-[var(--vf-surface-raised)] p-6 border-l-4 border-[var(--vf-forge-yellow)]">
+            <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-yellow)] mb-3">
+              THE LONG MEMORY
+            </h2>
+            <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+              Before Phase 0 begins, Wong loads two files:{" "}
+              <code className="text-[var(--vf-electric-blue)]">docs/LESSONS.md</code> (cross-project patterns) and{" "}
+              <code className="text-[var(--vf-electric-blue)]">docs/LEARNINGS.md</code> (project-scoped operational knowledge).
+              LEARNINGS.md contains API quirks, decision rationale, and root causes discovered in prior sessions.
+              Every agent starts informed — your next build begins where the last one left off.
+            </p>
+            <a
+              href="/tutorial/learnings"
+              className="text-xs text-[var(--vf-forge-yellow)] hover:text-[var(--vf-forge-orange)] transition-colors font-bold"
+            >
+              LEARN MORE &rarr;
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="px-4 pb-24">
         <div className="mx-auto max-w-4xl">
           {/* Timeline with accordions */}

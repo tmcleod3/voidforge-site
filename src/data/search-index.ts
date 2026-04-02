@@ -139,6 +139,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "Run a Campaign", description: "Execute a full PRD with /campaign — autonomous mission sequencing", path: "/tutorial/campaign", category: "Tutorial" },
   { title: "The Gauntlet", description: "Put your project through 30+ agent review with /gauntlet", path: "/tutorial/gauntlet", category: "Tutorial" },
   { title: "Imagine", description: "AI image generation from PRD visual descriptions with /imagine", path: "/tutorial/imagine", category: "Tutorial" },
+  { title: "Operational Learnings", description: "Cross-session memory — API quirks, decision rationale, root causes persisted in LEARNINGS.md", path: "/tutorial/learnings", category: "Tutorial" },
 
   // Other
   { title: "Prophecy", description: "The roadmap: what's shipped, what's next, what's far out", path: "/prophecy", category: "Roadmap" },
