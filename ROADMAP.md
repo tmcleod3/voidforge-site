@@ -1,18 +1,18 @@
 # ROADMAP — VoidForge Marketing Site
 
-## v7 — The Architect's Eye (IN PROGRESS — 2026-04-01)
+## v7 — The Architect's Eye (COMPLETE — 2026-04-01)
 
 Void sync (18 files, ADR-035 Operational Learnings), full 8-agent Muster architecture review, fix all Critical/High findings, SEO hardening, test expansion.
 
 | Mission | Name | Status | Scope |
 |---------|------|--------|-------|
-| 1 | The New Pattern | PENDING | Add combobox.tsx (36th pattern) to patterns.ts, search-index.ts, sitemap. Wire void sync commit. |
-| 2 | The Missing Seven | PENDING | Surface all 15 tutorials from hub. Add 8 missing tutorials to search index. Add Search to mobile nav. |
-| 3 | The SEO Foundation | PENDING | Dynamic sitemap.ts, canonical URLs on all pages, BreadcrumbList JSON-LD, Forge Labs metadata fix, home page metadata. |
-| 4 | The Consistency Tests | PENDING | Bidirectional pattern↔file and command↔file tests, search index completeness, generateStaticParams validation. |
-| 5 | The Data Cleanup | PENDING | Consolidate 3 agent image maps, fix duplicate release titles, protocol accordion detail links, Bilbo image fix, misc Low fixes. |
-| 6 | The PRD Reconciliation | PENDING | Sweep all stale numbers (commands: 28, patterns: 36, pages: 134+). Reconcile 5 feature descriptions with actual implementation. |
-| 7 | The Chronicle | PENDING | ROADMAP, CHANGELOG, version bump, deploy, UX muster verification. |
+| 1 | The New Pattern | COMPLETE | Add combobox.tsx (36th pattern) to patterns.ts, search-index.ts, sitemap. Wire void sync commit. |
+| 2 | The Missing Seven | COMPLETE | Surface all 15 tutorials from hub. Add 8 missing tutorials to search index. Add Search to mobile nav. |
+| 3 | The SEO Foundation | COMPLETE | Dynamic sitemap.ts, canonical URLs on all pages, BreadcrumbList JSON-LD, Forge Labs metadata fix, home page metadata. |
+| 4 | The Consistency Tests | COMPLETE | Bidirectional pattern↔file and command↔file tests, search index completeness, generateStaticParams validation. |
+| 5 | The Data Cleanup | COMPLETE | Consolidate 3 agent image maps, fix duplicate release titles, protocol accordion detail links, Bilbo image fix, misc Low fixes. |
+| 6 | The PRD Reconciliation | COMPLETE | Sweep all stale numbers (commands: 28, patterns: 36, pages: 134+). Reconcile 5 feature descriptions with actual implementation. |
+| 7 | The Chronicle | COMPLETE | ROADMAP, CHANGELOG, version bump, deploy, UX muster verification. |
 
 ### Dependencies
 

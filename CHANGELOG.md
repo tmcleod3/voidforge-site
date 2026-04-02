@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v1.0.0] - 2026-04-01
+
+### Added
+- **Combobox pattern** (36th) — accessible combobox with value source management, keyboard nav, async search
+- **Dynamic sitemap** — `src/app/sitemap.ts` auto-generates from data files, replacing hand-maintained `public/sitemap.xml`
+- **BreadcrumbList JSON-LD** — reusable component for structured data on sub-pages
+- **WebSite + SearchAction JSON-LD** — enables Google Sitelinks Searchbox
+- **10 consistency tests** — bidirectional pattern↔file, command↔file, agent avatars, search index coverage (49 → 59 tests)
+- **Canonical URLs** on all hub pages via `alternates.canonical`
+- **Forge Labs metadata** via layout wrapper (fixes missing OG/SEO for client component page)
+- **Home page explicit metadata** — no longer relies solely on root layout defaults
+- **/github noindex** — redirect page excluded from search indexing
+
+### Changed
+- **Tutorial hub surfaces all 15 tutorials** — added Core Journey (Install/First Build/Deploy) and Ship & Review (PRD/Campaign/Gauntlet/Imagine) sections. Previously only 8 of 15 were linked.
+- **Mobile nav now includes search** — `<Search />` component added to mobile navigation panel
+- **Agent image maps consolidated** — 3 diverging maps (speech-bubble, releases, forge-labs) replaced with single `src/lib/agent-images.ts` source of truth
+- **VoidForge methodology synced** — 18 files updated (ADR-035 Operational Learnings wired across 12 agents, field reports #258/#259/#263)
+- **PRD numbers reconciled** — commands 26→28, patterns 35→36, pages 131→135, document status updated to April 2026
+
+---
+
 ## [Site v0.9.0] - 2026-04-01
 
 ### Added
