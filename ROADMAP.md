@@ -1,13 +1,13 @@
 # ROADMAP — VoidForge Marketing Site
 
-## v10 — The Growth Guide (PENDING — 2026-04-03)
+## v10 — The Growth Guide (COMPLETE — 2026-04-03)
 
 Full lifecycle tutorial: /cultivation + SaaS + Google Ads. Shows the complete command sequence from deployed product to autonomous ad spend optimization.
 
 | Mission | Name | Status | Scope |
 |---------|------|--------|-------|
-| 1 | The Growth Tutorial | PENDING | /tutorial/google-ads page (7 sections), tutorial hub entry, search index, sitemap, Forge Labs lifecycle link |
-| 2 | The Chronicle | PENDING | ROADMAP, CHANGELOG, version bump, verify, deploy |
+| 1 | The Growth Tutorial | COMPLETE | /tutorial/google-ads page (7 sections), tutorial hub entry, search index, sitemap, Forge Labs lifecycle link |
+| 2 | The Chronicle | COMPLETE | ROADMAP, CHANGELOG, version bump, verify, deploy |
 
 ### Dependencies
 

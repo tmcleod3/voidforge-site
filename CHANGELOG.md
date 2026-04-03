@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v1.4.0] - 2026-04-03
+
+### Added
+- **Google Ads lifecycle tutorial** (`/tutorial/google-ads`) — complete walkthrough from deployed SaaS to autonomous Google Ads: command sequence, 6-phase lifecycle (cultivation install → grow setup → content → campaign build → compliance → launch), daemon job table, money flow diagram with circuit breakers, minimum viable setup tiers, common failure modes
+- **Tutorial hub** — "Full Lifecycle Guide" card in Growth & Operations section
+- **Forge Labs page** — lifecycle guide card with call-to-action before tool cards
+- **Search index** — Google Ads lifecycle tutorial discoverable
+- **ADR-015** — architectural decision for growth lifecycle guide
+
+---
+
 ## [Site v1.3.0] - 2026-04-02
 
 ### Added
