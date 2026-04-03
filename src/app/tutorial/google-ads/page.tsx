@@ -32,6 +32,16 @@ export default function GoogleAdsLifecyclePage() {
           and every failure mode you&apos;ll hit.
         </SpeechBubble>
 
+        <div className="comic-panel bg-[var(--vf-surface-raised)] p-4 mb-8 border-l-4 border-[var(--vf-forge-orange)]">
+          <p className="text-sm text-[var(--vf-text-muted)]">
+            <strong className="text-[var(--vf-text)]">Want dedicated landing pages per campaign?</strong>{" "}
+            <Link href="/tutorial/google-ads-kongo" className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]">
+              Full Lifecycle + Kongo
+            </Link>{" "}
+            adds 3-layer A/B testing, seed-to-conversion feedback loop, and autonomous page generation.
+          </p>
+        </div>
+
         {/* === COMMAND SEQUENCE === */}
         <section className="mt-12">
           <h2
