@@ -448,7 +448,9 @@ src/app/
 └── github/page.tsx             ← Redirect to GitHub repo
 ```
 
-Total generated pages: 135 (from 28 route templates). Originally 97 planned; expanded through campaigns v1-v4.
+Total generated pages: 138 (from 28 route templates). Originally 97 planned; expanded through campaigns v1-v9.
+
+**Note (2026-04-03):** Tutorial section expanded to 16 pages. Growth lifecycle guide (`/tutorial/google-ads`) added in v10 to show the full /cultivation → /grow → daemon lifecycle with Google Ads as the reference platform. See ADR-015.
 
 ---
 

@@ -1,5 +1,29 @@
 # ROADMAP — VoidForge Marketing Site
 
+## v10 — The Growth Guide (PENDING — 2026-04-03)
+
+Full lifecycle tutorial: /cultivation + SaaS + Google Ads. Shows the complete command sequence from deployed product to autonomous ad spend optimization.
+
+| Mission | Name | Status | Scope |
+|---------|------|--------|-------|
+| 1 | The Growth Tutorial | PENDING | Create `/tutorial/google-ads` page with full lifecycle: command sequence, phase-by-phase walkthrough, money flow diagram, daemon jobs, minimum viable setup, failure modes |
+| 2 | The Hub Wire | PENDING | Add to tutorial hub (Growth & Operations section), search index, sitemap slug list. Update Forge Labs page with lifecycle link. |
+| 3 | The Chronicle | PENDING | ADR-015 committed, ROADMAP, CHANGELOG, version bump, verify, deploy |
+
+### Dependencies
+
+```
+Mission 1 ─────────────────────────────── (independent — new tutorial page)
+Mission 2 ──── depends on ──── Mission 1 (hub links to tutorial)
+Mission 3 ──── depends on ──── Missions 1-2 (chronicles completed work)
+```
+
+### Source
+
+User-authored lifecycle guide synthesized from 3 agent perspectives. ADR-015 documents the architectural decision. Content covers: /cultivation install → /grow --setup → /grow → daemon → /treasury --status → /grow --content.
+
+---
+
 ## v9 — The Kongo Engine (COMPLETE — 2026-04-02)
 
 Void sync v20.1.1 (Kongo Engine + Parallel Agent Standard). Wire all new capabilities. Structural + semantic audit applied per LEARNINGS.md.
