@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v1.5.0] - 2026-04-03
+
+### Added
+- **Kongo lifecycle tutorial** (`/tutorial/google-ads-kongo`) — full-funnel growth guide: seed extraction from PRD, Kongo page generation per campaign (3 pages x 6 variants), 3-layer A/B testing (creative → page → audience), growth signal computation, weekly feedback loop (Mon-Fri cycle), full data flow diagram, Phase A→B→C autonomous progression, comparison table vs without Kongo
+- **Cross-linking** between base guide and Kongo guide — each links to the other with context
+- **Tutorial hub** updated with side-by-side lifecycle guide cards
+- **ADR-016** — architectural decision for separate companion guide
+
+---
+
 ## [Site v1.4.0] - 2026-04-03
 
 ### Added

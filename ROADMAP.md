@@ -1,13 +1,13 @@
 # ROADMAP — VoidForge Marketing Site
 
-## v11 — The Kongo Lifecycle (PENDING — 2026-04-03)
+## v11 — The Kongo Lifecycle (COMPLETE — 2026-04-03)
 
 Companion guide to v10: full lifecycle with Kongo integrated — 3-layer A/B testing, seed-to-conversion feedback loop, autonomous page generation.
 
 | Mission | Name | Status | Scope |
 |---------|------|--------|-------|
-| 1 | The Kongo Tutorial | PENDING | /tutorial/google-ads-kongo page (seed extraction, page generation, variant generation, growth signal, 3-layer testing, weekly feedback loop, full data flow diagram, comparison table), hub + search + sitemap, cross-link from google-ads guide |
-| 2 | The Chronicle | PENDING | ADR-016 committed, ROADMAP, CHANGELOG, version bump, verify, deploy |
+| 1 | The Kongo Tutorial | COMPLETE | /tutorial/google-ads-kongo page (seed extraction, page generation, variant generation, growth signal, 3-layer testing, weekly feedback loop, full data flow diagram, comparison table), hub + search + sitemap, cross-link from google-ads guide |
+| 2 | The Chronicle | COMPLETE | ADR-016 committed, ROADMAP, CHANGELOG, version bump, verify, deploy |
 
 ### Dependencies
 
