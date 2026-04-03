@@ -590,6 +590,7 @@ export const commands: Command[] = [
       "Phase 1: Kelsier + Vin + Marsh run reconnaissance — product audit, site audit, competitive analysis",
       "Phase 2: Navani + Raoden lay foundation — technical SEO, conversion optimization, analytics",
       "Phase 3: Shallan + Hoid create content — blog, changelog, case studies, visual assets",
+      "Phase 3.5: Kongo landing pages — Raoden + Shallan generate dedicated pages per campaign with 6 A/B variants (requires Kongo connection)",
       "Phase 4: Distribution — organic (Kaladin, Lift) + paid (Wax, Wayne) + outreach (Sarene)",
       "Phase 5: Szeth runs compliance — GDPR, CAN-SPAM, platform ToS, ad policies",
       "Phase 6: Vin + Kelsier measure and iterate — track, identify, report, loop",
@@ -603,6 +604,7 @@ export const commands: Command[] = [
       { flag: "--content", type: "string", valuePlaceholder: "type", description: "Shallan creates content. Blog, landing, changelog, or case-study.", effect: "Run Phase 3 content creation for the specified type." },
       { flag: "--budget", type: "string", valuePlaceholder: "amount", description: "Steris's daily spend cap for paid operations. The Planner makes contingency plans for every scenario.", effect: "Set daily ad spend limit in dollars." },
       { flag: "--continuous", type: "boolean", description: "Heartbeat mode — daily optimization cycles. Vin pulls metrics, Wax optimizes, Kelsier reviews, Lift schedules.", effect: "Run growth in scheduled daily cycles." },
+      { flag: "--auto-pages", type: "boolean", description: "Enable Phase C fully autonomous Kongo page generation. Daemon extracts seed from winning variants, generates and publishes pages without human approval.", effect: "Enable autonomous landing page generation (requires 50+ pages with positive CVR delta)." },
     ],
     badge: "NEW in v11.0",
   },
@@ -657,6 +659,7 @@ export const commands: Command[] = [
     whatHappens: [
       "Install growth infrastructure alongside the project",
       "Configure ad platform connections and API credentials",
+      "Connect Kongo landing page engine (Step 2b) — every campaign gets dedicated A/B-tested pages",
       "Set up analytics and conversion tracking",
       "Initialize the content pipeline and social scheduler",
       "Configure budget tiers and safety controls",

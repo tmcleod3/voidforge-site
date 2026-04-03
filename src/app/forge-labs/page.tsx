@@ -77,8 +77,8 @@ const tools = [
     command: "/cultivation",
     tagline: "Plant the seeds before the first customer arrives.",
     description:
-      "Day-0 growth provisioner. Treasury vault, revenue tracking, ad platform connections, financial safety tiers — all wired before launch. Run it once. Re-run it anytime. It only builds what's missing.",
-    what: "Financial vault, revenue adapters, ad platform OAuth, budget allocation, TOTP 2FA",
+      "Day-0 growth provisioner. Treasury vault, revenue tracking, ad platform connections, Kongo landing page engine, financial safety tiers — all wired before launch. Run it once. Re-run it anytime. It only builds what's missing.",
+    what: "Financial vault, revenue adapters, ad platform OAuth, Kongo landing pages, budget allocation, TOTP 2FA",
     needs: "Platform accounts (Google Ads, Meta Ads), API keys, Anthropic key for Claude Code",
     tutorial: "/tutorial/cultivation",
     commandPage: "/commands/cultivation",
@@ -93,8 +93,8 @@ const tools = [
     command: "/grow",
     tagline: "The 6-phase protocol that turns launches into traction.",
     description:
-      "Audit, Analytics, SEO, Ads, Social, Outreach. Kelsier's crew runs the heist. Vin reads the data. Navani optimizes the technical SEO. Dalinar watches the competition. Six phases, each with agents who specialize.",
-    what: "SEO audit, ad campaign creation, content pipeline, social scheduling, outreach automation",
+      "Audit, Analytics, SEO, Ads, Social, Outreach + Kongo landing pages. Kelsier's crew runs the heist. Vin reads the data. Navani optimizes the technical SEO. Raoden generates dedicated landing pages per campaign with 6 A/B variants. Six phases, each with agents who specialize.",
+    what: "SEO audit, ad campaign creation, Kongo landing pages (Phase 3.5), content pipeline, social scheduling, outreach automation",
     needs: "Connected ad platforms (via Cultivation), analytics access, content strategy",
     tutorial: "/tutorial/grow",
     commandPage: "/commands/grow",
