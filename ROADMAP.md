@@ -1,5 +1,31 @@
 # ROADMAP — VoidForge Marketing Site
 
+## v9 — The Kongo Engine (IN PROGRESS — 2026-04-02)
+
+Void sync v20.1.1 (Kongo Engine + Parallel Agent Standard). Wire all new capabilities. Structural + semantic audit applied per LEARNINGS.md.
+
+| Mission | Name | Status | Scope |
+|---------|------|--------|-------|
+| 1 | The New Pattern + Releases | PENDING | Add kongo-integration (37th pattern), v20.1.0 + v20.1.1 release entries, search index, update v20.0 future |
+| 2 | The Parallel Standard | PENDING | Update /build, /campaign, /assemble, /qa, /security, /gauntlet descriptions with Parallel Agent Standard + field report rules |
+| 3 | The Kongo Wire | PENDING | Update /grow, /cultivation descriptions with Kongo features. Update Forge Labs page. |
+| 4 | The Chronicle | PENDING | ROADMAP, CHANGELOG, version bump, verify, deploy |
+
+### Dependencies
+
+```
+Mission 1 ─────────────────────────────── (independent — data entries)
+Mission 2 ─────────────────────────────── (independent — command descriptions)
+Mission 3 ─────────────────────────────── (independent — Kongo-specific)
+Mission 4 ──── depends on ──── Missions 1-3 (chronicles completed work)
+```
+
+### Source
+
+Content audit of void sync v19.5.0 → v20.1.1. 3 structural + 21 semantic gaps found. Semantic check applied per LEARNINGS.md lesson.
+
+---
+
 ## v8 — The Living Docs (COMPLETE — 2026-04-01)
 
 Wire all void sync content changes into the marketing site. Every new capability (ADR-035 Operational Learnings, field report rules, command enhancements) must be visible to site visitors.

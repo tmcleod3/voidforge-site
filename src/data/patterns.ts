@@ -2294,6 +2294,65 @@ function useCombobox<T>({ items, getLabel, onSelect, filterFn }: ComboboxOptions
       },
     ],
   },
+  {
+    slug: "kongo-integration",
+    name: "kongo-integration.ts",
+    title: "Kongo Integration",
+    description:
+      "Landing page engine: authenticated client, from-PRD page generation, growth signal polling, webhook handlers.",
+    teaches:
+      "How to build a first-party API integration with typed client, HMAC-verified webhooks, and a closed-loop feedback pipeline (generate → track → analyze → feed back).",
+    whenToUse:
+      "Integrating an external landing page engine with growth/campaign systems. Unlike adapter patterns, there's no abstraction layer — the client talks directly to the API.",
+    preview: `interface KongoClientConfig {\n  apiKey: string;     // ke_live_ prefix, vault-sourced\n  baseUrl?: string;   // Default: https://kongo.io/api/v1\n  rateLimitPerMinute?: number;\n}`,
+    frameworks: [
+      {
+        framework: "nextjs",
+        label: "Next.js",
+        language: "TypeScript",
+        code: `// Webhook route at /api/webhooks/kongo
+import { NextRequest, NextResponse } from "next/server";
+import { timingSafeEqual, createHmac } from "crypto";
+
+function verifySignature(body: string, signature: string, secret: string): boolean {
+  const expected = createHmac("sha256", secret).update(body).digest("hex");
+  return timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
+}
+
+export async function POST(req: NextRequest) {
+  const body = await req.text();
+  const sig = req.headers.get("x-kongo-signature") ?? "";
+  if (!verifySignature(body, sig, process.env.KONGO_WEBHOOK_SECRET!)) {
+    return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
+  }
+  const event = JSON.parse(body);
+  // Route: page.completed, page.failed, variant.winner
+  return NextResponse.json({ received: true });
+}`,
+      },
+      {
+        framework: "django",
+        label: "Django DRF",
+        language: "Python",
+        code: `# views.py — Kongo webhook receiver
+import hmac, hashlib, json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def kongo_webhook(request):
+    body = request.body
+    sig = request.headers.get("X-Kongo-Signature", "")
+    secret = settings.KONGO_WEBHOOK_SECRET.encode()
+    expected = hmac.new(secret, body, hashlib.sha256).hexdigest()
+    if not hmac.compare_digest(sig, expected):
+        return JsonResponse({"error": "Invalid signature"}, status=401)
+    event = json.loads(body)
+    # Route: page.completed, page.failed, variant.winner
+    return JsonResponse({"received": True})`,
+      },
+    ],
+  },
 ];
 
 export function getPattern(slug: string): Pattern | undefined {

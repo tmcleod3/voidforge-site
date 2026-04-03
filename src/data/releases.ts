@@ -124,6 +124,11 @@ export const majorEras: Record<string, MajorEra> = {
     quote: "The forge doesn't just build — it funds itself. Stablecoins to invoices, adapters to autopilot. The money pipeline is alive.",
     agent: "Dockson",
   },
+  "20": {
+    title: "The Kongo Engine",
+    quote: "Every campaign needs a landing page. Every landing page needs data. The forge generates both, tests both, and feeds the winners back into the next cycle.",
+    agent: "Kelsier",
+  },
 };
 
 export const shipped: Release[] = [
@@ -1068,11 +1073,41 @@ export const shipped: Release[] = [
       "50-entry cap with staleness tracking and promotion pipeline to LESSONS.md",
     ],
   },
+  {
+    version: "v20.1.0",
+    date: "2026-04-02",
+    title: "The Kongo Engine",
+    headline: "Every ad campaign gets a dedicated landing page. Kongo generates, tests, and optimizes — the forge closes the loop from spend to conversion.",
+    items: [
+      "Kongo Engine Integration (ADR-036) — first-party landing page system with 10 modules",
+      "Phase 3.5 in /grow: Raoden + Shallan generate dedicated Kongo pages per campaign with 6 A/B variants",
+      "3-phase activation: Manual → Semi-Auto → Fully Auto (--auto-pages flag)",
+      "Heartbeat jobs: growth signal polling, seed extraction on A/B winner, HMAC-verified webhooks",
+      "kongo-integration.ts pattern (37th) — client, from-PRD generation, growth signal, webhook handlers",
+      "Operational Learnings system activated (first LEARNINGS.md entries written in production)",
+      "119 tests, Infinity Gauntlet passed (3 Critical + 10 High fixed)",
+    ],
+  },
+  {
+    version: "v20.1.1",
+    date: "2026-04-02",
+    title: "The Parallel Standard",
+    headline: "The forge dispatches, not deliberates. Sub-agents do the heavy lifting. Main thread orchestrates. Context stays at 15-25%.",
+    items: [
+      "Parallel Agent Standard (ADR-036) — main thread orchestrates, sub-agents do all analysis",
+      "Structured agent briefs: role, mission, scope, deliverable format, constraints",
+      "Max 3 concurrent agents, findings summaries between phases (not raw code)",
+      "ID Space Audit (Oracle) — verify identifier comparisons use the same ID space",
+      "Safety Parameter Audit — verify critical params can't be overridden to unsafe values",
+      "Maul mandatory gate — crossfire re-probe is now a hard gate, not optional",
+      "7 field report triages (#264-#270) with 14 methodology fixes",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
-    version: "v20.0",
+    version: "v21.0",
     title: "The Convergence",
     opacity: 1,
     items: [
