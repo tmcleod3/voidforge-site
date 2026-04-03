@@ -1,15 +1,15 @@
 # ROADMAP — VoidForge Marketing Site
 
-## v9 — The Kongo Engine (IN PROGRESS — 2026-04-02)
+## v9 — The Kongo Engine (COMPLETE — 2026-04-02)
 
 Void sync v20.1.1 (Kongo Engine + Parallel Agent Standard). Wire all new capabilities. Structural + semantic audit applied per LEARNINGS.md.
 
 | Mission | Name | Status | Scope |
 |---------|------|--------|-------|
-| 1 | The New Pattern + Releases | PENDING | Add kongo-integration (37th pattern), v20.1.0 + v20.1.1 release entries, search index, update v20.0 future |
-| 2 | The Parallel Standard | PENDING | Update /build, /campaign, /assemble, /qa, /security, /gauntlet descriptions with Parallel Agent Standard + field report rules |
-| 3 | The Kongo Wire | PENDING | Update /grow, /cultivation descriptions with Kongo features. Update Forge Labs page. |
-| 4 | The Chronicle | PENDING | ROADMAP, CHANGELOG, version bump, verify, deploy |
+| 1 | The New Pattern + Releases | COMPLETE | Add kongo-integration (37th pattern), v20.1.0 + v20.1.1 release entries, search index, update v20.0 future |
+| 2 | The Parallel Standard | COMPLETE | Update /build, /campaign, /assemble, /qa, /security, /gauntlet descriptions with Parallel Agent Standard + field report rules |
+| 3 | The Kongo Wire | COMPLETE | Update /grow, /cultivation descriptions with Kongo features. Update Forge Labs page. |
+| 4 | The Chronicle | COMPLETE | ROADMAP, CHANGELOG, version bump, verify, deploy |
 
 ### Dependencies
 

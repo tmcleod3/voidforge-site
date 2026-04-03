@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v1.3.0] - 2026-04-02
+
+### Added
+- **Kongo integration pattern** (37th) — landing page engine: client, from-PRD generation, growth signal, webhook handlers with Next.js + Django framework tabs
+- **v20.1.0 + v20.1.1 releases** on Prophecy page — Kongo Engine Integration + Parallel Agent Standard
+- **v20 major era** ("The Kongo Engine") in release timeline
+
+### Changed
+- **8 command descriptions updated** to reflect v20.1.0/v20.1.1 capabilities:
+  - `/build`: Parallel Agent Standard dispatch, stored value rename check, worker env verification
+  - `/campaign`: scope-based review scaling (S/M/L), cross-mission data handoff, per-mission Kenobi, Victory Gauntlet hard gate, dispatch model
+  - `/assemble`: ADR-036 dispatch, Maul mandatory gate in crossfire
+  - `/qa`: dispatch-first QA, ID Space Audit (Oracle)
+  - `/security`: dispatch-first security, safety parameter audit
+  - `/gauntlet`: dispatch model, Vin statistical review agent, Maul mandatory gate
+  - `/grow`: Phase 3.5 Kongo landing pages, --auto-pages flag
+  - `/cultivation`: Kongo connection in Step 2b
+- **Forge Labs page** — Cultivation and Grow cards now mention Kongo pages + A/B variants
+- **VoidForge methodology synced** v19.5.0 → v20.1.1 (18 files, 377 insertions)
+
+---
+
 ## [Site v1.2.0] - 2026-04-01
 
 ### Added
