@@ -6,16 +6,14 @@ Full lifecycle tutorial: /cultivation + SaaS + Google Ads. Shows the complete co
 
 | Mission | Name | Status | Scope |
 |---------|------|--------|-------|
-| 1 | The Growth Tutorial | PENDING | Create `/tutorial/google-ads` page with full lifecycle: command sequence, phase-by-phase walkthrough, money flow diagram, daemon jobs, minimum viable setup, failure modes |
-| 2 | The Hub Wire | PENDING | Add to tutorial hub (Growth & Operations section), search index, sitemap slug list. Update Forge Labs page with lifecycle link. |
-| 3 | The Chronicle | PENDING | ADR-015 committed, ROADMAP, CHANGELOG, version bump, verify, deploy |
+| 1 | The Growth Tutorial | PENDING | /tutorial/google-ads page (7 sections), tutorial hub entry, search index, sitemap, Forge Labs lifecycle link |
+| 2 | The Chronicle | PENDING | ROADMAP, CHANGELOG, version bump, verify, deploy |
 
 ### Dependencies
 
 ```
-Mission 1 ─────────────────────────────── (independent — new tutorial page)
-Mission 2 ──── depends on ──── Mission 1 (hub links to tutorial)
-Mission 3 ──── depends on ──── Missions 1-2 (chronicles completed work)
+Mission 1 ─────────────────────────────── (independent — tutorial page + wiring)
+Mission 2 ──── depends on ──── Mission 1 (chronicles completed work)
 ```
 
 ### Source
