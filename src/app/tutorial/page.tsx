@@ -246,6 +246,18 @@ export default function TutorialPage() {
                 </Link>
               ))}
             </div>
+
+            <Link
+              href="/tutorial/google-ads"
+              className="mt-4 block comic-panel bg-[var(--vf-surface-raised)] p-4 hover:border-[var(--vf-forge-orange)] transition-colors border-l-4 border-[var(--vf-cosmere, #b8860b)]"
+            >
+              <span className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-text)]">
+                FULL LIFECYCLE GUIDE
+              </span>
+              <p className="text-[10px] text-[var(--vf-text-muted)] mt-1">
+                /cultivation + SaaS + Google Ads — from deployed product to autonomous ad spend in ~90 minutes
+              </p>
+            </Link>
           </div>
         </div>
       </section>

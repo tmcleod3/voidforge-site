@@ -367,6 +367,26 @@ export default function ForgeLabsPage() {
         </div>
       </section>
 
+      {/* ── Lifecycle Guide ── */}
+      <section className="px-4 pb-12">
+        <div className="mx-auto max-w-3xl">
+          <Link
+            href="/tutorial/google-ads"
+            className="block comic-panel bg-[var(--vf-surface-raised)] p-6 hover:border-[var(--vf-forge-orange)] transition-colors border-l-4 border-[var(--vf-cosmere, #b8860b)]"
+          >
+            <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-text)] mb-2">
+              FULL LIFECYCLE GUIDE
+            </h3>
+            <p className="text-sm text-[var(--vf-text-muted)]">
+              /cultivation + SaaS + Google Ads — from deployed product to autonomous ad spend with budget optimization, A/B testing, and circuit breakers. ~90 minutes of active work.
+            </p>
+            <span className="inline-block mt-3 text-xs text-[var(--vf-forge-orange)] font-bold">
+              READ THE GUIDE &rarr;
+            </span>
+          </Link>
+        </div>
+      </section>
+
       {/* ── Tool Cards ── */}
       <section className="px-4 pb-8">
         <div className="mx-auto max-w-5xl">
