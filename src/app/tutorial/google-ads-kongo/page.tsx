@@ -172,6 +172,14 @@ export default function GoogleAdsKongoPage() {
             <p className="text-xs text-[var(--vf-text-muted)] mt-2">
               Rotation: <strong className="text-[var(--vf-text)]">equal</strong> split initially &rarr; <strong className="text-[var(--vf-text)]">bandit</strong> (multi-armed bandit auto-optimization) after 500+ impressions per variant.
             </p>
+            <div className="mt-3 p-3 rounded bg-[var(--vf-terminal-bg)] border border-[var(--vf-border)]/30">
+              <p className="text-[10px] text-[var(--vf-forge-yellow)]">
+                <strong>Self-marketing note:</strong> If marketing your own product (the one hosting Kongo), use{" "}
+                <code className="text-[var(--vf-electric-blue)]">yourdomain.com/lp/&#123;slug&#125;</code> instead of subdomain URLs.
+                See <a href="#lp-route" className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]">&ldquo;The /lp/ Route&rdquo;</a> below.
+                For client products, subdomain URLs work as described.
+              </p>
+            </div>
           </div>
 
           <p className="text-sm text-[var(--vf-text-muted)] mt-4">
@@ -295,8 +303,15 @@ PRD ──> Phase 3 ──> PrdSeedContent ──> KONGO API
                                    KONGO PAGES
                                    (3 pages x 6 variants)
                                         │
-                          UTM-linked     │
-                              ┌─────────┘
+                        ┌───────────────┤
+                        │               │
+                   Subdomain        Direct render
+                slug.kongo.io    kongo.io/lp/slug
+               (client products)  (self-marketing)
+                        │          GA4 on same domain
+                        │               │
+                        └───────┬───────┘
+                          UTM-linked
                               v
 GOOGLE ADS ←──(dest URLs)──── CAMPAIGN BUILDER
      │                                   │
@@ -350,6 +365,49 @@ KONGO-SEED JOB ──> NEXT CYCLE SEED ──> NEW PAGES ──> ...`}
                 ))}
               </tbody>
             </table>
+          </div>
+        </section>
+
+        {/* === SELF-MARKETING: THE /lp/ ROUTE === */}
+        <section className="mt-16">
+          <h2 id="lp-route" tabIndex={-1} className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
+            SELF-MARKETING: THE /LP/ ROUTE
+          </h2>
+          <p className="text-[var(--vf-text-muted)] mb-6">
+            When you use Kongo to market <strong className="text-[var(--vf-text)]">Kongo itself</strong> (or any product hosted on the same domain as Kongo), there&apos;s an iframe sandbox constraint.
+          </p>
+
+          <div className="comic-panel bg-[var(--vf-surface-raised)] p-6 mb-6 border-l-4 border-red-500/50">
+            <h3 className="font-[family-name:var(--font-bangers)] text-lg tracking-wider text-red-400 mb-3">THE IFRAME SANDBOX</h3>
+            <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+              Published sites serve inside <code className="text-[var(--vf-electric-blue)]">sandbox=&quot;allow-scripts allow-forms allow-popups&quot;</code> (no <code className="text-[var(--vf-electric-blue)]">allow-same-origin</code>). This means:
+            </p>
+            <ul className="text-sm text-[var(--vf-text-muted)] space-y-2">
+              <li><strong className="text-red-400">GA4 can&apos;t set cookies</strong> inside the iframe (no session stitching)</li>
+              <li><strong className="text-red-400">window.location.search</strong> returns <code className="text-[var(--vf-electric-blue)]">about:srcdoc</code> (UTM params invisible)</li>
+              <li><strong className="text-red-400">CTA links</strong> can&apos;t navigate the parent window</li>
+            </ul>
+          </div>
+
+          <div className="comic-panel bg-[var(--vf-surface-raised)] p-6 mb-6 border-l-4 border-[var(--vf-neon-green)]">
+            <h3 className="font-[family-name:var(--font-bangers)] text-lg tracking-wider text-[var(--vf-neon-green)] mb-3">THE FIX: DIRECT HTML RENDERING</h3>
+            <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+              Create a route at <code className="text-[var(--vf-electric-blue)]">/lp/[slug]</code> that serves the Kongo-generated HTML directly (no iframe) inside the marketing layout.
+              GA4, consent, and UTMs all work natively because it&apos;s the same domain.
+            </p>
+            <div className="bg-[var(--vf-terminal-bg)] p-4 rounded font-[family-name:var(--font-space-mono)] text-xs text-[var(--vf-terminal-green)] overflow-x-auto">
+              <pre>{`// src/app/(marketing)/lp/[slug]/page.tsx
+// Renders generatedHtml via dangerouslySetInnerHTML
+// Only admin-owned projects (security boundary)
+// GA4 + PostHog + consent from marketing layout`}</pre>
+            </div>
+          </div>
+
+          <div className="comic-panel bg-[var(--vf-surface-raised)] p-4 border-l-4 border-[var(--vf-forge-yellow)]">
+            <p className="text-sm text-[var(--vf-text-muted)]">
+              <strong className="text-[var(--vf-forge-yellow)]">This only applies to self-marketing.</strong>{" "}
+              When Kongo generates pages for a <em>client</em> product (e.g., yoursaas.kongo.io), GA4 runs on the client&apos;s marketing site — the iframe constraint doesn&apos;t affect them.
+            </p>
           </div>
         </section>
 
