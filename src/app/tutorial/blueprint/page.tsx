@@ -66,7 +66,14 @@ export default function BlueprintPage() {
             <strong className="text-[var(--vf-text)]">
               VoidForge (Full tier)
             </strong>{" "}
-            — clone and install:
+            — clone and install (requires{" "}
+            <Link
+              href="/tutorial/install"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              Node 20+
+            </Link>
+            ):
           </p>
           <div className="crt-terminal !p-4 mb-6 space-y-2">
             <div>

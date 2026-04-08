@@ -39,7 +39,7 @@ export default function WizardPage() {
             WHAT YOU&apos;LL NEED
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            <strong className="text-[var(--vf-text)]">Node.js 18+</strong> —
+            <strong className="text-[var(--vf-text)]">Node.js 20+</strong> —
             the runtime that powers the forge.{" "}
             <a
               href="https://nodejs.org/"

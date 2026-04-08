@@ -15,9 +15,10 @@ export const metadata: Metadata = {
 
 const tocItems = [
   { id: "prerequisites", label: "Prerequisites" },
+  { id: "platform-install", label: "Platform-Specific Installation" },
   { id: "verify-your-tools", label: "Verify Your Tools" },
   { id: "three-tiers", label: "The Three Tiers" },
-  { id: "windows-notes", label: "Windows Notes" },
+  { id: "troubleshooting", label: "Troubleshooting" },
 ];
 
 export default function InstallPage() {
@@ -39,7 +40,7 @@ export default function InstallPage() {
         <TableOfContents items={tocItems} />
 
         <SpeechBubble agent="Galadriel" universe="tolkien">
-          Welcome, builder. Before you can forge, you need the tools. Node.js 18
+          Welcome, builder. Before you can forge, you need the tools. Node.js 20
           or later, and Claude Code installed and authenticated. That&apos;s it.
           Let&apos;s get you set up.
         </SpeechBubble>
@@ -56,7 +57,7 @@ export default function InstallPage() {
             <li className="flex items-start gap-3">
               <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
               <span>
-                <strong className="text-[var(--vf-text)]">Node.js 18+</strong>{" "}
+                <strong className="text-[var(--vf-text)]">Node.js 20+</strong>{" "}
                 — The runtime that powers the forge.{" "}
                 <a
                   href="https://nodejs.org/"
@@ -124,6 +125,102 @@ export default function InstallPage() {
 
         <section className="mt-12">
           <h2
+            id="platform-install"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            PLATFORM-SPECIFIC INSTALLATION
+          </h2>
+
+          <div className="space-y-6">
+            {/* macOS */}
+            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
+              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                MACOS
+              </h3>
+              <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+                Install via Homebrew or download the LTS installer from nodejs.org.
+              </p>
+              <div className="crt-terminal !p-4 text-sm space-y-1">
+                <div><code>brew install node@20</code></div>
+              </div>
+            </div>
+
+            {/* Ubuntu / Debian */}
+            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
+              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                UBUNTU / DEBIAN (SERVERS, VPS, EC2)
+              </h3>
+              <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+                <strong className="text-[var(--vf-text)]">
+                  Do NOT use{" "}
+                  <code className="text-[var(--vf-electric-blue)]">
+                    apt install nodejs
+                  </code>
+                </strong>{" "}
+                — Ubuntu 22.04 ships Node 12, which is 8 major versions behind
+                the requirement. Use NodeSource instead:
+              </p>
+              <div className="crt-terminal !p-4 text-sm space-y-1">
+                <div className="text-[var(--vf-text-muted)]"># Remove conflicting system packages (if present)</div>
+                <div><code>sudo apt-get remove -y libnode-dev nodejs-doc</code></div>
+                <div className="mt-2 text-[var(--vf-text-muted)]"># Install Node 20 via NodeSource</div>
+                <div><code>curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -</code></div>
+                <div><code>sudo apt-get install -y nodejs</code></div>
+                <div className="mt-2 text-[var(--vf-text-muted)]"># Verify</div>
+                <div><code>node -v   # Should show v20.x</code></div>
+                <div><code>npm -v    # Should show 10.x</code></div>
+              </div>
+              <p className="text-sm text-[var(--vf-text-muted)] mt-3 px-3 py-2 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+                <strong className="text-[var(--vf-forge-orange)]">Common failure:</strong>{" "}
+                If{" "}
+                <code className="text-[var(--vf-electric-blue)]">apt install nodejs</code>{" "}
+                fails with{" "}
+                <code className="text-[var(--vf-electric-blue)]">
+                  trying to overwrite &apos;/usr/include/node/common.gypi&apos;
+                </code>
+                , run{" "}
+                <code className="text-[var(--vf-electric-blue)]">
+                  sudo apt-get remove -y libnode-dev
+                </code>{" "}
+                first, then retry the install.
+              </p>
+            </div>
+
+            {/* Windows */}
+            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
+              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                WINDOWS
+              </h3>
+              <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+                Download Node 20 LTS from{" "}
+                <a
+                  href="https://nodejs.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                >
+                  nodejs.org
+                </a>
+                . If{" "}
+                <code className="text-[var(--vf-electric-blue)]">npm install</code>{" "}
+                fails with node-gyp errors, either install{" "}
+                <a
+                  href="https://visualstudio.microsoft.com/visual-cpp-build-tools/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                >
+                  Visual C++ Build Tools
+                </a>{" "}
+                or use the Scaffold tier (no native compilation needed).
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-12">
+          <h2
             id="verify-your-tools"
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
@@ -141,7 +238,7 @@ export default function InstallPage() {
                 node --version
               </code>
               <span className="text-[var(--vf-text-muted)] text-xs mt-0.5">
-                → v18.x or higher
+                → v20.x or higher (minimum 20.11.0)
               </span>
             </div>
             <div className="flex items-start gap-3">
@@ -241,57 +338,113 @@ export default function InstallPage() {
               </div>
             </div>
           </div>
+
+          <p className="text-sm text-[var(--vf-text-muted)] mt-6 px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+            <strong className="text-[var(--vf-forge-orange)]">Scaffold & Core tiers:</strong>{" "}
+            These tiers have no dependencies. Do{" "}
+            <strong className="text-[var(--vf-text)]">not</strong> run{" "}
+            <code className="text-[var(--vf-electric-blue)]">npm install</code>{" "}
+            — there&apos;s nothing to install. The{" "}
+            <code className="text-[var(--vf-electric-blue)]">package.json</code>{" "}
+            contains only name, version, and description. Just open Claude Code
+            in the directory and start with{" "}
+            <code className="text-[var(--vf-electric-blue)]">/prd</code> or{" "}
+            <code className="text-[var(--vf-electric-blue)]">/build</code>.
+          </p>
         </section>
 
         <section className="mt-12">
           <h2
-            id="windows-notes"
+            id="troubleshooting"
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
           >
-            WINDOWS NOTES
+            TROUBLESHOOTING
           </h2>
-          <div className="comic-panel bg-[var(--vf-surface-raised)] p-6 space-y-4">
-            <p className="text-[var(--vf-text-muted)]">
-              <strong className="text-[var(--vf-text)]">PowerShell 7+</strong>{" "}
-              supports the <code className="text-[var(--vf-electric-blue)]">&&</code>{" "}
-              syntax in our install commands. If you&apos;re using the older
-              Windows PowerShell 5.1, run each command separately instead of
-              chaining with <code className="text-[var(--vf-electric-blue)]">&&</code>.
-            </p>
-            <p className="text-[var(--vf-text-muted)]">
-              <strong className="text-[var(--vf-text)]">npm install fails?</strong>{" "}
-              The Full tier compiles native modules that need C++ build tools.
-              If you see <code className="text-[var(--vf-electric-blue)]">node-gyp</code>{" "}
-              errors, either install{" "}
-              <a
-                href="https://visualstudio.microsoft.com/visual-cpp-build-tools/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
-              >
-                Visual C++ Build Tools
-              </a>{" "}
-              or skip npm entirely — use the{" "}
-              <strong className="text-[var(--vf-forge-orange)]">Scaffold tier</strong>{" "}
-              instead. It needs only Git, no native compilation.
-            </p>
-            <p className="text-[var(--vf-text-muted)]">
-              <strong className="text-[var(--vf-text)]">VS Code users:</strong>{" "}
-              Open the integrated terminal (Ctrl+`) and you&apos;re ready.
-              Works with PowerShell, Command Prompt, Git Bash, or WSL.
-            </p>
-            <p className="text-[var(--vf-text-muted)] mt-3">
-              For a detailed Windows walkthrough, see the{" "}
-              <a
-                href="https://github.com/tmcleod3/voidforge/blob/main/docs/QUICKSTART-WINDOWS.md"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
-              >
-                Windows Quickstart Guide
-              </a>.
-            </p>
+
+          <div className="space-y-6">
+            {/* Linux */}
+            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6 space-y-4">
+              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                LINUX / SERVER
+              </h3>
+              <p className="text-[var(--vf-text-muted)]">
+                <strong className="text-[var(--vf-text)]">node-gyp errors</strong>{" "}
+                — Native modules need build tools. Install them with:{" "}
+                <code className="text-[var(--vf-electric-blue)]">
+                  sudo apt-get install -y build-essential python3
+                </code>
+              </p>
+              <p className="text-[var(--vf-text-muted)]">
+                <strong className="text-[var(--vf-text)]">Permission errors</strong>{" "}
+                — Never use{" "}
+                <code className="text-[var(--vf-electric-blue)]">sudo npm install</code>.
+                Fix npm permissions instead:
+              </p>
+              <div className="crt-terminal !p-4 text-sm space-y-1">
+                <div><code>mkdir ~/.npm-global</code></div>
+                <div><code>npm config set prefix &apos;~/.npm-global&apos;</code></div>
+                <div className="text-[var(--vf-text-muted)]"># Add ~/.npm-global/bin to your PATH</div>
+              </div>
+              <p className="text-[var(--vf-text-muted)]">
+                <strong className="text-[var(--vf-text)]">EBADENGINE warnings</strong>{" "}
+                — Your Node version is too old. Follow the{" "}
+                <a
+                  href="#platform-install"
+                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                >
+                  NodeSource instructions above
+                </a>{" "}
+                to install Node 20.
+              </p>
+            </div>
+
+            {/* Windows */}
+            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6 space-y-4">
+              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                WINDOWS
+              </h3>
+              <p className="text-[var(--vf-text-muted)]">
+                <strong className="text-[var(--vf-text)]">PowerShell 7+</strong>{" "}
+                supports the <code className="text-[var(--vf-electric-blue)]">&&</code>{" "}
+                syntax in our install commands. If you&apos;re using the older
+                Windows PowerShell 5.1, run each command separately instead of
+                chaining with <code className="text-[var(--vf-electric-blue)]">&&</code>.
+              </p>
+              <p className="text-[var(--vf-text-muted)]">
+                <strong className="text-[var(--vf-text)]">npm install fails?</strong>{" "}
+                The Full tier compiles native modules that need C++ build tools.
+                If you see <code className="text-[var(--vf-electric-blue)]">node-gyp</code>{" "}
+                errors, either install{" "}
+                <a
+                  href="https://visualstudio.microsoft.com/visual-cpp-build-tools/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                >
+                  Visual C++ Build Tools
+                </a>{" "}
+                or skip npm entirely — use the{" "}
+                <strong className="text-[var(--vf-forge-orange)]">Scaffold tier</strong>{" "}
+                instead. It needs only Git, no native compilation.
+              </p>
+              <p className="text-[var(--vf-text-muted)]">
+                <strong className="text-[var(--vf-text)]">VS Code users:</strong>{" "}
+                Open the integrated terminal (Ctrl+`) and you&apos;re ready.
+                Works with PowerShell, Command Prompt, Git Bash, or WSL.
+              </p>
+              <p className="text-[var(--vf-text-muted)] mt-3">
+                For a detailed Windows walkthrough, see the{" "}
+                <a
+                  href="https://github.com/tmcleod3/voidforge/blob/main/docs/QUICKSTART-WINDOWS.md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                >
+                  Windows Quickstart Guide
+                </a>.
+              </p>
+            </div>
           </div>
         </section>
 

@@ -22,6 +22,7 @@ const deployTargets = [
 ] as const;
 
 const tocItems = [
+  { id: "server-prerequisites", label: "Server Prerequisites" },
   { id: "deploy-targets", label: "6 Deploy Targets" },
   { id: "how-it-works", label: "How It Works" },
   { id: "health-check", label: "Health Check" },
@@ -51,6 +52,39 @@ export default function DeployPage() {
           backups. You just need to set the deploy target in your PRD
           frontmatter.
         </SpeechBubble>
+
+        <section className="mt-12">
+          <h2
+            id="server-prerequisites"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            SERVER PREREQUISITES
+          </h2>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Deploying to a fresh Linux server (VPS, EC2, DigitalOcean)? Install
+            Node 20 and Git before cloning VoidForge:
+          </p>
+          <div className="crt-terminal !p-4 text-sm space-y-1 mb-4">
+            <div className="text-[var(--vf-text-muted)]"># Install Node 20 via NodeSource</div>
+            <div><code>curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -</code></div>
+            <div><code>sudo apt-get install -y nodejs git</code></div>
+            <div className="mt-2 text-[var(--vf-text-muted)]"># Clone and install</div>
+            <div><code>git clone https://github.com/tmcleod3/voidforge.git my-project</code></div>
+            <div><code>cd my-project && npm install</code></div>
+          </div>
+          <p className="text-[var(--vf-text-muted)] text-sm">
+            For full platform-specific instructions (including libnode-dev
+            conflicts on Ubuntu), see the{" "}
+            <Link
+              href="/tutorial/install#platform-install"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              Install tutorial
+            </Link>
+            .
+          </p>
+        </section>
 
         <section className="mt-12">
           <h2

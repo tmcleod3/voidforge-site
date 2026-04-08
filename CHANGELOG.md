@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v1.5.1] - 2026-04-07
+
+### Fixed
+- **Node.js version requirement** corrected from "18+" to "20+" across all tutorial pages — aligns with VoidForge's `>=20.11.0` engine requirement
+
+### Added
+- **Platform-specific Node installation** on /tutorial/install — macOS (Homebrew), Ubuntu/Debian (NodeSource with libnode-dev conflict warning), Windows
+- **Server prerequisites** on /tutorial/deploy — Node 20 setup for fresh Linux servers (VPS, EC2, DigitalOcean)
+- **Scaffold & Core tier clarification** — explicit note that these tiers have no dependencies and should not run `npm install`
+- **Linux troubleshooting** — node-gyp, npm permission errors, EBADENGINE warnings
+
+### Changed
+- **"Windows Notes" → "Troubleshooting"** — expanded to cover Linux/server alongside existing Windows content
+- **Blueprint page** links to install tutorial for Node 20+ requirement
+
+---
+
 ## [Site v1.5.0] - 2026-04-03
 
 ### Added
