@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v1.6.0] - 2026-04-07
+
+### Added
+- **Remote & LAN Access guide** on /tutorial/wizard — SSH tunnel, `--lan` mode (private networks, read-only), `--remote` mode (full access, TOTP 2FA), security notes for each binding mode
+- **Cross-link** from deploy server prerequisites to wizard remote access
+
+### Changed
+- **Wizard page meta description** updated to mention remote access for VPS installs
+
+---
+
 ## [Site v1.5.1] - 2026-04-07
 
 ### Fixed

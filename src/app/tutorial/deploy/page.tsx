@@ -82,7 +82,14 @@ export default function DeployPage() {
             >
               Install tutorial
             </Link>
-            .
+            . If you&apos;re running the wizard on a remote server, see{" "}
+            <Link
+              href="/tutorial/wizard#remote-access"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              Remote &amp; LAN Access
+            </Link>{" "}
+            for SSH tunnel, --lan, and --remote options.
           </p>
         </section>
 

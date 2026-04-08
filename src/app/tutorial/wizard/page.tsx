@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
+import { CopyButton } from "@/components/copy-button";
 
 export const metadata: Metadata = {
   title: "VoidForge Wizard — Start From Nothing",
   description:
-    "You have nothing but an idea. The wizard builds everything — PRD, code, infrastructure, deploy.",
+    "You have nothing but an idea. The wizard builds everything — PRD, code, infrastructure, deploy. Includes SSH tunnel, LAN, and remote access for VPS installs.",
 };
 
 export default function WizardPage() {
@@ -111,6 +112,129 @@ export default function WizardPage() {
             complete PRD from your answers. No blank-page problem. No YAML by
             hand. Just a conversation that produces a build-ready specification.
           </p>
+        </section>
+
+        <section className="mt-12">
+          <h2
+            id="remote-access"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            REMOTE &amp; LAN ACCESS
+          </h2>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            The wizard server binds to{" "}
+            <code className="text-[var(--vf-electric-blue)]">localhost</code> by
+            default. If you&apos;re installing on a remote server (VPS, EC2,
+            DigitalOcean, home server), you&apos;ll see{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              Server running at http://localhost:3141/
+            </code>{" "}
+            with no way to reach it from your browser. Here are three ways to
+            connect:
+          </p>
+
+          <div className="space-y-6">
+            {/* SSH Tunnel */}
+            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
+              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                OPTION 1: SSH TUNNEL (SIMPLEST)
+              </h3>
+              <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+                No config changes. The wizard stays bound to localhost.
+                Encrypted. No firewall changes needed.
+              </p>
+              <div className="crt-terminal flex items-center justify-between gap-2 !p-4">
+                <code className="text-sm break-all">
+                  <span className="text-[var(--vf-text-muted)]"># From your local machine:{"\n"}</span>
+                  ssh -L 3141:localhost:3141 user@your-server
+                </code>
+                <CopyButton text="ssh -L 3141:localhost:3141 user@your-server" />
+              </div>
+              <p className="text-sm text-[var(--vf-text-muted)] mt-3">
+                Then open{" "}
+                <code className="text-[var(--vf-electric-blue)]">
+                  http://localhost:3141/
+                </code>{" "}
+                in your local browser. The SSH tunnel forwards the connection to
+                the remote server.
+              </p>
+            </div>
+
+            {/* LAN Mode */}
+            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
+              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                OPTION 2: LAN MODE (PRIVATE NETWORKS)
+              </h3>
+              <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+                For ZeroTier, Tailscale, or home LAN. Binds to{" "}
+                <code className="text-[var(--vf-electric-blue)]">0.0.0.0</code>{" "}
+                so any machine on your private network can reach it. Dashboard
+                is read-only — no vault, deploy, or terminal access. No password
+                required.
+              </p>
+              <div className="crt-terminal flex items-center justify-between gap-2 !p-4">
+                <code className="text-sm">npm run wizard -- --lan</code>
+                <CopyButton text="npm run wizard -- --lan" />
+              </div>
+              <p className="text-sm text-[var(--vf-text-muted)] mt-3">
+                Access via{" "}
+                <code className="text-[var(--vf-electric-blue)]">
+                  http://&lt;server-private-ip&gt;:3141/
+                </code>
+              </p>
+            </div>
+
+            {/* Remote Mode */}
+            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
+              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                OPTION 3: REMOTE MODE (FULL ACCESS)
+              </h3>
+              <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+                Full access over the internet — vault, deploy, terminal.
+                Requires vault password + TOTP 2FA. Set up TOTP during{" "}
+                <code className="text-[var(--vf-electric-blue)]">
+                  /cultivation install
+                </code>{" "}
+                or on first remote login. Use behind a reverse proxy (Caddy,
+                nginx) with HTTPS.
+              </p>
+              <div className="crt-terminal flex items-center justify-between gap-2 !p-4">
+                <code className="text-sm">npm run wizard -- --remote</code>
+                <CopyButton text="npm run wizard -- --remote" />
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-6 px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] space-y-2">
+            <p className="text-sm font-bold text-[var(--vf-forge-orange)]">
+              Security notes
+            </p>
+            <ul className="text-sm text-[var(--vf-text-muted)] space-y-1 ml-4 list-disc">
+              <li>
+                <strong className="text-[var(--vf-text)]">Default</strong> (no
+                flag) — binds to{" "}
+                <code className="text-[var(--vf-electric-blue)]">127.0.0.1</code>{" "}
+                only. Cannot be reached from the network.
+              </li>
+              <li>
+                <strong className="text-[var(--vf-text)]">--lan</strong> —
+                restricts endpoints to dashboard-only and only accepts private
+                IP origins.
+              </li>
+              <li>
+                <strong className="text-[var(--vf-text)]">--remote</strong> —
+                enables all endpoints but enforces session auth + TOTP for write
+                operations.
+              </li>
+              <li>
+                Port{" "}
+                <code className="text-[var(--vf-electric-blue)]">3141</code>{" "}
+                must be open in your firewall/security group for Options 2 and
+                3.
+              </li>
+            </ul>
+          </div>
         </section>
 
         <SpeechBubble agent="Picard" universe="star-trek">
