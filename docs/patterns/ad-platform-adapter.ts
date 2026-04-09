@@ -36,7 +36,7 @@ function toDollars(cents: Cents): number {
 
 // ── Platform Types ────────────────────────────────────
 
-type AdPlatform = 'meta' | 'google' | 'tiktok' | 'linkedin' | 'twitter' | 'reddit';
+type AdPlatform = 'meta' | 'google' | 'tiktok' | 'linkedin' | 'twitter' | 'reddit' | 'snap';
 
 interface OAuthTokens {
   accessToken: string;

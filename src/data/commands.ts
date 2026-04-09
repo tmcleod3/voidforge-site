@@ -362,7 +362,7 @@ export const commands: Command[] = [
         effect: "Chain campaigns within a major version (e.g., v9.3 → v9.4). Stops before crossing major boundaries.",
       },
     ],
-    badge: "NEW in v3.9",
+    badge: "Updated v22.0",
   },
   {
     slug: "imagine",
@@ -613,12 +613,12 @@ export const commands: Command[] = [
     name: "/treasury",
     lead: "Dockson",
     description:
-      "Dockson's financial operations. Connect revenue sources, allocate budgets, execute spend, reconcile daily. The forge that manages its own money.",
+      "Dockson's per-project financial operations. Connect revenue sources, allocate budgets, execute spend, reconcile daily. Since v22.0, treasury paths are project-scoped — each project has its own spend-log, revenue-log, and budget files.",
     usage: "/treasury [--connect source] [--allocate percentages] [--report] [--forecast] [--freeze]",
     whatHappens: [
       "Ingest revenue from Stripe, Paddle, or bank APIs",
       "Allocate budgets across growth, infrastructure, and reserves",
-      "Authorize charges against approved budgets with safety tiers",
+      "Per-project financial isolation — treasury paths scoped to project/cultivation/treasury/",
       "Reconcile daily — match spend to budget, flag anomalies",
       "Report P&L, burn rate, runway, ROAS by channel",
     ],
@@ -693,16 +693,16 @@ export const commands: Command[] = [
     name: "/dangerroom",
     lead: "Fury",
     description:
-      "The Danger Room — installable operations dashboard for build, deploy, and agent monitoring. Real-time WebSocket feed, agent activity ticker, build progress panels. The forge watches itself work.",
+      "Per-project mission control — a tab inside the project dashboard with build progress, agent activity, findings, deploy status, and campaign state. WebSocket broadcasts are project-scoped via subscription rooms. Access controlled by resolveProject() middleware.",
     usage: "/dangerroom",
     whatHappens: [
-      "Install the Danger Room dashboard alongside your project",
-      "Configure WebSocket connection for real-time agent activity",
-      "Set up 5 core panels: build progress, agent activity, findings, deploy status, campaign state",
-      "Agent activity ticker shows every agent launch in real-time",
-      "Living PRD diff view shows how the plan evolved during execution",
+      "Open the project dashboard in your browser",
+      "Navigate to the Danger Room tab for this project",
+      "WebSocket subscription rooms filter events by project ID",
+      "5-tab project dashboard: Overview, Tower, Danger Room, War Room, Deploy",
+      "All data is project-scoped — no cross-project leakage",
     ],
-    badge: "NEW in v10.0",
+    badge: "Updated v22.0",
   },
   {
     slug: "assess",

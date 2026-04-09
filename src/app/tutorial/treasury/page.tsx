@@ -95,6 +95,49 @@ export default function TreasuryPage() {
 
         <section className="mt-12">
           <h2
+            id="per-project-isolation"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            PER-PROJECT ISOLATION (V22.0)
+          </h2>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Since v22.0, treasury paths are project-scoped. Each project keeps
+            its own financial logs in{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              project/cultivation/treasury/
+            </code>{" "}
+            — spend-log.jsonl, revenue-log.jsonl, budgets.json, and campaigns/.
+            No more global collision at{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              ~/.voidforge/treasury/
+            </code>
+            .
+          </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            <strong className="text-[var(--vf-text)]">What stays global:</strong>{" "}
+            The credential vault (one Stripe/Mercury account across projects)
+            and TOTP 2FA (user-scoped, not project-scoped).
+          </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            <strong className="text-[var(--vf-text)]">Per-project daemon:</strong>{" "}
+            Run{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              voidforge heartbeat start --project-dir /path
+            </code>{" "}
+            to configure PID, socket, token, state, and log files for each
+            project independently.
+          </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            <strong className="text-[var(--vf-text)]">Migration:</strong>{" "}
+            Clean-break approach — global archive is preserved, per-project logs
+            start fresh. No data is deleted. A treasury migration CLI is planned
+            for v22.1.
+          </p>
+        </section>
+
+        <section className="mt-12">
+          <h2
             id="safety-architecture"
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"

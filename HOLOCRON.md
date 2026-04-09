@@ -50,12 +50,12 @@ npm run wizard
 
 See `/docs/templates/PRD-TEMPLATE.md` for the frontmatter format and field reference.
 
-#### Scaffold (`scaffold` branch)
-The methodology without the tooling. CLAUDE.md, all 28 slash commands, all agent protocols, all code patterns, project scaffolding script. No wizard, no npm dependencies, no TypeScript compilation.
+#### Methodology Only (npm)
+The methodology without the tooling. CLAUDE.md, all 28 slash commands, all agent protocols, all code patterns. No wizard UI, no npm runtime dependencies.
 
 ```bash
-mkdir my-app && cd my-app
-git clone --branch scaffold https://github.com/tmcleod3/voidforge.git .
+npx thevoidforge init --headless my-app
+cd my-app
 # Write your PRD in docs/PRD.md
 # Open in Claude Code
 /build
@@ -63,17 +63,15 @@ git clone --branch scaffold https://github.com/tmcleod3/voidforge.git .
 
 **Best for:** Developers who know what they're doing and want to skip the wizard. You manage your own infrastructure. VoidForge manages your build process.
 
-#### Core (`core` branch)
+#### Minimal (npm --core)
 The lightest possible version. CLAUDE.md, all 28 slash commands, full agent protocols, full character registry, code patterns. Zero overhead — can be dropped into any existing project or referenced as external context.
 
 ```bash
-# Option A: Drop into an existing project
-git clone --branch core https://github.com/tmcleod3/voidforge.git /tmp/vf
-cp -r /tmp/vf/.claude /tmp/vf/CLAUDE.md /tmp/vf/docs your-project/
-
-# Option B: Point Claude Code at it as context
-# In your Claude Code session, reference the core branch
+# Drop into an existing project
+npx thevoidforge init --headless --target your-project/
 ```
+
+Or manually: copy CLAUDE.md, .claude/, and docs/ from the npm package into your project.
 
 **Best for:** Teams with existing projects who want the VoidForge methodology. Or anyone who wants Claude Code to absorb the agent structure, build protocol, and coding patterns without changing their setup.
 
@@ -459,7 +457,7 @@ Full architecture review with parallel analysis: Spock (schema) + Uhura (integra
 #### `/void` — Bombadil's Forge Sync
 **When:** You want to update your VoidForge methodology to the latest version.
 
-Old Tom Bombadil tends the forge itself. He reaches upstream to the VoidForge scaffold branch, compares every shared methodology file against your local copies, shows you exactly what changed, and sings the updates into place — all while preserving your project-specific customizations (PRD, logs, code, CLAUDE.md project section). Works regardless of which tier you installed (main, scaffold, or core). If you're already on the latest, Tom tells you so and goes back to singing.
+Old Tom Bombadil tends the forge itself. He checks for the latest VoidForge methodology (via `npx thevoidforge update` or git fetch as fallback), compares every shared methodology file against your local copies, shows you exactly what changed, and sings the updates into place — all while preserving your project-specific customizations (PRD, logs, code, CLAUDE.md project section). If you're already on the latest, Tom tells you so and goes back to singing.
 
 #### `/thumper` — Chani's Worm Rider
 **When:** You want to control Claude Code from your phone via Telegram.
@@ -800,8 +798,7 @@ If Phase 12 or a deploy script fails:
 | Deploy script hangs | Check SSH connectivity, verify key permissions (0600) |
 | Test runner not found | Phase 1 should set it up — re-run scaffold if missing |
 | Context fills mid-phase | Checkpoint to journal, new session, continue |
-| `npx voidforge init` doesn't work | Not available yet. Clone the repo directly. See QUICKSTART.md |
-| npm install fails on Windows | node-pty needs C++ tools. Use `--ignore-scripts` or scaffold branch |
+| npm install fails on Windows | node-pty needs C++ tools. Use `--ignore-scripts` or `npx thevoidforge init --headless` |
 
 ---
 

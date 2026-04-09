@@ -150,6 +150,35 @@ export default function CultivationPage() {
             </p>
           </div>
         </section>
+
+        <section className="mt-12">
+          <h2
+            id="per-project-scoping"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            PER-PROJECT SCOPING (V22.0)
+          </h2>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Since v22.0, Cultivation data is project-scoped. Each project keeps
+            its own{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              cultivation/treasury/
+            </code>{" "}
+            directory with spend logs, revenue logs, budgets, and campaign data.
+            The heartbeat daemon runs per-project with{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              voidforge heartbeat start --project-dir /path
+            </code>
+            .
+          </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Credentials (Stripe, Mercury, ad platform API keys) remain in the
+            global vault — they&apos;re user-scoped, not project-scoped. TOTP
+            2FA is also global. Only financial transaction logs and campaign
+            state are per-project.
+          </p>
+        </section>
       </div>
     </div>
   );

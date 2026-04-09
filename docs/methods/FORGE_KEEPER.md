@@ -49,7 +49,7 @@ Keep your VoidForge installation current without breaking your project. Every up
 
 ## Shared Methodology Files
 
-These are the files Bombadil watches. They exist on all three VoidForge branches (main, scaffold, core):
+These are the files Bombadil watches. They are distributed via the @voidforge/methodology npm package:
 
 ```
 CLAUDE.md                          ← Methodology sections only (not Project block)
@@ -91,7 +91,7 @@ package.json                       ← User's dependencies
 Orient to the current state:
 
 1. Read `VERSION.md` — identify the current VoidForge version
-2. Check which shared methodology files exist locally — determines which tier (main/scaffold/core) or a manual copy
+2. Check which shared methodology files exist locally — determines if this is a VoidForge project
 3. Note any locally modified shared files via `git status` or file timestamps
 4. Announce: *"Old Tom is listening... you're running VoidForge vX.Y.Z. Let's see what the river brings."*
 
@@ -100,10 +100,10 @@ Orient to the current state:
 Fetch the latest from the source:
 
 1. Determine the fetch method:
-   - If `git remote -v` shows the VoidForge repo (`tmcleod3/voidforge`) → use `git fetch origin scaffold`
+   - If `npx voidforge` is installed → use `npx voidforge update` (npm transport)
    - If the VoidForge remote exists under a different name → use that remote
-   - If no VoidForge remote exists → add a temporary remote: `git remote add voidforge https://github.com/tmcleod3/voidforge.git` then `git fetch voidforge scaffold`
-2. Read the remote `VERSION.md` to get the latest version: `git show <remote>/scaffold:VERSION.md`
+   - If not installed → `npm install -g voidforge` then `npx voidforge update`
+2. Read the bundled `VERSION.md` to get the latest version from the installed methodology package
 3. Compare versions numerically (parse major.minor.patch as integers — "3.10.0" is newer than "3.9.0"):
    - If already current → *"The river brings no new songs today. You're running the latest — vX.Y.Z. The forge burns bright!"* → Stop.
    - If behind → continue with the delta
@@ -115,7 +115,7 @@ Fetch the latest from the source:
 
 ### Step 1.5 — Spring Cleaning (Treebeard)
 
-When upgrading across versions, check the **Migration Registry** for one-time cleanup actions that apply to the version range being crossed. Migrations only run once — they clean up artifacts from older VoidForge versions that should never have been on scaffold/core.
+When upgrading across versions, check the **Migration Registry** for one-time cleanup actions that apply to the version range being crossed. Migrations only run once — they clean up artifacts from older VoidForge versions that should never have been on npm package.
 
 **Important:** Some cleanup targets (like `docs/ARCHITECTURE.md`) could be the user's own project files, not leaked VoidForge artifacts. Before removing any file, **fingerprint it** — check if it contains VoidForge-specific markers (e.g., header says "VoidForge", references `wizard/`, or matches a known stale version like "15.2.1"). If the file looks like the user's own work, skip it and note why.
 
@@ -137,7 +137,7 @@ When upgrading across versions, check the **Migration Registry** for one-time cl
 
 ##### Migration: pre-20.2 → 20.2+
 
-Prior to v20.2, the scaffold and core branches contained files that should only exist on main. These were cleaned from upstream scaffold/core but may persist in projects that cloned earlier versions.
+Prior to v20.2, the scaffold and core branches contained files that should only exist on main. These were cleaned from upstream npm package but may persist in projects that cloned earlier versions.
 
 **Always remove (unambiguous VoidForge artifacts):**
 ```
@@ -148,8 +148,8 @@ package-lock.json                          ← Scaffold/core have no dependencie
 playwright.config.ts                       ← References wizard/e2e
 vitest.config.ts                           ← References wizard/__tests__
 tsconfig.json                              ← References wizard/**/*.ts
-scripts/voidforge.ts                       ← CLI entry point, imports wizard/
-scripts/vault-read.ts                      ← Imports wizard/lib/vault
+packages/voidforge/scripts/voidforge.ts                       ← CLI entry point, imports wizard/
+scripts/vault-read.ts                      ← Imports packages/voidforge/wizard/lib/vault
 scripts/danger-room-feed.sh                ← Feeds wizard dashboard
 docs/qa-prompt.md                          ← Describes wizard stack ("npm run wizard")
 docs/marketing/v19-release-copy.md         ← Marketing copy for wizard features
@@ -177,7 +177,7 @@ docs/SECURITY_CHECKLIST.md                 ← Remove ONLY if it references wiza
 ```
 
 **ADR cleanup (fingerprint each):**
-Remove ADRs that reference wizard-specific concepts (provisioner, deploy targets, AWS, tower, lobby, Sentry, codegen, RBAC). Keep ADRs that are methodology decisions (no-stubs doctrine, scaffold-as-update-source, raw-https, learnings system). Check the title and first paragraph — wizard ADRs reference `wizard/lib/`, provisioners, or specific infrastructure.
+Remove ADRs that reference wizard-specific concepts (provisioner, deploy targets, AWS, tower, lobby, Sentry, codegen, RBAC). Keep ADRs that are methodology decisions (no-stubs doctrine, scaffold-as-update-source, raw-https, learnings system). Check the title and first paragraph — wizard ADRs reference `packages/voidforge/wizard/lib/`, provisioners, or specific infrastructure.
 
 **Untrack (keep on disk, remove from git):**
 ```
@@ -185,7 +185,7 @@ logs/*                                     ← Session artifacts — git rm --ca
 ```
 
 **Also fix (if stale):**
-- `package.json` — if it contains `dependencies` or `devDependencies` on scaffold/core, replace with minimal version (name + version + description only)
+- `package.json` — if it contains `dependencies` or `devDependencies` on npm package, replace with minimal version (name + version + description only)
 - `.gitignore` — the upstream version will be synced via normal Step 2/3, which now includes the hardened patterns
 
 ### Step 2 — Walk the Forest (Treebeard)
@@ -220,7 +220,7 @@ Unchanged (N files) — skipped
 
 Apply the updates:
 
-1. **For each New file:** Copy from the upstream ref using `git show <remote>/scaffold:<path> > <path>`
+1. **For each New file:** Copy from the upstream ref using `npx voidforge update`
 2. **For each Updated file (no local modifications):** Replace with upstream version
 3. **For each Locally modified file:**
    - For `CLAUDE.md`: Preserve the Project section and any user-added Coding Standards. Update methodology sections (Slash Commands table, Team table, Docs Reference, Release Tiers, etc.)
@@ -260,9 +260,9 @@ Verify and celebrate:
 
 ## Edge Cases
 
-- **First run on a manually copied project:** No VERSION.md, no git remote. Bombadil adds the remote, fetches scaffold, and does a full comparison against whatever files exist.
+- **First run on a manually copied project:** No VERSION.md, no git remote. Bombadil adds the remote, fetches main, and does a full comparison against whatever files exist.
 - **User is ahead of upstream:** Possible if user contributes back. Bombadil notes it and doesn't downgrade.
 - **Merge conflicts in CLAUDE.md:** The Project section (name, one-liner, domain, repo) is always preserved. Methodology sections are always updated. If the user added custom sections, Bombadil preserves those too.
 - **Network failure:** Bombadil announces the failure cheerfully and stops. No retries, no partial state.
-- **Full-tier users (main branch):** Bombadil only syncs methodology files. For wizard/provisioner updates, tell the user to run `git pull` and `npm install` on main.
+- **Full-tier users:** Bombadil only syncs methodology files. For wizard updates, tell the user to run `npx thevoidforge update --self`.
 - **Rollback:** All updates are applied to the working tree (not committed). If anything goes wrong, `git checkout -- .` restores every file to its last committed state. Bombadil should mention this safety net before applying updates.

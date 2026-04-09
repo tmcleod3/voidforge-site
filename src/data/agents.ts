@@ -125,7 +125,7 @@ export const leadAgents: LeadAgent[] = [
     universe: "star-trek",
     domain: "Architecture",
     description:
-      "Makes the big decisions. Schema design, scaling strategy, ADRs. Reviews code for pattern compliance and long-term maintainability.",
+      "Makes the big decisions. Schema design, scaling strategy, ADRs. Reviews code for pattern compliance and long-term maintainability. In v22.0, designed the ProjectContext type, resolveProject() middleware, and router param matching (ADR-040). Led the 17-agent Muster review (ADR-041).",
     quote: "Make it so — but make it maintainable.",
     tagline: "Make it architecture.",
     exclamation: "ZAP!",
@@ -217,7 +217,7 @@ export const leadAgents: LeadAgent[] = [
     universe: "star-trek",
     domain: "Campaign Command (Mission Sequencing)",
     description:
-      "The Emissary. Reads the PRD, identifies every mission, and executes them one by one until the product is complete. No mission left behind. No feature forgotten. The Prophets showed him the path — he walks it.",
+      "The Emissary. Reads the PRD, identifies every mission, and executes them one by one until the product is complete. No mission left behind. No feature forgotten. In v22.0, orchestrated 2 campaigns (28 + 29 missions) with strictly sequential M0-M6 mission format and Muster-amended plans.",
     quote:
       "I am not Picard. I don't plan the architecture — I win the war. One mission at a time.",
     tagline: "One mission at a time.",
@@ -297,7 +297,7 @@ export const leadAgents: LeadAgent[] = [
     universe: "cosmere",
     domain: "Treasury & Financial Operations",
     description:
-      "While Kelsier planned the revolution, Dockson managed the finances, the logistics, the boring-but-essential details. He tracks every coin, every risk, every scenario. The COO to Kelsier's CEO.",
+      "While Kelsier planned the revolution, Dockson managed the finances, the logistics, the boring-but-essential details. He tracks every coin, every risk, every scenario. In v22.0, treasury paths became per-project — getTreasuryDir() consolidation, clean-break migration strategy, per-project spend/revenue isolation.",
     quote:
       "Someone has to count the boxings.",
     tagline: "Every coin accounted for.",
@@ -313,7 +313,7 @@ export const leadAgents: LeadAgent[] = [
     universe: "star-trek",
     domain: "Deep Current (Autonomous Intelligence)",
     description:
-      "Vulcan security officer with perfect logic and relentless focus. Tuvok scans, analyzes, proposes, and learns. Deep Current is autonomous campaign intelligence — the forge thinks about what to build next.",
+      "Vulcan security officer with perfect logic and relentless focus. Tuvok scans, analyzes, proposes, and learns. Deep Current is autonomous campaign intelligence. In v22.0, designed resolveProject() access control, per-project WebSocket auth, and per-project daemon token architecture.",
     quote:
       "Logic is the beginning of wisdom, not the end.",
     tagline: "The forge that thinks ahead.",

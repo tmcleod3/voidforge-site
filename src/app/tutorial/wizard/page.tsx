@@ -243,6 +243,28 @@ export default function WizardPage() {
 
         <section className="mt-12">
           <h2
+            id="project-dashboard"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            THE PROJECT DASHBOARD
+          </h2>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Since v22.0, each project gets its own dashboard with 5 tabs:
+            Overview, Tower (in-browser Claude Code), Danger Room (build
+            monitoring), War Room (growth campaigns), and Deploy. Navigate from
+            the Lobby by clicking a project card. &ldquo;Resume last
+            project&rdquo; remembers where you left off.
+          </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Everything is project-scoped — WebSocket events, financial data,
+            daemon state, and agent activity are isolated per project. No
+            cross-project data leakage.
+          </p>
+        </section>
+
+        <section className="mt-12">
+          <h2
             id="build-and-deploy"
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"

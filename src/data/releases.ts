@@ -129,6 +129,16 @@ export const majorEras: Record<string, MajorEra> = {
     quote: "Every campaign needs a landing page. Every landing page needs data. The forge generates both, tests both, and feeds the winners back into the next cycle.",
     agent: "Kelsier",
   },
+  "21": {
+    title: "The Extraction",
+    quote: "The wizard is an application for launching and managing projects. It is not part of a project. The forge extracted itself.",
+    agent: "Kusanagi",
+  },
+  "22": {
+    title: "The Scope",
+    quote: "Everything is project-scoped. Multi-project wizard with per-project dashboards, financial isolation, and daemon configuration.",
+    agent: "Picard",
+  },
 };
 
 export const shipped: Release[] = [
@@ -1103,27 +1113,88 @@ export const shipped: Release[] = [
       "7 field report triages (#264-#270) with 14 methodology fixes",
     ],
   },
+  {
+    version: "v20.2.0",
+    date: "2026-04-03",
+    title: "The Graceful Degradation",
+    headline: "Scaffold and core users can now run /cultivation and /grow partially. Spring cleaning removed 274 files from the scaffold branch.",
+    items: [
+      "ADR-037: Graceful Tier Degradation — sentinel file check, methodology-only fallback",
+      "Spring Cleaning migration in /void — auto-cleans leaked main-only files from old clones",
+      "/grow Prerequisites softened — 'On no' proceeds to Phases 1-3 instead of stopping",
+      "/cultivation install — Steps 4-8 display skip messages when wizard absent",
+      "274 files removed from scaffold branch (408 → 134 tracked files)",
+      "10 method doc additions across QA, Security, Architecture, Troubleshooting, Backend",
+      "6 field reports closed (#271-#276)",
+    ],
+  },
+  {
+    version: "v21.0.0",
+    date: "2026-04-08",
+    title: "The Extraction",
+    headline: "The wizard is an application for launching and managing projects. It is not part of a project. npm packages replace git branches.",
+    items: [
+      "Monorepo extraction (ADR-038) — packages/voidforge/ (wizard+CLI) and packages/methodology/",
+      "npm package 'thevoidforge' — CLI with 12 commands (init, update, install, uninstall, deploy, doctor, migrate, version, templates, help)",
+      ".voidforge marker file — JSON identity at project root for CLI detection",
+      "Extension system — voidforge install danger-room / cultivation for per-project addons",
+      "npx voidforge update replaces /void git-fetch — same Bombadil UX, npm transport",
+      "voidforge migrate converts v20.x projects (embedded wizard) to v21.0 with backup and rollback",
+      "Daemon aggregator — multi-project heartbeat connection, aggregated KPIs, freeze/unfreeze",
+      "675 tests (618 original + 57 new across 7 modules)",
+    ],
+  },
+  {
+    version: "v21.1.0",
+    date: "2026-04-08",
+    title: "The Shipyard",
+    headline: "Build pipeline, CI/CD, and npm publish. The forge ships itself to the world.",
+    items: [
+      "Build pipeline — tsc compile to dist/ for production distribution",
+      "CI/CD pipeline — GitHub Actions for npm publish on git tag",
+      "Branch deprecation — scaffold and core branches marked deprecated (delete date: 2026-05-08)",
+      "Published to npm as 'thevoidforge'",
+    ],
+  },
+  {
+    version: "v22.0.0",
+    date: "2026-04-09",
+    title: "The Scope",
+    headline: "Everything is project-scoped. Multi-project wizard with per-project dashboards, financial isolation, and daemon configuration.",
+    items: [
+      "Project dashboard — new project.html with 5-tab SPA (Overview, Tower, Danger Room, War Room, Deploy)",
+      "ProjectContext type — rich interface with 15+ derived paths for project-scoped operations",
+      "resolveProject() middleware — validates project access on all 20 dashboard routes",
+      "Per-project treasury — paths moved from ~/.voidforge/treasury/ to project/cultivation/treasury/",
+      "Per-project daemon — voidforge heartbeat start --project-dir configures per-project operation",
+      "WebSocket subscription rooms — broadcast filtered by project ID, no cross-project leakage",
+      "Dual-daemon guard — prevents split-brain when per-project daemon starts alongside global",
+      "RBAC bypass fix on freeze endpoint, LAN WebSocket auth gap fixed",
+      "ADR-040 (project-scoped architecture), ADR-041 (Muster review: 17 agents, 3 waves, 14 findings)",
+      "696 tests (21 new), 0 type errors, +1337/-385 lines",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
-    version: "v21.0",
-    title: "The Convergence",
+    version: "v22.1",
+    title: "The Vault Migration",
     opacity: 1,
     items: [
-      "Build + Grow + Fund in one command — the forge handles the entire product lifecycle",
-      "Cross-project orchestration — one campaign manages multiple repos as a single product",
-      "Marketplace of pre-built project templates with growth playbooks",
+      "Treasury migration CLI — move global financial data to per-project directories",
+      "Treasury summary file — O(1) reads for dashboard KPIs instead of scanning logs",
+      "Per-project vault encryption — Kenobi's HKDF proposal for isolated credential storage",
     ],
   },
   {
-    version: "v21.0",
+    version: "v23.0",
     title: "The Self-Forging Forge",
     opacity: 0.7,
     items: [
       "The forge builds the forge — VoidForge generates its own next version",
+      "Cross-project orchestration — one campaign manages multiple repos as a single product",
       "Methodology A/B testing — compare agent configurations across projects",
-      "Natural language deploy — describe what you want, the forge provisions it",
     ],
   },
 ];

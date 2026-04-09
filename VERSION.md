@@ -1,6 +1,6 @@
 # Version
 
-**Current:** 20.2.0
+**Current:** 22.0.0
 
 ## Versioning Scheme
 
@@ -14,6 +14,8 @@ This project uses [Semantic Versioning](https://semver.org/):
 
 | Version | Date | Summary |
 |---------|------|---------|
+| 22.0.0 | 2026-04-09 | The Scope — Project-scoped dashboards, per-project daemons, multi-project wizard, RBAC on all 20 dashboard routes, WebSocket subscription rooms, 21 new tests. ADR-040, ADR-041. |
+| 21.0.0 | 2026-04-08 | The Extraction — Standalone npm packages (voidforge + @voidforge/methodology), CLI router with 12 commands, extension system, .voidforge marker, headless init, v20.x migration, 675 tests. ADR-038. |
 | 20.2.0 | 2026-04-03 | Graceful Tier Degradation — ADR-037, spring cleaning (274 files removed from scaffold), scaffold /cultivation + /grow partial proceed, 6 Full-tier sentinel fixes, 10 method doc additions, 6 field reports closed. |
 | 20.1.1 | 2026-04-02 | Parallel Agent Standard, ID Space Audit, Safety Parameter Audit, Maul mandatory gate, 7 field report triages (#264-#270). |
 | 20.1.0 | 2026-04-02 | Kongo Engine Integration — 10 modules, 119 tests, 37th pattern, Infinity Gauntlet (3 Critical + 10 High fixed), 5 field reports triaged (14 methodology fixes), Operational Learnings system activated. |

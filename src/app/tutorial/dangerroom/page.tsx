@@ -7,7 +7,7 @@ import { ForgeLabsBanner } from "@/components/forge-labs-banner";
 export const metadata: Metadata = {
   title: "The Danger Room",
   description:
-    "Real-time mission control for VoidForge — build progress, agent activity, findings, deploy status, and campaign state in one dashboard.",
+    "Per-project mission control for VoidForge — build progress, agent activity, findings, deploy status, and campaign state scoped to each project.",
 };
 
 export default function DangerRoomPage() {
@@ -27,8 +27,8 @@ export default function DangerRoomPage() {
         <SpeechBubble agent="Fury" universe="marvel">
           I didn&apos;t build SHIELD by reading log files. The Danger Room gives
           you eyes on everything — every agent, every build phase, every finding,
-          every deploy — in real time. One screen. No switching tabs. No guessing
-          what the agents are doing. You see it all.
+          every deploy — scoped to your project. One screen. No cross-project
+          noise. You see exactly what matters.
         </SpeechBubble>
 
         <section className="mt-12">
@@ -40,10 +40,15 @@ export default function DangerRoomPage() {
             WHAT IS THE DANGER ROOM
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            The Danger Room is VoidForge&apos;s real-time mission control
-            dashboard. It aggregates every signal from your build, review, and
-            growth pipelines into a single interface. Launch it and leave it
-            open — it updates live via WebSocket.
+            The Danger Room is a tab inside the per-project dashboard. Since
+            v22.0, it shows only data for the project you&apos;re viewing —
+            campaigns, heartbeat, treasury, and agent activity are all
+            project-scoped. No cross-project data leakage.
+          </p>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            <strong className="text-[var(--vf-text)]">Navigation:</strong>{" "}
+            Lobby &rarr; click a project card &rarr; Danger Room tab. Breadcrumb
+            navigation takes you back.
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
@@ -51,86 +56,80 @@ export default function DangerRoomPage() {
             </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Opens the dashboard in your browser. The WebSocket connection streams
-            agent activity, build events, and deploy status in real time. No
-            polling, no refresh — just a live feed of everything happening in
-            your project.
+            Opens the wizard dashboard. Navigate to your project, then select
+            the Danger Room tab. WebSocket broadcasts are filtered by project ID
+            via subscription rooms — you only see events from this project.
           </p>
         </section>
 
         <section className="mt-12">
           <h2
-            id="the-5-panels"
+            id="project-dashboard"
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
           >
-            THE 5 PANELS
+            THE PROJECT DASHBOARD
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            The dashboard is divided into five panels, each tracking a different
-            dimension of your project:
+            Each project gets a 5-tab single-page dashboard:
           </p>
           <div className="space-y-4 text-[var(--vf-text-muted)]">
             <p>
-              <strong className="text-[var(--vf-forge-orange)]">Build Progress</strong>{" "}
-              — Tracks the 13-phase build protocol. Shows which phase is active,
-              which gates have passed, and estimated time to completion. Includes
-              the Living PRD diff view so you can see how the PRD evolves as
-              agents refine it during build.
+              <strong className="text-[var(--vf-forge-orange)]">Overview</strong>{" "}
+              — Project summary, recent activity, health status.
             </p>
             <p>
-              <strong className="text-[var(--vf-forge-orange)]">Agent Activity</strong>{" "}
-              — A real-time ticker showing which agents are active, what
-              they&apos;re working on, and their current status. When Kenobi
-              finds a vulnerability or Batman catches a bug, you see it here
-              first.
+              <strong className="text-[var(--vf-forge-orange)]">Tower</strong>{" "}
+              — In-browser terminal running Claude Code (Avengers Tower).
             </p>
             <p>
-              <strong className="text-[var(--vf-forge-orange)]">Findings</strong>{" "}
-              — Aggregates all issues, warnings, and recommendations from every
-              agent across every phase. Filterable by severity, domain, and
-              agent. Nothing gets buried in log files.
+              <strong className="text-[var(--vf-forge-orange)]">Danger Room</strong>{" "}
+              — Build progress, agent activity, findings, deploy status.
+              Real-time via project-scoped WebSocket.
             </p>
             <p>
-              <strong className="text-[var(--vf-forge-orange)]">Deploy Status</strong>{" "}
-              — Live deployment state: pre-flight checks, provisioning progress,
-              health checks, SSL status, and monitoring configuration. When
-              Kusanagi deploys, you watch it happen.
+              <strong className="text-[var(--vf-forge-orange)]">War Room</strong>{" "}
+              — Growth campaign state from the Cultivation stack: active ads,
+              spend vs. budget, conversion rates, Treasury balance.
             </p>
             <p>
-              <strong className="text-[var(--vf-forge-orange)]">Campaign State</strong>{" "}
-              — Growth campaign overview from the Cultivation stack: active ads,
-              spend vs. budget, conversion rates, and Treasury balance. Only
-              visible when the Grow track is active.
+              <strong className="text-[var(--vf-forge-orange)]">Deploy</strong>{" "}
+              — Deployment controls, health checks, rollback.
             </p>
           </div>
         </section>
 
         <section className="mt-12">
           <h2
-            id="real-time-agent-feed"
+            id="project-scoped-data"
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
           >
-            REAL-TIME AGENT FEED
+            PROJECT-SCOPED DATA
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            The WebSocket feed is the backbone of the Danger Room. Every agent
-            event — task start, finding logged, phase gate passed, deploy step
-            completed — is broadcast as a structured JSON message. The dashboard
-            renders them in real time, but you can also consume the feed
-            programmatically for custom integrations.
+            All API routes use{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              /api/projects/:id/danger-room/*
+            </code>{" "}
+            with access control via{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              resolveProject()
+            </code>{" "}
+            middleware. Every request validates project access before serving
+            data.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            The Living PRD diff view deserves special attention. As agents work,
-            they sometimes refine the PRD — clarifying ambiguities, adding
-            technical constraints discovered during build. The Danger Room shows
-            these diffs inline so you can approve or reject changes before they
-            propagate.
+            WebSocket connections subscribe to project-specific rooms. When an
+            agent logs a finding or a deploy step completes, only clients
+            viewing that project receive the event. The Living PRD diff view,
+            build progress, and agent activity ticker are all scoped the same
+            way.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Think of it as mission control for software. You built the thing.
-            Now watch it come alive.
+            The Lobby shows all your projects with &ldquo;Resume last
+            project&rdquo; (persisted in localStorage) for quick re-entry.
+            Think of it as mission control — per mission.
           </p>
         </section>
       </div>

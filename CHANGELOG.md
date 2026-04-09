@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.1.0] - 2026-04-09
+
+### Added
+- **5 shipped releases** on /prophecy — v20.2.0 (Graceful Degradation), v21.0.0 (The Extraction), v21.1.0 (The Shipyard), v22.0.0 (The Scope)
+- **2 major eras** on /prophecy — era 21 (The Extraction) and era 22 (The Scope)
+- **Per-project isolation** section on /tutorial/treasury — scoped paths, daemon --project-dir, clean-break migration
+- **Per-project scoping** section on /tutorial/cultivation — scoped cultivation directory, per-project heartbeat daemon
+- **Project dashboard** section on /tutorial/wizard — 5-tab SPA, lobby navigation, resume last project
+
+### Changed
+- **Hero spotlight** — v21.0 "The Extraction" → v22.0 "The Scope" with project-scoped messaging
+- **Danger Room tutorial** — full rewrite for project-scoped model: global dashboard → per-project tab, WebSocket subscription rooms, resolveProject() access control, 5-tab project dashboard
+- **Command descriptions** — dangerroom (project-scoped, v22.0 badge), treasury (per-project paths), campaign (v22.0 badge)
+- **Agent descriptions** — Picard (ADR-040/041, ProjectContext), Sisko (M0-M6 campaigns), Dockson (per-project treasury), Tuvok (resolveProject, WebSocket auth)
+- **Future releases** — updated from v21.0 (stale) to v22.1 (Vault Migration) + v23.0 (Self-Forging Forge)
+
+### VoidForge Methodology Sync (v20.2.0 → v22.0.0)
+- 15 methodology files synced from main: 8 commands, 3 method docs, 2 patterns, CLAUDE.md (Distribution section replaces Release Tiers), HOLOCRON.md
+- VERSION.md updated to v22.0.0
+
+---
+
 ## [Site v2.0.0] - 2026-04-08
 
 ### Added
