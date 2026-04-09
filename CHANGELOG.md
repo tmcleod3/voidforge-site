@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.1.1] - 2026-04-09
+
+### Changed
+- **financial-transaction pattern** — added v22.0 project-scoped path functions: `getTreasuryDir()`, `getSpendLog()`, `getRevenueLog()`, `getPendingOps()`, `getBudgetsFile()` with per-project vs global fallback design
+- **daemon-process pattern** — added v22.0 per-project configuration: `configurePaths()`, `checkGlobalDaemon()` dual-daemon guard with mutable path variables and split-brain prevention
+
+---
+
 ## [Site v2.1.0] - 2026-04-09
 
 ### Added
