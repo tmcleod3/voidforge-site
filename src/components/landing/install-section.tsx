@@ -6,19 +6,14 @@ import { GitHubBadges } from "@/components/github-badges";
 
 const installCommands = [
   {
-    tier: "Full",
-    label: "Everything — wizards, provisioners, the whole forge",
-    command: "git clone https://github.com/tmcleod3/voidforge.git my-project && cd my-project && npm install",
+    tier: "Quick Start",
+    label: "Create a new project — wizard, methodology, everything",
+    command: "npx thevoidforge init my-app",
   },
   {
-    tier: "Scaffold",
-    label: "Methodology only — add a PRD, type /build, watch the agents work",
-    command: "git clone --branch scaffold https://github.com/tmcleod3/voidforge.git my-project",
-  },
-  {
-    tier: "Core",
-    label: "Ultra-light — drop the methodology into any existing project",
-    command: "git clone --branch core https://github.com/tmcleod3/voidforge.git my-project",
+    tier: "Global Install",
+    label: "Install the CLI globally for repeated use",
+    command: "npm install -g thevoidforge",
   },
 ] as const;
 

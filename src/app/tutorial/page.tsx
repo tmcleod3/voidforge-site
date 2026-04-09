@@ -37,7 +37,6 @@ const paths = [
       "Gandalf walks you through everything. The wizard generates your PRD, builds the project, and deploys it. Zero blank-page problem.",
     href: "/tutorial/wizard",
     color: "var(--vf-electric-blue)",
-    tier: "Full tier",
   },
   {
     icon: ClipboardCheck,
@@ -47,17 +46,15 @@ const paths = [
       "You bring a finished PRD. Picard validates it, discovers supporting docs, provisions infrastructure, and hands off to /campaign for autonomous build.",
     href: "/tutorial/blueprint",
     color: "var(--vf-forge-yellow, #f5a623)",
-    tier: "Full tier",
   },
   {
     icon: FileCode,
-    title: "THE SCAFFOLD",
+    title: "THE METHODOLOGY",
     subtitle: "I know my stack and have a plan",
     description:
       "You write the PRD (or use /prd to generate one). /campaign runs the war. No wizards, no hand-holding — just methodology and execution.",
     href: "/tutorial/scaffold",
     color: "var(--vf-forge-orange)",
-    tier: "Scaffold tier",
   },
   {
     icon: Import,
@@ -67,7 +64,6 @@ const paths = [
       "Point VoidForge at your existing codebase. /assess maps what you have. /prd generates a PRD from reality. /campaign builds what's missing.",
     href: "/tutorial/import",
     color: "var(--vf-neon-green)",
-    tier: "Core tier",
   },
 ] as const;
 
@@ -90,7 +86,7 @@ export default function TutorialPage() {
         <div className="mx-auto max-w-4xl">
           <SpeechBubble agent="Bilbo" universe="tolkien">
             Four paths into the forge. The wizard holds your hand. The blueprint
-            trusts your spec. The scaffold trusts your instincts. The import
+            trusts your spec. The methodology trusts your instincts. The import
             respects what you&apos;ve already built. Pick the one that fits —
             they all lead to the same place.
           </SpeechBubble>
@@ -125,12 +121,9 @@ export default function TutorialPage() {
                   >
                     {path.subtitle}
                   </p>
-                  <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+                  <p className="text-sm text-[var(--vf-text-muted)]">
                     {path.description}
                   </p>
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-[var(--vf-surface-overlay)] text-[var(--vf-text-muted)]">
-                    {path.tier}
-                  </span>
                 </div>
               </Link>
             ))}
@@ -143,9 +136,9 @@ export default function TutorialPage() {
           <SpeechBubble agent="Picard" universe="star-trek">
             The wizard is for first contact — when you need guidance through
             every decision. The blueprint is for captains who arrive with orders
-            already written. The scaffold is for officers who know their mission
-            and want the forge to execute. The import is for joining a crew
-            already in flight.
+            already written. The methodology is for officers who know their
+            mission and want the forge to execute. The import is for joining a
+            crew already in flight.
           </SpeechBubble>
         </div>
       </section>
@@ -158,7 +151,7 @@ export default function TutorialPage() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {[
-              { icon: Download, title: "Install", description: "Prerequisites, 3 tiers, first setup", href: "/tutorial/install", step: "Step 1" },
+              { icon: Download, title: "Install", description: "Prerequisites, quick start, first setup", href: "/tutorial/install", step: "Step 1" },
               { icon: Hammer, title: "First Build", description: "Write a PRD, run /build, ship", href: "/tutorial/first-build", step: "Step 2" },
               { icon: Rocket, title: "Deploy", description: "Go live with 6 deploy targets", href: "/tutorial/deploy", step: "Step 3" },
             ].map((item) => (

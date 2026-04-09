@@ -8,7 +8,7 @@ export interface SearchEntry {
 export const searchIndex: SearchEntry[] = [
   // Tutorial
   { title: "Tutorial", description: "Step-by-step guide to using VoidForge", path: "/tutorial", category: "Learn" },
-  { title: "Install", description: "Install VoidForge: prerequisites, three tiers, and troubleshooting", path: "/tutorial/install", category: "Learn" },
+  { title: "Install", description: "Install VoidForge: prerequisites, npm quick start, and troubleshooting", path: "/tutorial/install", category: "Learn" },
   { title: "First Build", description: "Write your first PRD, run /build, and watch the 14-phase protocol", path: "/tutorial/first-build", category: "Learn" },
   { title: "Deploy", description: "Deploy your VoidForge app to any of 6 targets", path: "/tutorial/deploy", category: "Learn" },
   { title: "Forge Labs", description: "Experimental protocols for growth, revenue, intelligence, and operations. Assembly required.", path: "/forge-labs", category: "Learn" },
@@ -92,7 +92,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/blueprint", description: "The Blueprint Path — validate a pre-written PRD, discover docs, merge directives, provision, and start campaign", path: "/commands/blueprint", category: "Commands" },
 
   // Patterns
-  { title: "Patterns", description: "37 code patterns across 6 domains with framework implementations", path: "/patterns", category: "Patterns" },
+  { title: "Patterns", description: "38 code patterns across 6 domains with framework implementations", path: "/patterns", category: "Patterns" },
   { title: "API Route", description: "Validation, auth, service call, consistent response", path: "/patterns/api-route", category: "Patterns" },
   { title: "Service", description: "Business logic, ownership checks, typed errors", path: "/patterns/service", category: "Patterns" },
   { title: "Component", description: "Loading, empty, error, success states — keyboard accessible", path: "/patterns/component", category: "Patterns" },

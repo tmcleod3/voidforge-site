@@ -33,25 +33,25 @@ export default function ImportPage() {
 
         <section className="mt-12">
           <h2
-            id="install-the-core"
+            id="install-the-methodology"
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
           >
-            1. INSTALL THE CORE
+            1. ADD THE METHODOLOGY
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Clone the core branch into your existing project directory. This
+            Initialize VoidForge in your existing project directory. This
             adds the methodology layer without touching your code.
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
-              git clone --branch core https://github.com/tmcleod3/voidforge.git ./voidforge-core
+              npx thevoidforge init
             </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            The core tier is ultra-light: CLAUDE.md, slash commands, method
-            docs, code patterns, and the naming registry. No wizards, no
-            provisioners, no runtime dependencies. Point Claude Code at it and
+            This adds the VoidForge methodology: CLAUDE.md, slash commands,
+            method docs, code patterns, and the naming registry. No runtime
+            dependencies are added to your project. Point Claude Code at it and
             the forge absorbs the methodology.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
@@ -63,9 +63,9 @@ export default function ImportPage() {
             </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            This launches Claude Code. It reads the CLAUDE.md from the core you
-            just cloned and loads the VoidForge methodology. All slash commands
-            below are typed at the Claude Code prompt.
+            This launches Claude Code. It reads the CLAUDE.md and loads the
+            VoidForge methodology. All slash commands below are typed at the
+            Claude Code prompt.
           </p>
           <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
             <strong className="text-[var(--vf-text)]">How slash commands work:</strong>{" "}

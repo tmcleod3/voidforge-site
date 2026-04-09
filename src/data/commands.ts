@@ -207,12 +207,11 @@ export const commands: Command[] = [
     tier: "all" as CommandTier,
     name: "/void",
     lead: "Bombadil",
-    description: "Old Tom keeps the forge in tune. Checks upstream for methodology changes, syncs shared files across all three tiers, and makes sure the tools that build your tools stay sharp.",
+    description: "Old Tom keeps the forge in tune. Runs voidforge update to pull the latest methodology from npm, and makes sure the tools that build your tools stay sharp.",
     usage: "/void",
     whatHappens: [
       "Bombadil checks for upstream methodology changes",
-      "Shared files synced across all three tiers",
-      "Branch sync rule enforced",
+      "Methodology synced via npm update",
       "Changes logged to build journal",
     ],
     note: "This command was used to keep this very website in sync with VoidForge upstream.",
@@ -826,7 +825,7 @@ export const commands: Command[] = [
           "Produces mission breakdown from validated PRD without building",
       },
     ],
-    badge: "NEW in v19.5",
+    badge: "NEW in v21.0",
   },
 ];
 

@@ -121,11 +121,11 @@ export default function CommandsPage() {
         <div className="mx-auto max-w-4xl flex justify-center gap-6 text-[10px] text-[var(--vf-text-muted)]">
           <span className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-[var(--vf-neon-green)]" />
-            All tiers (scaffold + full)
+            All projects
           </span>
           <span className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-[var(--vf-deep-purple)]" />
-            Full tier only (requires wizard)
+            Requires extension
           </span>
         </div>
       </section>

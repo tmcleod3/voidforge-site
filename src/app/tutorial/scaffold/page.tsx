@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
+import { CopyButton } from "@/components/copy-button";
 
 export const metadata: Metadata = {
-  title: "VoidForge Scaffold — Methodology Only",
+  title: "VoidForge Methodology — Add the Forge to Any Project",
   description:
-    "You know your stack and have a plan. The scaffold gives you the methodology — you bring the vision.",
+    "You know your stack and have a plan. The methodology package gives you agents, commands, methods, and patterns — you bring the vision.",
 };
 
 export default function ScaffoldPage() {
@@ -20,46 +21,48 @@ export default function ScaffoldPage() {
           &larr; Tutorial Hub
         </Link>
         <PageHeader
-          title="THE SCAFFOLD PATH"
+          title="THE METHODOLOGY PATH"
           subtitle="You know your stack. You have a plan. The forge executes."
         />
 
         <SpeechBubble agent="Bilbo" universe="tolkien">
           You don&apos;t need the wizard&apos;s hand-holding. You know what
           you&apos;re building, you know your stack, and you&apos;ve written
-          PRDs before. The scaffold gives you the methodology without the magic
+          PRDs before. The methodology gives you the agents without the magic
           tricks.
         </SpeechBubble>
 
         <section className="mt-12">
           <h2
-            id="get-the-scaffold"
+            id="get-the-methodology"
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
           >
-            GET THE SCAFFOLD
+            GET THE METHODOLOGY
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Clone the scaffold branch directly. No npm install, no wizard, no
-            provisioners.
+            Create a project with VoidForge. The methodology (agents, commands,
+            methods, patterns) is bundled automatically.
           </p>
-          <div className="crt-terminal !p-4 mb-6">
-            <code className="text-sm">
-              git clone --branch scaffold https://github.com/tmcleod3/voidforge.git my-project
+          <div className="crt-terminal flex items-center justify-between gap-2 !p-4 mb-6">
+            <code className="text-sm break-all">
+              <span className="text-[var(--vf-text-muted)]">$ </span>
+              npx thevoidforge init my-project
             </code>
+            <CopyButton text="npx thevoidforge init my-project" />
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            The scaffold tier includes everything you need to run the forge:
-            CLAUDE.md, slash commands, method docs, code patterns, and the
-            Holocron. What it doesn&apos;t include: wizards, provisioners, AWS
-            SDK, or any runtime dependencies. It&apos;s pure methodology — add
-            your own stack on top.
-          </p>
-          <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
-            <strong className="text-[var(--vf-forge-orange)]">Windows users:</strong>{" "}
-            This is your fastest path. No npm install means no native module
-            compilation, no C++ build tools, no node-gyp headaches. Just Git and
-            Claude Code.
+            This gives you CLAUDE.md, slash commands, method docs, code
+            patterns, and the Holocron. The methodology is delivered via the{" "}
+            <a
+              href="https://www.npmjs.com/package/thevoidforge-methodology"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              thevoidforge-methodology
+            </a>{" "}
+            npm package.
           </p>
         </section>
 

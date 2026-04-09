@@ -6,6 +6,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.0.0] - 2026-04-08
+
+### Added
+- **Quick Start install section** — `npx thevoidforge init` + global install + remote access (LAN/VPS) on /tutorial/install
+- **npm package links** — thevoidforge (CLI + wizard) and thevoidforge-methodology (agents, commands, methods, patterns) referenced throughout
+- **Extension system** — Forge Labs and commands page updated to reference `voidforge install` extensions instead of tier gates
+
+### Changed
+- **Hero spotlight** — v19.5 "The Execution Layer" → v21.0 "The Extraction" with `npx thevoidforge init` call-to-action
+- **Homepage install** — 3-tier git clone commands → 2 npm commands (npx quick start + global install)
+- **All tutorial pages** — every `git clone` replaced with `npx thevoidforge init`
+- **Scaffold tutorial** → **Methodology tutorial** — full rewrite documenting thevoidforge-methodology npm package
+- **Import tutorial** — core branch clone → `npx thevoidforge init` for existing projects
+- **Tutorial hub** — removed tier badges, "The Scaffold" → "The Methodology"
+- **Feature cards** — "3 TIERS" → "NPM INSTALL"
+- **Forge Labs** — "Full Tier" / "Full tier only" → "Extensions" / "Extensions required"
+- **Commands page** — tier legend updated to "All projects" / "Requires extension"
+- **GitHub badges** — fallback version v3.3.0 → v21.0.0
+- **/void command** — description updated from git-fetch sync to npm update
+- **Search index** — "three tiers" → "npm quick start", "37 patterns" → "38 patterns"
+- **Wizard remote access** — `npm run wizard -- --lan` → `voidforge init --lan`
+
+### Removed
+- **3-tier install model** — all "Full/Scaffold/Core Tier" language removed from active pages
+- **Git clone commands** — all `git clone --branch scaffold/core` references removed
+- **Three Tiers section** — removed from install page, replaced by Quick Start
+
+### VoidForge Methodology Sync (v20.1.1 → v20.2.0)
+- 20 methodology files synced: 7 commands, 10 method docs, 1 pattern, 1 script, VERSION.md
+- Graceful Tier Degradation (ADR-037), spring cleaning, scaffold /cultivation + /grow partial proceed
+
+---
+
 ## [Site v1.6.0] - 2026-04-07
 
 ### Added

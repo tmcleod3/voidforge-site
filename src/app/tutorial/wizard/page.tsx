@@ -90,27 +90,24 @@ export default function WizardPage() {
             START THE WIZARD
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Clone the forge. Gandalf takes it from here.
+            One command. Gandalf takes it from here.
           </p>
-          <div className="crt-terminal !p-4 mb-6 space-y-2">
-            <div>
-              <code className="text-sm">
-                git clone https://github.com/tmcleod3/voidforge.git my-project
-              </code>
-            </div>
-            <div>
-              <code className="text-sm">cd my-project && npm install</code>
-            </div>
-            <div>
-              <code className="text-sm">npm run wizard</code>
-            </div>
+          <div className="crt-terminal flex items-center justify-between gap-2 !p-4 mb-6">
+            <code className="text-sm break-all">
+              <span className="text-[var(--vf-text-muted)]">$ </span>
+              npx thevoidforge init my-project
+            </code>
+            <CopyButton text="npx thevoidforge init my-project" />
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Gandalf&apos;s interactive wizard walks you through everything —
-            project name, what you&apos;re building, tech stack preferences,
-            deploy target. It asks questions in plain language and generates a
-            complete PRD from your answers. No blank-page problem. No YAML by
-            hand. Just a conversation that produces a build-ready specification.
+            This launches the standalone wizard — a browser UI at{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              http://localhost:3141/
+            </code>{" "}
+            where Gandalf walks you through everything: project name, what
+            you&apos;re building, tech stack preferences, deploy target. Drag
+            and drop a PRD or let the wizard generate one through an interactive
+            conversation. No blank-page problem. No YAML by hand.
           </p>
         </section>
 
@@ -174,8 +171,8 @@ export default function WizardPage() {
                 required.
               </p>
               <div className="crt-terminal flex items-center justify-between gap-2 !p-4">
-                <code className="text-sm">npm run wizard -- --lan</code>
-                <CopyButton text="npm run wizard -- --lan" />
+                <code className="text-sm">voidforge init --lan</code>
+                <CopyButton text="voidforge init --lan" />
               </div>
               <p className="text-sm text-[var(--vf-text-muted)] mt-3">
                 Access via{" "}
@@ -200,8 +197,8 @@ export default function WizardPage() {
                 nginx) with HTTPS.
               </p>
               <div className="crt-terminal flex items-center justify-between gap-2 !p-4">
-                <code className="text-sm">npm run wizard -- --remote</code>
-                <CopyButton text="npm run wizard -- --remote" />
+                <code className="text-sm">voidforge init --remote</code>
+                <CopyButton text="voidforge init --remote" />
               </div>
             </div>
           </div>

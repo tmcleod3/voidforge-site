@@ -69,9 +69,8 @@ export default function DeployPage() {
             <div className="text-[var(--vf-text-muted)]"># Install Node 20 via NodeSource</div>
             <div><code>curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -</code></div>
             <div><code>sudo apt-get install -y nodejs git</code></div>
-            <div className="mt-2 text-[var(--vf-text-muted)]"># Clone and install</div>
-            <div><code>git clone https://github.com/tmcleod3/voidforge.git my-project</code></div>
-            <div><code>cd my-project && npm install</code></div>
+            <div className="mt-2 text-[var(--vf-text-muted)]"># Create your project</div>
+            <div><code>npx thevoidforge init my-project</code></div>
           </div>
           <p className="text-[var(--vf-text-muted)] text-sm">
             For full platform-specific instructions (including libnode-dev
@@ -138,9 +137,9 @@ export default function DeployPage() {
             full deployment sequence for your target.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            For the Full tier, the Haku wizard handles provisioning
-            interactively. For Scaffold and Core tiers, you configure deployment
-            manually following Kusanagi&apos;s instructions in the build log.
+            The Haku wizard handles provisioning interactively. If you
+            prefer manual control, configure deployment following
+            Kusanagi&apos;s instructions in the build log.
           </p>
           <p className="text-[var(--vf-text-muted)]">
             You can also deploy anytime with the standalone deploy command:

@@ -37,7 +37,7 @@ export function ForgeLabsBanner({ feature }: ForgeLabsBannerProps) {
               engineering.
             </p>
             <p className="text-xs text-amber-600/80 mb-3">
-              API keys. Platform accounts. Debugging skills. Full tier only.
+              API keys. Platform accounts. Debugging skills. Extensions required.
               Here be dragons.
             </p>
             <Link

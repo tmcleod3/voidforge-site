@@ -57,9 +57,9 @@ const features = [
   },
   {
     icon: GitBranch,
-    title: "3 TIERS",
+    title: "NPM INSTALL",
     description:
-      "Full: the whole forge with wizards and provisioners. Scaffold: methodology only. Core: ultra-light, drop into anything. Pick your weapon.",
+      "One command: npx thevoidforge init. Standalone wizard with browser UI. Methodology bundled automatically. No git branches, no manual setup.",
     href: "/tutorial/install",
     color: "var(--vf-forge-yellow)",
   },

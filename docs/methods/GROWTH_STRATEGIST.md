@@ -84,6 +84,27 @@ Growth infrastructure should be established at the same time as the product — 
 
 This separation means the user can install Cultivation in 5 minutes (vault + treasury + revenue + daemon) and configure ad platforms later when they're ready to spend.
 
+## Scaffold/Core Users
+
+Scaffold and core branches do not include the `wizard/` directory. This affects which parts of the growth protocol are available:
+
+**Fully functional without wizard (Phases 1-3):**
+- Phase 1 — Reconnaissance: PRD audit, analytics audit, competitive scan
+- Phase 2 — Foundation: SEO, meta tags, sitemap, analytics setup, CWV optimization
+- Phase 3 — Content: Content strategy, copy audit, blog drafts, landing page copy
+- `--audit-only` runs all three phases
+
+**Gracefully skips without wizard:**
+- Phase 3.5 — Kongo seed extraction: skips with log message if Kongo not connected
+
+**Requires wizard for execution (Phases 4-6):**
+- Phase 4 — Distribution: Campaign submission to ad platforms, budget reads from vault
+- Phase 5 — Compliance: Financial compliance audit, launch gate blocking
+- Phase 6 — Measure & Iterate: Autonomous monitoring, daemon handoff, platform metrics
+- Planning and strategy work in Phases 4-6 (campaign structures, creative variants, compliance audits) still works — only API execution requires wizard
+
+**To enable full functionality:** Pull wizard from upstream during the tier gate prompt (answer Y), or manually: `git checkout origin/main -- wizard/ && npm install --prefix wizard`. Then run `/cultivation install` to set up the heartbeat daemon and dashboard.
+
 ## Ad Platform Setup (`/grow --setup`)
 
 *"Every dollar is a bullet. Load the gun before the heist." — Wax*
@@ -392,6 +413,23 @@ The Content Engine creates a closed-loop pipeline: PRD → seed → Kongo landin
 
 This loop runs manually at Phase A, with daemon assistance at Phase B, and fully autonomously at Phase C.
 
+### Iframe Sandbox Constraint
+
+Kongo published sites serve in sandboxed iframes without `allow-same-origin`. This breaks GA4 cookie tracking, UTM relay, and CTA navigation for self-marketing use cases (dogfooding — marketing a product on the same domain as Kongo).
+
+**Resolution:** When the product being marketed runs on the same domain as Kongo (self-marketing mode), the growth daemon must:
+1. Create pages via Engine API as normal
+2. Serve them at `/lp/[slug]` (direct HTML render, no iframe) instead of relying solely on subdomain URLs
+3. Point Google Ads destination URLs to `kongo.io/lp/{slug}`, not `{slug}.kongo.io`
+
+The subdomain URL still works for the published site (DNS provisioned), but the `/lp/` path is required for GA4 attribution on the marketing domain.
+
+**Detection:** Self-marketing mode activates when the product domain matches the Kongo domain, or when `SELF_MARKETING=true` is set in the project config. The seed extraction logic (`wizard/lib/kongo/seed.ts`) uses the `/lp/` path for destination URLs in self-marketing mode.
+
+**Analytics in self-marketing mode:** The `kongo-signal` daemon job must check analytics from both paths:
+- Subdomain analytics: `GET /engine/pages/:id/analytics` (Kongo's built-in analytics)
+- Marketing page analytics: GA4 Data API or PostHog (for `/lp/` direct-render pages where Kongo's built-in tracking cannot reach)
+
 ### Wayne testLayer Integration
 
 Wayne evaluates A/B tests at three layers. **Page variants are never tested simultaneously with ad creative variants.**
@@ -409,7 +447,7 @@ Wayne evaluates A/B tests at three layers. **Page variants are never tested simu
 | Flag | What It Does |
 |------|-------------|
 | `--phase N` | Resume from phase N |
-| `--audit-only` | Phases 1-2 only (reconnaissance + foundation) |
+| `--audit-only` | Phases 1-3 (reconnaissance + foundation + content) — no wizard dependency |
 | `--seo` | Phase 2 only (Navani + Raoden) |
 | `--content` | Phase 3 only (Shallan + Hoid) |
 | `--distribute` | Phase 4 only (assumes Phases 1-3 done) |

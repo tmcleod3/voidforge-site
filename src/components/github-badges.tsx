@@ -14,7 +14,7 @@ interface GitHubData {
 }
 
 const FALLBACK_STARS = null;
-const FALLBACK_VERSION = "v3.3.0";
+const FALLBACK_VERSION = "v21.0.0";
 
 export function GitHubBadges() {
   const [data, setData] = useState<GitHubData>({

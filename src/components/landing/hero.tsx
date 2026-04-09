@@ -48,7 +48,7 @@ export function Hero() {
           . Ship to production.
         </motion.p>
 
-        {/* v19.5 Spotlight */}
+        {/* v21.0 Spotlight */}
         <motion.div
           className="mt-10 max-w-2xl mx-auto comic-panel bg-[var(--vf-surface-raised)] p-6 text-left"
           initial={shouldReduceMotion ? {} : { y: 30, opacity: 0 }}
@@ -56,15 +56,18 @@ export function Hero() {
           transition={{ delay: 0.7, duration: 0.5 }}
         >
           <p className="font-[family-name:var(--font-bangers)] text-lg sm:text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
-            v19.5 &mdash; THE EXECUTION LAYER
+            v21.0 &mdash; THE EXTRACTION
           </p>
           <p className="font-[family-name:var(--font-bangers)] text-xl sm:text-2xl md:text-3xl tracking-wide text-[var(--foreground)] leading-snug mb-3">
-            From spec to shipped. No stubs. No friction. No excuses.
+            The wizard is an application. Not part of a project.
           </p>
           <p className="text-sm sm:text-base text-[var(--vf-text-muted)]">
-            Your campaigns create real ads on Google, Meta, and TikTok. Your
-            blueprint becomes a running application. The Infinity Gauntlet
-            tested it 10 times. It survived.
+            Install with{" "}
+            <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
+              npx thevoidforge init
+            </code>
+            . Standalone browser UI. Extension system. Per-project daemons.
+            Your campaigns still create real ads on Google, Meta, and TikTok.
           </p>
         </motion.div>
 

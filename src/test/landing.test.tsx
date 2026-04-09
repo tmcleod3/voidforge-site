@@ -97,7 +97,7 @@ describe("Landing Page — Feature Cards", () => {
     expect(screen.getByText(`${display.commands} SLASH COMMANDS`)).toBeInTheDocument();
     expect(screen.getByText(`${display.patterns} CODE PATTERNS`)).toBeInTheDocument();
     expect(screen.getByText("6 DEPLOY TARGETS")).toBeInTheDocument();
-    expect(screen.getByText("3 TIERS")).toBeInTheDocument();
+    expect(screen.getByText("NPM INSTALL")).toBeInTheDocument();
   });
 
   it("links to correct pages", () => {

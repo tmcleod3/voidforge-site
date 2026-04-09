@@ -1,6 +1,6 @@
 # Version
 
-**Current:** 20.1.1
+**Current:** 20.2.0
 
 ## Versioning Scheme
 
@@ -14,6 +14,7 @@ This project uses [Semantic Versioning](https://semver.org/):
 
 | Version | Date | Summary |
 |---------|------|---------|
+| 20.2.0 | 2026-04-03 | Graceful Tier Degradation — ADR-037, spring cleaning (274 files removed from scaffold), scaffold /cultivation + /grow partial proceed, 6 Full-tier sentinel fixes, 10 method doc additions, 6 field reports closed. |
 | 20.1.1 | 2026-04-02 | Parallel Agent Standard, ID Space Audit, Safety Parameter Audit, Maul mandatory gate, 7 field report triages (#264-#270). |
 | 20.1.0 | 2026-04-02 | Kongo Engine Integration — 10 modules, 119 tests, 37th pattern, Infinity Gauntlet (3 Critical + 10 High fixed), 5 field reports triaged (14 methodology fixes), Operational Learnings system activated. |
 | 19.5.0 | 2026-03-31 | The Blueprint Path — Fourth entry path for pre-written specs: /blueprint command, document discovery, CLAUDE.md merge, PRD validation, wizard auto-detection, PRD template. 499 tests (454→499). Gauntlet: path traversal fix, route registration, UX dead-end fix. |

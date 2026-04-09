@@ -260,7 +260,7 @@ export default function ForgeLabsPage() {
             <span className="text-[var(--vf-border)]">|</span>
             <span className="flex items-center gap-1.5 text-[var(--vf-deep-purple)]">
               <Shield className="w-3.5 h-3.5" />
-              Full tier only
+              Extensions required
             </span>
             <span className="text-[var(--vf-border)]">|</span>
             <span className="flex items-center gap-1.5 text-[var(--vf-forge-orange)]">
@@ -338,9 +338,10 @@ export default function ForgeLabsPage() {
               <div className="flex items-start gap-2">
                 <Zap className="w-4 h-4 text-amber-400 mt-0.5 flex-shrink-0" />
                 <div>
-                  <strong className="text-[var(--vf-text)]">Full Tier</strong>
+                  <strong className="text-[var(--vf-text)]">Extensions</strong>
                   <p className="text-[var(--vf-text-muted)] text-xs mt-1">
-                    Forge Labs requires the full VoidForge install (main branch).
+                    Forge Labs features are installed as extensions via{" "}
+                    <code className="text-[var(--vf-electric-blue)]">voidforge install</code>.
                   </p>
                 </div>
               </div>

@@ -54,10 +54,9 @@ describe("Data Integrity — Pattern slugs", () => {
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 
-  it("has at least 37 patterns", () => {
-    // CLAUDE.md lists 32+ patterns; search index shows 35; actual count may vary
-    // The task spec says >= 37, but actual data has 36. Adjusted to match reality.
-    expect(patterns.length).toBeGreaterThanOrEqual(35);
+  it("has at least 38 patterns", () => {
+    // v21.0 has 38 patterns
+    expect(patterns.length).toBeGreaterThanOrEqual(38);
   });
 
   it("every pattern has at least one framework tab with non-empty code", () => {

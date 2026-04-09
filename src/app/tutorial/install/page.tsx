@@ -10,14 +10,14 @@ import { TutorialProgress } from "@/components/tutorial-progress";
 export const metadata: Metadata = {
   title: "How to Install VoidForge",
   description:
-    "Install VoidForge: prerequisites, three tiers, OS verification, and Windows setup notes.",
+    "Install VoidForge: prerequisites, npm install, quick start, and platform troubleshooting.",
 };
 
 const tocItems = [
   { id: "prerequisites", label: "Prerequisites" },
-  { id: "platform-install", label: "Platform-Specific Installation" },
+  { id: "quick-start", label: "Quick Start" },
+  { id: "platform-install", label: "Platform-Specific Node Installation" },
   { id: "verify-your-tools", label: "Verify Your Tools" },
-  { id: "three-tiers", label: "The Three Tiers" },
   { id: "troubleshooting", label: "Troubleshooting" },
 ];
 
@@ -117,10 +117,119 @@ export default function InstallPage() {
 
           <SpeechBubble agent="Kusanagi" universe="anime">
             Windows? PowerShell works. macOS or Linux? Your default terminal
-            works. If npm gives you trouble on Windows, the Scaffold tier is your
-            fastest path — no native compilation, no npm headaches. Just git
-            clone and go.
+            works. One command gets you the whole forge. No git branches, no
+            manual cloning — just npm.
           </SpeechBubble>
+        </section>
+
+        <section className="mt-12">
+          <h2
+            id="quick-start"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            QUICK START
+          </h2>
+
+          <div className="space-y-6">
+            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
+              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                CREATE A PROJECT
+              </h3>
+              <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+                One command creates a new project with the wizard, methodology,
+                and everything you need.
+              </p>
+              <div className="crt-terminal flex items-center justify-between gap-2 !p-3 mb-3">
+                <code className="text-sm break-all">
+                  <span className="text-[var(--vf-text-muted)]">$ </span>
+                  npx thevoidforge init my-app
+                </code>
+                <CopyButton text="npx thevoidforge init my-app" />
+              </div>
+              <div className="crt-terminal !p-3 text-sm space-y-1">
+                <div><code>cd my-app</code></div>
+                <div><code>claude</code><span className="text-[var(--vf-text-muted)] text-xs ml-3"># opens Claude Code</span></div>
+                <div><code>/build</code><span className="text-[var(--vf-text-muted)] text-xs ml-3"># builds the app</span></div>
+              </div>
+            </div>
+
+            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
+              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                GLOBAL INSTALL (OPTIONAL)
+              </h3>
+              <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+                Install the CLI globally for repeated use. The{" "}
+                <code className="text-[var(--vf-electric-blue)]">voidforge</code>{" "}
+                command becomes available everywhere.
+              </p>
+              <div className="crt-terminal flex items-center justify-between gap-2 !p-3 mb-3">
+                <code className="text-sm break-all">
+                  <span className="text-[var(--vf-text-muted)]">$ </span>
+                  npm install -g thevoidforge
+                </code>
+                <CopyButton text="npm install -g thevoidforge" />
+              </div>
+              <div className="crt-terminal flex items-center justify-between gap-2 !p-3">
+                <code className="text-sm break-all">
+                  <span className="text-[var(--vf-text-muted)]">$ </span>
+                  voidforge init my-app
+                </code>
+                <CopyButton text="voidforge init my-app" />
+              </div>
+            </div>
+
+            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
+              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
+                REMOTE ACCESS (VPS / LAN)
+              </h3>
+              <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+                Installing on a remote server? The wizard UI runs on port 3141.
+                Use LAN mode for private networks:
+              </p>
+              <div className="crt-terminal flex items-center justify-between gap-2 !p-3">
+                <code className="text-sm break-all">
+                  <span className="text-[var(--vf-text-muted)]">$ </span>
+                  voidforge init --lan
+                </code>
+                <CopyButton text="voidforge init --lan" />
+              </div>
+              <p className="text-sm text-[var(--vf-text-muted)] mt-3">
+                See the{" "}
+                <Link
+                  href="/tutorial/wizard#remote-access"
+                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                >
+                  Wizard tutorial
+                </Link>{" "}
+                for SSH tunnel, --lan, and --remote options.
+              </p>
+            </div>
+          </div>
+
+          <p className="text-sm text-[var(--vf-text-muted)] mt-6 px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+            <strong className="text-[var(--vf-forge-orange)]">npm packages:</strong>{" "}
+            The package name is{" "}
+            <a
+              href="https://www.npmjs.com/package/thevoidforge"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              thevoidforge
+            </a>{" "}
+            (CLI + wizard). The methodology (agents, commands, methods, patterns)
+            is bundled automatically via{" "}
+            <a
+              href="https://www.npmjs.com/package/thevoidforge-methodology"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              thevoidforge-methodology
+            </a>
+            .
+          </p>
         </section>
 
         <section className="mt-12">
@@ -213,7 +322,7 @@ export default function InstallPage() {
                 >
                   Visual C++ Build Tools
                 </a>{" "}
-                or use the Scaffold tier (no native compilation needed).
+                or skip this step — VoidForge projects have no native dependencies.
               </p>
             </div>
           </div>
@@ -266,90 +375,6 @@ export default function InstallPage() {
             <code className="text-[var(--vf-electric-blue)]">git</code>{" "}
             isn&apos;t found, install them using the links above and restart your
             terminal.
-          </p>
-        </section>
-
-        <section className="mt-12">
-          <h2
-            id="three-tiers"
-            tabIndex={-1}
-            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
-          >
-            THE THREE TIERS
-          </h2>
-
-          <div className="space-y-6">
-            {/* Full */}
-            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
-              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
-                FULL TIER
-              </h3>
-              <p className="text-sm text-[var(--vf-text-muted)] mb-4">
-                The complete forge — Gandalf&apos;s setup wizard, Haku&apos;s
-                deploy wizard, AWS provisioners, encrypted credential vault,
-                Telegram bridge, and all 260+ agents ready to build.
-              </p>
-              <div className="crt-terminal flex items-center justify-between gap-2 !p-3">
-                <code className="text-sm break-all">
-                  <span className="text-[var(--vf-text-muted)]">$ </span>
-                  git clone https://github.com/tmcleod3/voidforge.git my-project && cd my-project && npm install
-                </code>
-                <CopyButton text="git clone https://github.com/tmcleod3/voidforge.git my-project && cd my-project && npm install" />
-              </div>
-            </div>
-
-            {/* Scaffold */}
-            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
-              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
-                SCAFFOLD TIER
-              </h3>
-              <p className="text-sm text-[var(--vf-text-muted)] mb-4">
-                Methodology only — CLAUDE.md, commands, methods, patterns, and
-                the Holocron. Clone it, add your PRD, and run{" "}
-                <code className="text-[var(--vf-electric-blue)]">/build</code>.
-              </p>
-              <div className="crt-terminal flex items-center justify-between gap-2 !p-3">
-                <code className="text-sm break-all">
-                  <span className="text-[var(--vf-text-muted)]">$ </span>
-                  git clone --branch scaffold
-                  https://github.com/tmcleod3/voidforge.git my-project
-                </code>
-                <CopyButton text="git clone --branch scaffold https://github.com/tmcleod3/voidforge.git my-project" />
-              </div>
-            </div>
-
-            {/* Core */}
-            <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
-              <h3 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
-                CORE TIER
-              </h3>
-              <p className="text-sm text-[var(--vf-text-muted)] mb-4">
-                Ultra-light — CLAUDE.md, commands, methods, patterns, naming
-                registry. Point Claude Code at the branch to absorb the
-                methodology.
-              </p>
-              <div className="crt-terminal flex items-center justify-between gap-2 !p-3">
-                <code className="text-sm break-all">
-                  <span className="text-[var(--vf-text-muted)]">$ </span>
-                  git clone --branch core
-                  https://github.com/tmcleod3/voidforge.git my-project
-                </code>
-                <CopyButton text="git clone --branch core https://github.com/tmcleod3/voidforge.git my-project" />
-              </div>
-            </div>
-          </div>
-
-          <p className="text-sm text-[var(--vf-text-muted)] mt-6 px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
-            <strong className="text-[var(--vf-forge-orange)]">Scaffold & Core tiers:</strong>{" "}
-            These tiers have no dependencies. Do{" "}
-            <strong className="text-[var(--vf-text)]">not</strong> run{" "}
-            <code className="text-[var(--vf-electric-blue)]">npm install</code>{" "}
-            — there&apos;s nothing to install. The{" "}
-            <code className="text-[var(--vf-electric-blue)]">package.json</code>{" "}
-            contains only name, version, and description. Just open Claude Code
-            in the directory and start with{" "}
-            <code className="text-[var(--vf-electric-blue)]">/prd</code> or{" "}
-            <code className="text-[var(--vf-electric-blue)]">/build</code>.
           </p>
         </section>
 
@@ -413,9 +438,8 @@ export default function InstallPage() {
               </p>
               <p className="text-[var(--vf-text-muted)]">
                 <strong className="text-[var(--vf-text)]">npm install fails?</strong>{" "}
-                The Full tier compiles native modules that need C++ build tools.
                 If you see <code className="text-[var(--vf-electric-blue)]">node-gyp</code>{" "}
-                errors, either install{" "}
+                errors during global install, install{" "}
                 <a
                   href="https://visualstudio.microsoft.com/visual-cpp-build-tools/"
                   target="_blank"
@@ -424,9 +448,9 @@ export default function InstallPage() {
                 >
                   Visual C++ Build Tools
                 </a>{" "}
-                or skip npm entirely — use the{" "}
-                <strong className="text-[var(--vf-forge-orange)]">Scaffold tier</strong>{" "}
-                instead. It needs only Git, no native compilation.
+                or use{" "}
+                <code className="text-[var(--vf-electric-blue)]">npx thevoidforge init</code>{" "}
+                instead (no global install needed).
               </p>
               <p className="text-[var(--vf-text-muted)]">
                 <strong className="text-[var(--vf-text)]">VS Code users:</strong>{" "}

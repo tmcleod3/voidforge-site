@@ -3,15 +3,18 @@
 Read `/docs/methods/GROWTH_STRATEGIST.md` for operating rules.
 
 ## Prerequisites
-If `wizard/` does not exist (scaffold/core users):
-1. Offer: "The growth engine requires the wizard server. Pull it from upstream? [Y/n]"
-2. On yes: `git fetch voidforge main 2>/dev/null || git remote add voidforge https://github.com/tmcleod3/voidforge.git && git fetch voidforge main` then `git checkout voidforge/main -- wizard/` then `cd wizard && npm install`
-3. On no: stop with "Run manually: `git checkout voidforge/main -- wizard/`"
+If `wizard/server.ts` does not exist and the mode requires it (default 6-phase, `--setup`, `--distribute`):
+1. Offer: "Phases 4-6 require the wizard server for ad platform APIs, treasury, and autonomous monitoring. Pull it from upstream? [Y/n] (Phases 1-3 work without it.)"
+2. On yes: `git fetch voidforge main 2>/dev/null || git remote add voidforge https://github.com/tmcleod3/voidforge.git && git fetch voidforge main` then `git checkout voidforge/main -- wizard/` then `cd wizard && npm install`. Proceed with all 6 phases.
+3. On no: proceed to Phases 1-3. The Phase 3/4 boundary check below will display a clear stop message after Phase 3 completes.
+
+If `wizard/server.ts` does not exist and the mode does NOT require it (`--audit-only`, `--seo`, `--content`):
+- Skip the wizard gate entirely. These modes run Phases 1-3 only — no wizard dependency.
 
 ## Arguments
 - No arguments → run/resume the 6-phase growth protocol
 - `--setup` → Ad platform onboarding only (interactive credential setup for Google/Meta/LinkedIn/Twitter/Reddit). See GROWTH_STRATEGIST.md "Ad Platform Setup" section. Does NOT require a deployed product.
-- `--audit-only` → Run Phase 1 (Reconnaissance) only — quick audit without building
+- `--audit-only` → Run Phases 1-3 (Reconnaissance, Foundation, Content) — methodology-only growth audit without paid acquisition
 - `--resume` → Resume from last completed phase in growth-state.md
 - `--plan` → Planning mode: analyze and recommend without executing. Present findings and proposed changes for review.
 
@@ -41,7 +44,7 @@ If no `growth-brief.md` exists (first time running /grow):
 1. Display overview: "The growth pipeline has 6 phases: Reconnaissance → Foundation → Content → Distribution → Compliance → Measure."
 2. Ask: "Guided walkthrough with explanations, or expert mode? [guided/expert]"
 3. In guided mode, each phase transition shows a 2-sentence explanation and estimated time.
-4. Display estimated total: "Full pipeline: ~30-60 minutes. Audit only (--audit-only): ~10 minutes."
+4. Display estimated total: "Full pipeline: ~30-60 minutes. Audit only (--audit-only, Phases 1-3): ~15-20 minutes."
 
 ## Phase Execution
 
@@ -67,6 +70,33 @@ If no `growth-brief.md` exists (first time running /grow):
 3. Blog drafts to `/content/blog/`. Copy changes committed.
 4. Output: `/logs/growth-content.md`
 5. **Gate:** User confirmation before Phase 4
+
+### Phase 3/4 Boundary — Wizard Check
+
+Before entering Phase 4, check if `wizard/server.ts` exists:
+- **If present:** Continue to Phase 4 as normal.
+- **If absent:** Display the following and stop gracefully:
+```
+═══════════════════════════════════════════
+  GROWTH PHASES 1-3 COMPLETE
+═══════════════════════════════════════════
+
+  Reconnaissance, Foundation, and Content phases are done.
+  Results saved to /logs/growth-*.md
+
+  Phases 4-6 (Paid Acquisition, Compliance, Measure & Iterate)
+  require the wizard server for:
+  - Ad platform API integration
+  - Financial vault and treasury
+  - Heartbeat daemon for autonomous monitoring
+  - Kongo landing page generation
+
+  To enable: /cultivation install (pulls wizard from upstream)
+  To review results so far: check /logs/growth-brief.md,
+  /logs/growth-foundation.md, /logs/growth-content.md
+═══════════════════════════════════════════
+```
+Save state to `growth-state.md` with Phase 3 complete. Exit cleanly.
 
 ### Phase 4 — Distribution (3 parallel tracks)
 **Track A — Organic** (Kaladin + Lift + Adolin): Community posts, social content, launch plan
@@ -104,7 +134,7 @@ On "no" at any gate: save state to `growth-state.md`, exit with "Resume with `/g
 ## Flags
 
 - `--phase N` → resume from phase N (checks previous phase output)
-- `--audit-only` → Phases 1-2 only
+- `--audit-only` → Phases 1-3 (Reconnaissance, Foundation, Content)
 - `--seo` → Phase 2 only (Navani + Raoden)
 - `--content` → Phase 3 only (Shallan + Hoid)
 - `--distribute` → Phase 4 only (assumes 1-3 done)

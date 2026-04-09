@@ -64,9 +64,9 @@ export default function BlueprintPage() {
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
             <strong className="text-[var(--vf-text)]">
-              VoidForge (Full tier)
+              VoidForge
             </strong>{" "}
-            — clone and install (requires{" "}
+            — create a project (requires{" "}
             <Link
               href="/tutorial/install"
               className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
@@ -75,15 +75,10 @@ export default function BlueprintPage() {
             </Link>
             ):
           </p>
-          <div className="crt-terminal !p-4 mb-6 space-y-2">
-            <div>
-              <code className="text-sm">
-                git clone https://github.com/tmcleod3/voidforge.git my-project
-              </code>
-            </div>
-            <div>
-              <code className="text-sm">cd my-project && npm install</code>
-            </div>
+          <div className="crt-terminal !p-4 mb-6">
+            <code className="text-sm">
+              npx thevoidforge init my-project
+            </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
             <strong className="text-[var(--vf-text)]">Claude Code</strong> —
