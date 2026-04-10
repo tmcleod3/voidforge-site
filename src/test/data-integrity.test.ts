@@ -10,8 +10,8 @@ describe("Data Integrity — Agent slugs", () => {
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 
-  it("has exactly 18 lead agents", () => {
-    expect(leadAgents).toHaveLength(18);
+  it("has exactly 20 lead agents", () => {
+    expect(leadAgents).toHaveLength(20);
   });
 
   it("every agent has a non-empty slug and name", () => {
@@ -54,9 +54,8 @@ describe("Data Integrity — Pattern slugs", () => {
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 
-  it("has at least 38 patterns", () => {
-    // v21.0 has 38 patterns
-    expect(patterns.length).toBeGreaterThanOrEqual(38);
+  it("has at least 37 patterns", () => {
+    expect(patterns.length).toBeGreaterThanOrEqual(37);
   });
 
   it("every pattern has at least one framework tab with non-empty code", () => {

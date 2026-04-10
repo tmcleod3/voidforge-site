@@ -63,7 +63,7 @@ export default function DeployPage() {
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
             Deploying to a fresh Linux server (VPS, EC2, DigitalOcean)? Install
-            Node 20 and Git before cloning VoidForge:
+            Node 20 and Git before creating your VoidForge project:
           </p>
           <div className="crt-terminal !p-4 text-sm space-y-1 mb-4">
             <div className="text-[var(--vf-text-muted)]"># Install Node 20 via NodeSource</div>
@@ -172,6 +172,33 @@ export default function DeployPage() {
             security headers checked, monitoring active, backups tested, all
             flows verified in production. Only then does the build state update
             to LAUNCHED.
+          </p>
+        </section>
+
+        <section className="mt-12">
+          <h2
+            id="whats-next"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            WHAT&apos;S NEXT
+          </h2>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Your app is live. Run{" "}
+            <Link
+              href="/tutorial/gauntlet"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              the Gauntlet
+            </Link>{" "}
+            for a full-spectrum review before real traffic hits. Then set up the{" "}
+            <Link
+              href="/tutorial/cultivation"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              growth engine
+            </Link>{" "}
+            to drive users to your deployed product.
           </p>
         </section>
 

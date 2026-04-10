@@ -143,18 +143,17 @@ export default function ScaffoldPage() {
             Launch the full autonomous build (inside Claude Code):
           </p>
           <div className="crt-terminal !p-4 mb-6">
-            <code className="text-sm">/campaign --blitz</code>
+            <code className="text-sm">/campaign</code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Blitz mode combines{" "}
-            <code className="text-[var(--vf-electric-blue)]">--fast</code> and{" "}
-            <code className="text-[var(--vf-electric-blue)]">--autonomous</code>{" "}
-            — reduced review cycles, no pause between missions. Sisko reads the
+            Default is autonomous with the full agent roster. Sisko reads the
             PRD, breaks it into dependency-ordered missions, and runs the full{" "}
             <code className="text-[var(--vf-electric-blue)]">/assemble</code>{" "}
             pipeline for each: architect, build, triple review, UX, double
             security, devops, QA, tests, crossfire, council. When every mission
-            passes, the Victory Gauntlet runs automatically.
+            passes, the Victory Gauntlet runs automatically. Use{" "}
+            <code className="text-[var(--vf-electric-blue)]">--interactive</code>{" "}
+            to pause between missions.
           </p>
         </section>
 
@@ -199,6 +198,44 @@ export default function ScaffoldPage() {
               The Import Path
             </Link>{" "}
             for the full workflow.
+          </p>
+        </section>
+
+        <section className="mt-12">
+          <h2
+            id="whats-next"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            WHAT&apos;S NEXT
+          </h2>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Your project is built. Now stress-test it — run{" "}
+            <Link
+              href="/tutorial/gauntlet"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              the Gauntlet
+            </Link>{" "}
+            before real users arrive. Then{" "}
+            <Link
+              href="/tutorial/deploy"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              deploy
+            </Link>{" "}
+            to any of 6 targets.
+          </p>
+          <p className="text-[var(--vf-text-muted)]">
+            Once you&apos;re live, the{" "}
+            <Link
+              href="/tutorial/grow"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              growth engine
+            </Link>{" "}
+            handles SEO, ads, social, and outreach — so your launch doesn&apos;t
+            end on day one.
           </p>
         </section>
       </div>

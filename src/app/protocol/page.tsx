@@ -19,6 +19,8 @@ const agentLore: Record<string, { img: string; line: string }> = {
   Bashir: { img: "/images/agents/bashir.webp", line: "The diagnosis is in." },
   Bombadil: { img: "/images/agents/bombadil.webp", line: "Old Tom keeps the tune." },
   Chani: { img: "/images/agents/chani.webp", line: "The desert remembers." },
+  Haku: { img: "/images/agents/haku.webp", line: "The current knows the way." },
+  Gandalf: { img: "/images/agents/gandalf.webp", line: "The journey begins here." },
   // Sub-agents that appear in protocol phases
   Banner: { img: "/images/agents/subs/banner.webp", line: "Database administration." },
   Romanoff: { img: "/images/agents/subs/romanoff.webp", line: "External API integrations." },
@@ -33,7 +35,6 @@ const agentLore: Record<string, { img: string; line: string }> = {
   Bilbo: { img: "/images/agents/subs/bilbo.webp", line: "Narrative copy, brand voice." },
   Legolas: { img: "/images/agents/subs/legolas.webp", line: "Performance optimization." },
   Gimli: { img: "/images/agents/subs/gimli.webp", line: "Build tooling, bundling." },
-  Gandalf: { img: "/images/agents/subs/gandalf.webp", line: "Edge case handling." },
   Leia: { img: "/images/agents/subs/leia.webp", line: "Auth flow audit." },
   Chewie: { img: "/images/agents/subs/chewie.webp", line: "Dependency audit." },
   Rex: { img: "/images/agents/subs/rex.webp", line: "Input validation audit." },

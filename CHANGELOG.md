@@ -6,6 +6,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.3.1] - 2026-04-09
+
+### Added
+- **Gandalf + Haku agent images** — copied from sub-agent portraits to lead agent directory
+- **"What's Next" sections** on 5 dead-end pages (scaffold, dangerroom, treasury, cultivation, deploy) with forward navigation links
+
+### Changed
+- **20 lead agents reordered** by expected first-use then frequency (Gandalf first, Chani last)
+- **7 agent descriptions rewritten** for character voice: Picard, Sisko, Dockson, Tuvok (removed changelog-y "In v22.0" language), Haku, Gandalf, Kusanagi (added personality)
+- **Hero copy** — dynamic `{display.agents}` instead of hardcoded 263, removed stale campaign count, "build methodology" not "complete guide"
+- **Feature cards** — removed hardcoded tier numbers, "Production-hardened" replaces duplicated "Battle-tested"
+- **Install labels** tightened ("Wizard, methodology, agents — the full forge")
+- **Tutorial pages** — stripped "Since v22.0" version tags from 4 pages, removed stale v14.0/v22.1 references, fixed "cloning the forge" → "version control"
+- **Scaffold tutorial** — `/campaign --blitz` → `/campaign` (default is now autonomous per ADR-043)
+- **Fury speech bubble** tightened on Danger Room page
+- **Tutorial hub** — Growth/Treasury/Danger Room descriptions sharpened
+- **Commands page** — "all tiers" → "all projects", stale badges removed from 16 pre-v22.0 commands
+- **Agents page** — removed "(V23.0)" from materialization heading
+- **Slash command prompts** — removed `$ ` prefix from `/treasury`, `/dangerroom`, `/cultivation`
+- **Search index** — "18 lead agents" → "20", "38 patterns" → "37"
+- **Homepage meta** — leads with strongest number, drops generic "AI-powered methodology"
+
+### Fixed
+- **Duplicate agents removed** — Gandalf and Haku removed from `subAgents` array (were in both leads and subs, inflating count to 265 vs actual 263)
+- **Blueprint lead avatar** — "Picard (Star Trek)" → "Picard" for correct avatar lookup
+- **Treasury command** — removed "Since v22.0" version qualifier
+- **Bombadil description** — removed stale "three-tier branch structure" reference
+- **Haku removed from subAgentMap** — leadMap now handles the image path
+- **3 broken tests fixed** — lead count 18→20, pattern threshold 38→37, install section 3-tier→npm
+- **Components test** — "npx voidforge init" → "npx thevoidforge init"
+
+---
+
 ## [Site v2.3.0] - 2026-04-09
 
 ### Added

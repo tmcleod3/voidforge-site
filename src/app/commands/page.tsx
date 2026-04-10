@@ -64,7 +64,7 @@ const allTierCount = commands.filter((c) => c.tier === "all").length;
 
 export const metadata: Metadata = {
   title: "Commands",
-  description: `${commands.length} slash commands across 4 mission groups. ${flagCount} with interactive flags. ${allTierCount} available on all tiers.`,
+  description: `${commands.length} slash commands across 4 mission groups. ${flagCount} with interactive flags. ${allTierCount} available on all projects.`,
   alternates: { canonical: "/commands" },
 };
 
@@ -96,7 +96,7 @@ export default function CommandsPage() {
           <span className="text-[var(--vf-border)]">|</span>
           <span><strong className="text-[var(--vf-forge-orange)]">{groups.length}</strong> mission groups</span>
           <span className="text-[var(--vf-border)]">|</span>
-          <span><strong className="text-[var(--vf-neon-green)]">{allTierCount}</strong> on all tiers</span>
+          <span><strong className="text-[var(--vf-neon-green)]">{allTierCount}</strong> on all projects</span>
         </div>
       </section>
 

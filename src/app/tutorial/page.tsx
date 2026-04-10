@@ -69,9 +69,9 @@ const paths = [
 
 const growthTools = [
   { icon: Sprout, title: "Cultivation", description: "Install the growth engine", href: "/tutorial/cultivation", forgeLabs: true },
-  { icon: TrendingUp, title: "Growth", description: "Run growth campaigns", href: "/tutorial/grow", forgeLabs: true },
-  { icon: Landmark, title: "Treasury", description: "Manage money", href: "/tutorial/treasury", forgeLabs: true },
-  { icon: Monitor, title: "Danger Room", description: "Mission control", href: "/tutorial/dangerroom", forgeLabs: true },
+  { icon: TrendingUp, title: "Growth", description: "SEO, ads, social, outreach", href: "/tutorial/grow", forgeLabs: true },
+  { icon: Landmark, title: "Treasury", description: "Revenue, budgets, spend tracking", href: "/tutorial/treasury", forgeLabs: true },
+  { icon: Monitor, title: "Danger Room", description: "Per-project mission control", href: "/tutorial/dangerroom", forgeLabs: true },
 ] as const;
 
 export default function TutorialPage() {

@@ -40,8 +40,8 @@ export function Hero() {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.5 }}
         >
-          The complete guide to building production apps with {display.agents} AI agents
-          across {display.universes} fictional universes. Drop in a PRD. Run{" "}
+          A build methodology with {display.agents} AI agents across {display.universes}{" "}
+          fictional universes. Drop in a PRD. Run{" "}
           <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
             /build
           </code>
@@ -59,12 +59,12 @@ export function Hero() {
             v23.1 &mdash; THE INJECTION
           </p>
           <p className="font-[family-name:var(--font-bangers)] text-xl sm:text-2xl md:text-3xl tracking-wide text-[var(--foreground)] leading-snug mb-3">
-            263 agents. Materialized. Battle-tested.
+            {display.agents} agents. Materialized. Battle-tested.
           </p>
           <p className="text-sm sm:text-base text-[var(--vf-text-muted)]">
             Every agent is a Claude Code subagent definition. Opus leads. Sonnet
             specialists. Haiku scouts. Dynamic dispatch matches agents to your
-            code changes automatically. Operational learnings from 33+ campaigns
+            code changes automatically. Operational learnings from every campaign
             injected into every agent.
           </p>
         </motion.div>

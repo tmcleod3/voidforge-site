@@ -49,7 +49,7 @@ export default function CultivationPage() {
             from day zero, before your first customer.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            The Day-0 Engine (v14.0) means you don&apos;t wait until launch to
+            The Day-0 Engine means you don&apos;t wait until launch to
             set up growth infrastructure. Treasury first, revenue tracking
             second, ad platforms when you&apos;re ready. Run it once — it
             detects what&apos;s already configured and only provisions
@@ -57,7 +57,7 @@ export default function CultivationPage() {
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
-              <span className="text-[var(--vf-text-muted)]">$ </span>/cultivation
+              /cultivation
             </code>
           </div>
         </section>
@@ -160,7 +160,7 @@ export default function CultivationPage() {
             PER-PROJECT SCOPING (V22.0)
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Since v22.0, Cultivation data is project-scoped. Each project keeps
+            Cultivation data is project-scoped. Each project keeps
             its own{" "}
             <code className="text-[var(--vf-electric-blue)]">
               cultivation/treasury/
@@ -177,6 +177,40 @@ export default function CultivationPage() {
             global vault — they&apos;re user-scoped, not project-scoped. TOTP
             2FA is also global. Only financial transaction logs and campaign
             state are per-project.
+          </p>
+        </section>
+
+        <section className="mt-12">
+          <h2
+            id="whats-next"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            WHAT&apos;S NEXT
+          </h2>
+          <p className="text-[var(--vf-text-muted)] mb-4">
+            Cultivation is the foundation. Now run the growth campaigns. See{" "}
+            <Link
+              href="/tutorial/grow"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              Growth (Step 2)
+            </Link>{" "}
+            for SEO, ads, social, and outreach. Track the money with{" "}
+            <Link
+              href="/tutorial/treasury"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              Treasury (Step 3)
+            </Link>
+            . Watch it all in the{" "}
+            <Link
+              href="/tutorial/dangerroom"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              Danger Room (Step 4)
+            </Link>
+            .
           </p>
         </section>
       </div>

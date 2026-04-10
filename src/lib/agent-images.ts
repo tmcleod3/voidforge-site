@@ -17,7 +17,6 @@ const subAgentMap: Record<string, string> = {
   Bilbo: "/images/agents/subs/bilbo.webp",
   Boromir: "/images/agents/subs/boromir.webp",
   Wong: "/images/agents/subs/wong.webp",
-  Haku: "/images/agents/subs/haku.webp",
   Gimli: "/images/agents/subs/gimli.webp",
   Eowyn: "/images/agents/subs/eowyn.webp",
   Steris: "/images/agents/subs/steris.webp",

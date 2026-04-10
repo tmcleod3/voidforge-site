@@ -64,7 +64,7 @@ export default function WizardPage() {
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
             <strong className="text-[var(--vf-text)]">Git</strong> — for
-            cloning the forge.{" "}
+            version control.{" "}
             <a
               href="https://git-scm.com/downloads"
               target="_blank"
@@ -250,7 +250,7 @@ export default function WizardPage() {
             THE PROJECT DASHBOARD
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Since v22.0, each project gets its own dashboard with 5 tabs:
+            Each project gets its own dashboard with 5 tabs:
             Overview, Tower (in-browser Claude Code), Danger Room (build
             monitoring), War Room (growth campaigns), and Deploy. Navigate from
             the Lobby by clicking a project card. &ldquo;Resume last

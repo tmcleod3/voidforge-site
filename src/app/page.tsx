@@ -7,7 +7,7 @@ import { display } from "@/data/stats";
 
 export const metadata: Metadata = {
   title: "VoidForge — From Nothing, Everything",
-  description: `AI-powered development methodology. ${display.commands} commands, ${display.agents} agents, ${display.universes} universes, ${display.patterns} patterns. From PRD to production.`,
+  description: `${display.agents} AI agents, ${display.commands} commands, ${display.patterns} code patterns, ${display.universes} fictional universes. Drop in a PRD. Ship to production.`,
   alternates: { canonical: "/" },
 };
 

@@ -98,7 +98,7 @@ export default function InstallPage() {
               <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
               <span>
                 <strong className="text-[var(--vf-text)]">Git</strong> —
-                Required for all tiers.{" "}
+                Required for version control.{" "}
                 <a
                   href="https://git-scm.com/downloads"
                   target="_blank"
@@ -138,7 +138,7 @@ export default function InstallPage() {
               </h3>
               <p className="text-sm text-[var(--vf-text-muted)] mb-3">
                 One command creates a new project with the wizard, methodology,
-                and 263 agent definitions — everything you need.
+                and 260+ agent definitions — everything you need.
               </p>
               <div className="crt-terminal flex items-center justify-between gap-2 !p-3 mb-3">
                 <code className="text-sm break-all">

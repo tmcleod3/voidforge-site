@@ -64,7 +64,7 @@ export default function AgentsPage() {
         <div className="mx-auto max-w-6xl">
           <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
             <h2 className="font-[family-name:var(--font-bangers)] text-2xl tracking-wider text-[var(--vf-forge-orange)] mb-4">
-              MATERIALIZED (V23.0)
+              MATERIALIZED
             </h2>
             <p className="text-sm text-[var(--vf-text-muted)] mb-4">
               Every agent is a{" "}

@@ -52,7 +52,7 @@ export default function TreasuryPage() {
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
-              <span className="text-[var(--vf-text-muted)]">$ </span>/treasury --report
+              /treasury --report
             </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
@@ -76,7 +76,7 @@ export default function TreasuryPage() {
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
-              <span className="text-[var(--vf-text-muted)]">$ </span>/treasury --connect stripe
+              /treasury --connect stripe
             </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
@@ -99,10 +99,10 @@ export default function TreasuryPage() {
             tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
           >
-            PER-PROJECT ISOLATION (V22.0)
+            PER-PROJECT ISOLATION
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Since v22.0, treasury paths are project-scoped. Each project keeps
+            Treasury paths are project-scoped. Each project keeps
             its own financial logs in{" "}
             <code className="text-[var(--vf-electric-blue)]">
               project/cultivation/treasury/
@@ -131,8 +131,11 @@ export default function TreasuryPage() {
           <p className="text-[var(--vf-text-muted)] mb-4">
             <strong className="text-[var(--vf-text)]">Migration:</strong>{" "}
             Clean-break approach — global archive is preserved, per-project logs
-            start fresh. No data is deleted. A treasury migration CLI is planned
-            for v22.1.
+            start fresh. No data is deleted. Use{" "}
+            <code className="text-[var(--vf-electric-blue)]">
+              voidforge migrate treasury
+            </code>{" "}
+            to move existing data.
           </p>
         </section>
 
@@ -161,13 +164,40 @@ export default function TreasuryPage() {
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
-              <span className="text-[var(--vf-text-muted)]">$ </span>/treasury --freeze
+              /treasury --freeze
             </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
             Emergency freeze. Pauses all ad campaigns, revokes spend
             authorization, and generates an incident report. Requires TOTP 2FA
             to unfreeze. The nuclear option — but sometimes you need it.
+          </p>
+        </section>
+
+        <section className="mt-12">
+          <h2
+            id="whats-next"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            WHAT&apos;S NEXT
+          </h2>
+          <p className="text-[var(--vf-text-muted)]">
+            The books are open. Now watch the whole operation in the{" "}
+            <Link
+              href="/tutorial/dangerroom"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              Danger Room (Step 4)
+            </Link>
+            . Or go back to{" "}
+            <Link
+              href="/tutorial/grow"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              Growth
+            </Link>{" "}
+            to run campaigns against the budget you just set.
           </p>
         </section>
       </div>

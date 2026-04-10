@@ -25,10 +25,9 @@ export default function DangerRoomPage() {
         <ForgeLabsBanner feature="The Danger Room" />
 
         <SpeechBubble agent="Fury" universe="marvel">
-          I didn&apos;t build SHIELD by reading log files. The Danger Room gives
-          you eyes on everything — every agent, every build phase, every finding,
-          every deploy — scoped to your project. One screen. No cross-project
-          noise. You see exactly what matters.
+          I didn&apos;t build SHIELD by reading log files. The Danger Room
+          gives you eyes on everything — every agent, every phase, every
+          finding — scoped to your project. One screen. No noise.
         </SpeechBubble>
 
         <section className="mt-12">
@@ -40,8 +39,8 @@ export default function DangerRoomPage() {
             WHAT IS THE DANGER ROOM
           </h2>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            The Danger Room is a tab inside the per-project dashboard. Since
-            v22.0, it shows only data for the project you&apos;re viewing —
+            The Danger Room is a tab inside the per-project dashboard. It
+            shows only data for the project you&apos;re viewing —
             campaigns, heartbeat, treasury, and agent activity are all
             project-scoped. No cross-project data leakage.
           </p>
@@ -52,7 +51,7 @@ export default function DangerRoomPage() {
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
-              <span className="text-[var(--vf-text-muted)]">$ </span>/dangerroom
+              /dangerroom
             </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
@@ -130,6 +129,35 @@ export default function DangerRoomPage() {
             The Lobby shows all your projects with &ldquo;Resume last
             project&rdquo; (persisted in localStorage) for quick re-entry.
             Think of it as mission control — per mission.
+          </p>
+        </section>
+
+        <section className="mt-12">
+          <h2
+            id="whats-next"
+            tabIndex={-1}
+            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+          >
+            WHAT&apos;S NEXT
+          </h2>
+          <p className="text-[var(--vf-text-muted)]">
+            The Danger Room watches. Now make it watch something worth watching.
+            Go back to{" "}
+            <Link
+              href="/tutorial/cultivation"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              Cultivation (Step 1)
+            </Link>{" "}
+            if you haven&apos;t installed the growth engine yet, or run the
+            full{" "}
+            <Link
+              href="/tutorial/gauntlet"
+              className="text-[var(--vf-forge-orange)] hover:text-[var(--vf-forge-yellow)]"
+            >
+              Gauntlet
+            </Link>{" "}
+            to stress-test everything before real users arrive.
           </p>
         </section>
       </div>

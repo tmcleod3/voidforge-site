@@ -51,16 +51,16 @@ import { Footer } from "@/components/footer";
 
 describe("CopyButton", () => {
   it("renders with COPY label", () => {
-    render(<CopyButton text="npx voidforge init" />);
+    render(<CopyButton text="npx thevoidforge init" />);
     expect(screen.getByText("COPY")).toBeInTheDocument();
   });
 
   it("has an accessible label describing the text to copy", () => {
-    render(<CopyButton text="npx voidforge init" />);
+    render(<CopyButton text="npx thevoidforge init" />);
     const button = screen.getByRole("button");
     expect(button).toHaveAttribute(
       "aria-label",
-      "Copy: npx voidforge init"
+      "Copy: npx thevoidforge init"
     );
   });
 

@@ -27,7 +27,7 @@ const features = [
     icon: Users,
     title: `${display.agents} MATERIALIZED AGENTS`,
     description:
-      `${display.leads} leads on Opus. 190 specialists on Sonnet. 38 scouts on Haiku. Each agent is a persistent subagent definition with model tiering, tool restrictions, and battle-tested operational learnings. Dynamic dispatch matches agents to your code.`,
+      `${display.leads} leads on Opus. Sonnet specialists. Haiku scouts. Each agent is a persistent subagent definition with model tiering, tool restrictions, and operational learnings. Dynamic dispatch matches agents to your code.`,
     href: "/agents",
     color: "var(--vf-forge-orange)",
   },
@@ -43,7 +43,7 @@ const features = [
     icon: Code2,
     title: `${display.patterns} CODE PATTERNS`,
     description:
-      "Battle-tested reference implementations. API routes, services, components, middleware, error handling. Write code that every agent can read.",
+      "Production-hardened reference implementations. API routes, services, components, middleware, error handling. Write code that every agent can read.",
     href: "/patterns",
     color: "var(--vf-comic-pink)",
   },

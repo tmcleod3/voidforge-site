@@ -7,12 +7,12 @@ import { GitHubBadges } from "@/components/github-badges";
 const installCommands = [
   {
     tier: "Quick Start",
-    label: "Create a new project — wizard, methodology, everything",
+    label: "Wizard, methodology, agents — the full forge",
     command: "npx thevoidforge init my-app",
   },
   {
     tier: "Global Install",
-    label: "Install the CLI globally for repeated use",
+    label: "Install globally — reuse across projects",
     command: "npm install -g thevoidforge",
   },
 ] as const;

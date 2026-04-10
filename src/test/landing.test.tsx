@@ -75,17 +75,16 @@ describe("Landing Page — Install Section", () => {
     expect(screen.getByText("FORGE YOUR FIRST APP")).toBeInTheDocument();
   });
 
-  it("renders all 3 tier install commands", () => {
+  it("renders npm install commands", () => {
     render(<InstallSection />);
-    expect(screen.getByText("Full")).toBeInTheDocument();
-    expect(screen.getByText("Scaffold")).toBeInTheDocument();
-    expect(screen.getByText("Core")).toBeInTheDocument();
+    expect(screen.getByText("Quick Start")).toBeInTheDocument();
+    expect(screen.getByText("Global Install")).toBeInTheDocument();
   });
 
   it("renders copy buttons", () => {
     render(<InstallSection />);
     const copyButtons = screen.getAllByText("COPY");
-    expect(copyButtons).toHaveLength(3);
+    expect(copyButtons).toHaveLength(2);
   });
 });
 

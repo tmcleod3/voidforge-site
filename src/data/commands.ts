@@ -230,7 +230,6 @@ export const commands: Command[] = [
       "Commands relayed from Telegram to Claude Code",
       "Results sent back through the desert",
     ],
-    badge: "NEW in v3.3",
   },
   {
     slug: "assemble",
@@ -284,7 +283,6 @@ export const commands: Command[] = [
         effect: "Resume from last checkpoint in assemble-state.md.",
       },
     ],
-    badge: "NEW in v3.7",
   },
   {
     slug: "campaign",
@@ -423,7 +421,6 @@ export const commands: Command[] = [
         effect: "Use a specific model instead of the default.",
       },
     ],
-    badge: "NEW in v4.4",
   },
   {
     slug: "debrief",
@@ -479,7 +476,6 @@ export const commands: Command[] = [
         effect: "Produce the report without filing a GitHub issue.",
       },
     ],
-    badge: "NEW in v4.4",
   },
   {
     slug: "gauntlet",
@@ -548,7 +544,6 @@ export const commands: Command[] = [
         effect: "10 rounds (2x full pass). Every agent gets its own launch, context, and findings.",
       },
     ],
-    badge: "NEW in v5.5",
   },
   {
     slug: "prd",
@@ -575,7 +570,6 @@ export const commands: Command[] = [
         effect: "Act 6: Boromir's adversarial PRD challenge before finalizing.",
       },
     ],
-    badge: "NEW in v8.0",
   },
   {
     slug: "grow",
@@ -605,7 +599,6 @@ export const commands: Command[] = [
       { flag: "--continuous", type: "boolean", description: "Heartbeat mode — daily optimization cycles. Vin pulls metrics, Wax optimizes, Kelsier reviews, Lift schedules.", effect: "Run growth in scheduled daily cycles." },
       { flag: "--auto-pages", type: "boolean", description: "Enable Phase C fully autonomous Kongo page generation. Daemon extracts seed from winning variants, generates and publishes pages without human approval.", effect: "Enable autonomous landing page generation (requires 50+ pages with positive CVR delta)." },
     ],
-    badge: "NEW in v11.0",
   },
   {
     slug: "treasury",
@@ -613,7 +606,7 @@ export const commands: Command[] = [
     name: "/treasury",
     lead: "Dockson",
     description:
-      "Dockson's per-project financial operations. Connect revenue sources, allocate budgets, execute spend, reconcile daily. Since v22.0, treasury paths are project-scoped — each project has its own spend-log, revenue-log, and budget files.",
+      "Dockson's per-project financial operations. Connect revenue sources, allocate budgets, execute spend, reconcile daily. Treasury paths are project-scoped — each project has its own spend-log, revenue-log, and budget files.",
     usage: "/treasury [--connect source] [--allocate percentages] [--report] [--forecast] [--freeze]",
     whatHappens: [
       "Ingest revenue from Stripe, Paddle, or bank APIs",
@@ -629,7 +622,6 @@ export const commands: Command[] = [
       { flag: "--forecast", type: "boolean", description: "Steris projects spend and revenue for the next 30, 60, and 90 days.", effect: "Generate financial projections." },
       { flag: "--freeze", type: "boolean", description: "Emergency kill switch. Stops ALL automated spending immediately.", effect: "Halt all automated financial operations." },
     ],
-    badge: "NEW in v11.1",
   },
   {
     slug: "portfolio",
@@ -645,7 +637,6 @@ export const commands: Command[] = [
       "Cross-project financial aggregation",
       "Portfolio-level optimization recommendations",
     ],
-    badge: "NEW in v11.3",
   },
   {
     slug: "cultivation",
@@ -663,7 +654,6 @@ export const commands: Command[] = [
       "Initialize the content pipeline and social scheduler",
       "Configure budget tiers and safety controls",
     ],
-    badge: "NEW in v11.0",
   },
   {
     slug: "current",
@@ -685,7 +675,6 @@ export const commands: Command[] = [
       { flag: "--propose", type: "boolean", description: "Generate campaign proposals with budget, timeline, and expected ROAS.", effect: "Produce proposals only." },
       { flag: "--cold-start", type: "boolean", description: "Bootstrap the situation model for a new project — intake questionnaire + initial scan.", effect: "Run cold start intake." },
     ],
-    badge: "NEW in v12.0",
   },
   {
     slug: "dangerroom",
@@ -719,7 +708,6 @@ export const commands: Command[] = [
       "Dax + Troi run PRD gap analysis — structural and semantic diff of requirements vs implementation",
       "Produces a unified State of the Codebase report in /logs/assessment.md with remediation plan",
     ],
-    badge: "NEW in v13.0",
   },
   {
     slug: "deploy",
@@ -741,7 +729,6 @@ export const commands: Command[] = [
       { flag: "--dry-run", type: "boolean" as const, description: "Show what would happen without deploying.", effect: "Run all checks, print deploy plan, stop before execution." },
       { flag: "--rollback", type: "boolean" as const, description: "Roll back to the previous deployed version.", effect: "Revert to last known good deploy." },
     ],
-    badge: "NEW in v15.0",
   },
   {
     slug: "ai",
@@ -758,7 +745,6 @@ export const commands: Command[] = [
       "The Mule runs adversarial AI testing: hallucination probes, prompt injection, context overflow",
       "Produces AI Architecture report with findings ranked by severity and remediation plan",
     ],
-    badge: "NEW in v16.0",
   },
   {
     slug: "vault",
@@ -782,13 +768,12 @@ export const commands: Command[] = [
       { flag: "--list", type: "boolean" as const, description: "List all vault files with dates and summaries.", effect: "Show all sealed vaults in chronological order." },
       { flag: "--for", type: "string" as const, valuePlaceholder: "campaign", description: "Tailor the briefing for a specific audience.", effect: "Adjust vault content for campaign (next session), colleague (human handoff), or trigger (cron pickup)." },
     ],
-    badge: "NEW in v19.2",
   },
   {
     slug: "blueprint",
     tier: "all" as CommandTier,
     name: "/blueprint",
-    lead: "Picard (Star Trek)",
+    lead: "Picard",
     description:
       "The Blueprint Path — validate a pre-written PRD, discover supporting docs, merge directives, provision infrastructure, and hand off to /campaign for autonomous build.",
     usage: "/blueprint [--challenge] [--dry-run] [--plan]",
@@ -825,7 +810,6 @@ export const commands: Command[] = [
           "Produces mission breakdown from validated PRD without building",
       },
     ],
-    badge: "NEW in v21.0",
   },
 ];
 
