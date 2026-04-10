@@ -93,3 +93,10 @@
 **Lesson:** The `agentImageMap` in speech-bubble.tsx only contained lead agents (18 entries). When a tutorial used a sub-agent (Boromir, Wong) in a SpeechBubble, the avatar fell back to a colored dot. The images existed at `/images/agents/subs/` but weren't registered in the map. This was caught by the user, not by any automated test or review agent.
 **Action:** When adding SpeechBubble components for new agents, verify the agent exists in `agentImageMap`. Add a test that checks all agents used in SpeechBubble components have corresponding entries in the map.
 **Promoted to:** Not yet
+
+### Command lead fields must reference actual lead agents, not sub-agents
+**Agent:** Picard (architecture), Batman (QA) | **Category:** antipattern
+**Context:** VoidForge Marketing Site v2.4.0 — /portfolio command listed "Steris" (a sub-agent) as its lead, while agents.ts had Dockson as the actual lead with commandsLed: ["/treasury", "/portfolio"]
+**Lesson:** The `lead` field in commands.ts controls which agent avatar and name appear on the command detail page. When a sub-agent name is used, the data is internally inconsistent: agents.ts says Dockson leads /portfolio, commands.ts said Steris. No test caught this because existing tests only validated commandsLed → command slugs (forward reference), not command lead → leadAgents (reverse reference). The forge-labs page had a separate copy of the lead attribution that was also wrong.
+**Action:** Added a test: "every command lead is a valid lead agent or 'All agents'" — validates the reverse direction. When adding commands, always check that the lead field matches an entry in leadAgents, not a sub-agent.
+**Promoted to:** Not yet
