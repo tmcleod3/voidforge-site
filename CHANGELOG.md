@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.3.0] - 2026-04-09
+
+### Added
+- **Agent materialization section** on /agents — 4-box classification breakdown (20 leads/Opus, 190 specialists/Sonnet, 38 scouts/Haiku, 15 adversarial/Sonnet), .claude/agents/ file format explanation
+- **Haku** (Deploy Wizard, Anime) and **Gandalf** (Setup Wizard, Tolkien) — 2 new lead agents, total now 20
+- **Model tier + tool access + subagent ID** on all 20 lead agent data entries
+- **4 shipped releases** on /prophecy — v22.1 (The Migration), v22.2 (The Polish), v23.0 (The Materialization), v23.1 (The Injection)
+- **2 major eras** on /prophecy — era 23 (The Materialization)
+- **v23.0 dispatch callout** on /protocol page
+- **Flag taxonomy note** on /commands page (--light, --interactive, --solo opt-outs)
+
+### Changed
+- **Hero spotlight** — v22.0 "The Scope" → v23.1 "The Injection" with materialization messaging
+- **Agents feature card** — "NAMED AGENTS" → "MATERIALIZED AGENTS" with 3-tier model description
+- **About page** — 260→263 agents, added 741 tests and 33+ campaigns
+- **Install tutorial** — quick start mentions 263 agent definitions
+- **Future releases** — updated to v24.0 (Coverage) + v25.0 (Self-Forging Forge)
+
+---
+
 ## [Site v2.2.0] - 2026-04-09
 
 ### VoidForge Methodology Sync (v22.0.0 → v23.1.0)

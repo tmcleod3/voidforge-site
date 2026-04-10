@@ -59,6 +59,60 @@ export default function AgentsPage() {
         </div>
       </section>
 
+      {/* v23.0 Materialization */}
+      <section className="px-4 pb-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
+            <h2 className="font-[family-name:var(--font-bangers)] text-2xl tracking-wider text-[var(--vf-forge-orange)] mb-4">
+              MATERIALIZED (V23.0)
+            </h2>
+            <p className="text-sm text-[var(--vf-text-muted)] mb-4">
+              Every agent is a{" "}
+              <code className="text-[var(--vf-electric-blue)]">
+                .claude/agents/{"{id}"}.md
+              </code>{" "}
+              file with YAML frontmatter: name, description (used for dispatch
+              matching), model tier, and tool restrictions. Shipped with every
+              project via npm. Version-controlled. Canonical.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+              <div className="p-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+                <p className="font-[family-name:var(--font-bangers)] text-2xl text-[var(--vf-forge-yellow)]">
+                  20
+                </p>
+                <p className="text-[10px] text-[var(--vf-text-muted)] uppercase tracking-wider">
+                  Leads (Opus)
+                </p>
+              </div>
+              <div className="p-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+                <p className="font-[family-name:var(--font-bangers)] text-2xl text-[var(--vf-text)]">
+                  190
+                </p>
+                <p className="text-[10px] text-[var(--vf-text-muted)] uppercase tracking-wider">
+                  Specialists (Sonnet)
+                </p>
+              </div>
+              <div className="p-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+                <p className="font-[family-name:var(--font-bangers)] text-2xl text-[var(--vf-text-muted)]">
+                  38
+                </p>
+                <p className="text-[10px] text-[var(--vf-text-muted)] uppercase tracking-wider">
+                  Scouts (Haiku)
+                </p>
+              </div>
+              <div className="p-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+                <p className="font-[family-name:var(--font-bangers)] text-2xl text-[var(--vf-forge-orange)]">
+                  15
+                </p>
+                <p className="text-[10px] text-[var(--vf-text-muted)] uppercase tracking-wider">
+                  Adversarial (Sonnet)
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Trading card grid */}
       <section className="px-4 pb-16">
         <div className="mx-auto max-w-7xl">

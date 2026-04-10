@@ -1174,21 +1174,74 @@ export const shipped: Release[] = [
       "696 tests (21 new), 0 type errors, +1337/-385 lines",
     ],
   },
+  {
+    version: "v22.1.0",
+    date: "2026-04-09",
+    title: "The Migration",
+    headline: "Treasury migration CLI, summary cache for O(1) dashboard reads, per-project vault with HKDF-SHA256 key derivation.",
+    items: [
+      "Treasury migration CLI — voidforge migrate treasury --project=<id> archives global, starts per-project fresh",
+      "Treasury summary cache — writeTreasurySummaryFile() for O(1) dashboard KPIs (replaces O(n) JSONL scan)",
+      "Per-project vault — HKDF-SHA256 key derivation from global master key per project ID",
+      "45 new tests (treasury migrator, summary cache, project vault)",
+    ],
+  },
+  {
+    version: "v22.2.0",
+    date: "2026-04-09",
+    title: "The Polish",
+    headline: "Max by default. The flag taxonomy inverts — autonomous + full roster is now the default. Opt OUT, not in.",
+    items: [
+      "First-run onboarding UX — empty project detection, guided wizard entry, enhanced empty states",
+      "ADR-043: Flag taxonomy inversion — autonomous + full roster is default. --light, --interactive, --solo opt out",
+      "Retired flags: --blitz, --muster, --infinity (accepted as silent no-ops)",
+      "19 legacy routes get Deprecation + Sunset headers (sunset July 2026)",
+      "741 tests confirmed, 263 agents verified",
+    ],
+  },
+  {
+    version: "v23.0.0",
+    date: "2026-04-09",
+    title: "The Materialization",
+    headline: "Every named agent is now a Claude Code subagent definition. 263 agents materialized with 3-tier model routing and description-driven dynamic dispatch.",
+    items: [
+      "263 subagent definitions in .claude/agents/ — every named agent from NAMING_REGISTRY.md",
+      "3-tier model routing: Opus (20 leads), Sonnet (190 specialists + 15 adversarial), Haiku (38 scouts)",
+      "4-category tool restrictions: Builder (full), Reviewer (read+bash), Scout (read-only), Adversarial (read+bash, no edits)",
+      "Description-driven dynamic dispatch (ADR-044) — Opus matches git diff against agent descriptions",
+      "18 command files migrated from inline prompts to subagent_type: references",
+      "Agent Classification manifest: docs/AGENT_CLASSIFICATION.md with full tier/tool/ID mapping",
+    ],
+  },
+  {
+    version: "v23.1.0",
+    date: "2026-04-09",
+    title: "The Injection",
+    headline: "Operational knowledge from 33+ campaigns injected into agent definitions. The recursive knowledge loop is complete.",
+    items: [
+      "35 agent definitions enriched with Operational Learnings from method docs, LESSONS.md, and LEARNINGS.md",
+      "Debrief→agent pipeline: Wong promotes learnings into .claude/agents/ definitions",
+      "Vault Step 1.6: captures agent definition update recommendations for next session",
+      "ADR-045: Knowledge Injection architecture — closes 6 breaks in the learning-to-agent flow",
+      "Distribution pipeline includes .claude/agents/ in init, update, and /void sync",
+      "Haku (Deploy Wizard) and Gandalf (Setup Wizard) added to Team roster — 20 leads total",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
-    version: "v22.1",
-    title: "The Vault Migration",
+    version: "v24.0",
+    title: "The Coverage",
     opacity: 1,
     items: [
-      "Treasury migration CLI — move global financial data to per-project directories",
-      "Treasury summary file — O(1) reads for dashboard KPIs instead of scanning logs",
-      "Per-project vault encryption — Kenobi's HKDF proposal for isolated credential storage",
+      "Test coverage campaign for 48 untested modules",
+      "Refactoring treasury-heartbeat.ts (1,444 lines → focused modules)",
+      "lessons-global.json implementation (cross-project memory)",
     ],
   },
   {
-    version: "v23.0",
+    version: "v25.0",
     title: "The Self-Forging Forge",
     opacity: 0.7,
     items: [

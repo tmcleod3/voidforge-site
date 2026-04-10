@@ -116,17 +116,27 @@ export default function CommandsPage() {
         </nav>
       </section>
 
-      {/* Tier legend */}
+      {/* Tier legend + dispatch note */}
       <section className="px-4 pb-8">
-        <div className="mx-auto max-w-4xl flex justify-center gap-6 text-[10px] text-[var(--vf-text-muted)]">
-          <span className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[var(--vf-neon-green)]" />
-            All projects
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[var(--vf-deep-purple)]" />
-            Requires extension
-          </span>
+        <div className="mx-auto max-w-4xl">
+          <div className="flex justify-center gap-6 text-[10px] text-[var(--vf-text-muted)] mb-4">
+            <span className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[var(--vf-neon-green)]" />
+              All projects
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[var(--vf-deep-purple)]" />
+              Requires extension
+            </span>
+          </div>
+          <p className="text-center text-[10px] text-[var(--vf-text-muted)]">
+            Since v23.0, commands launch agents by canonical subagent ID — not
+            inline prompts. Default is autonomous + full roster. Opt out with{" "}
+            <code className="text-[var(--vf-electric-blue)]">--light</code>,{" "}
+            <code className="text-[var(--vf-electric-blue)]">--interactive</code>,
+            or{" "}
+            <code className="text-[var(--vf-electric-blue)]">--solo</code>.
+          </p>
         </div>
       </section>
 

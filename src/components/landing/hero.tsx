@@ -48,7 +48,7 @@ export function Hero() {
           . Ship to production.
         </motion.p>
 
-        {/* v22.0 Spotlight */}
+        {/* v23.1 Spotlight */}
         <motion.div
           className="mt-10 max-w-2xl mx-auto comic-panel bg-[var(--vf-surface-raised)] p-6 text-left"
           initial={shouldReduceMotion ? {} : { y: 30, opacity: 0 }}
@@ -56,18 +56,16 @@ export function Hero() {
           transition={{ delay: 0.7, duration: 0.5 }}
         >
           <p className="font-[family-name:var(--font-bangers)] text-lg sm:text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
-            v22.0 &mdash; THE SCOPE
+            v23.1 &mdash; THE INJECTION
           </p>
           <p className="font-[family-name:var(--font-bangers)] text-xl sm:text-2xl md:text-3xl tracking-wide text-[var(--foreground)] leading-snug mb-3">
-            Everything is project-scoped. Multi-project. Isolated.
+            263 agents. Materialized. Battle-tested.
           </p>
           <p className="text-sm sm:text-base text-[var(--vf-text-muted)]">
-            Per-project dashboards, financial isolation, and daemon configuration.
-            Install with{" "}
-            <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
-              npx thevoidforge init
-            </code>
-            . Your campaigns still create real ads on Google, Meta, and TikTok.
+            Every agent is a Claude Code subagent definition. Opus leads. Sonnet
+            specialists. Haiku scouts. Dynamic dispatch matches agents to your
+            code changes automatically. Operational learnings from 33+ campaigns
+            injected into every agent.
           </p>
         </motion.div>
 

@@ -77,6 +77,19 @@ export default function ProtocolPage() {
         </div>
       </section>
 
+      {/* v23.0 Materialization callout */}
+      <section className="px-4 pb-6">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+            <strong className="text-[var(--vf-forge-orange)]">v23.0:</strong>{" "}
+            Every agent in the protocol has a persistent subagent definition
+            with model tiering (Opus/Sonnet/Haiku) and tool restrictions.
+            Dynamic dispatch (ADR-044) matches specialists to your code
+            changes automatically.
+          </div>
+        </div>
+      </section>
+
       {/* Operational Learnings callout */}
       <section className="px-4 pb-12">
         <div className="mx-auto max-w-4xl">

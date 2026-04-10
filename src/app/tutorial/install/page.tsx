@@ -138,7 +138,7 @@ export default function InstallPage() {
               </h3>
               <p className="text-sm text-[var(--vf-text-muted)] mb-3">
                 One command creates a new project with the wizard, methodology,
-                and everything you need.
+                and 263 agent definitions — everything you need.
               </p>
               <div className="crt-terminal flex items-center justify-between gap-2 !p-3 mb-3">
                 <code className="text-sm break-all">

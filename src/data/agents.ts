@@ -9,6 +9,9 @@ export type Universe =
   | "cosmere"
   | "foundation";
 
+export type ModelTier = "opus" | "sonnet" | "haiku";
+export type ToolAccess = "builder" | "reviewer" | "scout" | "adversarial";
+
 export interface LeadAgent {
   slug: string;
   name: string;
@@ -22,6 +25,9 @@ export interface LeadAgent {
   commandsLed: string[];
   phasesActive: number[];
   powerLevel: number; // 1-10
+  modelTier: ModelTier;
+  toolAccess: ToolAccess;
+  subagentId: string;
 }
 
 export interface SubAgent {
@@ -71,6 +77,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/ux"],
     phasesActive: [3, 4, 5, 8, 10],
     powerLevel: 9,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "galadriel-frontend",
   },
   {
     slug: "stark",
@@ -86,6 +95,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: [],
     phasesActive: [1, 2, 3, 4, 5, 6, 7],
     powerLevel: 10,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "stark-backend",
   },
   {
     slug: "batman",
@@ -101,6 +113,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/qa", "/test"],
     phasesActive: [5, 9],
     powerLevel: 9,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "batman-qa",
   },
   {
     slug: "kenobi",
@@ -117,6 +132,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/security"],
     phasesActive: [3, 6, 11],
     powerLevel: 9,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "kenobi-security",
   },
   {
     slug: "picard",
@@ -132,6 +150,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/review", "/architect", "/assess"],
     phasesActive: [0, 7],
     powerLevel: 8,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "picard-architecture",
   },
   {
     slug: "kusanagi",
@@ -147,6 +168,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/devops", "/deploy"],
     phasesActive: [1, 2, 12],
     powerLevel: 8,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "kusanagi-devops",
   },
   {
     slug: "coulson",
@@ -162,6 +186,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/git"],
     phasesActive: [13],
     powerLevel: 6,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "coulson-release",
   },
   {
     slug: "bombadil",
@@ -178,6 +205,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/void"],
     phasesActive: [],
     powerLevel: 7,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "bombadil-forge-keeper",
   },
   {
     slug: "chani",
@@ -193,6 +223,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/thumper"],
     phasesActive: [],
     powerLevel: 7,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "chani-worm-rider",
   },
   {
     slug: "fury",
@@ -209,6 +242,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/assemble", "/dangerroom"],
     phasesActive: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
     powerLevel: 10,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "fury-assembler",
   },
   {
     slug: "sisko",
@@ -225,6 +261,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/campaign", "/prd"],
     phasesActive: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
     powerLevel: 10,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "sisko-campaign",
   },
   {
     slug: "celebrimbor",
@@ -241,6 +280,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/imagine"],
     phasesActive: [8],
     powerLevel: 8,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "celebrimbor-forge-artist",
   },
   {
     slug: "bashir",
@@ -257,6 +299,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/debrief"],
     phasesActive: [9, 10, 11],
     powerLevel: 7,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "bashir-field-medic",
   },
   {
     slug: "thanos",
@@ -273,6 +318,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/gauntlet"],
     phasesActive: [9, 10, 11],
     powerLevel: 10,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "thanos-gauntlet",
   },
   {
     slug: "kelsier",
@@ -289,6 +337,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/grow", "/cultivation"],
     phasesActive: [8],
     powerLevel: 9,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "kelsier-growth",
   },
   {
     slug: "dockson",
@@ -305,6 +356,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/treasury", "/portfolio"],
     phasesActive: [],
     powerLevel: 7,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "dockson-treasury",
   },
   {
     slug: "tuvok",
@@ -321,6 +375,9 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/current"],
     phasesActive: [0],
     powerLevel: 8,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "tuvok-deep-current",
   },
   {
     slug: "seldon",
@@ -337,6 +394,45 @@ export const leadAgents: LeadAgent[] = [
     commandsLed: ["/ai", "/vault"],
     phasesActive: [0, 4, 5, 9, 11],
     powerLevel: 9,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "seldon-ai-intelligence",
+  },
+  {
+    slug: "haku",
+    name: "Haku",
+    realName: "Haku (Spirited Away)",
+    universe: "anime",
+    domain: "Deploy Wizard",
+    description:
+      "Browser-based deploy wizard with infrastructure provisioning. Guides users through deploy target selection, credential configuration, and deployment execution via the wizard UI.",
+    quote: "The river carries you where you need to go.",
+    tagline: "The current knows the way.",
+    exclamation: "FLOW!",
+    commandsLed: ["/deploy"],
+    phasesActive: [12],
+    powerLevel: 7,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "haku-deploy-wizard",
+  },
+  {
+    slug: "gandalf",
+    name: "Gandalf",
+    realName: "Gandalf the Grey",
+    universe: "tolkien",
+    domain: "Setup Wizard",
+    description:
+      "Project scaffolding, initialization, and dependency setup. The interactive wizard walks new users through project creation, PRD generation, and stack configuration via the browser UI.",
+    quote: "A wizard is never late. He arrives precisely when he means to.",
+    tagline: "The journey begins here.",
+    exclamation: "FORGE!",
+    commandsLed: [],
+    phasesActive: [0, 1],
+    powerLevel: 8,
+    modelTier: "opus" as ModelTier,
+    toolAccess: "builder" as ToolAccess,
+    subagentId: "gandalf-setup-wizard",
   },
 ];
 
