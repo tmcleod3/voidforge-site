@@ -58,7 +58,7 @@ export function Hero() {
           <p className="font-[family-name:var(--font-bangers)] text-lg sm:text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
             v23.1 &mdash; THE INJECTION
           </p>
-          <p className="font-[family-name:var(--font-bangers)] text-xl sm:text-2xl md:text-3xl tracking-wide text-[var(--foreground)] leading-snug mb-3">
+          <p className="font-[family-name:var(--font-bangers)] text-xl sm:text-2xl md:text-3xl tracking-wider text-[var(--foreground)] leading-snug mb-3">
             {display.agents} agents. Materialized. Battle-tested.
           </p>
           <p className="text-sm sm:text-base text-[var(--vf-text-muted)]">
@@ -81,6 +81,21 @@ export function Hero() {
           >
             FORGE YOUR FIRST APP &rarr;
           </Link>
+        </motion.div>
+
+        {/* Scroll affordance */}
+        <motion.div
+          className="mt-16"
+          initial={shouldReduceMotion ? {} : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.4, duration: 0.6 }}
+          aria-hidden="true"
+        >
+          <div className="scroll-bounce w-6 h-6 mx-auto text-[var(--vf-text-muted)]">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M7 13l5 5 5-5M7 6l5 5 5-5" />
+            </svg>
+          </div>
         </motion.div>
       </div>
     </section>

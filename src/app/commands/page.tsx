@@ -189,7 +189,7 @@ export default function CommandsPage() {
                       <Link
                         key={cmd.slug}
                         href={`/commands/${cmd.slug}`}
-                        className="comic-panel bg-[var(--vf-surface-raised)] p-4 border-l-4 flex flex-col gap-3 group hover:bg-[var(--vf-surface-overlay)] transition-colors"
+                        className="comic-panel bg-[var(--vf-surface-raised)] p-4 border-l-4 flex flex-col gap-3 group hover:bg-[var(--vf-surface-overlay)] transition-all motion-safe:hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--vf-forge-orange)]/5"
                         style={{ borderLeftColor: tierColor }}
                       >
                         {/* Row 1: name + agent + tier */}

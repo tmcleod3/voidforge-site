@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { AccordionItem } from "@/components/accordion";
 import { SpeechBubble } from "@/components/speech-bubble";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { phases } from "@/data/protocol";
 
 const agentLore: Record<string, { img: string; line: string }> = {
@@ -126,8 +127,9 @@ export default function ProtocolPage() {
             />
 
             <ol className="space-y-4 list-none p-0 m-0">
-              {phases.map((phase) => (
-                <li key={phase.slug} className="relative pl-16">
+              {phases.map((phase, i) => (
+                <ScrollReveal key={phase.slug} delay={i * 0.06}>
+                <li className="relative pl-16">
                   {/* Node */}
                   <div
                     className={`absolute top-5 rounded-full border-2 border-[var(--vf-electric-blue)] bg-[var(--vf-void)] flex items-center justify-center font-bold text-[var(--vf-electric-blue)] z-10 ${
@@ -204,6 +206,7 @@ export default function ProtocolPage() {
                     </div>
                   </AccordionItem>
                 </li>
+                </ScrollReveal>
               ))}
             </ol>
           </div>

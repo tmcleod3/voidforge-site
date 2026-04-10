@@ -224,7 +224,7 @@ export default function AboutPage() {
               ].map((u) => (
                 <div
                   key={u.universe}
-                  className="comic-panel bg-[var(--vf-surface-raised)] p-4"
+                  className="comic-panel bg-[var(--vf-surface-raised)] p-4 transition-all hover:border-[var(--vf-forge-orange)] motion-safe:hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--vf-forge-orange)]/5"
                 >
                   <h3 className="font-[family-name:var(--font-bangers)] text-lg tracking-wider text-[var(--vf-forge-orange)] mb-1">
                     {u.universe}

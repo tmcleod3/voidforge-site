@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { Analytics } from "@/components/analytics";
 import { Starfield } from "@/components/starfield";
 import { JsonLd } from "@/components/json-ld";
+import { BackToTop } from "@/components/back-to-top";
 import { display } from "@/data/stats";
 import "./globals.css";
 
@@ -89,6 +90,7 @@ export default function RootLayout({
         <Header />
         <main id="main-content" className="flex-1 relative z-10">{children}</main>
         <Footer />
+        <BackToTop />
         <Analytics />
       </body>
     </html>

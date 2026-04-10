@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { TradingCard } from "@/components/trading-card";
 import { SubAgentGrid } from "@/components/sub-agent-grid";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import {
   Sword,
   Shield,
@@ -117,9 +118,9 @@ export default function AgentsPage() {
       <section className="px-4 pb-16">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
-            {leadAgents.map((agent) => (
+            {leadAgents.map((agent, i) => (
+              <ScrollReveal key={agent.slug} delay={i * 0.05}>
               <TradingCard
-                key={agent.slug}
                 name={agent.name}
                 slug={agent.slug}
                 realName={agent.realName}
@@ -132,6 +133,7 @@ export default function AgentsPage() {
                 commandsLed={agent.commandsLed}
                 powerLevel={agent.powerLevel}
               />
+              </ScrollReveal>
             ))}
           </div>
         </div>

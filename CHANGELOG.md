@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.5.0] - 2026-04-10
+
+### Added
+- **Animated PageHeader** — every interior page now has Framer Motion entrance animation (slide-in title, fade-up subtitle), closing the "personality cliff" between the hero and interior pages
+- **ScrollReveal component** — shared `whileInView` wrapper for scroll-triggered animations
+- **Back-to-top button** — floating orange button on all long pages, respects reduced motion
+- **Scroll affordance** — bouncing double-chevron below hero CTA guides visitors to scroll
+- **Protocol timeline stagger** — 14 build phases reveal sequentially as you scroll
+- **Agent card dealing** — trading cards fade up with staggered delay
+- **Card hover micro-interactions** — subtle lift + warm shadow on command, pattern, and universe cards
+- **Footer warmth** — gradient divider replaces cold border, nav links nudge on hover
+
+### Changed
+- Hero spotlight `tracking-wide` → `tracking-wider` for typography consistency
+
+### Fixed
+- Mobile nav links no longer keyboard-focusable when menu is collapsed (`inert` attribute)
+- Search input focus ring restored (removed inline `outline: none` suppression)
+- All named CSS animations explicitly gated in `prefers-reduced-motion: reduce`
+
+---
+
 ## [Site v2.4.0] - 2026-04-09
 
 ### Added
