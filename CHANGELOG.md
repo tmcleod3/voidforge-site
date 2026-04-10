@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.4.0] - 2026-04-09
+
+### Added
+- **263 agent definition files** in `.claude/agents/` — every named agent materialized as a Claude Code subagent definition with YAML frontmatter (name, description, model tier, tool restrictions, operational learnings)
+
+### Changed
+- **/void command** — CLI freshness check (mandatory upgrade before update), tombstone redirect note, `.claude/agents/` included in sync paths
+- **VERSION.md** — improved version history descriptions synced from upstream
+
+---
+
 ## [Site v2.3.1] - 2026-04-09
 
 ### Added

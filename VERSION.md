@@ -14,13 +14,13 @@ This project uses [Semantic Versioning](https://semver.org/):
 
 | Version | Date | Summary |
 |---------|------|---------|
-| 23.1.0 | 2026-04-09 | The Injection — 35 agent definitions enriched with operational learnings, debrief→agent pipeline, knowledge injection architecture (ADR-045). |
-| 23.0.0 | 2026-04-09 | The Materialization — 263 subagent definitions in .claude/agents/, 3-tier model routing (Opus/Sonnet/Haiku), description-driven dynamic dispatch (ADR-044). |
-| 22.2.0 | 2026-04-09 | The Polish — First-run onboarding UX, flag taxonomy inversion (ADR-043: max by default), dynamic agent dispatch (ADR-042), 741 tests. |
-| 22.1.0 | 2026-04-09 | The Migration — Treasury migration CLI, treasury summary cache (O(1) reads), per-project vault with HKDF-SHA256, 45 new tests. |
-| 22.0.0 | 2026-04-09 | The Scope — Project-scoped dashboards, per-project daemons, multi-project wizard, RBAC on all 20 dashboard routes, WebSocket subscription rooms, 21 new tests. ADR-040, ADR-041. |
-| 21.0.0 | 2026-04-08 | The Extraction — Standalone npm packages (voidforge + @voidforge/methodology), CLI router with 12 commands, extension system, .voidforge marker, headless init, v20.x migration, 675 tests. ADR-038. |
-| 20.2.0 | 2026-04-03 | Graceful Tier Degradation — ADR-037, spring cleaning (274 files removed from scaffold), scaffold /cultivation + /grow partial proceed, 6 Full-tier sentinel fixes, 10 method doc additions, 6 field reports closed. |
+| 23.1.0 | 2026-04-09 | The Injection — knowledge injection into 35 agent definitions, 6 knowledge flow breaks closed (ADR-045), debrief→agent promotion path, vault agent recommendations, scaffold migration, distribution pipeline fixes. Campaign 33. |
+| 23.0.0 | 2026-04-09 | The Materialization — 263 Claude Code subagent definitions with 3-tier model routing (Opus/Sonnet/Haiku), 4-category tool restrictions, description-driven dynamic dispatch. 18 commands migrated, 13 method docs updated. ADR-044. Campaign 32, 8 missions. |
+| 22.2.0 | 2026-04-09 | The Polish — first-run onboarding UX, portfolio per-project reads, legacy route deprecation (19 routes, sunset July 2026), growth tutorial prerequisites, 263-agent accuracy pass, dynamic agent dispatch (ADR-042), max-by-default flag inversion (ADR-043). Campaign 31, 7 missions. |
+| 22.1.0 | 2026-04-09 | The Migration — treasury migration CLI, treasury summary cache (O(1) reads), per-project vault with HKDF-SHA256 key derivation. 45 new tests. Campaign 30, 3 missions. |
+| 22.0.0 | 2026-04-09 | The Scope — project-scoped dashboards, per-project financial isolation, router param matching, ProjectContext middleware, WebSocket subscription rooms, 5-tab project dashboard, dual-daemon guard, RBAC fixes. 696 tests. 2 campaigns (28+29), 15 missions, 52 files changed. ADR-040 + ADR-041. |
+| 21.0.0 | 2026-04-08 | The Extraction — wizard becomes standalone npm package. Monorepo (packages/voidforge + packages/methodology). CLI router with 12 commands. .voidforge marker file. Project creation (headless init). Extension system (danger-room + cultivation). Methodology update (replaces /void git-fetch). Daemon aggregator for multi-project heartbeat. v20.x migration with rollback. 675 tests (618→675). ADR-038. |
+| 20.2.0 | 2026-04-03 | Graceful Tier Degradation — scaffold cleanup (408→134 files), Spring Cleaning /void migration, tier gate sentinel fix, /grow Phase 1-3 fallback, /cultivation graceful skip, 6 field reports triaged (#271-#276, 11 methodology fixes). |
 | 20.1.1 | 2026-04-02 | Parallel Agent Standard, ID Space Audit, Safety Parameter Audit, Maul mandatory gate, 7 field report triages (#264-#270). |
 | 20.1.0 | 2026-04-02 | Kongo Engine Integration — 10 modules, 119 tests, 37th pattern, Infinity Gauntlet (3 Critical + 10 High fixed), 5 field reports triaged (14 methodology fixes), Operational Learnings system activated. |
 | 19.5.0 | 2026-03-31 | The Blueprint Path — Fourth entry path for pre-written specs: /blueprint command, document discovery, CLAUDE.md merge, PRD validation, wizard auto-detection, PRD template. 499 tests (454→499). Gauntlet: path traversal fix, route registration, UX dead-end fix. |
