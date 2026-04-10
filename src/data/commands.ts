@@ -627,9 +627,9 @@ export const commands: Command[] = [
     slug: "portfolio",
     tier: "full" as CommandTier,
     name: "/portfolio",
-    lead: "Steris",
+    lead: "Dockson",
     description:
-      "Steris's cross-project financials. Track all VoidForge projects from one place — status, revenue, traffic, ad spend, ROAS.",
+      "Dockson's cross-project financials. Track all VoidForge projects from one place — status, revenue, traffic, ad spend, ROAS.",
     usage: "/portfolio",
     whatHappens: [
       "Read portfolio state from ~/.voidforge/portfolio.json",

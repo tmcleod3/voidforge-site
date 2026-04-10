@@ -91,14 +91,25 @@ describe("Data Integrity — Cross-references", () => {
     }
   });
 
+  it("every command lead is a valid lead agent or 'All agents'", () => {
+    const validLeads = new Set(leadAgents.map((a) => a.name));
+    validLeads.add("All agents");
+    for (const cmd of commands) {
+      expect(
+        validLeads.has(cmd.lead),
+        `Command /${cmd.slug} has lead "${cmd.lead}" which is not a lead agent`
+      ).toBe(true);
+    }
+  });
+
   it("most lead agents have at least one command assigned", () => {
-    // Stark is the only agent without a dedicated slash command — he supports
-    // phases 1-7 as backend engineer but /build is led by "All agents"
+    // Stark supports phases 1-7 as backend engineer but /build is led by "All agents".
+    // Gandalf is the setup wizard — runs via npx voidforge init, not a slash command.
     const agentsWithCommands = leadAgents.filter(
       (a) => a.commandsLed.length > 0
     );
     expect(agentsWithCommands.length).toBeGreaterThanOrEqual(
-      leadAgents.length - 1
+      leadAgents.length - 2
     );
   });
 });
