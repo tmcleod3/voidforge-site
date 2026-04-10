@@ -39,3 +39,30 @@ User-authored domain expertise (iframe sandbox constraints, platform-specific go
 - **scope:** Tutorial content lifecycle
 - **evidence:** Iframe sandbox section added to google-ads-kongo after v1.5.0 shipped
 - **context:** Applies to any tutorial page with user-authored content. Not a methodology gap.
+
+### Dynamic counts prevent staleness — never hardcode agent/pattern/command numbers
+Every display count (agents, patterns, commands, leads) should come from `stats.ts` computed values, never hardcoded in JSX or prose. Hardcoded "263" went stale 3 times in one session as agents were added/removed. The `display.agents` computed value auto-updates.
+
+- **category:** antipattern
+- **verified:** 2026-04-09
+- **scope:** All pages displaying VoidForge statistics
+- **evidence:** v2.3.1 UX review found hardcoded 263 in hero, install, about — each wrong after agent data changes
+- **context:** Also applies to "37 patterns", "18 leads", "33+ campaigns". If a number might change, compute it.
+
+### Every tutorial page needs a forward navigation link
+Pages in the core journey (install→first-build→deploy) use TutorialNav. But Forge Labs pages (cultivation, treasury, dangerroom) and path pages (scaffold) were created without "What's Next" sections. Readers hit dead ends. Every new page needs a closing CTA pointing to the logical next step.
+
+- **category:** gotcha
+- **verified:** 2026-04-09
+- **scope:** All tutorial/* pages
+- **evidence:** v2.3.1 UX review found 5 dead-end pages; all required manual "What's Next" additions
+- **context:** Could be enforced by a build-time check (every page.tsx in tutorial/ must contain "whats-next" id or TutorialNav).
+
+### Run test suite before deploy, not just build
+The `/deploy` command runs `npm run build` as pre-flight but not `npm test`. Four broken tests (lead count 18→20, pattern threshold, install tiers, package name) shipped across 3 deploys before being caught by a parallel UX review agent. Adding `npm test` to pre-flight catches these before production.
+
+- **category:** antipattern
+- **verified:** 2026-04-09
+- **scope:** /deploy pre-flight checks
+- **evidence:** v2.0.0 through v2.3.0 shipped with broken tests; caught only in v2.3.1 UX review
+- **context:** Field report #298 filed. Proposed fix: add npm test to deploy.md pre-flight.
