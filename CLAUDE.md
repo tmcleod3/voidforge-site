@@ -136,7 +136,6 @@ Flags are standardized across commands. Same flag name = same meaning everywhere
 | `--fast` | Reduced review passes (skip last 2 rounds/phases), still comprehensive | `/campaign`, `/assemble`, `/gauntlet` |
 | `--dry-run` | Show what would happen without doing it | `/deploy`, `/debrief`, `/treasury`, `/grow`, `/git` |
 | `--status` | Show current state | `/cultivation`, `/treasury`, `/deploy`, `/portfolio`, `/dangerroom`, `/thumper` |
-| `--blitz` | Autonomous execution, no human pauses | `/campaign`, `/assemble`, `/build` |
 
 ### Tier 2 — Scope Flags
 
@@ -146,19 +145,25 @@ Flags are standardized across commands. Same flag name = same meaning everywhere
 | `--ux-only` | UX domain focus | `/gauntlet` |
 | `--qa-only` | QA domain focus | `/gauntlet` |
 
-### Tier 3 — Intensity Flags
+### Tier 3 — Opt-Out Flags (ADR-043: Max by Default)
+
+Default is now maximum quality: autonomous execution + full agent roster + all review passes.
 
 ```
+(default)     Autonomous + full agent roster + all review passes
 --fast        Fewer agents/rounds (reduced but still comprehensive)
-(default)     Standard agent deployment for the command
---muster      Every viable agent across all 9 universes, 3 waves
---infinity    Every agent as own sub-process, 10 rounds (Gauntlet only)
+--light       Standard agents only — no cross-domain, no muster roster
+--interactive Pause for human confirmation between missions
+--solo        Lead agent only, zero sub-agents (quick checks)
 ```
 
 | Flag | Meaning | Available On |
 |------|---------|-------------|
-| `--muster` | Full 9-universe deployment (30-50 agents in 3 waves) | `/architect`, `/campaign`, `/build`, `/gauntlet` |
-| `--infinity` | 10-round 2x pass with ~80 agent launches | `/gauntlet` |
+| `--light` | Standard agents only (skip cross-domain spot-checks, skip muster roster) | All commands |
+| `--interactive` | Pause for human confirmation at mission briefs and between phases | `/campaign`, `/assemble`, `/build` |
+| `--solo` | Lead agent only, no sub-agents | All commands |
+
+**Retired flags (accepted silently as no-ops for backward compat):** `--blitz`, `--muster`, `--infinity`
 
 See `/docs/methods/MUSTER.md` for the full Muster Protocol.
 
@@ -225,8 +230,10 @@ See `/docs/methods/MUSTER.md` for the full Muster Protocol.
 | Deep Current | **Tuvok** (Star Trek) | Autonomous campaign intelligence — scan, analyze, propose, learn |
 | Treasury | **Dockson** (Cosmere) | Revenue ingest, budget allocation, spend execution, reconciliation |
 | AI Intelligence | **Hari Seldon** (Foundation) | Model selection, prompts, tool-use, orchestration, safety, evals |
+| Deploy Wizard | **Haku** (Anime) | Browser-based deploy wizard, infrastructure provisioning |
+| Setup Wizard | **Gandalf** (Tolkien) | Project scaffolding, initialization, dependency setup |
 
-260+ sub-agent names in `/docs/NAMING_REGISTRY.md`. No duplicates across active sessions.
+263 sub-agent names in `/docs/NAMING_REGISTRY.md`. No duplicates across active sessions. All agents materialized as subagent definitions in `.claude/agents/` (ADR-044).
 
 ## Distribution
 
@@ -235,7 +242,7 @@ VoidForge distributes via npm (v21.0+). The monorepo produces two packages:
 | Package | npm Name | Contains |
 |---------|----------|----------|
 | Wizard + CLI | `voidforge` | Server, API, UI, lib, CLI, templates, tests |
-| Methodology | `@voidforge/methodology` | CLAUDE.md, commands, methods, patterns, Holocron |
+| Methodology | `@voidforge/methodology` | CLAUDE.md, commands, methods, patterns, agents, Holocron |
 
 **Install path:** `npx voidforge init` creates a new project with methodology. `npx voidforge` launches the wizard UI.
 

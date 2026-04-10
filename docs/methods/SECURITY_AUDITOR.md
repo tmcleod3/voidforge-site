@@ -26,6 +26,14 @@
 
 **Need more?** Pull from Star Wars pool: Luke, Han, Qui-Gon, Din Djarin, Cassian, Sabine. See NAMING_REGISTRY.md.
 
+## Dynamic Dispatch (ADR-044)
+
+Agent dispatch is now description-driven. When Opus processes a command, it scans `git diff --stat` and matches changed files against the `description` fields of all 263 agents in `.claude/agents/`. Matching specialists launch automatically alongside core agents. No static dispatch tables needed.
+
+See `docs/AGENT_CLASSIFICATION.md` for the full classification and `docs/adrs/ADR-044-subagent-materialization.md` for the architecture.
+
+**Promoted agent:** **Worf** runs on every `/review` that touches auth code — security-by-design, not security-after-build.
+
 ## Pre-Audit: Load Operational Learnings (optional)
 
 If `docs/LEARNINGS.md` exists, check for entries in the `security`, `vendor`, or `api-behavior` categories that may affect the audit scope — known auth quirks, credential constraints, or API behaviors that impact the security posture. (ADR-035)

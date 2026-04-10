@@ -25,6 +25,14 @@
 
 **Need more?** Pull from DC pool: Flash, Superman, Cyborg, Wonder Woman, Zatanna, Raven. See NAMING_REGISTRY.md.
 
+## Dynamic Dispatch (ADR-044)
+
+Agent dispatch is now description-driven. When Opus processes a command, it scans `git diff --stat` and matches changed files against the `description` fields of all 263 agents in `.claude/agents/`. Matching specialists launch automatically alongside core agents. No static dispatch tables needed.
+
+See `docs/AGENT_CLASSIFICATION.md` for the full classification and `docs/adrs/ADR-044-subagent-materialization.md` for the architecture.
+
+**Promoted agent:** **Constantine** runs on every `/qa` final pass — finds code that works by accident.
+
 ## Scope
 
 Batman is **cross-cutting**: reads all code, tests all flows, writes fixes anywhere. Batman is both investigator (finds bugs) AND validator (verifies fixes). During build phases 4-8, Batman validates each batch. During Phase 9, Batman runs the full adversarial audit.

@@ -7,19 +7,36 @@ Read `/docs/methods/HEARTBEAT.md` for daemon architecture.
 
 ## Agent Deployment Manifest
 
-**Lead:** Dockson (Cosmere — Mistborn)
+**Lead:** Dockson (`subagent_type: dockson-treasury`)
 **Core team:**
-- **Steris** — budget allocation, forecasting, contingency plans
-- **Vin** — revenue analytics, attribution, pattern detection
-- **Szeth** — financial compliance, tax records, platform ToS
-- **Breeze** — platform relations, API credentials, OAuth management
-- **Wax** — spend execution, campaign budget management
+- **Steris** (`subagent_type: steris-budget`) — budget allocation, forecasting, contingency plans
+- **Vin** (`subagent_type: vin-analytics`) — revenue analytics, attribution, pattern detection
+- **Szeth** (`subagent_type: szeth-compliance`) — financial compliance, tax records, platform ToS
+- **Breeze** (`subagent_type: breeze-platform-relations`) — platform relations, API credentials, OAuth management
+- **Wax** (`subagent_type: wax-paid-ads`) — spend execution, campaign budget management
 
 ## Prerequisites
+
+### System Requirements
 If `packages/voidforge/wizard/server.ts` does not exist (methodology-only install):
 1. Offer: "Treasury requires the wizard server. Pull it from upstream? [Y/n]"
 2. On yes: `git fetch voidforge main 2>/dev/null || git remote add voidforge https://github.com/tmcleod3/voidforge.git && git fetch voidforge main` then `git checkout voidforge/main -- packages/voidforge/` then `npm install`
 3. On no: stop with "Run manually: `git checkout voidforge/main -- packages/voidforge/`"
+
+### External Accounts & API Keys
+**Required for treasury setup:**
+- **Cultivation installed:** Run `/cultivation install` first — treasury operates within cultivation.
+- **Financial vault password:** 12+ characters, set during cultivation install.
+
+**Required for revenue tracking:**
+- **Stripe** (`sk_live_...` or `sk_test_...`) or **Paddle** (API key + vendor ID) — at least one revenue source for ROAS.
+
+**Required for stablecoin funding (optional):**
+- **Circle:** USDC account + API key for automated off-ramp. [Create account](https://www.circle.com/en/).
+- **Bank account:** Mercury or Brex connected for fiat settlement.
+
+**Required for ad spend tracking:**
+- Ad platform credentials configured via `/grow --setup` (Google Ads, Meta Ads, etc.).
 
 ## Context Setup
 1. Check if financial vault exists (`~/.voidforge/treasury/vault.enc`)

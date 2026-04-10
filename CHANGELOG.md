@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.2.0] - 2026-04-09
+
+### VoidForge Methodology Sync (v22.0.0 → v23.1.0)
+- 35 methodology files synced from main: 23 commands, 9 method docs, CLAUDE.md, HOLOCRON.md, VERSION.md
+- **Flag taxonomy inverted (ADR-043):** default is now max quality (autonomous + full roster). `--blitz`/`--muster`/`--infinity` retired as no-ops. New opt-out flags: `--light`, `--interactive`, `--solo`
+- **263 subagent definitions** materialized in `.claude/agents/` with 3-tier model routing: Opus (leads), Sonnet (specialists), Haiku (scouts) (ADR-044)
+- **Knowledge injection** — 35 agent definitions enriched with operational learnings from method docs (ADR-045)
+- **Team roster** — Haku (Deploy Wizard) and Gandalf (Setup Wizard) added
+- **Dynamic dispatch** — description-driven cross-domain spot-checks replace static tables in 18 commands
+- **4 new version history entries** in VERSION.md (v22.1, v22.2, v23.0, v23.1)
+
+---
+
 ## [Site v2.1.1] - 2026-04-09
 
 ### Changed

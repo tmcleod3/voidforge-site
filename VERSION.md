@@ -1,6 +1,6 @@
 # Version
 
-**Current:** 22.0.0
+**Current:** 23.1.0
 
 ## Versioning Scheme
 
@@ -14,6 +14,10 @@ This project uses [Semantic Versioning](https://semver.org/):
 
 | Version | Date | Summary |
 |---------|------|---------|
+| 23.1.0 | 2026-04-09 | The Injection — 35 agent definitions enriched with operational learnings, debrief→agent pipeline, knowledge injection architecture (ADR-045). |
+| 23.0.0 | 2026-04-09 | The Materialization — 263 subagent definitions in .claude/agents/, 3-tier model routing (Opus/Sonnet/Haiku), description-driven dynamic dispatch (ADR-044). |
+| 22.2.0 | 2026-04-09 | The Polish — First-run onboarding UX, flag taxonomy inversion (ADR-043: max by default), dynamic agent dispatch (ADR-042), 741 tests. |
+| 22.1.0 | 2026-04-09 | The Migration — Treasury migration CLI, treasury summary cache (O(1) reads), per-project vault with HKDF-SHA256, 45 new tests. |
 | 22.0.0 | 2026-04-09 | The Scope — Project-scoped dashboards, per-project daemons, multi-project wizard, RBAC on all 20 dashboard routes, WebSocket subscription rooms, 21 new tests. ADR-040, ADR-041. |
 | 21.0.0 | 2026-04-08 | The Extraction — Standalone npm packages (voidforge + @voidforge/methodology), CLI router with 12 commands, extension system, .voidforge marker, headless init, v20.x migration, 675 tests. ADR-038. |
 | 20.2.0 | 2026-04-03 | Graceful Tier Degradation — ADR-037, spring cleaning (274 files removed from scaffold), scaffold /cultivation + /grow partial proceed, 6 Full-tier sentinel fixes, 10 method doc additions, 6 field reports closed. |

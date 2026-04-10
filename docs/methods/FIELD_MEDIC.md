@@ -206,6 +206,8 @@ After writing the report (Step 3), Wong checks if the findings should promote in
 
 **Why 3+ threshold:** A single lesson could be project-specific. Two could be coincidence. Three is a pattern worth encoding into the methodology. The user always has final say.
 
+**Agent definition promotion:** When a lesson names a specific agent (e.g., "Agent: Batman"), check if `.claude/agents/{agent-id}.md` has an `## Operational Learnings` section. If so, propose adding the lesson to that section. If the agent has no `## Operational Learnings` section yet, propose creating one. Agent definitions are first-class promotion targets alongside method docs — operational rules that belong to a specific agent should live in that agent's definition, not only in the method doc.
+
 ### Experiment Analysis
 
 If `~/.voidforge/experiments.json` has completed experiments, Wong includes a summary in the debrief:
@@ -225,6 +227,8 @@ If `docs/pattern-usage.json` exists (logged by BUILD_PROTOCOL Phase 12.5), Wong 
 This is the long-game feedback loop: patterns evolve from data, not guesses.
 
 ### Cross-Project Memory
+
+**Status: DESIGNED, NOT YET IMPLEMENTED (v23.1).** The schema and read/write paths below describe the intended behavior. No runtime code currently creates or reads `lessons-global.json`. Claude Code's auto-memory system provides partial coverage for cross-project knowledge. Full implementation deferred — will require wizard code changes to `project-init.ts` (Phase 0 query) and `debrief` command (Wong write path).
 
 After each debrief, Wong writes a lesson summary to `~/.voidforge/lessons-global.json` (global, not project-specific). The summary includes: project framework, the lesson category, and a one-line takeaway. No source code — only patterns.
 

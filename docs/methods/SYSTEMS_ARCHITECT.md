@@ -23,6 +23,14 @@
 
 **Need more?** Pull from Star Trek pool: Riker, Worf, Sisko, Janeway, Seven, O'Brien, Pike. See NAMING_REGISTRY.md.
 
+## Dynamic Dispatch (ADR-044)
+
+Agent dispatch is now description-driven. When Opus processes a command, it scans `git diff --stat` and matches changed files against the `description` fields of all 263 agents in `.claude/agents/`. Matching specialists launch automatically alongside core agents. No static dispatch tables needed.
+
+See `docs/AGENT_CLASSIFICATION.md` for the full classification and `docs/adrs/ADR-044-subagent-materialization.md` for the architecture.
+
+**Promoted agent:** **Riker** runs on every ADR written in any command — challenges trade-offs, prevents rubber-stamped decisions.
+
 ## Goal
 
 Ensure architecture matches product needs. Identify structural risks and scaling cliffs before they're expensive. Decide, don't defer — one clear path, not a menu.
