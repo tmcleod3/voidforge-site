@@ -1354,6 +1354,60 @@ export const shipped: Release[] = [
       "263 → 264 agent count updated across 8 method docs",
     ],
   },
+  {
+    version: "v23.7.0",
+    date: "2026-04-12",
+    title: "The Decount",
+    headline: "Eliminate hardcoded agent counts from 30+ methodology files. Single source of truth: AGENT_CLASSIFICATION.md.",
+    items: [
+      "Hardcoded agent counts eliminated from 30+ command and method doc files",
+      "Single source of truth for agent counts: AGENT_CLASSIFICATION.md",
+      "Dynamic references replace static '263 agents' / '264 agents' strings",
+    ],
+  },
+  {
+    version: "v23.7.1",
+    date: "2026-04-12",
+    title: "The Sub-Process",
+    headline: "Silver Surfer launches as a real Agent sub-process, not a CLI shell-out.",
+    items: [
+      "Silver Surfer dispatched via Agent tool (subagent_type: Silver Surfer)",
+      "Guaranteed to work in every environment — no CLI dependency",
+      "Mandatory on every command invocation",
+    ],
+  },
+  {
+    version: "v23.7.2",
+    date: "2026-04-12",
+    title: "The Invocation",
+    headline: "Silver Surfer explicit Agent tool invocation — environment-safe dispatch.",
+    items: [
+      "Explicit Agent tool parameters for Silver Surfer invocation",
+      "Environment-safe: works without CLI, npx, or shell access",
+    ],
+  },
+  {
+    version: "v23.7.3",
+    date: "2026-04-12",
+    title: "Cosmic Heraldings",
+    headline: "14 Silver Surfer one-liners announced at random before each roster scan.",
+    items: [
+      "14 character-authentic Silver Surfer one-liners in agent definition",
+      "Random heralding announced before every pre-scan — the Surfer arrives with style",
+    ],
+  },
+  {
+    version: "v23.8.0",
+    date: "2026-04-12",
+    title: "The Personality",
+    headline: "Heralding one-liners for all 264 agents. Character-authentic announcements on every deployment. ADR-049.",
+    items: [
+      "heralding: field added to all 264 agent definitions",
+      "Character-authentic one-liners announced when each agent deploys",
+      "ADR-049: Agent Personality — heraldings as identity, not decoration",
+      "Every agent now announces itself: Batman growls, Bilbo quips, Picard commands",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [

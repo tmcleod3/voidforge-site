@@ -130,7 +130,7 @@ export default function CommandsPage() {
             </span>
           </div>
           <p className="text-center text-[10px] text-[var(--vf-text-muted)]">
-            Since v23.5, the Silver Surfer pre-scans your code and selects the
+            Since v23.6, the Silver Surfer pre-scans your code and selects the
             optimal agent team automatically. Use{" "}
             <code className="text-[var(--vf-electric-blue)]">--focus &quot;topic&quot;</code>{" "}
             to bias dispatch toward a domain. Opt out with{" "}

@@ -48,7 +48,7 @@ export function Hero() {
           . Ship to production.
         </motion.p>
 
-        {/* v23.5 Spotlight */}
+        {/* v23.8 Spotlight */}
         <motion.div
           className="mt-10 max-w-2xl mx-auto comic-panel bg-[var(--vf-surface-raised)] p-6 text-left"
           initial={shouldReduceMotion ? {} : { y: 30, opacity: 0 }}
@@ -56,15 +56,16 @@ export function Hero() {
           transition={{ delay: 0.7, duration: 0.5 }}
         >
           <p className="font-[family-name:var(--font-bangers)] text-lg sm:text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
-            v23.5 &mdash; THE HERALD
+            v23.8 &mdash; THE PERSONALITY
           </p>
           <p className="font-[family-name:var(--font-bangers)] text-xl sm:text-2xl md:text-3xl tracking-wider text-[var(--foreground)] leading-snug mb-3">
-            {display.agents} agents. Intelligent dispatch. The forge chooses its own team.
+            {display.agents} agents. Every one announces itself. The forge has a voice.
           </p>
           <p className="text-sm sm:text-base text-[var(--vf-text-muted)]">
-            The Herald pre-scans your code with Haiku, matches changes against 40
-            agent tags, and deploys the optimal roster. Every command now summons
-            the right specialists &mdash; not all of them, the right ones. Use{" "}
+            Every agent now deploys with a character-authentic heralding &mdash;
+            Batman growls, Bilbo quips, Picard commands. The Silver Surfer
+            pre-scans your code, selects the optimal team, and each specialist
+            arrives with personality. Use{" "}
             <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
               --focus
             </code>{" "}
