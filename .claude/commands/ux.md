@@ -4,24 +4,22 @@
 
 ## Dynamic Dispatch (ADR-044)
 
-Opus scans `git diff --stat` and matches changed files against the `description` fields of all 263 agents in `.claude/agents/`. Matching specialists launch alongside the core agents below.
+Opus scans `git diff --stat` and matches changed files against the `description` fields of all 264 agents in `.claude/agents/`. Matching specialists launch alongside the core agents below.
 
 **Dispatch control:** `--light` skips dynamic dispatch (core only). `--solo` runs lead agent only.
 
-## Herald Pre-Scan (ADR-047)
+## Silver Surfer Pre-Scan (ADR-048)
 
-Before agent deployment, run the Herald to select the optimal roster:
+Before agent deployment, the Silver Surfer selects the optimal roster:
 
-1. Call `gatherHeraldContext('/ux', '$ARGUMENTS', '<focus-if-provided>')` to collect codebase context
-2. Call `loadAgentRegistry()` to get all 263 agent definitions
-3. Call `runHerald(context, registry)` to get the optimal roster
-4. Merge Herald's roster with this command's hardcoded lead agents (Herald adds, never removes leads)
-5. Deploy the merged roster per the command's normal parallel/sequential protocol
+Run: `npx thevoidforge herald --command /ux --json`
+(Add `--focus "<topic>"` if the user provided `--focus`)
 
-**`--focus "topic"`** biases the Herald toward agents matching the topic. Examples: `--focus "security"`, `--focus "financial accuracy"`, `--focus "mobile UX"`.
+Parse the JSON output. The `roster` array contains agent IDs to deploy alongside this command's lead agents. If the command fails or returns an empty roster, use the hardcoded manifest below.
 
-**`--light`** skips the Herald entirely — uses only the command's hardcoded core roster.
-**`--solo`** skips both Herald and all sub-agents — lead agent only.
+**`--focus "topic"`** biases the Surfer toward agents matching the topic.
+**`--light`** skips the Surfer — uses only hardcoded core roster.
+**`--solo`** skips Surfer and all sub-agents — lead only.
 
 ## Context Setup
 1. Read `/logs/build-state.md` — understand current project state
@@ -31,6 +29,8 @@ Before agent deployment, run the Herald to select the optimal roster:
 ## Step 0 — Orient
 Detect: framework, styling system, component library, routing, state management.
 Document in phase log: "How to run", key routes, where components/styles/copy live.
+
+**Screenshot mandate (MANDATORY):** If the app is runnable, start the server, take screenshots of EVERY page via Playwright or browser, and READ them via the Read tool. Without screenshots, the review is code-reading — not visual verification. Take at desktop (1440x900), plus 375px and 768px for responsive proof-of-life.
 
 ## Step 1 — Product Surface Map
 List every screen/route, primary user journeys, key shared components, and the state taxonomy (loading/empty/error/success/partial/unauthorized). Write to phase log.

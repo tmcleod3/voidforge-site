@@ -2,9 +2,9 @@
 
 ## Project
 
-- **Name:** Voidforge Marketing Site
-- **One-liner:** This is the marketing website for the Voidforge GitHub project.
-- **Domain:** OpenSource, Engineering, Coding, Al, Agents, Vibe Coding, Entrepreneurship
+- **Name:** [PROJECT_NAME]
+- **One-liner:** [ONE_LINE_DESCRIPTION]
+- **Domain:** [DOMAIN]
 - **Repo:** [REPO_URL]
 
 ## Personality
@@ -234,7 +234,7 @@ See `/docs/methods/MUSTER.md` for the full Muster Protocol.
 | Deploy Wizard | **Haku** (Anime) | Browser-based deploy wizard, infrastructure provisioning |
 | Setup Wizard | **Gandalf** (Tolkien) | Project scaffolding, initialization, dependency setup |
 
-263 sub-agent names in `/docs/NAMING_REGISTRY.md`. No duplicates across active sessions. All agents materialized as subagent definitions in `.claude/agents/` (ADR-044).
+264 sub-agent names in `/docs/NAMING_REGISTRY.md`. No duplicates across active sessions. All agents materialized as subagent definitions in `.claude/agents/` (ADR-044). Silver Surfer (ADR-048) dispatches the optimal roster via Haiku pre-scan.
 
 ## Distribution
 

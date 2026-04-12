@@ -2,7 +2,7 @@
 
 ## Dynamic Dispatch (ADR-044)
 
-Opus scans `git diff --stat` and matches changed files against the `description` fields of all 263 agents in `.claude/agents/`. Matching specialists launch alongside the core agents below.
+Opus scans `git diff --stat` and matches changed files against the `description` fields of all 264 agents in `.claude/agents/`. Matching specialists launch alongside the core agents below.
 
 **Dispatch control:** `--light` skips dynamic dispatch (core only). `--solo` runs lead agent only.
 
@@ -10,20 +10,18 @@ Opus scans `git diff --stat` and matches changed files against the `description`
 - **Troi** `subagent_type: Troi` runs after every build mission completion — catches PRD drift before it compounds.
 - **Riker** `subagent_type: Riker` runs whenever an ADR is written during the build — prevents rubber-stamped decisions.
 
-## Herald Pre-Scan (ADR-047)
+## Silver Surfer Pre-Scan (ADR-048)
 
-Before agent deployment, run the Herald to select the optimal roster:
+Before agent deployment, the Silver Surfer selects the optimal roster:
 
-1. Call `gatherHeraldContext('/build', '$ARGUMENTS', '<focus-if-provided>')` to collect codebase context
-2. Call `loadAgentRegistry()` to get all 263 agent definitions
-3. Call `runHerald(context, registry)` to get the optimal roster
-4. Merge Herald's roster with this command's hardcoded lead agents (Herald adds, never removes leads)
-5. Deploy the merged roster per the command's normal parallel/sequential protocol
+Run: `npx thevoidforge herald --command /build --json`
+(Add `--focus "<topic>"` if the user provided `--focus`)
 
-**`--focus "topic"`** biases the Herald toward agents matching the topic. Examples: `--focus "security"`, `--focus "financial accuracy"`, `--focus "mobile UX"`.
+Parse the JSON output. The `roster` array contains agent IDs to deploy alongside this command's lead agents. If the command fails or returns an empty roster, use the hardcoded manifest below.
 
-**`--light`** skips the Herald entirely — uses only the command's hardcoded core roster.
-**`--solo`** skips both Herald and all sub-agents — lead agent only.
+**`--focus "topic"`** biases the Surfer toward agents matching the topic.
+**`--light`** skips the Surfer — uses only hardcoded core roster.
+**`--solo`** skips Surfer and all sub-agents — lead only.
 
 ## Context Setup
 1. Read `/logs/build-state.md` — if it exists, resume from current phase
@@ -124,6 +122,9 @@ Before agent deployment, run the Herald to select the optimal roster:
 
 ## Phase 12.5 — Wong's Pattern Usage Log
 After build and before launch, log which patterns were used: pattern name, framework adaptation, custom mods. Store in `docs/pattern-usage.json`. Feeds Wong's promotion analysis in `/debrief`.
+
+## Phase 12.75 — Distribution Verification Gate
+If this build introduces a new shared file category (e.g., `.claude/agents/`, new patterns subdirectory), verify ALL 6 consumption paths include it: prepack.sh, copy-assets.sh, project-init.ts, updater.ts, FORGE_KEEPER.md, void.md. Missing one path = users silently miss the feature. (Field report #297.)
 
 ## Phase 13 — Launch (All agents)
 1. Full checklist: SSL, email, payments, analytics, monitoring, backups, security headers, legal, performance, mobile, accessibility, all tests passing

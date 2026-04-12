@@ -4,26 +4,24 @@
 
 ## Dynamic Dispatch (ADR-044)
 
-Opus scans `git diff --stat` and matches changed files against the `description` fields of all 263 agents in `.claude/agents/`. Matching specialists launch alongside the core agents below.
+Opus scans `git diff --stat` and matches changed files against the `description` fields of all 264 agents in `.claude/agents/`. Matching specialists launch alongside the core agents below.
 
 **Dispatch control:** `--light` skips dynamic dispatch (core only). `--solo` runs lead agent only.
 
 **Promoted agent:** **Constantine** `subagent_type: Constantine` runs on every `/qa` final pass — finds code that works by accident.
 
-## Herald Pre-Scan (ADR-047)
+## Silver Surfer Pre-Scan (ADR-048)
 
-Before agent deployment, run the Herald to select the optimal roster:
+Before agent deployment, the Silver Surfer selects the optimal roster:
 
-1. Call `gatherHeraldContext('/qa', '$ARGUMENTS', '<focus-if-provided>')` to collect codebase context
-2. Call `loadAgentRegistry()` to get all 263 agent definitions
-3. Call `runHerald(context, registry)` to get the optimal roster
-4. Merge Herald's roster with this command's hardcoded lead agents (Herald adds, never removes leads)
-5. Deploy the merged roster per the command's normal parallel/sequential protocol
+Run: `npx thevoidforge herald --command /qa --json`
+(Add `--focus "<topic>"` if the user provided `--focus`)
 
-**`--focus "topic"`** biases the Herald toward agents matching the topic. Examples: `--focus "security"`, `--focus "financial accuracy"`, `--focus "mobile UX"`.
+Parse the JSON output. The `roster` array contains agent IDs to deploy alongside this command's lead agents. If the command fails or returns an empty roster, use the hardcoded manifest below.
 
-**`--light`** skips the Herald entirely — uses only the command's hardcoded core roster.
-**`--solo`** skips both Herald and all sub-agents — lead agent only.
+**`--focus "topic"`** biases the Surfer toward agents matching the topic.
+**`--light`** skips the Surfer — uses only hardcoded core roster.
+**`--solo`** skips Surfer and all sub-agents — lead only.
 
 ## Context Setup
 1. Read `/logs/build-state.md` — understand current project state
@@ -49,6 +47,10 @@ Before agent deployment, run the Herald to select the optimal roster:
 
 ## Step 2 — Baseline
 Get the project running. Verify manually: app starts, primary flow works, auth works (if applicable), data persists, error states display.
+
+**Dynamic count check:** Grep for hardcoded numeric claims ("263 agents", "37 patterns", etc.) across all pages and data files. Every count that can change between releases must be computed from the source, not hardcoded. (Field report #298.)
+
+**Cross-array uniqueness audit:** If the codebase uses multiple data arrays for entity categories (e.g., leadAgents + subAgents), verify no entity appears in more than one array. Duplicates inflate totals. (Field report #298.)
 
 ## Step 2.5 — Smoke Tests
 After build + restart, **Flash** `subagent_type: Flash` parallelizes curl commands against the running server for each new or modified feature:
