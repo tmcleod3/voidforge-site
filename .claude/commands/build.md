@@ -2,7 +2,7 @@
 
 ## Dynamic Dispatch (ADR-044)
 
-Opus scans `git diff --stat` and matches changed files against the `description` fields of all 264 agents in `.claude/agents/`. Matching specialists launch alongside the core agents below.
+Opus scans `git diff --stat` and matches changed files against the `description` fields of all agents in `.claude/agents/`. Matching specialists launch alongside the core agents below.
 
 **Dispatch control:** `--light` skips dynamic dispatch (core only). `--solo` runs lead agent only.
 
@@ -12,16 +12,17 @@ Opus scans `git diff --stat` and matches changed files against the `description`
 
 ## Silver Surfer Pre-Scan (ADR-048)
 
-Before agent deployment, the Silver Surfer selects the optimal roster:
+**MANDATORY.** Before deploying any domain agents, launch the Silver Surfer. **Do NOT skip this step.** Before launching, read the `## Cosmic Heraldings` section from `.claude/agents/silver-surfer-herald.md` and announce one at random (never repeat in the same session). Then launch the Surfer.
 
-Run: `npx thevoidforge herald --command /build --json`
-(Add `--focus "<topic>"` if the user provided `--focus`)
+**How to launch:** Use the Agent tool with these exact parameters:
+- `description`: "Silver Surfer roster scan"
+- `prompt`: "You are the Silver Surfer, Herald of Galactus. Read your instructions from .claude/agents/silver-surfer-herald.md, then execute your task. Command: /build. User args: <ARGS>. Focus: <FOCUS or 'none'>. Scan the .claude/agents/ directory, read agent descriptions and tags, and return the optimal roster for this command on this codebase."
 
-Parse the JSON output. The `roster` array contains agent IDs to deploy alongside this command's lead agents. If the command fails or returns an empty roster, use the hardcoded manifest below.
+**After the Surfer returns**, merge its roster with this command's hardcoded lead agents below. Leads are non-negotiable; the Surfer adds specialists.
 
-**`--focus "topic"`** biases the Surfer toward agents matching the topic.
-**`--light`** skips the Surfer — uses only hardcoded core roster.
-**`--solo`** skips Surfer and all sub-agents — lead only.
+**`--focus "topic"`** — include in the Surfer's prompt as the focus bias.
+**`--light`** — skip the Surfer, use only hardcoded roster below.
+**`--solo`** — skip Surfer and all sub-agents, lead only.
 
 ## Context Setup
 1. Read `/logs/build-state.md` — if it exists, resume from current phase
