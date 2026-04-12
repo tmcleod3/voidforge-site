@@ -239,12 +239,14 @@ export default function WizardPage() {
         </section>
         </ScrollReveal>
 
-        <SpeechBubble agent="Picard" universe="star-trek">
-          The wizard handles orientation. Once your PRD is generated, I take
-          over — reading the frontmatter, extracting the architecture,
-          assigning agents to phases. You don&apos;t need to understand the 13
-          phases. They understand you.
-        </SpeechBubble>
+        <ScrollReveal delay={0.1}>
+          <SpeechBubble agent="Picard" universe="star-trek">
+            The wizard handles orientation. Once your PRD is generated, I take
+            over — reading the frontmatter, extracting the architecture,
+            assigning agents to phases. You don&apos;t need to understand the 13
+            phases. They understand you.
+          </SpeechBubble>
+        </ScrollReveal>
 
         <ScrollReveal delay={0.18}>
         <section className="mt-12">
@@ -334,10 +336,12 @@ export default function WizardPage() {
         </section>
         </ScrollReveal>
 
-        <SpeechBubble agent="Kusanagi" universe="anime">
-          Name your target. I handle the rest — DNS, SSL, monitoring, backups.
-          You handle the launch party.
-        </SpeechBubble>
+        <ScrollReveal delay={0.15}>
+          <SpeechBubble agent="Kusanagi" universe="anime">
+            Name your target. I handle the rest — DNS, SSL, monitoring, backups.
+            You handle the launch party.
+          </SpeechBubble>
+        </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
         <section className="mt-12">

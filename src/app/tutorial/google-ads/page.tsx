@@ -184,10 +184,12 @@ export default function GoogleAdsLifecyclePage() {
             ))}
           </div>
 
-          <SpeechBubble agent="Sisko" universe="star-trek">
-            Phase 3.5 is optional: if Kongo is connected, Raoden + Shallan generate a dedicated landing page per campaign
-            with 6 A/B variants. If not connected, campaigns use your homepage. Either way works.
-          </SpeechBubble>
+          <ScrollReveal delay={0.1}>
+            <SpeechBubble agent="Sisko" universe="star-trek">
+              Phase 3.5 is optional: if Kongo is connected, Raoden + Shallan generate a dedicated landing page per campaign
+              with 6 A/B variants. If not connected, campaigns use your homepage. Either way works.
+            </SpeechBubble>
+          </ScrollReveal>
         </section>
         </ScrollReveal>
 
@@ -417,11 +419,13 @@ export default function GoogleAdsLifecyclePage() {
         </section>
         </ScrollReveal>
 
-        <SpeechBubble agent="Dockson" universe="cosmere">
-          That&apos;s the full lifecycle — from a deployed SaaS site to autonomous Google Ads
-          with budget optimization, A/B testing, and circuit breakers. The heist runs itself.
-          You just watch the numbers.
-        </SpeechBubble>
+        <ScrollReveal delay={0.15}>
+          <SpeechBubble agent="Dockson" universe="cosmere">
+            That&apos;s the full lifecycle — from a deployed SaaS site to autonomous Google Ads
+            with budget optimization, A/B testing, and circuit breakers. The heist runs itself.
+            You just watch the numbers.
+          </SpeechBubble>
+        </ScrollReveal>
 
         <div className="mt-12 flex flex-wrap gap-3 text-sm">
           <Link

@@ -117,11 +117,13 @@ export default function InstallPage() {
               </li>
             </ul>
 
-            <SpeechBubble agent="Kusanagi" universe="anime">
-              Windows? PowerShell works. macOS or Linux? Your default terminal
-              works. One command gets you the whole forge. No git branches, no
-              manual cloning — just npm.
-            </SpeechBubble>
+            <ScrollReveal delay={0.1}>
+              <SpeechBubble agent="Kusanagi" universe="anime">
+                Windows? PowerShell works. macOS or Linux? Your default terminal
+                works. One command gets you the whole forge. No git branches, no
+                manual cloning — just npm.
+              </SpeechBubble>
+            </ScrollReveal>
           </section>
 
         <ScrollReveal delay={0.06}>

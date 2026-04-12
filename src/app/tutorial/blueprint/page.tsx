@@ -158,11 +158,13 @@ export default function BlueprintPage() {
         </section>
         </ScrollReveal>
 
-        <SpeechBubble agent="Wong" universe="marvel">
-          I scan every corner of docs/ for supporting material. ADRs, directives,
-          operations playbooks, reference files — anything that helps the crew
-          build smarter. Drop it in docs/ and I&apos;ll find it.
-        </SpeechBubble>
+        <ScrollReveal delay={0.1}>
+          <SpeechBubble agent="Wong" universe="marvel">
+            I scan every corner of docs/ for supporting material. ADRs, directives,
+            operations playbooks, reference files — anything that helps the crew
+            build smarter. Drop it in docs/ and I&apos;ll find it.
+          </SpeechBubble>
+        </ScrollReveal>
 
         <ScrollReveal delay={0.12}>
         <section className="mt-12">
@@ -287,12 +289,14 @@ export default function BlueprintPage() {
         </section>
         </ScrollReveal>
 
-        <SpeechBubble agent="Boromir" universe="tolkien">
-          One does not simply ship a PRD without questioning it. I find the
-          expensive features you&apos;ll regret, the integrations that will break
-          at 3am, and the schema decisions that paint you into a corner. Better
-          to argue now than debug later.
-        </SpeechBubble>
+        <ScrollReveal delay={0.15}>
+          <SpeechBubble agent="Boromir" universe="tolkien">
+            One does not simply ship a PRD without questioning it. I find the
+            expensive features you&apos;ll regret, the integrations that will break
+            at 3am, and the schema decisions that paint you into a corner. Better
+            to argue now than debug later.
+          </SpeechBubble>
+        </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
         <section className="mt-12">
@@ -328,11 +332,13 @@ export default function BlueprintPage() {
         </section>
         </ScrollReveal>
 
-        <SpeechBubble agent="Kusanagi" universe="anime">
-          Picard validated your spec. Wong loaded your docs. Boromir argued and
-          lost. Now I provision the target — Vercel, AWS, Railway, Docker, bare
-          metal. Your blueprint becomes infrastructure.
-        </SpeechBubble>
+        <ScrollReveal delay={0.2}>
+          <SpeechBubble agent="Kusanagi" universe="anime">
+            Picard validated your spec. Wong loaded your docs. Boromir argued and
+            lost. Now I provision the target — Vercel, AWS, Railway, Docker, bare
+            metal. Your blueprint becomes infrastructure.
+          </SpeechBubble>
+        </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
         <section className="mt-12">

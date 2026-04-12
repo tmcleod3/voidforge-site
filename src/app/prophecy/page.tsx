@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { AccordionItem } from "@/components/accordion";
 import { ProphecyTracker } from "@/components/prophecy-tracker";
 import { MinorGroup } from "@/components/prophecy-release";
@@ -155,12 +156,14 @@ export default function ProphecyPage() {
             ))}
           </div>
 
-          <SpeechBubble agent="Picard" universe="star-trek">
-            The roadmap is not a promise — it is a heading. We adjust course as
-            the mission demands. But the destination is clear: a forge that
-            remembers, a forge that learns, and a forge that can build anything
-            from nothing.
-          </SpeechBubble>
+          <ScrollReveal delay={0.1}>
+            <SpeechBubble agent="Picard" universe="star-trek">
+              The roadmap is not a promise — it is a heading. We adjust course as
+              the mission demands. But the destination is clear: a forge that
+              remembers, a forge that learns, and a forge that can build anything
+              from nothing.
+            </SpeechBubble>
+          </ScrollReveal>
         </div>
       </section>
     </>

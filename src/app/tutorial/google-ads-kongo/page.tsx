@@ -215,11 +215,13 @@ export default function GoogleAdsKongoPage() {
             ))}
           </div>
 
-          <SpeechBubble agent="Dockson" universe="cosmere">
-            Running creative and page tests at the same time confounds the signal.
-            Freeze the ad winner first. Then test the pages. Then test the audience.
-            Each layer builds on the last.
-          </SpeechBubble>
+          <ScrollReveal delay={0.1}>
+            <SpeechBubble agent="Dockson" universe="cosmere">
+              Running creative and page tests at the same time confounds the signal.
+              Freeze the ad winner first. Then test the pages. Then test the audience.
+              Each layer builds on the last.
+            </SpeechBubble>
+          </ScrollReveal>
         </section>
         </ScrollReveal>
 
@@ -454,11 +456,13 @@ KONGO-SEED JOB ──> NEXT CYCLE SEED ──> NEW PAGES ──> ...`}
         </section>
         </ScrollReveal>
 
-        <SpeechBubble agent="Kelsier" universe="cosmere">
-          That&apos;s the full-funnel heist. PRD seed &rarr; Kongo pages &rarr; Google Ads &rarr;
-          conversions &rarr; Stripe &rarr; growth signal &rarr; next cycle seed &rarr; new pages.
-          The loop runs itself. You watch the Danger Room.
-        </SpeechBubble>
+        <ScrollReveal delay={0.15}>
+          <SpeechBubble agent="Kelsier" universe="cosmere">
+            That&apos;s the full-funnel heist. PRD seed &rarr; Kongo pages &rarr; Google Ads &rarr;
+            conversions &rarr; Stripe &rarr; growth signal &rarr; next cycle seed &rarr; new pages.
+            The loop runs itself. You watch the Danger Room.
+          </SpeechBubble>
+        </ScrollReveal>
 
         <div className="mt-12 flex flex-wrap gap-3 text-sm">
           <Link href="/tutorial" className="text-[var(--vf-text-muted)] hover:text-[var(--vf-forge-orange)] transition-colors">&larr; Tutorial Hub</Link>

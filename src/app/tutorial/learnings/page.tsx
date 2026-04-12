@@ -169,11 +169,13 @@ export default function LearningsPage() {
         </section>
         </ScrollReveal>
 
-        <SpeechBubble agent="Sisko" universe="star-trek">
-          The Prophets see all timelines at once. Your agents don&apos;t — but
-          with LEARNINGS.md, they see every timeline you&apos;ve already walked.
-          That&apos;s the closest thing to prophecy this forge has.
-        </SpeechBubble>
+        <ScrollReveal delay={0.1}>
+          <SpeechBubble agent="Sisko" universe="star-trek">
+            The Prophets see all timelines at once. Your agents don&apos;t — but
+            with LEARNINGS.md, they see every timeline you&apos;ve already walked.
+            That&apos;s the closest thing to prophecy this forge has.
+          </SpeechBubble>
+        </ScrollReveal>
 
         <ScrollReveal delay={0.18}>
         <section className="mt-12">

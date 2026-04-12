@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SpeechBubble } from "@/components/speech-bubble";
 import {
   Wand2,
@@ -133,13 +134,15 @@ export default function TutorialPage() {
 
       <section className="px-4 pb-6">
         <div className="mx-auto max-w-4xl">
-          <SpeechBubble agent="Picard" universe="star-trek">
-            The wizard is for first contact — when you need guidance through
-            every decision. The blueprint is for captains who arrive with orders
-            already written. The methodology is for officers who know their
-            mission and want the forge to execute. The import is for joining a
-            crew already in flight.
-          </SpeechBubble>
+          <ScrollReveal delay={0.1}>
+            <SpeechBubble agent="Picard" universe="star-trek">
+              The wizard is for first contact — when you need guidance through
+              every decision. The blueprint is for captains who arrive with orders
+              already written. The methodology is for officers who know their
+              mission and want the forge to execute. The import is for joining a
+              crew already in flight.
+            </SpeechBubble>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -198,12 +201,14 @@ export default function TutorialPage() {
       <section className="px-4 pb-24">
         <div className="mx-auto max-w-4xl">
           <div className="border-t border-[var(--vf-border)] pt-10 mt-4">
-            <SpeechBubble agent="Bilbo" universe="tolkien">
-              Building is only half the story. These tools help your creation
-              find its audience, manage its money, and watch itself work. They
-              are powerful — but still being forged. Bring your engineering
-              tools.
-            </SpeechBubble>
+            <ScrollReveal delay={0.15}>
+              <SpeechBubble agent="Bilbo" universe="tolkien">
+                Building is only half the story. These tools help your creation
+                find its audience, manage its money, and watch itself work. They
+                are powerful — but still being forged. Bring your engineering
+                tools.
+              </SpeechBubble>
+            </ScrollReveal>
 
             <div className="flex items-center gap-3 mt-6 mb-4">
               <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-cosmere, #b8860b)]">

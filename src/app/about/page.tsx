@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { CtaButton } from "@/components/cta-button";
 import { stats } from "@/data/stats";
 
@@ -116,11 +117,13 @@ export default function AboutPage() {
               />
             </div>
 
-            <SpeechBubble agent="Batman" universe="dc">
-              I tested every link. Every button. Every edge case I could think
-              of. Then I tested the ones you didn&apos;t think of. That&apos;s
-              the job.
-            </SpeechBubble>
+            <ScrollReveal delay={0.1}>
+              <SpeechBubble agent="Batman" universe="dc">
+                I tested every link. Every button. Every edge case I could think
+                of. Then I tested the ones you didn&apos;t think of. That&apos;s
+                the job.
+              </SpeechBubble>
+            </ScrollReveal>
           </section>
 
           {/* The 9 Universes */}

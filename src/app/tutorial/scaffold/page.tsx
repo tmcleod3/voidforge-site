@@ -125,14 +125,16 @@ export default function ScaffoldPage() {
         </section>
         </ScrollReveal>
 
-        <SpeechBubble agent="Sisko" universe="star-trek">
-          Once your PRD is in place, I run the war.{" "}
-          <code className="text-[var(--vf-electric-blue)]">/campaign</code>{" "}
-          reads every section, breaks it into missions, and runs{" "}
-          <code className="text-[var(--vf-electric-blue)]">/assemble</code>{" "}
-          for each. You can watch — or you can walk away and come back to a
-          built project.
-        </SpeechBubble>
+        <ScrollReveal delay={0.1}>
+          <SpeechBubble agent="Sisko" universe="star-trek">
+            Once your PRD is in place, I run the war.{" "}
+            <code className="text-[var(--vf-electric-blue)]">/campaign</code>{" "}
+            reads every section, breaks it into missions, and runs{" "}
+            <code className="text-[var(--vf-electric-blue)]">/assemble</code>{" "}
+            for each. You can watch — or you can walk away and come back to a
+            built project.
+          </SpeechBubble>
+        </ScrollReveal>
 
         <ScrollReveal delay={0.12}>
         <section className="mt-12">

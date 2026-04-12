@@ -123,12 +123,14 @@ export default function ImportPage() {
         </section>
         </ScrollReveal>
 
-        <SpeechBubble agent="Picard" universe="star-trek">
-          Assessment before action. I need to understand your architecture — the
-          schema, the integrations, the security posture — before I can advise
-          on what to build next. The assessment report becomes Sisko&apos;s
-          briefing document.
-        </SpeechBubble>
+        <ScrollReveal delay={0.1}>
+          <SpeechBubble agent="Picard" universe="star-trek">
+            Assessment before action. I need to understand your architecture — the
+            schema, the integrations, the security posture — before I can advise
+            on what to build next. The assessment report becomes Sisko&apos;s
+            briefing document.
+          </SpeechBubble>
+        </ScrollReveal>
 
         <ScrollReveal delay={0.12}>
         <section className="mt-12">
@@ -197,10 +199,12 @@ export default function ImportPage() {
         </section>
         </ScrollReveal>
 
-        <SpeechBubble agent="Batman" universe="dc">
-          I don&apos;t care who wrote the code before me. I test it the same
-          way. If it breaks under pressure, I find it.
-        </SpeechBubble>
+        <ScrollReveal delay={0.15}>
+          <SpeechBubble agent="Batman" universe="dc">
+            I don&apos;t care who wrote the code before me. I test it the same
+            way. If it breaks under pressure, I find it.
+          </SpeechBubble>
+        </ScrollReveal>
 
         <ScrollReveal delay={0.2}>
         <section className="mt-12">
