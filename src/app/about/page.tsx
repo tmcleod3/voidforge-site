@@ -71,7 +71,7 @@ export default function AboutPage() {
               a methodology. The methodology grew {stats.totalAgents} named agents across {stats.totalUniverses}
               fictional universes — each now a persistent Claude Code subagent
               definition with model tiering and tool restrictions. The agents
-              learned a 13-phase build protocol. 1,340+ tests. 0 TypeScript errors.
+              learned a 13-phase build protocol. 1,384 tests. 0 TypeScript errors.
               37+ campaigns completed. And then Tom pointed the forge at itself
               and said: <em>&ldquo;Build your own website.&rdquo;</em>
               You&apos;re reading the result.
@@ -100,9 +100,10 @@ export default function AboutPage() {
             </h2>
             <p className="text-[var(--vf-text-muted)] mb-6">
               This website is Phase 8 of its own build process. The PRD was
-              written. <code className="text-[var(--vf-electric-blue)]">/build</code> was
-              typed. The agents woke up. And 120+ pages later, you&apos;re reading
-              the result.
+              written. <code className="text-[var(--vf-electric-blue)]">/campaign</code> was
+              typed. The agents woke up. {stats.totalADRs} architecture decision
+              records. {stats.totalMethodDocs} method docs. And 141+ pages later,
+              you&apos;re reading the result.
             </p>
 
             {/* Build sequence comic strip */}

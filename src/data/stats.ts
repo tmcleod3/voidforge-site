@@ -20,6 +20,10 @@ export const stats = {
   totalCommands: commands.length,
   /** Sub-agents only */
   totalSubAgents: subAgents.length,
+  /** Method documentation files (docs/methods/) — updated on methodology sync */
+  totalMethodDocs: 29,
+  /** Architecture Decision Records — updated on methodology sync */
+  totalADRs: 48,
 };
 
 /** Formatted strings for display — use in JSX where template literals are awkward */
@@ -30,4 +34,6 @@ export const display = {
   patterns: `${stats.totalPatterns}`,
   commands: `${stats.totalCommands}`,
   subAgents: `${stats.totalSubAgents}+`,
+  methodDocs: `${stats.totalMethodDocs}`,
+  adrs: `${stats.totalADRs}`,
 };
