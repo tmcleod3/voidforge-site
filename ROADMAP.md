@@ -1,5 +1,63 @@
 # ROADMAP — VoidForge Marketing Site
 
+## v13 — The Silver Surfer Sync (2026-04-12)
+
+v23.6.0 methodology sync + 34-finding site accuracy audit + speech bubble animations. ADR-021.
+
+| Mission | Name | Status | Scope | Findings |
+|---------|------|--------|-------|----------|
+| 1 | The Upstream Sync | PENDING | /void sync v23.5.4 + v23.6.0 + v23.6.1, add Silver Surfer agent definition (#264), update VERSION.md. v23.6.1 propagates 264-agent count across command/method files. | — |
+| 2 | The Silver Surfer | PENDING | Add Silver Surfer to agents.ts (Marvel, scout/Haiku), update tier breakdown (38→39 scouts), add to releases.ts (v23.5.4 + v23.6.0 entries) | F-11 |
+| 3 | The Herald Feature | PENDING | Add Herald intelligent dispatch to homepage (feature card or hero callout), feature --focus flag on commands overview + tutorial pages, add Silver Surfer CLI bridge mention | F-15, F-16 |
+| 4 | The Numbers Pass | PENDING | Fix about page "1,340+" → "1,384" tests, fix releases.ts "40 total" → "37" patterns, add ADR count (48) to about/prophecy, add method docs count (29) to stats.ts, agents page hero text: sub-agents → total agents | F-12, F-13, F-14, F-18 |
+| 5 | The Prophecy Update | PENDING | Add v23.5.1-v23.6.0 release entries, verify per-universe agent counts (Cosmere/Foundation/Anime), update prophecy timeline with Herald era features | F-19–F-23, F-31 |
+| 6 | The Animation Pass | PENDING | Wrap SpeechBubble instances in ScrollReveal across ~30 pages per ADR-021 §6 (first bubble: no animation per ADR-018, subsequent: staggered delays) | — |
+| 7 | The Verification | PENDING | Pattern page URL audit (Finding 34), test all changes, typecheck, build verification, verify 141+ pages generate | F-34 |
+| 8 | The Chronicle | PENDING | ROADMAP, CHANGELOG, CAMPAIGN-STATE archive, version bump (2.9.0), deploy | — |
+
+### Detail
+
+**F-11** `src/app/agents/page.tsx:49` — PageHeader subtitle shows `${subAgents.length}+ sub-agents` → change to `${stats.totalAgents}+ agents across ${display.universes} universes` for homepage consistency
+**F-12** `src/app/about/page.tsx:74` — "1,340+ tests" → "1,384 tests" (VoidForge upstream v23.6.0 count)
+**F-13** `src/data/releases.ts:1043` — "40 total" patterns → "37 total" (this was wrong at time of writing)
+**F-14** Stats expansion: add `totalMethodDocs: 29` and `totalADRs: 48` to stats.ts; add `methodDocs` and `adrs` to display object
+**F-15** Homepage feature: Herald intelligent dispatch — Haiku pre-scans code, selects optimal agent roster automatically
+**F-16** Commands overview + tutorials: mention --focus "topic" flag (available on 14 commands)
+**F-18** About/prophecy: "48 architecture decision records" as credibility metric
+**F-19** Prophecy Cosmere count: verify data includes all 18 agents (Hoid + Marsh confirmed in agents.ts)
+**F-20** Prophecy Foundation count: verify data includes all 13 agents (Wanda Seldon confirmed in agents.ts)
+**F-21** Prophecy per-universe narrative counts: cross-check against agents.ts computed breakdown
+**F-22** Prophecy Anime count: verify 66 or actual count against agents.ts
+**F-23** Prophecy Foundation narrative: verify "11 agents" → "13 agents"
+**F-31** Prophecy timeline: add v23.5.0 Herald, v23.5.1-v23.5.4 patches, v23.6.0 Silver Surfer
+**F-34** Pattern pages: verify sitemap URLs match patterns.ts slugs (37 patterns = 37 + 1 index = 38 URLs expected)
+
+### Dependencies
+
+```
+Mission 1 ─────────────────────────────── (must be first — methodology sync)
+Mission 2 ──── depends on ──── Mission 1 (Silver Surfer agent def must exist)
+Mission 3 ──── depends on ──── Mission 2 (Herald feature needs agent data current)
+Mission 4 ─────────────────────────────── (independent — number fixes)
+Mission 5 ──── depends on ──── Mission 2 (release entries need Silver Surfer)
+Mission 6 ─────────────────────────────── (independent — animation work)
+Mission 7 ──── depends on ──── Missions 1-6 (verify all changes)
+Mission 8 ──── depends on ──── Mission 7 (chronicles completed work)
+```
+
+### Source
+
+34-finding v23.6.0 accuracy audit. 18 findings already resolved in v2.8.0. 16 outstanding items + speech bubble animations + upstream sync. Architecture review by Picard (ADR-021) with Spock (data), Uhura (content accuracy), Torres (component architecture), La Forge (failure modes), Data (tech debt).
+
+### Key Decisions (ADR-021)
+
+- **Historical release narratives stay as-is** — except the v20.1.0 "40 total" which was wrong at write time
+- **ScrollReveal wrapping** for speech bubbles (not new component, not client-ifying SpeechBubble)
+- **Agents page hero text** changes from sub-agent count to total agent count
+- **stats.ts expansion** — add methodDocs and ADRs as computed marketing metrics
+
+---
+
 ## v12 — The Accuracy Pass (COMPLETE — 2026-04-12)
 
 Full content accuracy audit after methodology sync to v23.5.0. 3-agent review (Troi, Batman, Data) found 15 items across 11 files.
