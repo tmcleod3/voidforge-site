@@ -104,7 +104,11 @@ export default function CampaignPage() {
             <code className="text-[var(--vf-electric-blue)]">--plan</code>{" "}
             updates the PRD without building.{" "}
             <code className="text-[var(--vf-electric-blue)]">--mission &quot;Name&quot;</code>{" "}
-            jumps to a specific mission.
+            jumps to a specific mission.{" "}
+            <code className="text-[var(--vf-electric-blue)]">--focus &quot;topic&quot;</code>{" "}
+            biases the Silver Surfer&apos;s agent selection toward a domain —
+            e.g., <code className="text-[var(--vf-electric-blue)]">--focus &quot;api&quot;</code>{" "}
+            loads more backend specialists.
           </p>
         </section>
         </ScrollReveal>

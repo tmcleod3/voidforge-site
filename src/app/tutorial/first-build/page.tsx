@@ -147,7 +147,7 @@ deploy: "vercel"
             <code className="text-[var(--vf-electric-blue)]">/assemble</code>{" "}
             for each, and finishes with a Victory Gauntlet.
           </p>
-          <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+          <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] mb-4">
             <strong className="text-[var(--vf-forge-orange)]">How slash commands work:</strong>{" "}
             Every VoidForge command starting with{" "}
             <code className="text-[var(--vf-electric-blue)]">/</code> is a slash
@@ -159,6 +159,15 @@ deploy: "vercel"
             <code className="text-[var(--vf-electric-blue)]">/campaign</code>,{" "}
             <code className="text-[var(--vf-electric-blue)]">/gauntlet</code>,
             etc.
+          </p>
+          <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+            <strong className="text-[var(--vf-text)]">Agent dispatch:</strong>{" "}
+            The Silver Surfer pre-scans your code and selects the optimal agent team
+            automatically. Use{" "}
+            <code className="text-[var(--vf-electric-blue)]">--focus &quot;security&quot;</code>{" "}
+            to bias toward a specific domain, or{" "}
+            <code className="text-[var(--vf-electric-blue)]">--solo</code>{" "}
+            for lead agent only.
           </p>
         </section>
         </ScrollReveal>

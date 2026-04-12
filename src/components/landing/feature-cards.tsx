@@ -11,6 +11,7 @@ import {
   GitBranch,
   Map,
   Brain,
+  Zap,
 } from "lucide-react";
 import { display } from "@/data/stats";
 
@@ -78,6 +79,14 @@ const features = [
       "The forge remembers. API quirks, decision rationale, root causes — persisted across sessions. Every agent reads LEARNINGS.md at startup. Your next build starts where the last one left off.",
     href: "/tutorial/learnings",
     color: "var(--vf-forge-yellow)",
+  },
+  {
+    icon: Zap,
+    title: "INTELLIGENT DISPATCH",
+    description:
+      "The Silver Surfer pre-scans your code with Haiku, matches changes against agent expertise, and deploys the optimal roster. Use --focus to bias toward any topic. The forge chooses its own team.",
+    href: "/commands",
+    color: "var(--vf-comic-red)",
   },
 ] as const;
 
