@@ -1,5 +1,53 @@
 # ROADMAP — VoidForge Marketing Site
 
+## v12 — The Accuracy Pass (PLANNED — 2026-04-12)
+
+Full content accuracy audit after methodology sync to v23.5.0. 3-agent review (Troi, Batman, Data) found 15 items across 11 files.
+
+| Mission | Name | Status | Scope | Items |
+|---------|------|--------|-------|-------|
+| 1 | Critical Fixes | PLANNED | Fix 2 actively wrong facts: "Eight universes" → "Nine" in gauntlet tutorial, "741 tests" → "1,340+" in about page | R-01, R-02 |
+| 2 | Release Data | PLANNED | Add 4 missing release entries (v23.3.1, v23.4.0, v23.4.1, v23.5.0) + majorEras["23"] to releases.ts | R-03, R-04 |
+| 3 | Hero Spotlight | PLANNED | Update hero spotlight from v23.1 "The Injection" to v23.5 "The Herald" or another recent highlight | R-05 |
+| 4 | Command Data | PLANNED | Add --focus flag to 14 commands, remove/deprecate --blitz from /campaign | R-06, R-07 |
+| 5 | Count Hardening | PLANNED | Replace hardcoded counts in about page, agents page tier breakdown, search index, install tutorial | R-08–R-12 |
+| 6 | Pattern Groups | PLANNED | Add combobox + kongo-integration to pattern page groups (currently exist in data but never display on index) | R-13 |
+| 7 | Chronicle | PLANNED | ROADMAP, CHANGELOG, version bump, verify, deploy | — |
+
+### Detail
+
+**R-01** `src/app/tutorial/gauntlet/page.tsx:24` — "Eight universes" → "Nine universes" (Foundation added v16.0.0)
+**R-02** `src/app/about/page.tsx:73` — "741 tests" → "1,340+ tests" (v23.3.0 delivered 599 new tests)
+**R-03** `src/data/releases.ts` — Add v23.3.1, v23.4.0, v23.4.1, v23.5.0 to shipped array
+**R-04** `src/data/releases.ts` — Add majorEras["23"] for the Herald era
+**R-05** `src/components/landing/hero.tsx:51-69` — Update v23.1 spotlight to v23.5
+**R-06** `src/data/commands.ts` — Add --focus flag to 14 Herald-enabled commands
+**R-07** `src/data/commands.ts` — Remove/deprecate --blitz from /campaign
+**R-08** `src/app/about/page.tsx:70,130` — Hardcoded "263 agents across 9 universes" (×2)
+**R-09** `src/app/about/page.tsx:74` — "33+ campaigns" → "37+"
+**R-10** `src/app/agents/page.tsx:82,90,98,106` — Hardcoded tier breakdown (20/190/38/15)
+**R-11** `src/data/search-index.ts:34,97` — Hardcoded "20 lead agents" and "37 code patterns"
+**R-12** `src/app/tutorial/install/page.tsx:143` — "260+ agent definitions"
+**R-13** `src/app/patterns/page.tsx` — combobox + kongo-integration missing from display groups
+
+### Dependencies
+
+```
+Mission 1 ─────────────────────────────── (independent — 2 factual fixes)
+Mission 2 ─────────────────────────────── (independent — release data)
+Mission 3 ─────────────────────────────── (independent — hero component)
+Mission 4 ─────────────────────────────── (independent — command data)
+Mission 5 ──── depends on ──── Mission 2 (campaign count needs release data)
+Mission 6 ─────────────────────────────── (independent — pattern groups)
+Mission 7 ──── depends on ──── Missions 1-6 (chronicles completed work)
+```
+
+### Source
+
+3-agent content accuracy audit (Troi/PRD compliance, Batman/QA dynamic count check per FR #298, Data/tech debt catalog) after methodology sync v23.3.0 → v23.5.0. 15 findings: 2 Critical (actively wrong), 5 High (missing content), 5 Medium (hardcoded fragile), 1 Medium (pre-existing pattern gap), 2 Informational.
+
+---
+
 ## v11 — The Kongo Lifecycle (COMPLETE — 2026-04-03)
 
 Companion guide to v10: full lifecycle with Kongo integrated — 3-layer A/B testing, seed-to-conversion feedback loop, autonomous page generation.
