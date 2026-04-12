@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.10.0] - 2026-04-12
+
+### Added
+- **5 release entries** on /prophecy — v23.7.0 "The Decount", v23.7.1-v23.7.3 Silver Surfer patches, v23.8.0 "The Personality" (ADR-049)
+- **Methodology synced** to v23.8.0 — 290 files (264 agent heraldings, Silver Surfer sub-process, count deduplication)
+
+### Changed
+- **Hero spotlight** — v23.5 "The Herald" → v23.8 "The Personality" (agent heralding one-liners)
+- **Commands page** — Silver Surfer version attribution: "v23.5" → "v23.6" (correct introduction version)
+- **ADR count** — 48 → 49 (ADR-049: Agent Personality)
+
+---
+
 ## [Site v2.9.0] - 2026-04-12
 
 ### Added

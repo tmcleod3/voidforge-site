@@ -1,5 +1,44 @@
 # ROADMAP — VoidForge Marketing Site
 
+## v14 — The Personality Sync (COMPLETE — 2026-04-12)
+
+v23.8.0 methodology sync content pass. 5 missing release entries + hero spotlight + ADR count + version reference fix.
+
+| Mission | Name | Status | Scope | Findings |
+|---------|------|--------|-------|----------|
+| 1 | The Release Entries | COMPLETE | Add v23.7.0 "The Decount", v23.7.1-v23.7.3 Silver Surfer patches, v23.8.0 "The Personality" to releases.ts shipped array | F-01 |
+| 2 | The Spotlight | COMPLETE | Update hero spotlight from v23.5 "The Herald" to v23.8 "The Personality" — heralding one-liners for all 264 agents | F-02 |
+| 3 | The Details | COMPLETE | Fix commands page version ref (v23.5 → v23.6 for Silver Surfer), update ADR count 48 → 49 in stats.ts | F-03, F-04 |
+| 4 | The Chronicle | COMPLETE | ROADMAP, CHANGELOG, version bump (2.10.0), verify, deploy | — |
+
+### Detail
+
+**F-01** `src/data/releases.ts` — Missing 5 releases: v23.7.0 "The Decount" (eliminate hardcoded counts), v23.7.1 (Silver Surfer as Agent sub-process), v23.7.2 (explicit Agent invocation), v23.7.3 "Cosmic Heraldings" (Silver Surfer one-liners), v23.8.0 "The Personality" (heralding one-liners for all 264 agents, ADR-049)
+**F-02** `src/components/landing/hero.tsx:59` — Spotlight says "v23.5 — THE HERALD" → update to "v23.8 — THE PERSONALITY" with description of agent heraldings
+**F-03** `src/app/commands/page.tsx:66` — "Since v23.5, the Silver Surfer" → "Since v23.6" (Silver Surfer introduced in v23.6.0, not v23.5)
+**F-04** `src/data/stats.ts:26` — totalADRs: 48 → 49 (ADR-049 added in v23.8.0)
+
+### Dependencies
+
+```
+Mission 1 ─────────────────────────────── (independent — release data)
+Mission 2 ─────────────────────────────── (independent — hero component)
+Mission 3 ─────────────────────────────── (independent — minor fixes)
+Mission 4 ──── depends on ──── Missions 1-3 (chronicles completed work)
+```
+
+### Source
+
+Picard's architecture review with Uhura (content accuracy) and Spock (data integrity) after v23.6.1 → v23.8.0 methodology sync. 5 findings: 1 Critical (missing releases), 3 Medium (hero, version ref, ADR count), 1 Low (first-build tutorial /build context — no fix needed).
+
+### Key Decisions
+
+- **ADR count in stats.ts** refers to upstream VoidForge ADRs (49), not site-local ADRs (21). This is correct — it's a marketing metric about the methodology's maturity.
+- **/build on first-build tutorial** is contextually appropriate (the tutorial teaches single-pass builds). No change needed.
+- **Spock's 38 patterns / 30 commands count** was a counting error — build verification confirms 37 patterns and 28 commands.
+
+---
+
 ## v13 — The Silver Surfer Sync (COMPLETE — 2026-04-12)
 
 v23.6.0 methodology sync + 34-finding site accuracy audit + speech bubble animations. ADR-021.
