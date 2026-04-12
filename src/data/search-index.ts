@@ -1,3 +1,6 @@
+import { leadAgents } from "./agents";
+import { patterns } from "./patterns";
+
 export interface SearchEntry {
   title: string;
   description: string;
@@ -31,7 +34,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "Launch", description: "Phase 13: Final verification and go-live", path: "/protocol/launch", category: "Protocol" },
 
   // Agents
-  { title: "The Council", description: "All 20 lead agents with universe breakdowns", path: "/agents", category: "Agents" },
+  { title: "The Council", description: `All ${leadAgents.length} lead agents with universe breakdowns`, path: "/agents", category: "Agents" },
   { title: "Galadriel", description: "Frontend & UX lead — Tolkien universe", path: "/agents/galadriel", category: "Agents" },
   { title: "Stark", description: "Backend engineer — Marvel universe", path: "/agents/stark", category: "Agents" },
   { title: "Batman", description: "QA & testing — DC universe", path: "/agents/batman", category: "Agents" },
@@ -94,7 +97,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/blueprint", description: "The Blueprint Path — validate a pre-written PRD, discover docs, merge directives, provision, and start campaign", path: "/commands/blueprint", category: "Commands" },
 
   // Patterns
-  { title: "Patterns", description: "37 code patterns across 6 domains with framework implementations", path: "/patterns", category: "Patterns" },
+  { title: "Patterns", description: `${patterns.length} code patterns across 6 domains with framework implementations`, path: "/patterns", category: "Patterns" },
   { title: "API Route", description: "Validation, auth, service call, consistent response", path: "/patterns/api-route", category: "Patterns" },
   { title: "Service", description: "Business logic, ownership checks, typed errors", path: "/patterns/service", category: "Patterns" },
   { title: "Component", description: "Loading, empty, error, success states — keyboard accessible", path: "/patterns/component", category: "Patterns" },

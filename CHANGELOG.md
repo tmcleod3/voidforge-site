@@ -6,6 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.7.0] - 2026-04-12
+
+### Added
+- **4 release entries** on /prophecy — v23.3.1, v23.4.0 "The Remediation", v23.4.1, v23.5.0 "The Herald"
+- **Era "23" — The Herald** in the prophecy timeline with Picard as era agent
+- **`--focus` flag** on 14 commands — Herald intelligent dispatch (v23.5.0)
+- **ADR-020** — Count Hardening: computed stats over hardcoded prose
+- **2 patterns** added to display groups — combobox (Web), kongo-integration (Systems)
+
+### Changed
+- **Hero spotlight** updated from v23.1 "The Injection" to v23.5 "The Herald"
+- **About page** — agent/universe counts now computed from `stats.ts`, test count updated to 1,340+, campaigns to 37+
+- **Search index** — lead agent and pattern counts now computed from data arrays
+- **Install tutorial** — agent count now uses computed `display.agents`
+- **`/campaign` command** — retired `--blitz` removed, replaced with `--interactive`, badge updated to v23.5
+
+### Fixed
+- **"Eight universes"** in gauntlet tutorial → "Nine universes" (Foundation added v16.0.0)
+- **"741 tests"** in about page → "1,340+ tests" (v23.3.0 delivered 599 new)
+
+---
+
 ## [Site v2.6.0] - 2026-04-12
 
 ### Added

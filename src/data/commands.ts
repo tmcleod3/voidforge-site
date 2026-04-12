@@ -41,6 +41,16 @@ export const commands: Command[] = [
       "Kusanagi deploys to your target (route registration check, email deliverability verification)",
       "All agents verify the launch checklist",
     ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
+    ],
   },
   {
     slug: "qa",
@@ -61,6 +71,16 @@ export const commands: Command[] = [
       "Constantine checks config and environment",
       "Nightwing re-runs the full suite after fixes",
     ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
+    ],
   },
   {
     slug: "test",
@@ -75,6 +95,16 @@ export const commands: Command[] = [
       "Batman designs the test architecture",
       "Missing tests are written for uncovered paths",
       "Nightwing executes the full suite to verify",
+    ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
     ],
   },
   {
@@ -98,6 +128,16 @@ export const commands: Command[] = [
       "Yoda, Windu, Padmé run sequential deep reviews",
       "All findings are remediated and re-verified",
     ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
+    ],
   },
   {
     slug: "ux",
@@ -115,6 +155,16 @@ export const commands: Command[] = [
       "Legolas checks performance impact",
       "Gandalf probes edge cases and error states",
     ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
+    ],
   },
   {
     slug: "review",
@@ -129,6 +179,16 @@ export const commands: Command[] = [
       "Pattern compliance checked against /docs/patterns/",
       "Code quality and maintainability assessed",
       "Findings prioritized and fixes recommended",
+    ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
     ],
   },
   {
@@ -146,6 +206,16 @@ export const commands: Command[] = [
       "Health checks verified",
       "Backups configured and tested",
     ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
+    ],
   },
   {
     slug: "architect",
@@ -162,6 +232,16 @@ export const commands: Command[] = [
       "Geographic test matrix for location-aware systems (5-country matrix: JP, US, UK, FR, AU)",
       "ADR creation for significant decisions",
       "Cross-agent conflict resolution",
+    ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
     ],
   },
   {
@@ -282,6 +362,14 @@ export const commands: Command[] = [
           "Pick up where you left off. Fury reads the assemble state and resumes from the last completed phase.",
         effect: "Resume from last checkpoint in assemble-state.md.",
       },
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
     ],
   },
   {
@@ -290,8 +378,8 @@ export const commands: Command[] = [
     name: "/campaign",
     lead: "Sisko",
     description:
-      "The war room. Sisko reads the PRD, identifies every remaining mission, and executes them one by one — running /assemble for each — until the entire product is complete. Use --blitz for full autonomous mode.",
-    usage: "/campaign [--blitz] [--fast] [--plan] [--resume] [--mission \"Name\"] [--autonomous] [--continuous]",
+      "The war room. Sisko reads the PRD, identifies every remaining mission, and executes them one by one — running /assemble for each — until the entire product is complete. Autonomous execution is the default — no flag needed.",
+    usage: "/campaign [--fast] [--plan] [--resume] [--mission \"Name\"] [--autonomous] [--continuous] [--interactive]",
     whatHappens: [
       "Kira runs operational recon — checks for unfinished builds or assembles",
       "Dax loads operational learnings before analyzing the PRD — known constraints inform mission scoping",
@@ -307,12 +395,12 @@ export const commands: Command[] = [
     ],
     arguments: [
       {
-        flag: "--blitz",
+        flag: "--interactive",
         type: "boolean",
         description:
-          "Full autonomous mode. Sisko takes the conn — no confirmations, no pauses. The war room runs itself until the mission board is clear. Does NOT imply --fast — full review quality preserved.",
+          "Pause for human confirmation at mission briefs and between missions. By default, Sisko takes the conn autonomously — this flag adds checkpoints when you want hands on the wheel.",
         effect:
-          "Skip confirmations, auto-continue between missions, auto-debrief after each.",
+          "Pause for confirmation before each mission instead of running autonomously.",
       },
       {
         flag: "--fast",
@@ -359,8 +447,16 @@ export const commands: Command[] = [
           "After victory, auto-start the next roadmap version within the same major. The forge keeps building until the roadmap runs dry.",
         effect: "Chain campaigns within a major version (e.g., v9.3 → v9.4). Stops before crossing major boundaries.",
       },
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
     ],
-    badge: "Updated v22.0",
+    badge: "Updated v23.5",
   },
   {
     slug: "imagine",
@@ -543,6 +639,14 @@ export const commands: Command[] = [
           "The Infinity Gauntlet. Ten rounds, two full passes. Every active agent deployed as its own dedicated sub-process — not combined, not summarized. ~60-80 agent launches across all 9 universes. The full roster called off the bench.",
         effect: "10 rounds (2x full pass). Every agent gets its own launch, context, and findings.",
       },
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
     ],
   },
   {
@@ -708,6 +812,16 @@ export const commands: Command[] = [
       "Dax + Troi run PRD gap analysis — structural and semantic diff of requirements vs implementation",
       "Produces a unified State of the Codebase report in /logs/assessment.md with remediation plan",
     ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
+    ],
   },
   {
     slug: "deploy",
@@ -728,6 +842,14 @@ export const commands: Command[] = [
       { flag: "--target", type: "string" as const, valuePlaceholder: "vercel", description: "Override auto-detected deploy target.", effect: "Skip target detection, use specified target." },
       { flag: "--dry-run", type: "boolean" as const, description: "Show what would happen without deploying.", effect: "Run all checks, print deploy plan, stop before execution." },
       { flag: "--rollback", type: "boolean" as const, description: "Roll back to the previous deployed version.", effect: "Revert to last known good deploy." },
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
     ],
   },
   {
@@ -744,6 +866,16 @@ export const commands: Command[] = [
       "5 sequential audits: orchestration, evaluation, token economics, observability, versioning",
       "The Mule runs adversarial AI testing: hallucination probes, prompt injection, context overflow",
       "Produces AI Architecture report with findings ranked by severity and remediation plan",
+    ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
     ],
   },
   {

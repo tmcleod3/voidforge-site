@@ -139,6 +139,11 @@ export const majorEras: Record<string, MajorEra> = {
     quote: "Everything is project-scoped. Multi-project wizard with per-project dashboards, financial isolation, and daemon configuration.",
     agent: "Picard",
   },
+  "23": {
+    title: "The Herald",
+    quote: "The forge chooses its own champions. Every command summons the right agents — not all of them, the right ones. Intelligence before deployment.",
+    agent: "Picard",
+  },
 };
 
 export const shipped: Release[] = [
@@ -1238,6 +1243,53 @@ export const shipped: Release[] = [
       "9 oversized files split into 25 focused modules",
       "Field report #297 learnings triaged into 4 agent definitions",
       "Distribution verification gate added (BUILD_PROTOCOL Phase 12.75)",
+    ],
+  },
+  {
+    version: "v23.3.1",
+    date: "2026-04-12",
+    title: "The Wizard Fix",
+    headline: "One fix: the 'Files to be created' list now matches actual init output. Small but visible.",
+    items: [
+      "Wizard UI fix — 'Files to be created' list matched actual init output",
+    ],
+  },
+  {
+    version: "v23.4.0",
+    date: "2026-04-12",
+    title: "The Remediation",
+    headline: "The wizard gets a full UI audit. 3 critical API fixes. 4 WCAG a11y fixes. 2,400 lines of legacy code removed. The forge cleans house.",
+    items: [
+      "3 critical API fixes in wizard UI",
+      "4 WCAG accessibility fixes across wizard interface",
+      "Retired --blitz flag cleanup — autonomous execution is now the default",
+      "Content accuracy pass across wizard pages",
+      "7 UX improvements to wizard onboarding flow",
+      "-2,400 lines of legacy code removed",
+    ],
+  },
+  {
+    version: "v23.4.1",
+    date: "2026-04-12",
+    title: "The Gauntlet Patch",
+    headline: "Security patch. XSS escaping in blueprint banner. ROADMAP staleness check. Lobby a11y.",
+    items: [
+      "XSS escaping fix in blueprint banner component",
+      "ROADMAP staleness detection added to Gauntlet checks",
+      "Lobby dashboard accessibility improvements",
+    ],
+  },
+  {
+    version: "v23.5.0",
+    date: "2026-04-12",
+    title: "The Herald",
+    headline: "The forge learns to choose its own team. Haiku pre-scans your code, matches it against 40 agent tags, and deploys the optimal roster. Intelligent dispatch.",
+    items: [
+      "Herald intelligent agent dispatch — Haiku pre-scan selects optimal agent roster",
+      "Agent registry with 40 descriptive tags across 263 agents",
+      "--focus flag for biasing agent selection toward a topic",
+      "14 commands wired with Herald dispatch",
+      "ADR-047: Intelligent Agent Dispatch architecture",
     ],
   },
 ];

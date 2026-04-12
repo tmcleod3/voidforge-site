@@ -48,7 +48,7 @@ export function Hero() {
           . Ship to production.
         </motion.p>
 
-        {/* v23.1 Spotlight */}
+        {/* v23.5 Spotlight */}
         <motion.div
           className="mt-10 max-w-2xl mx-auto comic-panel bg-[var(--vf-surface-raised)] p-6 text-left"
           initial={shouldReduceMotion ? {} : { y: 30, opacity: 0 }}
@@ -56,16 +56,19 @@ export function Hero() {
           transition={{ delay: 0.7, duration: 0.5 }}
         >
           <p className="font-[family-name:var(--font-bangers)] text-lg sm:text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
-            v23.1 &mdash; THE INJECTION
+            v23.5 &mdash; THE HERALD
           </p>
           <p className="font-[family-name:var(--font-bangers)] text-xl sm:text-2xl md:text-3xl tracking-wider text-[var(--foreground)] leading-snug mb-3">
-            {display.agents} agents. Materialized. Battle-tested.
+            {display.agents} agents. Intelligent dispatch. The forge chooses its own team.
           </p>
           <p className="text-sm sm:text-base text-[var(--vf-text-muted)]">
-            Every agent is a Claude Code subagent definition. Opus leads. Sonnet
-            specialists. Haiku scouts. Dynamic dispatch matches agents to your
-            code changes automatically. Operational learnings from every campaign
-            injected into every agent.
+            The Herald pre-scans your code with Haiku, matches changes against 40
+            agent tags, and deploys the optimal roster. Every command now summons
+            the right specialists &mdash; not all of them, the right ones. Use{" "}
+            <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
+              --focus
+            </code>{" "}
+            to bias selection toward any topic.
           </p>
         </motion.div>
 

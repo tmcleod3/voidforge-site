@@ -10,7 +10,7 @@ const groups = [
     label: "WEB",
     tagline: "The foundation. Every web app starts here.",
     color: "var(--vf-electric-blue)",
-    slugs: ["api-route", "service", "component", "middleware", "error-handling", "job-queue", "multi-tenant", "sse-endpoint", "third-party-script"],
+    slugs: ["api-route", "service", "component", "middleware", "error-handling", "job-queue", "multi-tenant", "sse-endpoint", "third-party-script", "combobox"],
   },
   {
     id: "mobile",
@@ -31,7 +31,7 @@ const groups = [
     label: "SYSTEMS",
     tagline: "Infrastructure that runs itself.",
     color: "var(--vf-deep-purple)",
-    slugs: ["ad-platform-adapter", "financial-transaction", "daemon-process", "revenue-source-adapter", "oauth-token-lifecycle", "outbound-rate-limiter", "database-migration", "data-pipeline", "backtest-engine", "execution-safety", "e2e-test", "browser-review", "stablecoin-adapter", "ad-billing-adapter", "funding-plan"],
+    slugs: ["ad-platform-adapter", "financial-transaction", "daemon-process", "revenue-source-adapter", "oauth-token-lifecycle", "outbound-rate-limiter", "database-migration", "data-pipeline", "backtest-engine", "execution-safety", "e2e-test", "browser-review", "stablecoin-adapter", "ad-billing-adapter", "funding-plan", "kongo-integration"],
   },
   {
     id: "ai",

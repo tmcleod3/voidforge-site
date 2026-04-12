@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { CtaButton } from "@/components/cta-button";
+import { stats } from "@/data/stats";
 
 export const metadata: Metadata = {
   title: "About",
@@ -67,11 +68,11 @@ export default function AboutPage() {
             </p>
             <p className="text-[var(--vf-text-muted)] mb-6">
               VoidForge is what happened next. A set of personal notes turned into
-              a methodology. The methodology grew 263 named agents across 9
+              a methodology. The methodology grew {stats.totalAgents} named agents across {stats.totalUniverses}
               fictional universes — each now a persistent Claude Code subagent
               definition with model tiering and tool restrictions. The agents
-              learned a 13-phase build protocol. 741 tests. 0 TypeScript errors.
-              33+ campaigns completed. And then Tom pointed the forge at itself
+              learned a 13-phase build protocol. 1,340+ tests. 0 TypeScript errors.
+              37+ campaigns completed. And then Tom pointed the forge at itself
               and said: <em>&ldquo;Build your own website.&rdquo;</em>
               You&apos;re reading the result.
             </p>
@@ -127,7 +128,7 @@ export default function AboutPage() {
               THE 9 UNIVERSES
             </h2>
             <p className="text-[var(--vf-text-muted)] mb-6">
-              263 agents drawn from 9 fictional universes. Each universe owns a
+              {stats.totalAgents} agents drawn from {stats.totalUniverses} fictional universes. Each universe owns a
               domain. The characters aren&apos;t decoration — they&apos;re how
               VoidForge organizes expertise.
             </p>

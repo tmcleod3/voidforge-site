@@ -6,6 +6,7 @@ import { SpeechBubble } from "@/components/speech-bubble";
 import { CopyButton } from "@/components/copy-button";
 import { TutorialNav } from "@/components/tutorial-nav";
 import { TableOfContents } from "@/components/table-of-contents";
+import { display } from "@/data/stats";
 import { TutorialProgress } from "@/components/tutorial-progress";
 
 export const metadata: Metadata = {
@@ -140,7 +141,7 @@ export default function InstallPage() {
               </h3>
               <p className="text-sm text-[var(--vf-text-muted)] mb-3">
                 One command creates a new project with the wizard, methodology,
-                and 260+ agent definitions — everything you need.
+                and {display.agents} agent definitions — everything you need.
               </p>
               <div className="crt-terminal flex items-center justify-between gap-2 !p-3 mb-3">
                 <code className="text-sm break-all">

@@ -1,18 +1,18 @@
 # ROADMAP — VoidForge Marketing Site
 
-## v12 — The Accuracy Pass (PLANNED — 2026-04-12)
+## v12 — The Accuracy Pass (COMPLETE — 2026-04-12)
 
 Full content accuracy audit after methodology sync to v23.5.0. 3-agent review (Troi, Batman, Data) found 15 items across 11 files.
 
 | Mission | Name | Status | Scope | Items |
 |---------|------|--------|-------|-------|
-| 1 | Critical Fixes | PLANNED | Fix 2 actively wrong facts: "Eight universes" → "Nine" in gauntlet tutorial, "741 tests" → "1,340+" in about page | R-01, R-02 |
-| 2 | Release Data | PLANNED | Add 4 missing release entries (v23.3.1, v23.4.0, v23.4.1, v23.5.0) + majorEras["23"] to releases.ts | R-03, R-04 |
-| 3 | Hero Spotlight | PLANNED | Update hero spotlight from v23.1 "The Injection" to v23.5 "The Herald" or another recent highlight | R-05 |
-| 4 | Command Data | PLANNED | Add --focus flag to 14 commands, remove/deprecate --blitz from /campaign | R-06, R-07 |
-| 5 | Count Hardening | PLANNED | Replace hardcoded counts in about page, agents page tier breakdown, search index, install tutorial | R-08–R-12 |
-| 6 | Pattern Groups | PLANNED | Add combobox + kongo-integration to pattern page groups (currently exist in data but never display on index) | R-13 |
-| 7 | Chronicle | PLANNED | ROADMAP, CHANGELOG, version bump, verify, deploy | — |
+| 1 | Critical Fixes | COMPLETE | Fix 2 actively wrong facts: "Eight universes" → "Nine" in gauntlet tutorial, "741 tests" → "1,340+" in about page | R-01, R-02 |
+| 2 | Release Data | COMPLETE | Add 4 missing release entries (v23.3.1, v23.4.0, v23.4.1, v23.5.0) + majorEras["23"] to releases.ts | R-03, R-04 |
+| 3 | Hero Spotlight | COMPLETE | Update hero spotlight from v23.1 "The Injection" to v23.5 "The Herald" or another recent highlight | R-05 |
+| 4 | Command Data | COMPLETE | Add --focus flag to 14 commands, remove/deprecate --blitz from /campaign | R-06, R-07 |
+| 5 | Count Hardening | COMPLETE | Replace hardcoded counts in about page, agents page tier breakdown, search index, install tutorial | R-08–R-12 |
+| 6 | Pattern Groups | COMPLETE | Add combobox + kongo-integration to pattern page groups (currently exist in data but never display on index) | R-13 |
+| 7 | Chronicle | COMPLETE | ROADMAP, CHANGELOG, version bump, verify, deploy | — |
 
 ### Detail
 
