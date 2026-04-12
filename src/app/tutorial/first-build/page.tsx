@@ -132,6 +132,21 @@ deploy: "vercel"
             and verifying gates. Every decision is logged to{" "}
             <code className="text-[var(--vf-electric-blue)]">/logs/</code>.
           </p>
+          <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)] mb-4">
+            <strong className="text-[var(--vf-text)]">Tip:</strong>{" "}
+            <code className="text-[var(--vf-electric-blue)]">/build</code>{" "}
+            runs a single build pass.{" "}
+            For full PRD-to-production workflows, use{" "}
+            <Link
+              href="/tutorial/campaign"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              /campaign
+            </Link>{" "}
+            — it breaks the PRD into missions, runs{" "}
+            <code className="text-[var(--vf-electric-blue)]">/assemble</code>{" "}
+            for each, and finishes with a Victory Gauntlet.
+          </p>
           <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
             <strong className="text-[var(--vf-forge-orange)]">How slash commands work:</strong>{" "}
             Every VoidForge command starting with{" "}

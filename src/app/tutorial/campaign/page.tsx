@@ -78,32 +78,33 @@ export default function CampaignPage() {
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
-              claude{"\n"}&gt; /campaign --blitz
+              claude{"\n"}&gt; /campaign
             </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            <code className="text-[var(--vf-electric-blue)]">--blitz</code>{" "}
-            runs autonomously — no confirmation prompts between missions,
-            auto-commits, auto-debriefs. Full review quality is preserved.
-            Walk away and come back to a built project.
+            By default, campaigns run autonomously with the full agent roster
+            — no confirmation prompts between missions, auto-commits,
+            auto-debriefs. Full review quality is preserved. Walk away and
+            come back to a built project.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
+            <code className="text-[var(--vf-electric-blue)]">--interactive</code>{" "}
+            pauses for human confirmation between missions — useful when you
+            want to inspect each one before proceeding.{" "}
             <code className="text-[var(--vf-electric-blue)]">--fast</code>{" "}
             trims review rounds (skips Crossfire + Council per mission) but
-            keeps the pause between missions so you can inspect each one.
-            Combine with blitz{" "}
-            (<code className="text-[var(--vf-electric-blue)]">--blitz --fast</code>)
-            for maximum velocity with reduced reviews.{" "}
+            is still comprehensive.{" "}
+            <code className="text-[var(--vf-electric-blue)]">--light</code>{" "}
+            uses standard agents only — no cross-domain spot-checks.{" "}
+            <code className="text-[var(--vf-electric-blue)]">--solo</code>{" "}
+            runs lead agent only, zero sub-agents — good for quick checks.{" "}
             <code className="text-[var(--vf-electric-blue)]">--resume</code>{" "}
             picks up from the last checkpoint — essential for multi-session
             campaigns.{" "}
             <code className="text-[var(--vf-electric-blue)]">--plan</code>{" "}
             updates the PRD without building.{" "}
             <code className="text-[var(--vf-electric-blue)]">--mission &quot;Name&quot;</code>{" "}
-            jumps to a specific mission.{" "}
-            <code className="text-[var(--vf-electric-blue)]">--muster</code>{" "}
-            deploys every viable agent across all 9 universes for each
-            mission — maximum coverage when the stakes are high.
+            jumps to a specific mission.
           </p>
         </section>
         </ScrollReveal>

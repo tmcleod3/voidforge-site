@@ -187,16 +187,12 @@ export default function ImportPage() {
             without touching anything outside its scope.
           </p>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            For hands-off execution, add the blitz flag:
-          </p>
-          <div className="crt-terminal !p-4 mb-6">
-            <code className="text-sm">/campaign --blitz</code>
-          </div>
-          <p className="text-[var(--vf-text-muted)] mb-4">
-            Blitz mode runs autonomously — no confirmation prompts, auto-commits
-            after each mission, auto-debriefs to capture learnings. Walk away
-            and come back to a built project. The Victory Gauntlet at the end is
-            non-negotiable even in blitz.
+            Campaigns run autonomously by default — no confirmation prompts,
+            auto-commits after each mission, auto-debriefs to capture learnings.
+            Walk away and come back to a built project. The Victory Gauntlet at
+            the end is non-negotiable. Use{" "}
+            <code className="text-[var(--vf-electric-blue)]">--interactive</code>{" "}
+            to pause between missions if you want to inspect each one.
           </p>
         </section>
         </ScrollReveal>

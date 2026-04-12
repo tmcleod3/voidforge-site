@@ -65,7 +65,7 @@ export default function ProtocolPage() {
     <>
       <PageHeader
         title="THE PROTOCOL"
-        subtitle="14 phases. 13 gates. One sequence from PRD to production."
+        subtitle="13 phases. 13 gates. One sequence from PRD to production."
       />
 
       <section className="px-4 pb-12">

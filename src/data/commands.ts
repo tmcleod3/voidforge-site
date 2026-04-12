@@ -28,7 +28,7 @@ export const commands: Command[] = [
     name: "/build",
     lead: "All agents",
     description:
-      "Execute the full 14-phase build protocol from PRD to production.",
+      "Execute the full 13-phase build protocol from PRD to production.",
     usage: "/build",
     whatHappens: [
       "All phases dispatch to sub-agents (Parallel Agent Standard) — main thread orchestrates, agents do the work",
@@ -250,7 +250,7 @@ export const commands: Command[] = [
     name: "/git",
     lead: "Coulson",
     description: "Version bump, changelog, commit — full release management.",
-    usage: "/git [--major | --minor | --patch]",
+    usage: "/git [--major | --minor | --patch] [--dry-run]",
     whatHappens: [
       "Coulson analyzes changes since last release",
       "Version bumped (semver) based on change scope",
@@ -279,6 +279,13 @@ export const commands: Command[] = [
         description:
           "Force a patch version bump. Bug fixes, small corrections — the forge heals.",
         effect: "Override automatic detection and bump the patch version.",
+      },
+      {
+        flag: "--dry-run",
+        type: "boolean",
+        description:
+          "Show what the release would look like without actually doing it. Version bump, changelog, commit message — all previewed, nothing written.",
+        effect: "Preview the release without modifying any files, creating commits, or applying tags.",
       },
     ],
   },
@@ -324,7 +331,7 @@ export const commands: Command[] = [
       "Load operational learnings before Phase 1 — informed decisions from day one",
       "Fury assembles all agents into a single devastating pipeline",
       "Picard runs architecture review first",
-      "Full /build protocol executes (14 phases)",
+      "Full /build protocol executes (13 phases)",
       "Triple code review pass (Picard × 3)",
       "Galadriel's UX/a11y audit",
       "Double security audit (Kenobi × 2)",
@@ -379,7 +386,7 @@ export const commands: Command[] = [
     lead: "Sisko",
     description:
       "The war room. Sisko reads the PRD, identifies every remaining mission, and executes them one by one — running /assemble for each — until the entire product is complete. Autonomous execution is the default — no flag needed.",
-    usage: "/campaign [--fast] [--plan] [--resume] [--mission \"Name\"] [--autonomous] [--continuous] [--interactive]",
+    usage: "/campaign [--fast] [--plan] [--resume] [--mission \"Name\"] [--continuous] [--interactive]",
     whatHappens: [
       "Kira runs operational recon — checks for unfinished builds or assembles",
       "Dax loads operational learnings before analyzing the PRD — known constraints inform mission scoping",
@@ -406,7 +413,7 @@ export const commands: Command[] = [
         flag: "--fast",
         type: "boolean",
         description:
-          "Skip the Crossfire and Council on each mission. The final Gauntlet still runs. Combine with --blitz when speed and autonomy both matter.",
+          "Skip the Crossfire and Council on each mission. The final Gauntlet still runs.",
         effect:
           "Pass --fast to every /assemble call. Final Gauntlet is unaffected.",
       },
@@ -437,8 +444,8 @@ export const commands: Command[] = [
         flag: "--autonomous",
         type: "boolean",
         description:
-          "Supervised autonomy. Like blitz, but with git tags before every mission, critical-finding rollback, and 5-mission human checkpoints. Safer for long campaigns.",
-        effect: "Git tag before each mission. Rollback on critical findings. Checkpoint every 5 missions.",
+          "Default behavior since v21.0 — no flag needed. Autonomous execution with git tags before every mission, critical-finding rollback, and scope-based review scaling. Accepted silently for backward compatibility.",
+        effect: "No-op (autonomous is now the default). Use --interactive to add human checkpoints.",
       },
       {
         flag: "--continuous",
@@ -580,7 +587,7 @@ export const commands: Command[] = [
     lead: "Thanos",
     description:
       "The ultimate test. 5 rounds, 30+ agents across 9 universes, escalating from discovery to adversarial warfare. Review-only — no build. If your project survives the snap, it's ready for anything.",
-    usage: "/gauntlet [--quick] [--security-only] [--ux-only] [--qa-only] [--resume] [--ux-extra] [--infinity]",
+    usage: "/gauntlet [--quick] [--security-only] [--ux-only] [--qa-only] [--resume] [--ux-extra]",
     whatHappens: [
       "All rounds dispatch to sub-agents (Parallel Agent Standard) — main thread triages, never reads source inline",
       "Round 1: Discovery — all agents read the codebase in parallel",
@@ -636,8 +643,8 @@ export const commands: Command[] = [
         flag: "--infinity",
         type: "boolean",
         description:
-          "The Infinity Gauntlet. Ten rounds, two full passes. Every active agent deployed as its own dedicated sub-process — not combined, not summarized. ~60-80 agent launches across all 9 universes. The full roster called off the bench.",
-        effect: "10 rounds (2x full pass). Every agent gets its own launch, context, and findings.",
+          "Retired — accepted as a no-op for backward compatibility. The full roster is now default behavior.",
+        effect: "No effect (retired flag).",
       },
       {
         flag: "--focus",

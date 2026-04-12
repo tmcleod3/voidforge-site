@@ -153,24 +153,12 @@ export default function GauntletPage() {
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">/gauntlet --reckoning</code>
           </div>
-          <p className="text-[var(--vf-text-muted)] mb-4">
-            Want the full roster? The muster flag deploys every viable agent
-            across all 9 universes in 3 waves:
-          </p>
-          <div className="crt-terminal !p-4 mb-6">
-            <code className="text-sm">/gauntlet --muster</code>
-          </div>
-          <p className="text-[var(--vf-text-muted)] mb-4">
-            Need the ultimate test? The infinity flag goes further — every
-            agent as its own sub-process, 10 rounds:
-          </p>
-          <div className="crt-terminal !p-4 mb-6">
-            <code className="text-sm">/gauntlet --infinity</code>
-          </div>
           <p className="text-[var(--vf-text-muted)]">
-            The Infinity Gauntlet doubles down on every round — more agents,
-            deeper analysis, cross-universe validation. Use it before a major
-            launch or when the stakes justify the thoroughness.
+            The full agent roster is deployed by default. Use{" "}
+            <code className="text-[var(--vf-electric-blue)]">--light</code>{" "}
+            for standard agents only (no cross-domain spot-checks), or{" "}
+            <code className="text-[var(--vf-electric-blue)]">--solo</code>{" "}
+            for lead agent only with zero sub-agents.
           </p>
         </section>
         </ScrollReveal>

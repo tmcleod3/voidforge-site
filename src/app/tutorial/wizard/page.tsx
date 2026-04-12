@@ -312,10 +312,10 @@ export default function WizardPage() {
             </div>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
-            Kusanagi handles deployment — Vercel, AWS, Railway, Fly, or bare
-            metal. The deploy target was set during the wizard. Infrastructure
-            is not your problem anymore. Kusanagi auto-detects, checks,
-            deploys, and verifies health.
+            Kusanagi handles deployment — VPS, Vercel, Railway, Cloudflare,
+            Docker, or Static. The deploy target was set during the wizard.
+            Infrastructure is not your problem anymore. Kusanagi auto-detects,
+            checks, deploys, and verifies health.
           </p>
           <p className="text-sm text-[var(--vf-text-muted)] px-4 py-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
             <strong className="text-[var(--vf-forge-orange)]">How slash commands work:</strong>{" "}

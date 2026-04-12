@@ -309,12 +309,12 @@ export default function BlueprintPage() {
           <div className="crt-terminal !p-4 mb-6 space-y-2">
             <div>
               <code className="text-sm">
-                /campaign --blitz{"          "}# Autonomous build
+                /campaign{"               "}# Autonomous build, full roster (default)
               </code>
             </div>
             <div>
               <code className="text-sm">
-                /campaign --blitz --muster # Full multi-agent review per mission
+                /campaign --interactive  # Pause between missions for inspection
               </code>
             </div>
           </div>

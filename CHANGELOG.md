@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.8.0] - 2026-04-12
+
+### Changed
+- **`/campaign` is now the primary command** — homepage hero, tutorial first-build, and feature cards updated. `/build` remains documented as a single-pass alternative.
+- **"13-phase" everywhere** — protocol page, /build command, search index all changed from "14-phase" to "13-phase" matching canonical docs
+- **Retired flags cleaned up** — `--blitz`, `--muster`, `--infinity` removed as active features from campaign, blueprint, import, and gauntlet tutorials. Replaced with current opt-out flags (`--interactive`, `--light`, `--solo`).
+- **`--autonomous` on /campaign** marked as default behavior (no flag needed per ADR-043)
+- **Deploy targets corrected** on wizard tutorial: "Fly, bare metal" → "Cloudflare, Docker, Static"
+- **`--dry-run` flag** added to /git command documentation
+
+---
+
 ## [Site v2.7.0] - 2026-04-12
 
 ### Added

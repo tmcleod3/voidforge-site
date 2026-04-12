@@ -43,7 +43,7 @@ export function Hero() {
           A build methodology with {display.agents} AI agents across {display.universes}{" "}
           fictional universes. Drop in a PRD. Run{" "}
           <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
-            /build
+            /campaign
           </code>
           . Ship to production.
         </motion.p>

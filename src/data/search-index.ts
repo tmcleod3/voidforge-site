@@ -12,12 +12,12 @@ export const searchIndex: SearchEntry[] = [
   // Tutorial
   { title: "Tutorial", description: "Step-by-step guide to using VoidForge", path: "/tutorial", category: "Learn" },
   { title: "Install", description: "Install VoidForge: prerequisites, npm quick start, and troubleshooting", path: "/tutorial/install", category: "Learn" },
-  { title: "First Build", description: "Write your first PRD, run /build, and watch the 14-phase protocol", path: "/tutorial/first-build", category: "Learn" },
+  { title: "First Build", description: "Write your first PRD, run /build, and watch the 13-phase protocol", path: "/tutorial/first-build", category: "Learn" },
   { title: "Deploy", description: "Deploy your VoidForge app to any of 6 targets", path: "/tutorial/deploy", category: "Learn" },
   { title: "Forge Labs", description: "Experimental protocols for growth, revenue, intelligence, and operations. Assembly required.", path: "/forge-labs", category: "Learn" },
 
   // Protocol
-  { title: "Protocol", description: "The 14-phase build protocol explained phase-by-phase", path: "/protocol", category: "Protocol" },
+  { title: "Protocol", description: "The 13-phase build protocol explained phase-by-phase", path: "/protocol", category: "Protocol" },
   { title: "Orient", description: "Phase 0: Read the PRD, assess the project, create the plan", path: "/protocol/orient", category: "Protocol" },
   { title: "Scaffold", description: "Phase 1: Project setup, dependencies, configuration", path: "/protocol/scaffold", category: "Protocol" },
   { title: "Infrastructure", description: "Phase 2: Database, cache, queues, external services", path: "/protocol/infrastructure", category: "Protocol" },
@@ -67,7 +67,7 @@ export const searchIndex: SearchEntry[] = [
 
   // Commands
   { title: "Commands", description: "All slash commands across 4 mission groups with usage and examples", path: "/commands", category: "Commands" },
-  { title: "/build", description: "Execute the full 14-phase build protocol", path: "/commands/build", category: "Commands" },
+  { title: "/build", description: "Execute the full 13-phase build protocol", path: "/commands/build", category: "Commands" },
   { title: "/qa", description: "Batman's full QA pass with double-pass verification", path: "/commands/qa", category: "Commands" },
   { title: "/test", description: "Batman's test-writing mode — coverage analysis and test architecture", path: "/commands/test", category: "Commands" },
   { title: "/security", description: "Kenobi's OWASP audit with red-team verification", path: "/commands/security", category: "Commands" },
