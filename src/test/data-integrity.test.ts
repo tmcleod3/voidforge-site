@@ -3,6 +3,7 @@ import { leadAgents } from "@/data/agents";
 import { commands } from "@/data/commands";
 import { patterns } from "@/data/patterns";
 import { phases } from "@/data/protocol";
+import { shipped, future } from "@/data/releases";
 
 describe("Data Integrity — Agent slugs", () => {
   it("all agent slugs are unique", () => {
@@ -77,6 +78,46 @@ describe("Data Integrity — Protocol phase slugs", () => {
   it("phases are numbered sequentially from 0", () => {
     for (let i = 0; i < phases.length; i++) {
       expect(phases[i].number).toBe(i);
+    }
+  });
+});
+
+describe("Data Integrity — Releases", () => {
+  it("all shipped versions are unique", () => {
+    const versions = shipped.map((r) => r.version);
+    expect(new Set(versions).size).toBe(versions.length);
+  });
+
+  it("shipped releases are in chronological order", () => {
+    for (let i = 1; i < shipped.length; i++) {
+      const prev = new Date(shipped[i - 1].date).getTime();
+      const curr = new Date(shipped[i].date).getTime();
+      expect(curr).toBeGreaterThanOrEqual(prev);
+    }
+  });
+
+  it("every shipped release has required fields", () => {
+    for (const r of shipped) {
+      expect(r.version).toMatch(/^v\d+/);
+      expect(r.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(r.title.length).toBeGreaterThan(0);
+      expect(r.headline.length).toBeGreaterThan(0);
+      expect(r.items.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("all future versions are unique", () => {
+    const versions = future.map((r) => r.version);
+    expect(new Set(versions).size).toBe(versions.length);
+  });
+
+  it("future release titles do not collide with shipped titles", () => {
+    const shippedTitles = new Set(shipped.map((r) => r.title));
+    for (const f of future) {
+      expect(
+        shippedTitles.has(f.title),
+        `Future "${f.title}" collides with a shipped release title`
+      ).toBe(false);
     }
   });
 });

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SpeechBubble } from "@/components/speech-bubble";
 
 export const metadata: Metadata = {
@@ -82,6 +83,7 @@ export default function ImportPage() {
           </p>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="assess-the-codebase"
@@ -119,6 +121,7 @@ export default function ImportPage() {
             follows.
           </p>
         </section>
+        </ScrollReveal>
 
         <SpeechBubble agent="Picard" universe="star-trek">
           Assessment before action. I need to understand your architecture — the
@@ -127,6 +130,7 @@ export default function ImportPage() {
           briefing document.
         </SpeechBubble>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="generate-your-prd"
@@ -159,7 +163,9 @@ export default function ImportPage() {
             findings.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.18}>
         <section className="mt-12">
           <h2
             id="build-with-campaign"
@@ -193,12 +199,14 @@ export default function ImportPage() {
             non-negotiable even in blitz.
           </p>
         </section>
+        </ScrollReveal>
 
         <SpeechBubble agent="Batman" universe="dc">
           I don&apos;t care who wrote the code before me. I test it the same
           way. If it breaks under pressure, I find it.
         </SpeechBubble>
 
+        <ScrollReveal delay={0.2}>
         <section className="mt-12">
           <h2
             id="whats-next"
@@ -240,6 +248,7 @@ export default function ImportPage() {
             project into a growth machine.
           </p>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

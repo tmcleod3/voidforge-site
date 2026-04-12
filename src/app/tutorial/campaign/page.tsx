@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SpeechBubble } from "@/components/speech-bubble";
 
 export const metadata: Metadata = {
@@ -63,6 +64,7 @@ export default function CampaignPage() {
           </p>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="key-flags"
@@ -104,7 +106,9 @@ export default function CampaignPage() {
             mission — maximum coverage when the stakes are high.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="the-campaign-loop"
@@ -146,6 +150,7 @@ export default function CampaignPage() {
             campaign continues until everything is clean.
           </p>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

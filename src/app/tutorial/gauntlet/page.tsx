@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SpeechBubble } from "@/components/speech-bubble";
 
 export const metadata: Metadata = {
@@ -70,6 +71,7 @@ export default function GauntletPage() {
           </p>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="the-5-rounds"
@@ -106,7 +108,9 @@ export default function GauntletPage() {
             scores, and produce the final Gauntlet report.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="gauntlet-modes"
@@ -169,6 +173,7 @@ export default function GauntletPage() {
             launch or when the stakes justify the thoroughness.
           </p>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

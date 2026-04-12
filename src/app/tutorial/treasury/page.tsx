@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { ForgeLabsBanner } from "@/components/forge-labs-banner";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 export const metadata: Metadata = {
   title: "Manage Treasury",
@@ -62,6 +63,7 @@ export default function TreasuryPage() {
           </p>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="connecting-revenue"
@@ -92,7 +94,9 @@ export default function TreasuryPage() {
             models.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="per-project-isolation"
@@ -138,7 +142,9 @@ export default function TreasuryPage() {
             to move existing data.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.18}>
         <section className="mt-12">
           <h2
             id="safety-architecture"
@@ -173,7 +179,9 @@ export default function TreasuryPage() {
             to unfreeze. The nuclear option — but sometimes you need it.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.2}>
         <section className="mt-12">
           <h2
             id="whats-next"
@@ -200,6 +208,7 @@ export default function TreasuryPage() {
             to run campaigns against the budget you just set.
           </p>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SpeechBubble } from "@/components/speech-bubble";
 
 export const metadata: Metadata = {
@@ -57,6 +58,7 @@ export default function ImaginePage() {
           </p>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="key-flags"
@@ -92,7 +94,9 @@ export default function ImaginePage() {
             with the prompt, seed, and file path for every asset.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="gimlis-optimization"
@@ -115,6 +119,7 @@ export default function ImaginePage() {
             optimized for the web, and tracked end-to-end.
           </p>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { CopyButton } from "@/components/copy-button";
 import { TutorialNav } from "@/components/tutorial-nav";
@@ -46,86 +47,87 @@ export default function InstallPage() {
         </SpeechBubble>
 
         <section className="mt-12">
-          <h2
-            id="prerequisites"
-            tabIndex={-1}
-            className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
-          >
-            PREREQUISITES
-          </h2>
-          <ul className="space-y-3 text-[var(--vf-text-muted)]">
-            <li className="flex items-start gap-3">
-              <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
-              <span>
-                <strong className="text-[var(--vf-text)]">Node.js 20+</strong>{" "}
-                — The runtime that powers the forge.{" "}
-                <a
-                  href="https://nodejs.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
-                >
-                  Download from nodejs.org
-                </a>{" "}
-                (LTS recommended). Verify with{" "}
-                <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
-                  node --version
-                </code>
-              </span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
-              <span>
-                <strong className="text-[var(--vf-text)]">Claude Code</strong>{" "}
-                — Anthropic&apos;s coding CLI. This is the engine that runs
-                every agent, every command, every build phase. Install with:{" "}
-                <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
-                  curl -fsSL https://claude.ai/install.sh | bash
-                </code>{" "}
-                then authenticate with your Anthropic API key. See the{" "}
-                <a
-                  href="https://docs.anthropic.com/en/docs/claude-code/overview"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
-                >
-                  Claude Code docs
-                </a>{" "}
-                for details.
-              </span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
-              <span>
-                <strong className="text-[var(--vf-text)]">Git</strong> —
-                Required for version control.{" "}
-                <a
-                  href="https://git-scm.com/downloads"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
-                >
-                  Download from git-scm.com
-                </a>
-                . Verify with{" "}
-                <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
-                  git --version
-                </code>
-              </span>
-            </li>
-          </ul>
+            <h2
+              id="prerequisites"
+              tabIndex={-1}
+              className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
+            >
+              PREREQUISITES
+            </h2>
+            <ul className="space-y-3 text-[var(--vf-text-muted)]">
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
+                <span>
+                  <strong className="text-[var(--vf-text)]">Node.js 20+</strong>{" "}
+                  — The runtime that powers the forge.{" "}
+                  <a
+                    href="https://nodejs.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                  >
+                    Download from nodejs.org
+                  </a>{" "}
+                  (LTS recommended). Verify with{" "}
+                  <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
+                    node --version
+                  </code>
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
+                <span>
+                  <strong className="text-[var(--vf-text)]">Claude Code</strong>{" "}
+                  — Anthropic&apos;s coding CLI. This is the engine that runs
+                  every agent, every command, every build phase. Install with:{" "}
+                  <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
+                    curl -fsSL https://claude.ai/install.sh | bash
+                  </code>{" "}
+                  then authenticate with your Anthropic API key. See the{" "}
+                  <a
+                    href="https://docs.anthropic.com/en/docs/claude-code/overview"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                  >
+                    Claude Code docs
+                  </a>{" "}
+                  for details.
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[var(--vf-neon-green)] mt-1">&#10003;</span>
+                <span>
+                  <strong className="text-[var(--vf-text)]">Git</strong> —
+                  Required for version control.{" "}
+                  <a
+                    href="https://git-scm.com/downloads"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                  >
+                    Download from git-scm.com
+                  </a>
+                  . Verify with{" "}
+                  <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
+                    git --version
+                  </code>
+                </span>
+              </li>
+            </ul>
 
-          <SpeechBubble agent="Kusanagi" universe="anime">
-            Windows? PowerShell works. macOS or Linux? Your default terminal
-            works. One command gets you the whole forge. No git branches, no
-            manual cloning — just npm.
-          </SpeechBubble>
-        </section>
+            <SpeechBubble agent="Kusanagi" universe="anime">
+              Windows? PowerShell works. macOS or Linux? Your default terminal
+              works. One command gets you the whole forge. No git branches, no
+              manual cloning — just npm.
+            </SpeechBubble>
+          </section>
 
-        <section className="mt-12">
-          <h2
-            id="quick-start"
-            tabIndex={-1}
+        <ScrollReveal delay={0.06}>
+          <section className="mt-12">
+            <h2
+              id="quick-start"
+              tabIndex={-1}
             className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6"
           >
             QUICK START
@@ -231,7 +233,9 @@ export default function InstallPage() {
             .
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="platform-install"
@@ -327,7 +331,9 @@ export default function InstallPage() {
             </div>
           </div>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.18}>
         <section className="mt-12">
           <h2
             id="verify-your-tools"
@@ -377,7 +383,9 @@ export default function InstallPage() {
             terminal.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.2}>
         <section className="mt-12">
           <h2
             id="troubleshooting"
@@ -471,6 +479,7 @@ export default function InstallPage() {
             </div>
           </div>
         </section>
+        </ScrollReveal>
 
         <TutorialNav
           prev={{ href: "/tutorial", label: "Tutorial Hub" }}

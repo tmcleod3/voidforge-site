@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SpeechBubble } from "@/components/speech-bubble";
 
 export const metadata: Metadata = {
@@ -74,6 +75,7 @@ export default function LearningsPage() {
           </div>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="the-lifecycle"
@@ -135,7 +137,9 @@ export default function LearningsPage() {
             ))}
           </ol>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="guardrails"
@@ -163,6 +167,7 @@ export default function LearningsPage() {
             Projects that don&apos;t need it get zero overhead.
           </p>
         </section>
+        </ScrollReveal>
 
         <SpeechBubble agent="Sisko" universe="star-trek">
           The Prophets see all timelines at once. Your agents don&apos;t — but
@@ -170,6 +175,7 @@ export default function LearningsPage() {
           That&apos;s the closest thing to prophecy this forge has.
         </SpeechBubble>
 
+        <ScrollReveal delay={0.18}>
         <section className="mt-12">
           <h2
             id="commands-that-use-learnings"
@@ -202,6 +208,7 @@ export default function LearningsPage() {
             ))}
           </div>
         </section>
+        </ScrollReveal>
 
         <div className="mt-12 flex justify-between text-sm">
           <Link

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { ForgeLabsBanner } from "@/components/forge-labs-banner";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 export const metadata: Metadata = {
   title: "Run Growth",
@@ -77,6 +78,7 @@ export default function GrowPage() {
           </ol>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="key-flags"
@@ -128,7 +130,9 @@ export default function GrowPage() {
             you stop it or budget caps are hit.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="the-growth-loop"
@@ -149,6 +153,7 @@ export default function GrowPage() {
             is tracked, and the Treasury reconciles it all at the end of the day.
           </p>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

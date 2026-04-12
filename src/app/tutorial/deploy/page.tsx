@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { TutorialNav } from "@/components/tutorial-nav";
 import { TableOfContents } from "@/components/table-of-contents";
@@ -92,6 +93,7 @@ export default function DeployPage() {
           </p>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="deploy-targets"
@@ -116,7 +118,9 @@ export default function DeployPage() {
             ))}
           </div>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="how-it-works"
@@ -158,7 +162,9 @@ export default function DeployPage() {
             to preview without deploying.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.18}>
         <section className="mt-12">
           <h2
             id="health-check"
@@ -174,7 +180,9 @@ export default function DeployPage() {
             to LAUNCHED.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.2}>
         <section className="mt-12">
           <h2
             id="whats-next"
@@ -201,6 +209,7 @@ export default function DeployPage() {
             to drive users to your deployed product.
           </p>
         </section>
+        </ScrollReveal>
 
         <TutorialNav
           prev={{ href: "/tutorial/first-build", label: "First Build" }}

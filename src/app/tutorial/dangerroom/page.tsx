@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { ForgeLabsBanner } from "@/components/forge-labs-banner";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 export const metadata: Metadata = {
   title: "The Danger Room",
@@ -61,6 +62,7 @@ export default function DangerRoomPage() {
           </p>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="project-dashboard"
@@ -97,7 +99,9 @@ export default function DangerRoomPage() {
             </p>
           </div>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="project-scoped-data"
@@ -131,7 +135,9 @@ export default function DangerRoomPage() {
             Think of it as mission control — per mission.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.18}>
         <section className="mt-12">
           <h2
             id="whats-next"
@@ -160,6 +166,7 @@ export default function DangerRoomPage() {
             to stress-test everything before real users arrive.
           </p>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

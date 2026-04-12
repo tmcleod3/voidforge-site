@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { CopyButton } from "@/components/copy-button";
 
@@ -81,6 +82,7 @@ export default function WizardPage() {
           </p>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="start-the-wizard"
@@ -110,7 +112,9 @@ export default function WizardPage() {
             conversation. No blank-page problem. No YAML by hand.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="remote-access"
@@ -233,6 +237,7 @@ export default function WizardPage() {
             </ul>
           </div>
         </section>
+        </ScrollReveal>
 
         <SpeechBubble agent="Picard" universe="star-trek">
           The wizard handles orientation. Once your PRD is generated, I take
@@ -241,6 +246,7 @@ export default function WizardPage() {
           phases. They understand you.
         </SpeechBubble>
 
+        <ScrollReveal delay={0.18}>
         <section className="mt-12">
           <h2
             id="project-dashboard"
@@ -262,7 +268,9 @@ export default function WizardPage() {
             cross-project data leakage.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.2}>
         <section className="mt-12">
           <h2
             id="build-and-deploy"
@@ -324,12 +332,14 @@ export default function WizardPage() {
             etc.
           </p>
         </section>
+        </ScrollReveal>
 
         <SpeechBubble agent="Kusanagi" universe="anime">
           Name your target. I handle the rest — DNS, SSL, monitoring, backups.
           You handle the launch party.
         </SpeechBubble>
 
+        <ScrollReveal delay={0.2}>
         <section className="mt-12">
           <h2
             id="whats-next"
@@ -361,6 +371,7 @@ export default function WizardPage() {
             end on day one.
           </p>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

@@ -67,6 +67,19 @@ export function Header() {
               </Link>
             ))}
             <Search />
+            <Link
+              href="/tutorial/install"
+              className={cn(
+                "ml-1 px-3 py-1.5 text-sm font-medium rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]",
+                pathname === "/tutorial/install"
+                  ? "border border-[var(--vf-forge-orange)] text-[var(--vf-forge-orange)] bg-transparent"
+                  : "bg-[var(--vf-forge-orange)] text-[var(--vf-void)] hover:bg-[var(--vf-forge-yellow)]"
+              )}
+              aria-current={pathname === "/tutorial/install" ? "page" : undefined}
+              onClick={() => trackEvent("get_started_click", { location: "nav" })}
+            >
+              Get Started
+            </Link>
             <a
               href="https://github.com/tmcleod3/voidforge"
               target="_blank"
@@ -124,13 +137,29 @@ export function Header() {
           <div className="py-2">
             <Search />
           </div>
+          <Link
+            href="/tutorial/install"
+            className={cn(
+              "block px-3 py-2 text-base font-medium rounded-md transition-colors text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]",
+              pathname === "/tutorial/install"
+                ? "border border-[var(--vf-forge-orange)] text-[var(--vf-forge-orange)] bg-transparent"
+                : "bg-[var(--vf-forge-orange)] text-[var(--vf-void)] hover:bg-[var(--vf-forge-yellow)]"
+            )}
+            aria-current={pathname === "/tutorial/install" ? "page" : undefined}
+            onClick={() => {
+              trackEvent("get_started_click", { location: "mobile_nav" });
+              closeMobile();
+            }}
+          >
+            Get Started
+          </Link>
           <a
             href="https://github.com/tmcleod3/voidforge"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-3 py-2 text-base font-medium text-[var(--vf-text-muted)] hover:text-[var(--vf-text)] hover:bg-[var(--vf-surface-raised)] rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
             aria-label="View source on GitHub (opens in new tab)"
-            onClick={() => trackEvent("github_click", { location: "nav" })}
+            onClick={() => trackEvent("github_click", { location: "mobile_nav" })}
           >
             <Github className="h-5 w-5" />
             GitHub

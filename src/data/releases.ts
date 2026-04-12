@@ -1227,17 +1227,30 @@ export const shipped: Release[] = [
       "Haku (Deploy Wizard) and Gandalf (Setup Wizard) added to Team roster — 20 leads total",
     ],
   },
+  {
+    version: "v23.3.0",
+    date: "2026-04-10",
+    title: "The Tempering",
+    headline: "599 new tests. 17 orphans purged. 9 oversized files split into 25 focused modules. The forge proves its own correctness.",
+    items: [
+      "599 new tests across the codebase (741→1340 total, 77% coverage)",
+      "17 orphan files purged — unused code identified and removed",
+      "9 oversized files split into 25 focused modules",
+      "Field report #297 learnings triaged into 4 agent definitions",
+      "Distribution verification gate added (BUILD_PROTOCOL Phase 12.75)",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [
   {
     version: "v24.0",
-    title: "The Coverage",
+    title: "The Convergence",
     opacity: 1,
     items: [
-      "Test coverage campaign for 48 untested modules",
-      "Refactoring treasury-heartbeat.ts (1,444 lines → focused modules)",
-      "lessons-global.json implementation (cross-project memory)",
+      "Cross-project memory — lessons-global.json shared across all VoidForge projects",
+      "Methodology compatibility matrix — version range contracts between agents, patterns, and commands",
+      "Agent performance baselines — per-agent metrics from campaign history to guide model routing",
     ],
   },
   {

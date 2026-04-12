@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
-import { TrackedLink } from "@/components/tracked-link";
+import { CtaButton } from "@/components/cta-button";
 
 export const metadata: Metadata = {
   title: "About",
@@ -76,57 +76,12 @@ export default function AboutPage() {
               You&apos;re reading the result.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a
-                href="https://substack.com/@tmcleod"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 bg-[var(--vf-forge-orange)] text-black font-bold rounded-md hover:bg-[var(--vf-forge-yellow)] transition-colors text-sm"
-              >
-                SUBSTACK
-              </a>
-              <TrackedLink
-                href="https://www.linkedin.com/in/tmcleod3/"
-                event="linkedin_click"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 border-2 border-[var(--vf-border)] text-[var(--vf-text)] font-bold rounded-md hover:border-[var(--vf-forge-orange)] transition-colors text-sm"
-              >
-                LINKEDIN
-              </TrackedLink>
-              <a
-                href="https://x.com/tmcleod3"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 border-2 border-[var(--vf-border)] text-[var(--vf-text)] font-bold rounded-md hover:border-[var(--vf-forge-orange)] transition-colors text-sm"
-              >
-                X
-              </a>
-              <a
-                href="https://www.threads.com/@tmcleod"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 border-2 border-[var(--vf-border)] text-[var(--vf-text)] font-bold rounded-md hover:border-[var(--vf-forge-orange)] transition-colors text-sm"
-              >
-                THREADS
-              </a>
-              <a
-                href="https://www.instagram.com/tmcleod/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 border-2 border-[var(--vf-border)] text-[var(--vf-text)] font-bold rounded-md hover:border-[var(--vf-forge-orange)] transition-colors text-sm"
-              >
-                INSTAGRAM
-              </a>
-              <TrackedLink
-                href="https://github.com/tmcleod3/voidforge"
-                event="github_click"
-                eventProps={{ location: "about" }}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 border-2 border-[var(--vf-border)] text-[var(--vf-text)] font-bold rounded-md hover:border-[var(--vf-forge-orange)] transition-colors text-sm"
-              >
-                VIEW THE SOURCE
-              </TrackedLink>
+              <CtaButton href="https://substack.com/@tmcleod" size="sm">SUBSTACK</CtaButton>
+              <CtaButton href="https://www.linkedin.com/in/tmcleod3/" size="sm" variant="ghost" event="linkedin_click">LINKEDIN</CtaButton>
+              <CtaButton href="https://x.com/tmcleod3" size="sm" variant="ghost">X</CtaButton>
+              <CtaButton href="https://www.threads.com/@tmcleod" size="sm" variant="ghost">THREADS</CtaButton>
+              <CtaButton href="https://www.instagram.com/tmcleod/" size="sm" variant="ghost">INSTAGRAM</CtaButton>
+              <CtaButton href="https://github.com/tmcleod3/voidforge" size="sm" variant="ghost" event="github_click" eventProps={{ location: "about" }}>VIEW THE SOURCE</CtaButton>
             </div>
           </article>
 

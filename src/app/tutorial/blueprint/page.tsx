@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SpeechBubble } from "@/components/speech-bubble";
 
 export const metadata: Metadata = {
@@ -109,6 +110,7 @@ export default function BlueprintPage() {
           </p>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="drop-your-spec"
@@ -154,6 +156,7 @@ export default function BlueprintPage() {
             </li>
           </ul>
         </section>
+        </ScrollReveal>
 
         <SpeechBubble agent="Wong" universe="marvel">
           I scan every corner of docs/ for supporting material. ADRs, directives,
@@ -161,6 +164,7 @@ export default function BlueprintPage() {
           build smarter. Drop it in docs/ and I&apos;ll find it.
         </SpeechBubble>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="run-blueprint"
@@ -253,7 +257,9 @@ export default function BlueprintPage() {
             </li>
           </ol>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.18}>
         <section className="mt-12">
           <h2
             id="the-challenge"
@@ -279,6 +285,7 @@ export default function BlueprintPage() {
             You can accept challenges (edit PRD) or override (proceed as-is).
           </p>
         </section>
+        </ScrollReveal>
 
         <SpeechBubble agent="Boromir" universe="tolkien">
           One does not simply ship a PRD without questioning it. I find the
@@ -287,6 +294,7 @@ export default function BlueprintPage() {
           to argue now than debug later.
         </SpeechBubble>
 
+        <ScrollReveal delay={0.2}>
         <section className="mt-12">
           <h2
             id="build-and-deploy"
@@ -318,6 +326,7 @@ export default function BlueprintPage() {
             When complete, Kusanagi deploys.
           </p>
         </section>
+        </ScrollReveal>
 
         <SpeechBubble agent="Kusanagi" universe="anime">
           Picard validated your spec. Wong loaded your docs. Boromir argued and
@@ -325,6 +334,7 @@ export default function BlueprintPage() {
           metal. Your blueprint becomes infrastructure.
         </SpeechBubble>
 
+        <ScrollReveal delay={0.2}>
         <section className="mt-12">
           <h2
             id="whats-next"
@@ -377,6 +387,7 @@ export default function BlueprintPage() {
             conversation.
           </p>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

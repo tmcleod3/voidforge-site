@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 export const metadata: Metadata = {
   title: "Full Lifecycle with Kongo: /cultivation + SaaS + Google Ads + Landing Pages",
@@ -59,6 +60,7 @@ export default function GoogleAdsKongoPage() {
         </section>
 
         {/* === PHASE 0: CULTIVATION WITH KONGO === */}
+        <ScrollReveal delay={0.06}>
         <section className="mt-16">
           <h2 id="phase-0" tabIndex={-1} className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
             PHASE 0: /CULTIVATION INSTALL
@@ -102,8 +104,10 @@ export default function GoogleAdsKongoPage() {
             </ul>
           </div>
         </section>
+        </ScrollReveal>
 
         {/* === PHASE 3.5: KONGO PAGE GENERATION === */}
+        <ScrollReveal delay={0.12}>
         <section className="mt-16">
           <h2 id="phase-3-5" tabIndex={-1} className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
             PHASE 3.5: KONGO PAGE GENERATION
@@ -186,8 +190,10 @@ export default function GoogleAdsKongoPage() {
             <strong className="text-[var(--vf-forge-orange)]">Gate:</strong> All 3 pages must reach READY status before Phase 4. Blocks with polling if any page is still generating.
           </p>
         </section>
+        </ScrollReveal>
 
         {/* === WAYNE'S 3-LAYER TESTING === */}
+        <ScrollReveal delay={0.18}>
         <section className="mt-16">
           <h2 id="testing" tabIndex={-1} className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
             WAYNE&apos;S THREE TEST LAYERS
@@ -215,8 +221,10 @@ export default function GoogleAdsKongoPage() {
             Each layer builds on the last.
           </SpeechBubble>
         </section>
+        </ScrollReveal>
 
         {/* === GROWTH SIGNAL === */}
+        <ScrollReveal delay={0.2}>
         <section className="mt-16">
           <h2 id="growth-signal" tabIndex={-1} className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
             GROWTH SIGNAL COMPUTATION
@@ -257,8 +265,10 @@ export default function GoogleAdsKongoPage() {
             </table>
           </div>
         </section>
+        </ScrollReveal>
 
         {/* === WEEKLY FEEDBACK LOOP === */}
+        <ScrollReveal delay={0.2}>
         <section className="mt-16">
           <h2 id="feedback-loop" tabIndex={-1} className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
             THE WEEKLY FEEDBACK LOOP
@@ -287,8 +297,10 @@ export default function GoogleAdsKongoPage() {
             </ul>
           </div>
         </section>
+        </ScrollReveal>
 
         {/* === FULL DATA FLOW === */}
+        <ScrollReveal delay={0.2}>
         <section className="mt-16">
           <h2 id="data-flow" tabIndex={-1} className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
             THE FULL DATA FLOW
@@ -332,8 +344,10 @@ A/B DECISIONS            CIRCUIT BREAKERS
 KONGO-SEED JOB ──> NEXT CYCLE SEED ──> NEW PAGES ──> ...`}
           </div>
         </section>
+        </ScrollReveal>
 
         {/* === COMPARISON TABLE === */}
+        <ScrollReveal delay={0.2}>
         <section className="mt-16">
           <h2 id="comparison" tabIndex={-1} className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
             WHAT KONGO CHANGES
@@ -367,8 +381,10 @@ KONGO-SEED JOB ──> NEXT CYCLE SEED ──> NEW PAGES ──> ...`}
             </table>
           </div>
         </section>
+        </ScrollReveal>
 
         {/* === SELF-MARKETING: THE /lp/ ROUTE === */}
+        <ScrollReveal delay={0.2}>
         <section className="mt-16">
           <h2 id="lp-route" tabIndex={-1} className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
             SELF-MARKETING: THE /LP/ ROUTE
@@ -410,8 +426,10 @@ KONGO-SEED JOB ──> NEXT CYCLE SEED ──> NEW PAGES ──> ...`}
             </p>
           </div>
         </section>
+        </ScrollReveal>
 
         {/* === MINIMUM VIABLE === */}
+        <ScrollReveal delay={0.2}>
         <section className="mt-16">
           <h2 id="setup" tabIndex={-1} className="font-[family-name:var(--font-bangers)] text-3xl tracking-wider text-[var(--vf-text)] mb-6">
             MINIMUM VIABLE WITH KONGO
@@ -434,6 +452,7 @@ KONGO-SEED JOB ──> NEXT CYCLE SEED ──> NEW PAGES ──> ...`}
             Total Kongo cost: ~$0.01 per 5 variants. 3-campaign setup with weekly refreshes: <strong className="text-[var(--vf-text)]">~$0.12/month</strong> in variant generation. Landing pages included in your Kongo plan.
           </p>
         </section>
+        </ScrollReveal>
 
         <SpeechBubble agent="Kelsier" universe="cosmere">
           That&apos;s the full-funnel heist. PRD seed &rarr; Kongo pages &rarr; Google Ads &rarr;

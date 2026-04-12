@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 export const metadata: Metadata = {
   title: "Full Lifecycle: /cultivation + SaaS + Google Ads",
@@ -65,6 +66,7 @@ export default function GoogleAdsLifecyclePage() {
         </section>
 
         {/* === PHASE 0: CULTIVATION === */}
+        <ScrollReveal delay={0.06}>
         <section className="mt-16">
           <h2
             id="phase-0"
@@ -106,8 +108,10 @@ export default function GoogleAdsLifecyclePage() {
             <strong className="text-[var(--vf-text)]">Output:</strong> Vault created, daemon running, dashboard at localhost:3141/danger-room#growth
           </p>
         </section>
+        </ScrollReveal>
 
         {/* === PHASE 1: GOOGLE ADS SETUP === */}
+        <ScrollReveal delay={0.12}>
         <section className="mt-16">
           <h2
             id="phase-1"
@@ -152,8 +156,10 @@ export default function GoogleAdsLifecyclePage() {
             </p>
           </div>
         </section>
+        </ScrollReveal>
 
         {/* === PHASE 2: GROW PHASES 1-3 === */}
+        <ScrollReveal delay={0.18}>
         <section className="mt-16">
           <h2
             id="phase-2"
@@ -183,8 +189,10 @@ export default function GoogleAdsLifecyclePage() {
             with 6 A/B variants. If not connected, campaigns use your homepage. Either way works.
           </SpeechBubble>
         </section>
+        </ScrollReveal>
 
         {/* === PHASE 3: CAMPAIGN BUILD === */}
+        <ScrollReveal delay={0.2}>
         <section className="mt-16">
           <h2
             id="phase-3"
@@ -223,8 +231,10 @@ export default function GoogleAdsLifecyclePage() {
             Creative variants: 3 headlines &times; 2 descriptions = 6 combinations per ad group, A/B tested.
           </p>
         </section>
+        </ScrollReveal>
 
         {/* === AUTONOMOUS OPERATION === */}
+        <ScrollReveal delay={0.2}>
         <section className="mt-16">
           <h2
             id="autonomous"
@@ -265,8 +275,10 @@ export default function GoogleAdsLifecyclePage() {
             </table>
           </div>
         </section>
+        </ScrollReveal>
 
         {/* === MONEY FLOW === */}
+        <ScrollReveal delay={0.2}>
         <section className="mt-16">
           <h2
             id="money-flow"
@@ -302,8 +314,10 @@ export default function GoogleAdsLifecyclePage() {
             </ul>
           </div>
         </section>
+        </ScrollReveal>
 
         {/* === MINIMUM VIABLE SETUP === */}
+        <ScrollReveal delay={0.2}>
         <section className="mt-16">
           <h2
             id="setup"
@@ -362,8 +376,10 @@ export default function GoogleAdsLifecyclePage() {
             </div>
           </div>
         </section>
+        </ScrollReveal>
 
         {/* === FAILURE MODES === */}
+        <ScrollReveal delay={0.2}>
         <section className="mt-16">
           <h2
             id="failures"
@@ -399,6 +415,7 @@ export default function GoogleAdsLifecyclePage() {
             </table>
           </div>
         </section>
+        </ScrollReveal>
 
         <SpeechBubble agent="Dockson" universe="cosmere">
           That&apos;s the full lifecycle — from a deployed SaaS site to autonomous Google Ads

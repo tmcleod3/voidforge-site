@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import Link from "next/link";
+import { CtaButton } from "@/components/cta-button";
 import { display } from "@/data/stats";
 
 export function Hero() {
@@ -75,12 +75,9 @@ export function Hero() {
           transition={{ delay: 0.9, duration: 0.5 }}
           className="mt-8"
         >
-          <Link
-            href="/tutorial"
-            className="inline-block px-8 py-3 bg-[var(--vf-forge-orange)] text-black font-bold text-lg rounded-md hover:bg-[var(--vf-forge-yellow)] transition-colors font-[family-name:var(--font-bangers)] tracking-wider"
-          >
+          <CtaButton href="/tutorial" size="lg" className="font-[family-name:var(--font-bangers)] tracking-wider">
             FORGE YOUR FIRST APP &rarr;
-          </Link>
+          </CtaButton>
         </motion.div>
 
         {/* Scroll affordance */}

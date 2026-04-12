@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SpeechBubble } from "@/components/speech-bubble";
 
 export const metadata: Metadata = {
@@ -49,6 +50,7 @@ export default function PrdPage() {
           </p>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="the-5-act-interview"
@@ -78,7 +80,9 @@ export default function PrdPage() {
             answer maps directly to a PRD field.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="using-challenge"
@@ -106,6 +110,7 @@ export default function PrdPage() {
             out battle-hardened — and your campaign starts on solid ground.
           </p>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

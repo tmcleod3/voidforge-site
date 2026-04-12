@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { ForgeLabsBanner } from "@/components/forge-labs-banner";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 export const metadata: Metadata = {
   title: "Install Cultivation",
@@ -62,6 +63,7 @@ export default function CultivationPage() {
           </div>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="what-gets-installed"
@@ -112,7 +114,9 @@ export default function CultivationPage() {
             </li>
           </ul>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="safety-tiers"
@@ -150,7 +154,9 @@ export default function CultivationPage() {
             </p>
           </div>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.18}>
         <section className="mt-12">
           <h2
             id="per-project-scoping"
@@ -179,7 +185,9 @@ export default function CultivationPage() {
             state are per-project.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.2}>
         <section className="mt-12">
           <h2
             id="whats-next"
@@ -213,6 +221,7 @@ export default function CultivationPage() {
             .
           </p>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

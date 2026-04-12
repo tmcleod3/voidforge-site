@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.6.0] - 2026-04-12
+
+### Added
+- **CtaButton shared component** (ADR-017) — 3 sizes (sm/md/lg), 3 variants (solid/outline/ghost), built-in analytics via serializable `event`/`eventProps` props. RSC-safe.
+- **"Get Started" nav CTA** (ADR-019) — orange button in desktop + mobile nav linking to /tutorial/install, with outline active state and `aria-current` when on that page
+- **ScrollReveal on 18 tutorial pages** (ADR-018) — staggered scroll-triggered reveals below the fold, above-fold content renders instantly
+- **v23.3.0 "The Tempering"** release entry on /prophecy — 599 tests, 17 orphans purged, 9 files split
+- **5 release data integrity tests** — unique versions, chronological order, required fields, unique futures, no title collisions
+- **3 ADRs** — shared CTA button (017), ScrollReveal content strategy (018), nav CTA active state (019)
+
+### Changed
+- **14 CTAs unified** — hero, 404, error, and about page CTAs migrated from hand-rolled styles to CtaButton. All now have consistent `focus-visible` rings.
+- **ScrollReveal reduced-motion** — `duration: 0` under `prefers-reduced-motion` (was functionally benign no-op but now explicit)
+- **v24.0 future entry** renamed from stale "The Coverage" to "The Convergence" with updated items
+- **Mobile GitHub analytics** — `location: "nav"` corrected to `"mobile_nav"`
+
+### Fixed
+- **WCAG 2.3.3** — `scrollIntoView({ behavior: "smooth" })` in table-of-contents now respects `prefers-reduced-motion`, using `"instant"` when preferred
+- **CTA a11y** — "Get Started" now announces `aria-current="page"` on /tutorial/install and switches to outline variant
+
+### Removed
+- **TrackedLink component** — dead code after CtaButton migration absorbed its functionality
+
+---
+
 ## [Site v2.5.0] - 2026-04-10
 
 ### Added

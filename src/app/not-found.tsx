@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { CtaButton } from "@/components/cta-button";
 import { RandomQuote } from "@/components/random-quote";
 
 export default function NotFound() {
@@ -16,25 +16,10 @@ export default function NotFound() {
           This page doesn&apos;t exist — but from nothing, everything. Perhaps
           you meant to visit:
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center [&>a]:w-full [&>a]:sm:w-48 [&>a]:text-center">
-          <Link
-            href="/"
-            className="px-6 py-3 bg-[var(--vf-forge-orange)] text-black font-bold rounded-md hover:bg-[var(--vf-forge-yellow)] transition-colors"
-          >
-            THE LANDING PAGE
-          </Link>
-          <Link
-            href="/tutorial"
-            className="px-6 py-3 border-2 border-[var(--vf-border)] text-[var(--vf-text)] font-bold rounded-md hover:border-[var(--vf-forge-orange)] transition-colors"
-          >
-            THE TUTORIAL
-          </Link>
-          <Link
-            href="/agents"
-            className="px-6 py-3 border-2 border-[var(--vf-border)] text-[var(--vf-text)] font-bold rounded-md hover:border-[var(--vf-forge-orange)] transition-colors"
-          >
-            THE AGENTS
-          </Link>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center [&>*]:w-full [&>*]:sm:w-48 [&>*]:text-center">
+          <CtaButton href="/" size="lg">THE LANDING PAGE</CtaButton>
+          <CtaButton href="/tutorial" size="lg" variant="ghost">THE TUTORIAL</CtaButton>
+          <CtaButton href="/agents" size="lg" variant="ghost">THE AGENTS</CtaButton>
         </div>
       </div>
     </div>

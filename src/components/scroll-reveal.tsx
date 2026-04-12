@@ -18,7 +18,7 @@ export function ScrollReveal({ children, delay = 0, className }: ScrollRevealPro
       initial={shouldReduceMotion ? {} : { y: 20, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ delay, duration: 0.4, ease: "easeOut" }}
+      transition={shouldReduceMotion ? { duration: 0 } : { delay, duration: 0.4, ease: "easeOut" }}
     >
       {children}
     </motion.div>

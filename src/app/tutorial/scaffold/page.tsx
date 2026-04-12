@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { CopyButton } from "@/components/copy-button";
 
@@ -66,6 +67,7 @@ export default function ScaffoldPage() {
           </p>
         </section>
 
+        <ScrollReveal delay={0.06}>
         <section className="mt-12">
           <h2
             id="write-your-prd"
@@ -121,6 +123,7 @@ export default function ScaffoldPage() {
             the agents can execute against.
           </p>
         </section>
+        </ScrollReveal>
 
         <SpeechBubble agent="Sisko" universe="star-trek">
           Once your PRD is in place, I run the war.{" "}
@@ -131,6 +134,7 @@ export default function ScaffoldPage() {
           built project.
         </SpeechBubble>
 
+        <ScrollReveal delay={0.12}>
         <section className="mt-12">
           <h2
             id="run-the-campaign"
@@ -156,7 +160,9 @@ export default function ScaffoldPage() {
             to pause between missions.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.18}>
         <section className="mt-12">
           <h2
             id="review-and-ship"
@@ -200,7 +206,9 @@ export default function ScaffoldPage() {
             for the full workflow.
           </p>
         </section>
+        </ScrollReveal>
 
+        <ScrollReveal delay={0.2}>
         <section className="mt-12">
           <h2
             id="whats-next"
@@ -238,6 +246,7 @@ export default function ScaffoldPage() {
             end on day one.
           </p>
         </section>
+        </ScrollReveal>
       </div>
     </div>
   );

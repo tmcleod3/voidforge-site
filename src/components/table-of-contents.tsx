@@ -22,7 +22,8 @@ export function TableOfContents({ items }: TableOfContentsProps) {
     setOpen(false);
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView({ behavior: prefersReduced ? "instant" : "smooth", block: "start" });
       el.focus({ preventScroll: true });
     }
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { CtaButton } from "@/components/cta-button";
 
 export default function Error({
   reset,
@@ -22,19 +22,8 @@ export default function Error({
           safe ground.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button
-            type="button"
-            onClick={reset}
-            className="px-6 py-3 bg-[var(--vf-forge-orange)] text-black font-bold rounded-md hover:bg-[var(--vf-forge-yellow)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
-          >
-            TRY AGAIN
-          </button>
-          <Link
-            href="/"
-            className="px-6 py-3 border-2 border-[var(--vf-border)] text-[var(--vf-text)] font-bold rounded-md hover:border-[var(--vf-forge-orange)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
-          >
-            THE LANDING PAGE
-          </Link>
+          <CtaButton size="lg" onClick={reset}>TRY AGAIN</CtaButton>
+          <CtaButton href="/" size="lg" variant="ghost">THE LANDING PAGE</CtaButton>
         </div>
       </div>
     </div>
