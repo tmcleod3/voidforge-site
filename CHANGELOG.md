@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.9.0] - 2026-04-12
+
+### Added
+- **Silver Surfer** (agent #264) — Herald pre-scan dispatch, Haiku scout tier, Marvel universe
+- **7 release entries** on /prophecy — v23.5.1 through v23.6.1
+- **"INTELLIGENT DISPATCH" feature card** on homepage — Silver Surfer + --focus flag, completing 3x3 grid
+- **stats.ts expansion** — `totalMethodDocs` (29), `totalADRs` (48), with display strings
+- **ADR-021** — v23.6.0 Site Accuracy Sync architecture decision
+- **SpeechBubble ScrollReveal animations** across 11 pages (ADR-018: first bubble instant, subsequent staggered)
+- **Agent dispatch tip** on first-build tutorial — Silver Surfer + --focus callout
+- **--focus flag** mentioned in campaign tutorial key flags section
+
+### Changed
+- **Methodology synced** to v23.6.1 — 26 files (agent defs, commands, method docs)
+- **Agents page hero** — "243+ sub-agents" → "264+ agents across 9 universes"
+- **Scout tier** — 38 → 39 (Silver Surfer added)
+- **About page** — "1,340+ tests" → "1,384 tests", ADR/method doc counts, "141+ pages"
+- **Commands page dispatch note** — Herald + --focus flag mention replaces v23.0 text
+- **Pattern count** — v19.3.0 release note "40 total" → "37 total" (corrected historical error)
+- **Agent registry count** — "263 agents" → "264 agents" in v23.5.0 release note
+
+---
+
 ## [Site v2.8.0] - 2026-04-12
 
 ### Changed

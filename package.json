@@ -1,6 +1,6 @@
 {
   "name": "voidforge-site",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "description": "Marketing site for VoidForge — the AI agent methodology framework",
   "private": true,
   "engines": {

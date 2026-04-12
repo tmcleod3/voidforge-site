@@ -1,19 +1,19 @@
 # ROADMAP — VoidForge Marketing Site
 
-## v13 — The Silver Surfer Sync (2026-04-12)
+## v13 — The Silver Surfer Sync (COMPLETE — 2026-04-12)
 
 v23.6.0 methodology sync + 34-finding site accuracy audit + speech bubble animations. ADR-021.
 
 | Mission | Name | Status | Scope | Findings |
 |---------|------|--------|-------|----------|
-| 1 | The Upstream Sync | PENDING | /void sync v23.5.4 + v23.6.0 + v23.6.1, add Silver Surfer agent definition (#264), update VERSION.md. v23.6.1 propagates 264-agent count across command/method files. | — |
-| 2 | The Silver Surfer | PENDING | Add Silver Surfer to agents.ts (Marvel, scout/Haiku), update tier breakdown (38→39 scouts), add to releases.ts (v23.5.4 + v23.6.0 entries) | F-11 |
-| 3 | The Herald Feature | PENDING | Add Herald intelligent dispatch to homepage (feature card or hero callout), feature --focus flag on commands overview + tutorial pages, add Silver Surfer CLI bridge mention | F-15, F-16 |
-| 4 | The Numbers Pass | PENDING | Fix about page "1,340+" → "1,384" tests, fix releases.ts "40 total" → "37" patterns, add ADR count (48) to about/prophecy, add method docs count (29) to stats.ts, agents page hero text: sub-agents → total agents | F-12, F-13, F-14, F-18 |
-| 5 | The Prophecy Update | PENDING | Add v23.5.1-v23.6.0 release entries, verify per-universe agent counts (Cosmere/Foundation/Anime), update prophecy timeline with Herald era features | F-19–F-23, F-31 |
-| 6 | The Animation Pass | PENDING | Wrap SpeechBubble instances in ScrollReveal across ~30 pages per ADR-021 §6 (first bubble: no animation per ADR-018, subsequent: staggered delays) | — |
-| 7 | The Verification | PENDING | Pattern page URL audit (Finding 34), test all changes, typecheck, build verification, verify 141+ pages generate | F-34 |
-| 8 | The Chronicle | PENDING | ROADMAP, CHANGELOG, CAMPAIGN-STATE archive, version bump (2.9.0), deploy | — |
+| 1 | The Upstream Sync | COMPLETE | /void sync v23.5.4 + v23.6.0 + v23.6.1, add Silver Surfer agent definition (#264), update VERSION.md. v23.6.1 propagates 264-agent count across command/method files. | — |
+| 2 | The Silver Surfer | COMPLETE | Add Silver Surfer to agents.ts (Marvel, scout/Haiku), update tier breakdown (38→39 scouts), add to releases.ts (v23.5.4 + v23.6.0 entries) | F-11 |
+| 3 | The Herald Feature | COMPLETE | Add Herald intelligent dispatch to homepage (feature card or hero callout), feature --focus flag on commands overview + tutorial pages, add Silver Surfer CLI bridge mention | F-15, F-16 |
+| 4 | The Numbers Pass | COMPLETE | Fix about page "1,340+" → "1,384" tests, fix releases.ts "40 total" → "37" patterns, add ADR count (48) to about/prophecy, add method docs count (29) to stats.ts, agents page hero text: sub-agents → total agents | F-12, F-13, F-14, F-18 |
+| 5 | The Prophecy Update | COMPLETE | Add v23.5.1-v23.6.0 release entries, verify per-universe agent counts (Cosmere/Foundation/Anime), update prophecy timeline with Herald era features | F-19–F-23, F-31 |
+| 6 | The Animation Pass | COMPLETE | Wrap SpeechBubble instances in ScrollReveal across ~30 pages per ADR-021 §6 (first bubble: no animation per ADR-018, subsequent: staggered delays) | — |
+| 7 | The Verification | COMPLETE | Pattern page URL audit (Finding 34), test all changes, typecheck, build verification, verify 141+ pages generate | F-34 |
+| 8 | The Chronicle | COMPLETE | ROADMAP, CHANGELOG, CAMPAIGN-STATE archive, version bump (2.9.0), deploy | — |
 
 ### Detail
 
