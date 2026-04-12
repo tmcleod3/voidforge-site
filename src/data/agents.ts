@@ -493,6 +493,7 @@ export const subAgents: SubAgent[] = [
   { name: "Loki", role: "Chaos testing — the trickster who finds exploits", universe: "marvel" },
   { name: "Lang", role: "Tiny changes with big impact — Ant-Man", universe: "marvel" },
   { name: "Friday", role: "AI assistant — automation and monitoring", universe: "marvel" },
+  { name: "Silver Surfer", role: "Herald pre-scan dispatch — reads codebase, selects optimal agent roster", universe: "marvel" },
   // DC
   { name: "Oracle", role: "Test coverage analysis", universe: "dc" },
   { name: "Red Hood", role: "Error path testing", universe: "dc" },

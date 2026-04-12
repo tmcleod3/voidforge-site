@@ -21,6 +21,7 @@ import {
   universes,
   type Universe,
 } from "@/data/agents";
+import { stats } from "@/data/stats";
 
 const universeEmblems: Record<Universe, React.ReactNode> = {
   tolkien: <Sword className="w-4 h-4" />,
@@ -37,7 +38,7 @@ const universeEmblems: Record<Universe, React.ReactNode> = {
 export const metadata: Metadata = {
   title: "Agents",
   description:
-    `Meet the Council: ${leadAgents.length} lead agents across ${universes.length} fictional universes, commanding ${subAgents.length}+ sub-agents.`,
+    `Meet the Council: ${stats.totalAgents}+ agents across ${universes.length} fictional universes.`,
   alternates: { canonical: "/agents" },
 };
 
@@ -46,7 +47,7 @@ export default function AgentsPage() {
     <>
       <PageHeader
         title="THE COUNCIL"
-        subtitle={`${leadAgents.length} lead agents. ${universes.length} universes. ${subAgents.length}+ sub-agents. Flip a card to meet them.`}
+        subtitle={`${stats.totalAgents}+ agents across ${universes.length} universes. Flip a card to meet them.`}
       />
 
       <section className="px-4 pb-12">
@@ -95,7 +96,7 @@ export default function AgentsPage() {
               </div>
               <div className="p-3 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
                 <p className="font-[family-name:var(--font-bangers)] text-2xl text-[var(--vf-text-muted)]">
-                  38
+                  39
                 </p>
                 <p className="text-[10px] text-[var(--vf-text-muted)] uppercase tracking-wider">
                   Scouts (Haiku)

@@ -1040,7 +1040,7 @@ export const shipped: Release[] = [
       "4 testing anti-patterns documented — error format migration, source-code string assertions, standalone test handlers, version-agnostic assertions",
       "HTML sanitizer preservation — DOMPurify client-fallback detection for JSX with React hooks",
       "Schema.sql sync gate in Phase 12 — IF NOT EXISTS post-processing, reference file freshness",
-      "5 new patterns documented: ad-billing-adapter, funding-plan, stablecoin-adapter, browser-review, e2e-test (40 total)",
+      "5 new patterns documented: ad-billing-adapter, funding-plan, stablecoin-adapter, browser-review, e2e-test (37 total)",
     ],
   },
   {
@@ -1286,10 +1286,72 @@ export const shipped: Release[] = [
     headline: "The forge learns to choose its own team. Haiku pre-scans your code, matches it against 40 agent tags, and deploys the optimal roster. Intelligent dispatch.",
     items: [
       "Herald intelligent agent dispatch — Haiku pre-scan selects optimal agent roster",
-      "Agent registry with 40 descriptive tags across 263 agents",
+      "Agent registry with 40 descriptive tags across 264 agents",
       "--focus flag for biasing agent selection toward a topic",
       "14 commands wired with Herald dispatch",
       "ADR-047: Intelligent Agent Dispatch architecture",
+    ],
+  },
+  {
+    version: "v23.5.1",
+    date: "2026-04-12",
+    title: "The Safety Net",
+    headline: "CLI self-upgrade fix, /void write-target safety.",
+    items: [
+      "Fix CLI self-upgrade: wrong package name (voidforge → thevoidforge) + stale npx cache on re-exec",
+      "/void auto-cleanup ~/.claude/ duplicates + git init stack trace fix",
+    ],
+  },
+  {
+    version: "v23.5.2",
+    date: "2026-04-12",
+    title: "The Reference Fix",
+    headline: "201 subagent_type reference fixes, /campaign as default start command.",
+    items: [
+      "Fix 201 broken subagent_type refs (filename IDs → YAML names)",
+      "/campaign established as the default entry command",
+    ],
+  },
+  {
+    version: "v23.5.3",
+    date: "2026-04-12",
+    title: "The Sync Patch",
+    headline: "Methodology-site accuracy sync, retired flag cleanup.",
+    items: [
+      "Retired --blitz, --muster, --infinity flag references cleaned across tutorials",
+      "/build → /campaign as primary command on hero + tutorials",
+      "14-phase → 13-phase protocol count corrections",
+    ],
+  },
+  {
+    version: "v23.5.4",
+    date: "2026-04-12",
+    title: "The Assessment Patch",
+    headline: "Command-doc sync fixes from /assess audit.",
+    items: [
+      "Command-doc sync fixes from /assess audit",
+      "ROADMAP version alignment, build.md Phase 12.75, UX screenshot mandate, QA dynamic counts",
+    ],
+  },
+  {
+    version: "v23.6.0",
+    date: "2026-04-12",
+    title: "The Silver Surfer",
+    headline: "Silver Surfer — Herald invocation bridge. CLI: npx thevoidforge herald. ADR-048.",
+    items: [
+      "Silver Surfer (Norrin Radd) — agent #264, Herald pre-scan dispatch via Haiku",
+      "ADR-048: Herald invocation bridge — CLI npx thevoidforge herald --command /<name> --json",
+      "Silver Surfer Pre-Scan replaces Herald Pre-Scan in all 14 command files",
+    ],
+  },
+  {
+    version: "v23.6.1",
+    date: "2026-04-12",
+    title: "The Count Propagation",
+    headline: "264-agent count propagated across 13 command files and 8 method docs.",
+    items: [
+      "263 → 264 agent count updated across 13 command files",
+      "263 → 264 agent count updated across 8 method docs",
     ],
   },
 ];
