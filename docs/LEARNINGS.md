@@ -4,6 +4,24 @@ Project-scoped knowledge that persists across sessions. See [/tutorial/learnings
 
 ---
 
+### Vercel auto-deploy broken — manual `vercel --prod` required after every push
+Pushing to `origin/main` does NOT currently trigger a Vercel production deploy. The GitHub integration hook is disconnected (likely from the repo rename `voidforge-marketing-site` → `voidforge-site`). The Vercel project is still named `voidforge-marketing-site` internally. Until the Git Integration is reconnected via the Vercel dashboard, every push to main must be followed by `vercel --prod --yes` from the project root.
+
+- **category:** vendor
+- **verified:** 2026-04-20
+- **scope:** deployment pipeline
+- **evidence:** 8-day gap (April 12 commit `2d753ca` → April 20) with successful pushes but no new prod deploy. `vercel ls` showed last prod as 8d old. `curl -sI https://voidforge.build` returned `age: 510832` (5.9 days cached). Manual `vercel --prod` succeeded in ~60s and the new content went live immediately.
+- **context:** Applies until someone re-links the Git integration in the Vercel dashboard (Project Settings → Git). Verification command: `curl -sI https://voidforge.build | grep -E "age|last-modified"` — if age is high after a push, the hook is still broken. Check `vercel ls` for deployment recency relative to `git log --oneline -5`.
+
+### `CHANGELOG.md` in this repo tracks site versions, not methodology — skip in `/void`
+Unlike the upstream `voidforge` repo, this marketing site uses `CHANGELOG.md` for its own release history (entries like `## [Site v2.11.0]`, tied to `package.json`). Methodology version tracking happens in `VERSION.md` only. FORGE_KEEPER.md's shared-files list treats `CHANGELOG.md` as methodology — applying that blindly would overwrite site release history with methodology release notes.
+
+- **category:** decision
+- **verified:** 2026-04-20
+- **scope:** `/void` methodology sync
+- **evidence:** Local `CHANGELOG.md` starts with `## [Site v2.11.0] - 2026-04-20`; upstream `voidforge` `CHANGELOG.md` starts with `## [23.9.2] - 2026-04-20`. During the v23.8.3 → v23.9.2 sync, skipping `CHANGELOG.md` prevented destroying the site changelog entry that had just been added by `/git`.
+- **context:** Every future `/void` run must exclude `CHANGELOG.md` from the shared-file checkout. The correct pattern is `git checkout voidforge/main -- <all-shared-files-except-CHANGELOG.md>`. See field report #XX (2026-04-20) for the upstream F1 fix that would automate this.
+
 ### Void sync content audit requires semantic comparison
 After a void sync, the marketing site needs both structural checks (do slugs/counts match?) AND semantic checks (do descriptions reflect new capabilities?). The v7 campaign caught all structural gaps but missed 9 stale command descriptions because the architect review only compared data presence, not data content.
 
