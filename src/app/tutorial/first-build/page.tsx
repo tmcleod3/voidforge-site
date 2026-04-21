@@ -109,7 +109,7 @@ deploy: "vercel"
           <div className="crt-terminal !p-4 text-sm mb-4 space-y-2">
             <div className="text-[var(--vf-text-muted)] text-xs mb-1"># In your terminal:</div>
             <div>
-              <code>cd my-project</code>
+              <code>cd my-app</code>
             </div>
             <div>
               <code>claude</code>

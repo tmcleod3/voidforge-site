@@ -78,7 +78,7 @@ export default function BlueprintPage() {
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
-              npx voidforge-build init my-project
+              npx voidforge-build init my-app
             </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
@@ -180,7 +180,7 @@ export default function BlueprintPage() {
           </p>
           <div className="crt-terminal !p-4 mb-6 space-y-2">
             <div>
-              <code className="text-sm">cd my-project</code>
+              <code className="text-sm">cd my-app</code>
             </div>
             <div>
               <code className="text-sm">claude</code>

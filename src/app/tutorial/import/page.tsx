@@ -60,7 +60,7 @@ export default function ImportPage() {
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
-              cd my-project{"\n"}claude
+              cd my-app{"\n"}claude
             </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">

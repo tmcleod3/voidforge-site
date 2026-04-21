@@ -94,12 +94,26 @@ export default function WizardPage() {
           <p className="text-[var(--vf-text-muted)] mb-4">
             One command. Gandalf takes it from here.
           </p>
+          <p className="text-sm text-[var(--vf-text-muted)] mb-3 px-3 py-2 rounded bg-[var(--vf-surface-overlay)] border border-[var(--vf-border)]">
+            <strong className="text-[var(--vf-forge-orange)]">Prerequisites:</strong>{" "}
+            Node &ge;20.11, git, and{" "}
+            <a
+              href="https://claude.com/claude-code"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              Claude Code
+            </a>
+            {" "}(provides the <code className="text-[var(--vf-electric-blue)]">claude</code> command
+            you&apos;ll run after the wizard creates your project).
+          </p>
           <div className="crt-terminal flex items-center justify-between gap-2 !p-4 mb-6">
             <code className="text-sm break-all">
               <span className="text-[var(--vf-text-muted)]">$ </span>
-              npx voidforge-build init my-project
+              npx voidforge-build init my-app
             </code>
-            <CopyButton text="npx voidforge-build init my-project" />
+            <CopyButton text="npx voidforge-build init my-app" />
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
             This launches the standalone wizard — a browser UI at{" "}

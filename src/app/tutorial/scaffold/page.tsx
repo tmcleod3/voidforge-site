@@ -48,9 +48,9 @@ export default function ScaffoldPage() {
           <div className="crt-terminal flex items-center justify-between gap-2 !p-4 mb-6">
             <code className="text-sm break-all">
               <span className="text-[var(--vf-text-muted)]">$ </span>
-              npx voidforge-build init my-project
+              npx voidforge-build init my-app
             </code>
-            <CopyButton text="npx voidforge-build init my-project" />
+            <CopyButton text="npx voidforge-build init my-app" />
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
             This gives you CLAUDE.md, slash commands, method docs, code
@@ -87,7 +87,7 @@ export default function ScaffoldPage() {
           </p>
           <div className="crt-terminal !p-4 mb-6 space-y-2">
             <div>
-              <code className="text-sm">cd my-project</code>
+              <code className="text-sm">cd my-app</code>
             </div>
             <div>
               <code className="text-sm">claude</code>

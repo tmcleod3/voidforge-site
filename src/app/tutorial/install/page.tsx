@@ -279,7 +279,15 @@ export default function InstallPage() {
               </p>
               <div className="crt-terminal !p-4 text-sm space-y-1">
                 <div><code>brew install node@20</code></div>
+                <div className="mt-2 text-[var(--vf-text-muted)]"># node@20 is keg-only — link it on your PATH:</div>
+                <div><code>echo &apos;export PATH=&quot;/opt/homebrew/opt/node@20/bin:$PATH&quot;&apos; &gt;&gt; ~/.zshrc</code></div>
+                <div><code>source ~/.zshrc</code></div>
               </div>
+              <p className="text-sm text-[var(--vf-text-muted)] mt-3">
+                Prefer the latest stable line? Use{" "}
+                <code className="text-[var(--vf-electric-blue)]">brew install node</code>{" "}
+                (unversioned) — Homebrew links it automatically.
+              </p>
             </div>
 
             {/* Ubuntu / Debian */}
