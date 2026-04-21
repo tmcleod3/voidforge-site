@@ -6,6 +6,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.12.0] - 2026-04-20
+
+### The Gate — methodology resync v23.8.3 → v23.9.2 + /engage-review a11y pass
+
+This release lands the v23.8.13 "The Gate" + v23.9 "The Covenant" methodology from scaffold onto the site, materializes the new `/engage` and `/sentinel` canonical command names in the site's data layer, and clears 11 findings from a post-sync `/engage` code review — 4 CURSED code-quality defects and 7 a11y fixes across landing, hero, migrate, verify, and tutorial hub.
+
+### Added
+- **`/engage` command entry** in `src/data/commands.ts` and `src/data/search-index.ts` — canonical name for `/review` per upstream ADR-050. `/review` remains as a permanent alias.
+- **`/sentinel` command entry** in `src/data/commands.ts` and `src/data/search-index.ts` — canonical name for `/security` per upstream ADR-050. `/security` remains as a permanent alias.
+- **`docs/LEARNINGS.md` — 2 project-scoped learnings** filed from `/debrief` session analysis: (1) Vercel auto-deploy hook is currently broken on this project; manual `vercel --prod` is required after every push until the Git Integration is reconnected; (2) this repo's `CHANGELOG.md` tracks site versions, not methodology — future `/void` syncs must exclude it.
+- **Migrate page squatter row** — `src/app/tutorial/migrate/page.tsx` rename table gained a 5th row for bare unscoped `voidforge` (the squatted name), explaining why the uninstall command lists a package name that wasn't in the original 4-row table.
+
+### Changed
+- **Methodology resync v23.8.3 → v23.9.2** — 47 upstream files refreshed via `/void`: `CLAUDE.md`, `HOLOCRON.md`, `VERSION.md`, `docs/NAMING_REGISTRY.md`, 11 agent definitions (barton, batman, bilbo, black-canary, coulson, maul, oracle, red-hood, seldon, silver-surfer, wong), 18 commands (ai, architect, assemble, assess, build, campaign, dangerroom, deploy, devops, engage, gauntlet, git, qa, review, security, sentinel, test, ux, void), and 13 method docs (AI_INTELLIGENCE, ASSEMBLER, BUILD_JOURNAL, BUILD_PROTOCOL, CAMPAIGN, DEVOPS_ENGINEER, FORGE_KEEPER, GAUNTLET, GROWTH_STRATEGIST, QA_ENGINEER, SECURITY_AUDITOR, SUB_AGENTS, SYSTEMS_ARCHITECT).
+- **`CLAUDE.md` Silver Surfer Gate section** rewritten for ADR-051 hook-level PreToolUse enforcement + ADR-060 state hardening (per-user `$XDG_RUNTIME_DIR/voidforge-gate/` with 0700 perms, macOS falls back to `$HOME/.voidforge/gate/`). `/engage` and `/sentinel` added to the gated commands list.
+- **Tutorial hub** (D.1) — "Core Journey" promoted above the four-paths grid. First-time visitors now see the linear Install → First Build → Deploy progression before the path-selection decision. Bilbo's speech bubble copy rewritten to match. New "Entry Paths" heading introduces the four-options grid as "ways to reach Step 1."
+- **Verify page navigation** (CURSED-001) — TutorialNav direction reversed: `prev=install, next=first-build`. Previously `prev=migrate, next=install` — backwards since verify logically happens after install, not before.
+- **Verify page version claim** (CURSED-007) — "provenance was added in v23.9" → "provenance was added in v23.9.2+" with a link to `/prophecy` so users on boundary versions can check the release timeline without guessing.
+- **Migrate page metadata** (CURSED-003) — page description enumerates all four legacy package names (thevoidforge, thevoidforge-methodology, @voidforge/cli, @voidforge/methodology) so social cards and search surfaces match what the page covers.
+- **Migrate page project-deps block** (CURSED-006) — the package.json rename snippet now has a `<CopyButton>` matching the copy-affordance pattern used by every other terminal block on both pages.
+- **`src/data/stats.ts` self-documenting comment** (CURSED-005) — file-top block now distinguishes derived stats (auto-updating from data arrays) from manually-maintained scalar mirrors of scaffold counts (`totalMethodDocs`, `totalADRs`, `totalScaffoldTests`). Includes the `ls`/`wc` commands to verify against scaffold truth. Closes the "claims auto-update but scalars drift" gap.
+
+### Fixed
+- **A11Y-003 CopyButton aria-live** — the live region is now always mounted; inner content toggles between empty and "Copied to clipboard" instead of the element being conditionally rendered. Reliable screen reader announcement on every copy (WCAG 4.1.3).
+- **A11Y-005 Table-of-contents buttons** — added `aria-label="Jump to: <section>"` plus visible focus outline on both mobile and desktop TOC buttons. Keeps the JS-driven smooth-scroll + focus-management while signaling same-page-anchor intent to assistive tech (WCAG 2.4.6).
+- **A11Y-008 Migrate page rename table** — added `<caption className="sr-only">Legacy to new voidforge-build — 5 mappings</caption>` so screen readers announce the table's purpose and dimensions on entry (WCAG 1.3.1).
+- **A11Y-012 Hero spotlight footer links** — "How to verify →" and "Migrate from legacy packages →" gained visible focus outlines (WCAG 2.4.7).
+- **CURSED-002 Phantom unscoped `voidforge`** — the migrate page uninstall command includes `voidforge` alongside the four documented legacy names. The rename table now documents it as a 5th row with a clarifying note: "(bare, unscoped — squatter; only if previously installed via that name)". Users can no longer be confused about where that name came from.
+
+### Security
+- **Methodology security improvements absorbed via `/void` sync** (upstream, not site-side):
+  - ADR-051: Silver Surfer Gate enforced at the PreToolUse hook level, not just in prose. Skipping the Surfer is now mechanically blocked at the runtime boundary.
+  - ADR-053: `<user_input>` and `<user_focus>` delimiters wrap all user-provided arguments across 14 gated commands, hardening against prompt injection.
+  - ADR-054: Silver Surfer dispatched on Haiku 4.5 instead of Opus — ~5× cost reduction on the highest-frequency agent.
+  - ADR-056: JSONL event emission for every gate ALLOW / BLOCK / ROSTER_RECEIVED — the gate is now observable.
+  - ADR-060: Gate state relocated from world-writable `/tmp/` to `$XDG_RUNTIME_DIR/voidforge-gate/` (Linux) or `$HOME/.voidforge/gate/` (macOS), 0700 perms per-user.
+- **Field report filed** ([tmcleod3/voidforge#307](https://github.com/tmcleod3/voidforge/issues/307)) — 5 proposed upstream fixes ranked P0–P3: live-URL fingerprint check after deploy (P0), CHANGELOG identity check in FORGE_KEEPER (P1), `npm test` in Step 4.5 verify chain (P1), verified-against-commit SHAs on cross-session specs (P2), parallel-session commit detection (P3).
+
+### Known issues
+- Vercel GitHub Integration on this project is disconnected (likely from the repo rename `voidforge-marketing-site` → `voidforge-site`). Until reconnected, pushes to main do NOT auto-deploy. Workaround: run `vercel --prod --yes` manually after pushing. Tracked in `docs/LEARNINGS.md`.
+
+### Deferred
+- **A11Y-002 `<pre>` wrap on terminal blocks** — downgraded from Must Fix to Should Fix for single-line commands where practical screen-reader impact is minimal. Candidate for a future pass that restructures the `crt-terminal` component.
+
+---
+
 ## [Site v2.11.0] - 2026-04-20
 
 ### The Covenant — site-wide sync to scaffold v23.9.2
