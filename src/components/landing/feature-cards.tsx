@@ -60,7 +60,7 @@ const features = [
     icon: GitBranch,
     title: "NPM INSTALL",
     description:
-      "One command: npx thevoidforge init. Standalone wizard with browser UI. Methodology bundled automatically. No git branches, no manual setup.",
+      "One command: npx voidforge-build init. Standalone wizard with browser UI. Methodology bundled automatically. No git branches, no manual setup.",
     href: "/tutorial/install",
     color: "var(--vf-forge-yellow)",
   },

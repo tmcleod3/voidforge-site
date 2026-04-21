@@ -78,7 +78,7 @@ export default function BlueprintPage() {
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
-              npx thevoidforge init my-project
+              npx voidforge-build init my-project
             </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">

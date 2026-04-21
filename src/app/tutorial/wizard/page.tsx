@@ -97,9 +97,9 @@ export default function WizardPage() {
           <div className="crt-terminal flex items-center justify-between gap-2 !p-4 mb-6">
             <code className="text-sm break-all">
               <span className="text-[var(--vf-text-muted)]">$ </span>
-              npx thevoidforge init my-project
+              npx voidforge-build init my-project
             </code>
-            <CopyButton text="npx thevoidforge init my-project" />
+            <CopyButton text="npx voidforge-build init my-project" />
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
             This launches the standalone wizard — a browser UI at{" "}

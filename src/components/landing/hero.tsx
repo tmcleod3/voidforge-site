@@ -48,7 +48,7 @@ export function Hero() {
           . Ship to production.
         </motion.p>
 
-        {/* v23.8 Spotlight */}
+        {/* v23.9 Spotlight */}
         <motion.div
           className="mt-10 max-w-2xl mx-auto comic-panel bg-[var(--vf-surface-raised)] p-6 text-left"
           initial={shouldReduceMotion ? {} : { y: 30, opacity: 0 }}
@@ -56,20 +56,22 @@ export function Hero() {
           transition={{ delay: 0.7, duration: 0.5 }}
         >
           <p className="font-[family-name:var(--font-bangers)] text-lg sm:text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
-            v23.8 &mdash; THE PERSONALITY
+            v23.9 &mdash; THE COVENANT
           </p>
           <p className="font-[family-name:var(--font-bangers)] text-xl sm:text-2xl md:text-3xl tracking-wider text-[var(--foreground)] leading-snug mb-3">
-            {display.agents} agents. Every one announces itself. The forge has a voice.
+            Domain-aligned. Signed. Irreversible.
           </p>
           <p className="text-sm sm:text-base text-[var(--vf-text-muted)]">
-            Every agent now deploys with a character-authentic heralding &mdash;
-            Batman growls, Bilbo quips, Picard commands. The Silver Surfer
-            pre-scans your code, selects the optimal team, and each specialist
-            arrives with personality. Use{" "}
+            Published as{" "}
             <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
-              --focus
+              voidforge-build
             </code>{" "}
-            to bias selection toward any topic.
+            to match this very domain. Every release now ships with an SLSA
+            provenance attestation signed in sigstore&rsquo;s transparency log
+            &mdash; cryptographic proof that what you install was built from
+            this repo by the real workflow. Opus 4.7 orchestrates, Haiku 4.5
+            dispatches, and the Silver Surfer Gate is enforced by hook, not
+            prose.
           </p>
         </motion.div>
 

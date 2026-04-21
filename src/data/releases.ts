@@ -1408,6 +1408,34 @@ export const shipped: Release[] = [
       "Every agent now announces itself: Batman growls, Bilbo quips, Picard commands",
     ],
   },
+  {
+    version: "v23.8.13 – v23.8.19",
+    date: "2026-04-20",
+    title: "The Gate",
+    headline: "Opus 4.7 coexistence. Silver Surfer Gate enforced by PreToolUse hook. State hardened.",
+    items: [
+      "/review → /engage and /security → /sentinel renames (old names are permanent aliases) to coexist with Claude Code's native skills — ADR-050",
+      "Silver Surfer Gate moves from prose to mechanical hook enforcement via PreToolUse — skipping the Surfer is now blocked at the runtime boundary, not just by the prompt — ADR-051",
+      "Hook state relocated from world-writable /tmp to $XDG_RUNTIME_DIR / $HOME/.voidforge/gate with 0700 perms — ADR-060",
+      "Silver Surfer → Haiku 4.5 for ~5× cost reduction on the highest-frequency agent — ADR-054",
+      "Prompt-injection hardening: --focus args wrapped in <user_input> delimiters across 14 gated commands — ADR-053",
+      "JSONL event emission for every gate ALLOW/BLOCK/ROSTER_RECEIVED — the gate is now observable — ADR-056",
+    ],
+  },
+  {
+    version: "v23.9.0 – v23.9.2",
+    date: "2026-04-20",
+    title: "The Covenant",
+    headline: "Domain-aligned npm package (voidforge-build). SLSA provenance on every release. ADR-061.",
+    items: [
+      "npm package renamed to voidforge-build to match the voidforge.build domain — bin name 'voidforge' unchanged, so post-install UX is identical — ADR-061",
+      "Published as voidforge-build + voidforge-build-methodology. Legacy thevoidforge + thevoidforge-methodology deprecated with redirect messages.",
+      "SLSA provenance v1 attestation signed to sigstore's transparency log on every CI release — cryptographic proof that what you install was built from this repo by the real workflow",
+      "Legacy-install migration banner: existing thevoidforge CLIs print uninstall + reinstall commands on every run until users migrate",
+      "CI publish workflow is now idempotent — re-tagging or running after a manual publish is a no-op instead of failing",
+      "Four operational learnings captured (LRN-1 to LRN-4): agent cache at session start, shell-escape at source not destination, sibling-doc drift, npm name parity with install instructions",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [

@@ -48,20 +48,20 @@ export default function ScaffoldPage() {
           <div className="crt-terminal flex items-center justify-between gap-2 !p-4 mb-6">
             <code className="text-sm break-all">
               <span className="text-[var(--vf-text-muted)]">$ </span>
-              npx thevoidforge init my-project
+              npx voidforge-build init my-project
             </code>
-            <CopyButton text="npx thevoidforge init my-project" />
+            <CopyButton text="npx voidforge-build init my-project" />
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
             This gives you CLAUDE.md, slash commands, method docs, code
             patterns, and the Holocron. The methodology is delivered via the{" "}
             <a
-              href="https://www.npmjs.com/package/thevoidforge-methodology"
+              href="https://www.npmjs.com/package/voidforge-build-methodology"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
             >
-              thevoidforge-methodology
+              voidforge-build-methodology
             </a>{" "}
             npm package.
           </p>

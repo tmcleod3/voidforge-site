@@ -71,7 +71,7 @@ export default function DeployPage() {
             <div><code>curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -</code></div>
             <div><code>sudo apt-get install -y nodejs git</code></div>
             <div className="mt-2 text-[var(--vf-text-muted)]"># Create your project</div>
-            <div><code>npx thevoidforge init my-project</code></div>
+            <div><code>npx voidforge-build init my-project</code></div>
           </div>
           <p className="text-[var(--vf-text-muted)] text-sm">
             For full platform-specific instructions (including libnode-dev

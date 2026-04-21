@@ -148,9 +148,9 @@ export default function InstallPage() {
               <div className="crt-terminal flex items-center justify-between gap-2 !p-3 mb-3">
                 <code className="text-sm break-all">
                   <span className="text-[var(--vf-text-muted)]">$ </span>
-                  npx thevoidforge init my-app
+                  npx voidforge-build init my-app
                 </code>
-                <CopyButton text="npx thevoidforge init my-app" />
+                <CopyButton text="npx voidforge-build init my-app" />
               </div>
               <div className="crt-terminal !p-3 text-sm space-y-1">
                 <div><code>cd my-app</code></div>
@@ -171,9 +171,9 @@ export default function InstallPage() {
               <div className="crt-terminal flex items-center justify-between gap-2 !p-3 mb-3">
                 <code className="text-sm break-all">
                   <span className="text-[var(--vf-text-muted)]">$ </span>
-                  npm install -g thevoidforge
+                  npm install -g voidforge-build
                 </code>
-                <CopyButton text="npm install -g thevoidforge" />
+                <CopyButton text="npm install -g voidforge-build" />
               </div>
               <div className="crt-terminal flex items-center justify-between gap-2 !p-3">
                 <code className="text-sm break-all">
@@ -216,22 +216,22 @@ export default function InstallPage() {
             <strong className="text-[var(--vf-forge-orange)]">npm packages:</strong>{" "}
             The package name is{" "}
             <a
-              href="https://www.npmjs.com/package/thevoidforge"
+              href="https://www.npmjs.com/package/voidforge-build"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
             >
-              thevoidforge
+              voidforge-build
             </a>{" "}
             (CLI + wizard). The methodology (agents, commands, methods, patterns)
             is bundled automatically via{" "}
             <a
-              href="https://www.npmjs.com/package/thevoidforge-methodology"
+              href="https://www.npmjs.com/package/voidforge-build-methodology"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
             >
-              thevoidforge-methodology
+              voidforge-build-methodology
             </a>
             .
           </p>
@@ -460,7 +460,7 @@ export default function InstallPage() {
                   Visual C++ Build Tools
                 </a>{" "}
                 or use{" "}
-                <code className="text-[var(--vf-electric-blue)]">npx thevoidforge init</code>{" "}
+                <code className="text-[var(--vf-electric-blue)]">npx voidforge-build init</code>{" "}
                 instead (no global install needed).
               </p>
               <p className="text-[var(--vf-text-muted)]">

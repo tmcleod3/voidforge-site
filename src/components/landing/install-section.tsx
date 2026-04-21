@@ -8,12 +8,12 @@ const installCommands = [
   {
     tier: "Quick Start",
     label: "Wizard, methodology, agents — the full forge",
-    command: "npx thevoidforge init my-app",
+    command: "npx voidforge-build init my-app",
   },
   {
     tier: "Global Install",
     label: "Install globally — reuse across projects",
-    command: "npm install -g thevoidforge",
+    command: "npm install -g voidforge-build",
   },
 ] as const;
 

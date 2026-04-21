@@ -46,7 +46,7 @@ export default function ImportPage() {
           </p>
           <div className="crt-terminal !p-4 mb-6">
             <code className="text-sm">
-              npx thevoidforge init
+              npx voidforge-build init
             </code>
           </div>
           <p className="text-[var(--vf-text-muted)] mb-4">
