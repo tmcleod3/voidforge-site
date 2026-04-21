@@ -263,8 +263,8 @@ export default function VerifyPage() {
         </ScrollReveal>
 
         <TutorialNav
-          prev={{ href: "/tutorial/migrate", label: "Migrate" }}
-          next={{ href: "/tutorial/install", label: "Install" }}
+          prev={{ href: "/tutorial/install", label: "Install" }}
+          next={{ href: "/tutorial/first-build", label: "First Build" }}
         />
       </div>
     </div>

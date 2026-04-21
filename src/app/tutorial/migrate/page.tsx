@@ -65,6 +65,9 @@ export default function MigratePage() {
           </p>
           <div className="overflow-x-auto">
             <table className="w-full text-sm border border-[var(--vf-border)] rounded">
+              <caption className="sr-only">
+                Legacy package names to new voidforge-build package names — 5 mappings
+              </caption>
               <thead className="bg-[var(--vf-surface-overlay)]">
                 <tr>
                   <th className="text-left p-3 border-b border-[var(--vf-border)]">
@@ -113,14 +116,29 @@ export default function MigratePage() {
                   </td>
                 </tr>
                 <tr>
-                  <td className="p-3">
+                  <td className="p-3 border-b border-[var(--vf-border)]">
                     <code className="text-[var(--vf-text-muted)]">
                       @voidforge/methodology
                     </code>
                   </td>
-                  <td className="p-3">
+                  <td className="p-3 border-b border-[var(--vf-border)]">
                     <code className="text-[var(--vf-electric-blue)]">
                       voidforge-build-methodology
+                    </code>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="p-3">
+                    <code className="text-[var(--vf-text-muted)]">
+                      voidforge
+                    </code>
+                    <span className="block text-xs text-[var(--vf-text-muted)] mt-1">
+                      (bare, unscoped — squatter; only if previously installed via that name)
+                    </span>
+                  </td>
+                  <td className="p-3">
+                    <code className="text-[var(--vf-electric-blue)]">
+                      voidforge-build
                     </code>
                   </td>
                 </tr>
