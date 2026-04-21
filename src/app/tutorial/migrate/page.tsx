@@ -10,7 +10,7 @@ import { TableOfContents } from "@/components/table-of-contents";
 export const metadata: Metadata = {
   title: "Migrate to voidforge-build",
   description:
-    "Migrate legacy thevoidforge, @voidforge/cli, and @voidforge/methodology installs to the current voidforge-build packages.",
+    "Migrate legacy thevoidforge, thevoidforge-methodology, @voidforge/cli, and @voidforge/methodology installs to the current voidforge-build and voidforge-build-methodology packages.",
   alternates: { canonical: "/tutorial/migrate" },
 };
 
@@ -217,18 +217,21 @@ export default function MigratePage() {
               lists the old methodology package, rename it:
             </p>
             <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">
-              <div className="crt-terminal !p-4 text-sm space-y-1">
-                <div className="text-[var(--vf-text-muted)]"># In package.json, rename:</div>
-                <div>
-                  <code>
-                    &quot;thevoidforge-methodology&quot; → &quot;voidforge-build-methodology&quot;
-                  </code>
+              <div className="crt-terminal flex items-start justify-between gap-2 !p-4 text-sm">
+                <div className="flex-1 space-y-1">
+                  <div className="text-[var(--vf-text-muted)]"># In package.json, rename:</div>
+                  <div>
+                    <code>
+                      &quot;thevoidforge-methodology&quot; → &quot;voidforge-build-methodology&quot;
+                    </code>
+                  </div>
+                  <div>
+                    <code>
+                      &quot;@voidforge/methodology&quot;    → &quot;voidforge-build-methodology&quot;
+                    </code>
+                  </div>
                 </div>
-                <div>
-                  <code>
-                    &quot;@voidforge/methodology&quot;    → &quot;voidforge-build-methodology&quot;
-                  </code>
-                </div>
+                <CopyButton text={`"voidforge-build-methodology"`} />
               </div>
               <div className="crt-terminal flex items-center justify-between gap-2 !p-3 mt-3">
                 <code className="text-sm break-all">

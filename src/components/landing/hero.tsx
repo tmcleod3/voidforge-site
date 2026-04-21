@@ -77,13 +77,13 @@ export function Hero() {
           <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs sm:text-sm">
             <Link
               href="/tutorial/verify"
-              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
             >
               How to verify &rarr;
             </Link>
             <Link
               href="/tutorial/migrate"
-              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
             >
               Migrate from legacy packages &rarr;
             </Link>

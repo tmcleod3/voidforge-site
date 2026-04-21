@@ -88,11 +88,47 @@ export default function TutorialPage() {
       <section className="px-4 pb-8">
         <div className="mx-auto max-w-4xl">
           <SpeechBubble agent="Bilbo" universe="tolkien">
-            Four paths into the forge. The wizard holds your hand. The blueprint
-            trusts your spec. The methodology trusts your instincts. The import
-            respects what you&apos;ve already built. Pick the one that fits —
-            they all lead to the same place.
+            New here? The three steps below take you from install to live
+            production. Four entry paths come next — pick whichever matches
+            how you&apos;re starting.
           </SpeechBubble>
+        </div>
+      </section>
+
+      {/* Core Journey — promoted above four-paths so first-time visitors see
+          the linear progression before the path-selection decision. */}
+      <section className="px-4 pb-10">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-text)] mb-4">
+            CORE JOURNEY — START HERE
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {[
+              { icon: Download, title: "Install", description: "Prerequisites, quick start, first setup", href: "/tutorial/install", step: "Step 1" },
+              { icon: Hammer, title: "First Build", description: "Write a PRD, run /build, ship", href: "/tutorial/first-build", step: "Step 2" },
+              { icon: Rocket, title: "Deploy", description: "Go live with 6 deploy targets", href: "/tutorial/deploy", step: "Step 3" },
+            ].map((item) => (
+              <Link key={item.href} href={item.href} className="group comic-panel bg-[var(--vf-surface-raised)] p-4 text-center hover:border-[var(--vf-forge-orange)] transition-colors">
+                <item.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-electric-blue)]" aria-hidden="true" />
+                <h3 className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-text)] group-hover:text-[var(--vf-forge-orange)] transition-colors">
+                  {item.title}
+                </h3>
+                <p className="text-[11px] text-[var(--vf-text-muted)] mb-1">{item.description}</p>
+                <span className="text-[11px] px-1.5 py-0.5 rounded bg-[var(--vf-surface-overlay)] text-[var(--vf-electric-blue)] font-bold">{item.step}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 pb-4">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-text)] mb-3">
+            ENTRY PATHS
+          </h2>
+          <p className="text-sm text-[var(--vf-text-muted)] mb-6">
+            Four ways to reach Step 1 above, depending on how you&apos;re starting.
+          </p>
         </div>
       </section>
 
@@ -145,31 +181,6 @@ export default function TutorialPage() {
               crew already in flight.
             </SpeechBubble>
           </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Core Journey */}
-      <section className="px-4 pb-8">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-text)] mb-4">
-            CORE JOURNEY
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {[
-              { icon: Download, title: "Install", description: "Prerequisites, quick start, first setup", href: "/tutorial/install", step: "Step 1" },
-              { icon: Hammer, title: "First Build", description: "Write a PRD, run /build, ship", href: "/tutorial/first-build", step: "Step 2" },
-              { icon: Rocket, title: "Deploy", description: "Go live with 6 deploy targets", href: "/tutorial/deploy", step: "Step 3" },
-            ].map((item) => (
-              <Link key={item.href} href={item.href} className="group comic-panel bg-[var(--vf-surface-raised)] p-4 text-center hover:border-[var(--vf-forge-orange)] transition-colors">
-                <item.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-electric-blue)]" aria-hidden="true" />
-                <h3 className="font-[family-name:var(--font-bangers)] text-sm tracking-wider text-[var(--vf-text)] group-hover:text-[var(--vf-forge-orange)] transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-[10px] text-[var(--vf-text-muted)] mb-1">{item.description}</p>
-                <span className="text-[11px] px-1.5 py-0.5 rounded bg-[var(--vf-surface-overlay)] text-[var(--vf-electric-blue)] font-bold">{item.step}</span>
-              </Link>
-            ))}
-          </div>
         </div>
       </section>
 

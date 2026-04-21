@@ -54,17 +54,13 @@ export function CopyButton({ text, className, trackAs }: CopyButtonProps) {
       )}
       aria-label={copied ? "Copied to clipboard" : `Copy: ${text}`}
     >
-      {copied ? (
-        <>
-          <Check className="h-3.5 w-3.5" />
-          <span role="status" aria-live="polite">COPIED! ⚡</span>
-        </>
-      ) : (
-        <>
-          <Copy className="h-3.5 w-3.5" />
-          COPY
-        </>
-      )}
+      {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+      <span aria-hidden="true">{copied ? "COPIED!" : "COPY"}</span>
+      {/* Always-mounted live region — content toggles instead of element mount
+          so screen readers reliably announce the state change. WCAG 4.1.3. */}
+      <span role="status" aria-live="polite" className="sr-only">
+        {copied ? "Copied to clipboard" : ""}
+      </span>
     </button>
   );
 }

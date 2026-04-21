@@ -62,7 +62,8 @@ export function TableOfContents({ items }: TableOfContentsProps) {
                   <button
                     type="button"
                     onClick={() => handleClick(item.id)}
-                    className="w-full text-left px-4 py-2 text-sm text-[var(--vf-text-muted)] hover:text-[var(--vf-forge-orange)] hover:bg-[var(--vf-void)]/50 transition-colors"
+                    aria-label={`Jump to: ${item.label}`}
+                    className="w-full text-left px-4 py-2 text-sm text-[var(--vf-text-muted)] hover:text-[var(--vf-forge-orange)] hover:bg-[var(--vf-void)]/50 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
                   >
                     {item.label}
                   </button>
@@ -89,7 +90,8 @@ export function TableOfContents({ items }: TableOfContentsProps) {
                 <button
                   type="button"
                   onClick={() => handleClick(item.id)}
-                  className="text-left text-sm text-[var(--vf-text-muted)] hover:text-[var(--vf-forge-orange)] transition-colors leading-snug"
+                  aria-label={`Jump to: ${item.label}`}
+                  className="text-left text-sm text-[var(--vf-text-muted)] hover:text-[var(--vf-forge-orange)] transition-colors leading-snug focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
                 >
                   {item.label}
                 </button>

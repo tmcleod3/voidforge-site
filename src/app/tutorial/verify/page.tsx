@@ -236,7 +236,14 @@ export default function VerifyPage() {
                   </code>{" "}
                   only mentions registry signatures and not attestations, the
                   package in your tree may be too old — provenance was added
-                  in v23.9. Reinstall with{" "}
+                  in v23.9.2+ (see{" "}
+                  <Link
+                    href="/prophecy"
+                    className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                  >
+                    release history
+                  </Link>
+                  ). Reinstall with{" "}
                   <code className="text-[var(--vf-electric-blue)]">
                     npm install voidforge-build@latest
                   </code>{" "}

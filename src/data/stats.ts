@@ -1,7 +1,20 @@
 /**
- * Computed statistics derived from data arrays.
- * Import these instead of hardcoding counts — they auto-update
- * when patterns, agents, commands, or releases change.
+ * Site statistics — two categories:
+ *
+ * (1) DERIVED — computed from the imported arrays below. These auto-update
+ *     when patterns/agents/commands/releases change: `totalPatterns`,
+ *     `totalLeads`, `totalAgents`, `totalUniverses`, `totalCommands`,
+ *     `totalSubAgents`.
+ *
+ * (2) MANUALLY MAINTAINED — scalar mirrors of scaffold-repo counts that
+ *     this repo doesn't have direct access to: `totalMethodDocs`,
+ *     `totalADRs`, `totalScaffoldTests`. These must be bumped on every
+ *     methodology sync. To verify against scaffold truth:
+ *       ls scaffold/docs/methods/*.md | wc -l    # totalMethodDocs
+ *       ls scaffold/docs/adrs/*.md | wc -l       # totalADRs
+ *       cd scaffold && npm test                   # totalScaffoldTests
+ *     A follow-up improvement is to generate these at build time from a
+ *     JSON artifact produced by the scaffold repo's CI.
  */
 import { patterns } from "./patterns";
 import { leadAgents, subAgents, universes } from "./agents";
