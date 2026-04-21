@@ -6,6 +6,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.11.0] - 2026-04-20
+
+### The Covenant — site-wide sync to scaffold v23.9.2
+
+Full propagation of the `voidforge-build` rename, SLSA provenance messaging, legacy migration path, and data-layer corrections. Executed as a 5-phase spec (`docs/SITE_UPDATE_SPEC.md`) produced by a parallel Claude session on the scaffold repo, then implemented here in sequence.
+
+### Added
+- **New page `/tutorial/verify`** — how to verify SLSA provenance attestations for `voidforge-build` via `npm audit signatures`, `npm view --json`, and sigstore transparency log lookup. Closes the "trust claim with no proof path" gap the hero spotlight had introduced.
+- **New page `/tutorial/migrate`** — one-shot migration guide for users on legacy `thevoidforge`, `@voidforge/cli`, or squatted `voidforge` packages. Includes both global-CLI and project-dependency forms, plus the rationale (bin name unchanged, ADR-061 §13 link).
+- **Hero spotlight footer links** — "How to verify →" and "Migrate from legacy packages →" surface the two new pages from the front door.
+- **Sitemap entries** for `/tutorial/verify` and `/tutorial/migrate`.
+- **VERSION.md history rows** — v23.8.13–23.8.19 (The Gate) + v23.9.1 + v23.9.2 aligning this repo's tracked methodology pin with scaffold.
+
+### Changed
+- **Hero CTA "FORGE YOUR FIRST APP"** — routes to `/tutorial/install` (was `/tutorial`). Header CTA and hero CTA now agree on the "start here" path.
+- **Hero spotlight** — v23.8 "THE PERSONALITY" → v23.9 "THE COVENANT". Copy: "Domain-aligned. Signed. Irreversible." Explains the `voidforge-build` rename, SLSA provenance + sigstore, hook-enforced gate, and Opus 4.7 / Haiku 4.5 model routing.
+- **Release history** — added new entries `v23.8.13 – v23.8.19` ("The Gate") and `v23.9.0 – v23.9.2` ("The Covenant"), bringing `/prophecy` to parity with scaffold's VERSION.md.
+- **Install commands** — every `npx thevoidforge` → `npx voidforge-build`, every `npm install -g thevoidforge` → `npm install -g voidforge-build` across landing, feature-cards, 6 tutorial pages. npmjs.com links retargeted.
+- **Install page "CREATE A PROJECT" block** — split into individually-copyable commands with per-command `<CopyButton>`, removed misleading `/build` line (fails without a PRD), added cross-link to `/tutorial/first-build`.
+- **macOS install instructions** — added `brew link` PATH step and `~/.zshrc` export so `brew install node@20` becomes usable without manual follow-up.
+- **Tutorial consistency** — `my-project` → `my-app` across wizard, blueprint, import, deploy, first-build, scaffold. One project name, one copy-paste chain.
+- **Wizard page prereqs** — added Node ≥20.11 + Claude Code prerequisite callout at top.
+- **Not-found (404) page** — replaced `/agents` link with `/tutorial/install` labeled "START HERE". Lost visitors now land on the install, not a brand-heavy directory.
+- **Tutorial hub layout** — "Core Journey" promoted above the four-paths grid; step labels bumped to ≥11px; added "Lifecycle Guides" heading above the Google Ads / Kongo two-up.
+- **Comic-strip panel overlay** — added `relative` to the panel's `motion.div` so panel numbers position correctly per-panel instead of stacking in the section corner.
+- **Test assertions** (`src/test/components.test.tsx`) — updated install-command assertions to the current `npx voidforge-build init` form.
+
+### Fixed
+- **Data drift — ADR count** (`src/data/stats.ts`): 49 → 61 to match `ls scaffold/docs/adrs/*.md | wc -l`. Affects `/about` prose and any page rendering `display.adrs`.
+- **Data drift — agent count**: verified `agents.ts` computes 264 (20 leads + 244 subs) against scaffold's canonical `.claude/agents/*.md` count.
+- **Data drift — pattern count**: `patterns.ts` reconciled to 37 entries matching scaffold's `docs/patterns/*.{ts,tsx}`.
+
+### Security
+- No security changes this release. Provenance verification flow (`/tutorial/verify`) documents how consumers can cryptographically verify release integrity, surfacing an existing scaffold-side capability (ADR-061 §13).
+
+---
+
 ## [Site v2.10.0] - 2026-04-12
 
 ### Added
