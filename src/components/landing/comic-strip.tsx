@@ -37,7 +37,7 @@ export function ComicStrip() {
           {panels.map((panel, i) => (
             <motion.div
               key={panel.title}
-              className={`comic-panel bg-gradient-to-b ${panel.bg} p-6 flex flex-col items-center text-center`}
+              className={`relative comic-panel bg-gradient-to-b ${panel.bg} p-6 flex flex-col items-center text-center`}
               initial={shouldReduceMotion ? {} : { y: 40, opacity: 0 }}
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: "-50px" }}

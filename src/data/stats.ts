@@ -24,6 +24,8 @@ export const stats = {
   totalMethodDocs: 29,
   /** Architecture Decision Records — updated on methodology sync */
   totalADRs: 61,
+  /** Scaffold test count — updated on methodology sync */
+  totalScaffoldTests: 1384,
 };
 
 /** Formatted strings for display — use in JSX where template literals are awkward */
@@ -36,4 +38,5 @@ export const display = {
   subAgents: `${stats.totalSubAgents}+`,
   methodDocs: `${stats.totalMethodDocs}`,
   adrs: `${stats.totalADRs}`,
+  scaffoldTests: stats.totalScaffoldTests.toLocaleString(),
 };

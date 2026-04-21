@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { ScrollReveal } from "@/components/scroll-reveal";
 import { CtaButton } from "@/components/cta-button";
-import { stats } from "@/data/stats";
+import { stats, display } from "@/data/stats";
 
 export const metadata: Metadata = {
   title: "About",
@@ -72,7 +72,7 @@ export default function AboutPage() {
               a methodology. The methodology grew {stats.totalAgents} named agents across {stats.totalUniverses}
               fictional universes — each now a persistent Claude Code subagent
               definition with model tiering and tool restrictions. The agents
-              learned a 13-phase build protocol. 1,384 tests. 0 TypeScript errors.
+              learned a 13-phase build protocol. {display.scaffoldTests} tests. 0 TypeScript errors.
               37+ campaigns completed. And then Tom pointed the forge at itself
               and said: <em>&ldquo;Build your own website.&rdquo;</em>
               You&apos;re reading the result.

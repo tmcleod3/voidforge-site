@@ -1409,6 +1409,17 @@ export const shipped: Release[] = [
     ],
   },
   {
+    version: "v23.8.1 – v23.8.12",
+    date: "2026-04-12",
+    title: "The Hardening",
+    headline: "Silver Surfer anti-skip enforcement, Gate promoted to CLAUDE.md, field-report triage — 12 releases tightening the protocol.",
+    items: [
+      "v23.8.1 – v23.8.2: Silver Surfer anti-skip hardening. 'NO EXCEPTIONS' enforcement promoted from command-level to root CLAUDE.md after three documented skip incidents in production sessions.",
+      "v23.8.3 – v23.8.11: Cross-session agent-cache lessons, typecheck pre-flight gate before deploys, prompt-schema lockstep operational learning — a steady stream of small reliability tightenings.",
+      "v23.8.12: Field report triage (issues #299, #300) — campaign autonomy fix, ToS checks for outreach tooling, deploy type-check gate, and three operational learnings landed into docs/LESSONS.md.",
+    ],
+  },
+  {
     version: "v23.8.13 – v23.8.19",
     date: "2026-04-20",
     title: "The Gate",

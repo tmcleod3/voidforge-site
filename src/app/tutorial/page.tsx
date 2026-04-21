@@ -166,7 +166,7 @@ export default function TutorialPage() {
                   {item.title}
                 </h3>
                 <p className="text-[10px] text-[var(--vf-text-muted)] mb-1">{item.description}</p>
-                <span className="text-[9px] px-1.5 py-0.5 rounded bg-[var(--vf-surface-overlay)] text-[var(--vf-electric-blue)] font-bold">{item.step}</span>
+                <span className="text-[11px] px-1.5 py-0.5 rounded bg-[var(--vf-surface-overlay)] text-[var(--vf-electric-blue)] font-bold">{item.step}</span>
               </Link>
             ))}
           </div>
@@ -226,6 +226,11 @@ export default function TutorialPage() {
               </Link>
             </div>
 
+            <p className="text-[11px] px-3 py-2 rounded bg-amber-900/20 text-amber-300 border border-amber-600/30 mb-3">
+              <strong className="tracking-wider">FORGE LABS:</strong> all four
+              tools below are Forge Labs experiments — powerful but still being
+              forged. Bring your engineering tools.
+            </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {growthTools.map((tool) => (
                 <Link
@@ -240,16 +245,14 @@ export default function TutorialPage() {
                   <p className="text-[10px] text-[var(--vf-text-muted)]">
                     {tool.description}
                   </p>
-                  {tool.forgeLabs && (
-                    <span className="inline-block mt-1.5 text-[8px] px-1.5 py-0.5 rounded bg-amber-900/30 text-amber-400 border border-amber-600/30 font-bold tracking-wider">
-                      FORGE LABS
-                    </span>
-                  )}
                 </Link>
               ))}
             </div>
 
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <h3 className="font-[family-name:var(--font-bangers)] text-lg tracking-wider text-[var(--vf-text)] mt-8 mb-3">
+              LIFECYCLE GUIDES
+            </h3>
+            <div className="grid gap-3 sm:grid-cols-2">
               <Link
                 href="/tutorial/google-ads"
                 className="block comic-panel bg-[var(--vf-surface-raised)] p-4 hover:border-[var(--vf-forge-orange)] transition-colors border-l-4 border-[var(--vf-cosmere, #b8860b)]"

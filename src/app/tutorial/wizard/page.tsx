@@ -207,12 +207,15 @@ export default function WizardPage() {
               </h3>
               <p className="text-sm text-[var(--vf-text-muted)] mb-3">
                 Full access over the internet — vault, deploy, terminal.
-                Requires vault password + TOTP 2FA. Set up TOTP during{" "}
-                <code className="text-[var(--vf-electric-blue)]">
-                  /cultivation install
-                </code>{" "}
-                or on first remote login. Use behind a reverse proxy (Caddy,
-                nginx) with HTTPS.
+                Requires vault password + TOTP 2FA. Set up TOTP during the{" "}
+                <Link
+                  href="/tutorial/cultivation"
+                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                >
+                  <code>/cultivation install</code>
+                </Link>{" "}
+                slash command inside Claude Code, or on first remote login.
+                Use behind a reverse proxy (Caddy, nginx) with HTTPS.
               </p>
               <div className="crt-terminal flex items-center justify-between gap-2 !p-4">
                 <code className="text-sm">voidforge init --remote</code>

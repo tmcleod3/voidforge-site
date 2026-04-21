@@ -17,9 +17,9 @@ export default function NotFound() {
           you meant to visit:
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center [&>*]:w-full [&>*]:sm:w-48 [&>*]:text-center">
-          <CtaButton href="/" size="lg">THE LANDING PAGE</CtaButton>
+          <CtaButton href="/tutorial/install" size="lg">START HERE</CtaButton>
+          <CtaButton href="/" size="lg" variant="ghost">THE LANDING PAGE</CtaButton>
           <CtaButton href="/tutorial" size="lg" variant="ghost">THE TUTORIAL</CtaButton>
-          <CtaButton href="/agents" size="lg" variant="ghost">THE AGENTS</CtaButton>
         </div>
       </div>
     </div>
