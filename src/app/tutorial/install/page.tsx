@@ -152,11 +152,31 @@ export default function InstallPage() {
                 </code>
                 <CopyButton text="npx voidforge-build init my-app" />
               </div>
-              <div className="crt-terminal !p-3 text-sm space-y-1">
-                <div><code>cd my-app</code></div>
-                <div><code>claude</code><span className="text-[var(--vf-text-muted)] text-xs ml-3"># opens Claude Code</span></div>
-                <div><code>/build</code><span className="text-[var(--vf-text-muted)] text-xs ml-3"># builds the app</span></div>
+              <div className="crt-terminal flex items-center justify-between gap-2 !p-3 mb-3">
+                <code className="text-sm break-all">
+                  <span className="text-[var(--vf-text-muted)]">$ </span>
+                  cd my-app
+                </code>
+                <CopyButton text="cd my-app" />
               </div>
+              <div className="crt-terminal flex items-center justify-between gap-2 !p-3">
+                <code className="text-sm break-all">
+                  <span className="text-[var(--vf-text-muted)]">$ </span>
+                  claude
+                </code>
+                <CopyButton text="claude" />
+              </div>
+              <p className="text-sm text-[var(--vf-text-muted)] mt-4">
+                Next: write your PRD &mdash;{" "}
+                <Link
+                  href="/tutorial/first-build"
+                  className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+                >
+                  /tutorial/first-build
+                </Link>
+                . <code className="text-[var(--vf-electric-blue)]">/build</code>{" "}
+                needs a PRD, so start there before running it.
+              </p>
             </div>
 
             <div className="comic-panel bg-[var(--vf-surface-raised)] p-6">

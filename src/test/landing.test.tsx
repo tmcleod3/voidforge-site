@@ -84,7 +84,7 @@ describe("Landing Page — Install Section", () => {
   it("renders copy buttons", () => {
     render(<InstallSection />);
     const copyButtons = screen.getAllByText("COPY");
-    expect(copyButtons).toHaveLength(2);
+    expect(copyButtons).toHaveLength(3);
   });
 });
 

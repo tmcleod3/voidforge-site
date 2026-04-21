@@ -96,7 +96,7 @@ export function Hero() {
           transition={{ delay: 0.9, duration: 0.5 }}
           className="mt-8"
         >
-          <CtaButton href="/tutorial" size="lg" className="font-[family-name:var(--font-bangers)] tracking-wider">
+          <CtaButton href="/tutorial/install" size="lg" className="font-[family-name:var(--font-bangers)] tracking-wider">
             FORGE YOUR FIRST APP &rarr;
           </CtaButton>
         </motion.div>

@@ -11,6 +11,11 @@ const installCommands = [
     command: "npx voidforge-build init my-app",
   },
   {
+    tier: "Then Open The Forge",
+    label: "cd into your new project and launch Claude Code",
+    command: "cd my-app && claude",
+  },
+  {
     tier: "Global Install",
     label: "Install globally — reuse across projects",
     command: "npm install -g voidforge-build",
