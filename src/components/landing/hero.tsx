@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { CtaButton } from "@/components/cta-button";
 import { display } from "@/data/stats";
@@ -73,6 +74,20 @@ export function Hero() {
             dispatches, and the Silver Surfer Gate is enforced by hook, not
             prose.
           </p>
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs sm:text-sm">
+            <Link
+              href="/tutorial/verify"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              How to verify &rarr;
+            </Link>
+            <Link
+              href="/tutorial/migrate"
+              className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline"
+            >
+              Migrate from legacy packages &rarr;
+            </Link>
+          </div>
         </motion.div>
 
         <motion.div

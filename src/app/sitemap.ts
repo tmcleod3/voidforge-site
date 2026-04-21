@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "install", "first-build", "deploy", "wizard", "blueprint", "scaffold",
     "import", "prd", "campaign", "gauntlet", "imagine", "learnings",
     "google-ads", "google-ads-kongo", "cultivation", "grow", "treasury", "dangerroom",
+    "migrate", "verify",
   ];
   const tutorials: MetadataRoute.Sitemap = tutorialSlugs.map((slug) => ({
     url: `${BASE_URL}/tutorial/${slug}`,

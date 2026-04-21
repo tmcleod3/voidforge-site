@@ -20,6 +20,8 @@ import {
   Shield,
   Sparkles,
   Brain,
+  ShieldCheck,
+  ArrowRightLeft,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -184,6 +186,8 @@ export default function TutorialPage() {
               { icon: Shield, title: "Gauntlet", description: "30+ agents review everything", href: "/tutorial/gauntlet" },
               { icon: Sparkles, title: "Imagine", description: "AI image generation", href: "/tutorial/imagine" },
               { icon: Brain, title: "Learnings", description: "Cross-session memory", href: "/tutorial/learnings" },
+              { icon: ShieldCheck, title: "Verify", description: "Provenance + sigstore proof", href: "/tutorial/verify" },
+              { icon: ArrowRightLeft, title: "Migrate", description: "From thevoidforge → voidforge-build", href: "/tutorial/migrate" },
             ].map((item) => (
               <Link key={item.href} href={item.href} className="group comic-panel bg-[var(--vf-surface-raised)] p-4 text-center hover:border-[var(--vf-forge-orange)] transition-colors">
                 <item.icon className="w-5 h-5 mx-auto mb-2 text-[var(--vf-deep-purple, #8b5cf6)]" aria-hidden="true" />
