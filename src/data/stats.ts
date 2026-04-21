@@ -23,7 +23,7 @@ export const stats = {
   /** Method documentation files (docs/methods/) — updated on methodology sync */
   totalMethodDocs: 29,
   /** Architecture Decision Records — updated on methodology sync */
-  totalADRs: 49,
+  totalADRs: 61,
 };
 
 /** Formatted strings for display — use in JSX where template literals are awkward */
