@@ -248,9 +248,9 @@ AI-gated approval systems have a cold-start problem: no historical outcomes -> g
 | `/gauntlet` | Round 2 as 7th Stone (Wisdom) | Full 12-agent audit alongside other domain leads |
 | `/assemble` | Phase 6.5 after integrations | AI-specific review between integrations and admin/ops |
 | `/campaign` | Missions with AI features | Seldon review during or after build mission |
-| `/security` | Phase 2 — Bliss handoff from Kenobi | Prompt injection, PII, content safety (AI-specific security) |
+| `/sentinel` | Phase 2 — Bliss handoff from Kenobi | Prompt injection, PII, content safety (AI-specific security) |
 | `/qa` | Step 3 — Bayta handoff from Batman | AI behavior testing, eval strategy, golden datasets |
-| `/review` | Step 1 when AI code in scope | Pattern compliance for prompts, tools, orchestration |
+| `/engage` | Step 1 when AI code in scope | Pattern compliance for prompts, tools, orchestration |
 | `/prd` | During PRD generation | AI Architecture section + frontmatter fields |
 
 ## PRD Frontmatter Fields
@@ -260,7 +260,7 @@ When a project uses AI, the PRD frontmatter should include:
 ```yaml
 ai: yes                           # Activates Seldon's review
 ai_provider: "anthropic"          # anthropic | openai | local | multi
-ai_models: ["claude-sonnet-4-6"]  # Models used
+ai_models: ["claude-sonnet-4-7"]  # Models used — update to current runtime model
 ai_features: ["classification", "generation", "tool-use", "routing"]
 ```
 

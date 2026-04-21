@@ -51,10 +51,10 @@ npm run wizard
 See `/docs/templates/PRD-TEMPLATE.md` for the frontmatter format and field reference.
 
 #### Methodology Only (npm)
-The methodology without the tooling. CLAUDE.md, all 28 slash commands, all agent protocols, all code patterns. No wizard UI, no npm runtime dependencies.
+The methodology without the tooling. CLAUDE.md, all 30 slash commands, all agent protocols, all code patterns. No wizard UI, no npm runtime dependencies.
 
 ```bash
-npx thevoidforge init --headless my-app
+npx voidforge-build init --headless my-app
 cd my-app
 # Write your PRD in docs/PRD.md
 # Open in Claude Code
@@ -64,11 +64,11 @@ cd my-app
 **Best for:** Developers who know what they're doing and want to skip the wizard. You manage your own infrastructure. VoidForge manages your build process.
 
 #### Minimal (npm --core)
-The lightest possible version. CLAUDE.md, all 28 slash commands, full agent protocols, full character registry, code patterns. Zero overhead — can be dropped into any existing project or referenced as external context.
+The lightest possible version. CLAUDE.md, all 30 slash commands, full agent protocols, full character registry, code patterns. Zero overhead — can be dropped into any existing project or referenced as external context.
 
 ```bash
 # Drop into an existing project
-npx thevoidforge init --headless --target your-project/
+npx voidforge-build init --headless --target your-project/
 ```
 
 Or manually: copy CLAUDE.md, .claude/, and docs/ from the npm package into your project.
@@ -79,11 +79,11 @@ Or manually: copy CLAUDE.md, .claude/, and docs/ from the npm package into your 
 
 Every tier includes:
 - **CLAUDE.md** — Root context loaded at every session start
-- **28 slash commands** — `/prd`, `/blueprint`, `/build`, `/qa`, `/test`, `/security`, `/ux`, `/review`, `/deploy`, `/devops`, `/architect`, `/assess`, `/git`, `/void`, `/vault`, `/thumper`, `/assemble`, `/gauntlet`, `/campaign`, `/imagine`, `/debrief`, `/dangerroom`, `/cultivation`, `/grow`, `/current`, `/treasury`, `/portfolio`, `/ai`
+- **30 slash commands** (28 primary + 2 permanent aliases: `/review` → `/engage`, `/security` → `/sentinel`) — `/prd`, `/blueprint`, `/build`, `/qa`, `/test`, `/sentinel`, `/ux`, `/engage`, `/deploy`, `/devops`, `/architect`, `/assess`, `/git`, `/void`, `/vault`, `/thumper`, `/assemble`, `/gauntlet`, `/campaign`, `/imagine`, `/debrief`, `/dangerroom`, `/cultivation`, `/grow`, `/current`, `/treasury`, `/portfolio`, `/ai`. Run `ls .claude/commands/*.md | wc -l` for the live file count.
 - **13-phase build protocol** — PRD to production with verification gates
 - **18 specialist agent protocols** — Each lead has behavioral directives and a sub-agent roster
 - **Named characters** — From Tolkien, Marvel, DC, Star Wars, Star Trek, Dune, Anime, Cosmere, and Foundation — each materialized as a subagent definition in `.claude/agents/`
-- **35 code patterns** — Reference implementations with framework adaptations (including E2E testing)
+- **34 code patterns** — Reference implementations with framework adaptations (including E2E testing). Run `ls docs/patterns/*.ts | wc -l` for the live count.
 - **No Stubs Doctrine** — Zero placeholder code. Every file does what it claims. Enforced across all method docs.
 - **E2E browser testing** — Playwright + axe-core. Agents take screenshots, capture console errors, and interact with running applications.
 - **Flag taxonomy** — Standardized flags across all commands: `--fast`, `--blitz`, `--muster`, `--plan`, `--dry-run`, `--resume`
@@ -160,10 +160,10 @@ This is interactive. Claude works through each phase, verifies gates, and logs e
 
 ```bash
 # Option A: Browser wizard
-npx voidforge deploy
+npx voidforge-build deploy
 
 # Option B: Headless (from terminal / Claude Code — no browser needed)
-npx voidforge deploy --headless
+npx voidforge-build deploy --headless
 ```
 
 **Haku** scans your project, loads your PRD, and provisions infrastructure for your chosen target. The browser wizard shows a visual UI with SSE progress streaming; the `--headless` flag runs the same provisioner code from the terminal (used by `/build` Phase 12 so you never leave Claude Code). For AWS VPS, that means:
@@ -199,7 +199,7 @@ Your app is live. The deploy script ran a health check. SSL is auto-provisioned 
 
 ### Methodology-Only Users
 
-If you're using the methodology package (`@voidforge/methodology`) without the wizard, skip Steps 1 and 3. Write your PRD manually in `docs/PRD.md`, run `/build`, and handle your own infrastructure. The methodology is the same — only the automation layer differs.
+If you're using the methodology package (`voidforge-build-methodology`) without the wizard, skip Steps 1 and 3. Write your PRD manually in `docs/PRD.md`, run `/build`, and handle your own infrastructure. The methodology is the same — only the automation layer differs.
 
 ---
 
@@ -304,7 +304,7 @@ VoidForge uses 18 lead agents across 9 fictional universes, each commanding a ro
 | Forge Sync | **Bombadil** | Lord of the Rings | VoidForge self-update from upstream | Ancient, joyful, sings while he works, tends the forge itself |
 | Worm Rider | **Chani** | Dune | Telegram bridge, Gom Jabbar, sandworm relay | Desert-born, fierce, speaks across any distance |
 | The Initiative | **Fury** | Marvel | Full pipeline orchestration, crossfire, council | Assembles the team. Doesn't leave until the mission is complete. |
-| The Gauntlet | **Thanos** | Marvel | Comprehensive 5-round review, 30+ agents | "I am inevitable." Tests everything. The project survives or it doesn't. |
+| The Gauntlet | **Thanos** | Marvel | Comprehensive 5-round review, agents across all domains | "I am inevitable." Tests everything. The project survives or it doesn't. |
 | Campaign Command | **Sisko** | Star Trek | PRD-to-product campaign, mission sequencing | The builder, the prophet, the war commander. Reads the plan, picks the next fight. |
 | Forge Artist | **Celebrimbor** | Lord of the Rings | AI image generation from PRD descriptions | Hand of Silver. Greatest elven smith. Forges visual assets from prose. |
 | Field Medic | **Bashir** | Star Trek | Post-mortem analysis, upstream feedback | Genetically enhanced diagnostician. Traces root causes, sends field reports to Starfleet. |
@@ -424,8 +424,12 @@ Double-pass review: Pass 1 runs parallel analysis — Oracle scans the system, R
 
 Analyzes coverage gaps (Oracle + Alfred in parallel), reviews test architecture (Nightwing), writes missing unit/integration/component tests in priority order, then Red Hood writes adversarial tests for boundary values and edge cases.
 
-#### `/security` — Kenobi's Audit
+#### `/sentinel` — Kenobi's Audit (alias: `/security`)
 **When:** Before any deploy. After adding auth, payments, or external integrations.
+
+> Renamed from `/security` in v23.8.13 (ADR-050) to avoid collision with Claude Code's native `/security-review` skill. `/security` remains as a permanent alias — both names invoke Kenobi's OWASP audit.
+
+**Hit a gate block?** See `scripts/surfer-gate/README.md` for the enforcement contract, or add `--light` to skip the Silver Surfer pre-scan.
 
 Phase 1 runs parallel scans (Leia: secrets, Chewie: dependencies, Rex: infrastructure, Maul: red-team). Phase 2 runs sequential deep audits (auth, input, access control, data). Critical/high findings are fixed. Phase 3: Maul re-probes all remediations to verify fixes hold.
 
@@ -434,8 +438,10 @@ Phase 1 runs parallel scans (Leia: secrets, Chewie: dependencies, Rex: infrastru
 
 Adversarial UX/UI review with double-pass: Pass 1 walks every user flow with 7 agents in parallel (UX, visual, a11y, copy, code, perf, edge cases). Fixes are applied. Pass 2: Samwise re-audits a11y on modified components, Gandalf re-checks edge cases. Ensures fixes don't break other properties.
 
-#### `/review` — Picard's Code Review
+#### `/engage` — Picard's Code Review (alias: `/review`)
 **When:** After writing code, before committing. For pattern compliance and quality.
+
+> Renamed from `/review` in v23.8.13 (ADR-050) to avoid collision with Claude Code's native `/review` skill. `/review` remains as a permanent alias — both names invoke Picard's multi-agent code review.
 
 Picard-affiliated (Star Trek). Parallel analysis: Spock checks pattern compliance against `/docs/patterns/`, Seven reviews code quality (complexity, dead code, duplication), Data reviews maintainability (abstractions, coupling, boundaries). Re-verification pass after fixes. Findings categorized as Must Fix, Should Fix, Consider, or Nit.
 
@@ -457,7 +463,7 @@ Full architecture review with parallel analysis: Spock (schema) + Uhura (integra
 #### `/void` — Bombadil's Forge Sync
 **When:** You want to update your VoidForge methodology to the latest version.
 
-Old Tom Bombadil tends the forge itself. He checks for the latest VoidForge methodology (via `npx thevoidforge update` or git fetch as fallback), compares every shared methodology file against your local copies, shows you exactly what changed, and sings the updates into place — all while preserving your project-specific customizations (PRD, logs, code, CLAUDE.md project section). If you're already on the latest, Tom tells you so and goes back to singing.
+Old Tom Bombadil tends the forge itself. He checks for the latest VoidForge methodology (via `npx voidforge-build update` or git fetch as fallback), compares every shared methodology file against your local copies, shows you exactly what changed, and sings the updates into place — all while preserving your project-specific customizations (PRD, logs, code, CLAUDE.md project section). If you're already on the latest, Tom tells you so and goes back to singing.
 
 #### `/thumper` — Chani's Worm Rider
 **When:** You want to control Claude Code from your phone via Telegram.
@@ -479,7 +485,7 @@ Setup: `/thumper setup` (one-time). Control: `/thumper on` / `/thumper off` / `/
 
 Fury assembles every agent in VoidForge and runs the complete pipeline: architecture review, full build, three rounds of code review, UX pass, two rounds of security audit, infrastructure review, QA, and test suite — then the Crossfire (adversarial agents from four universes attack each other's work) and the Council (domain specialists verify nobody broke anyone else's fixes).
 
-13 phases, all 9 universes, 40+ agents. Checkpoints after every phase so you can resume across sessions with `/assemble --resume`. Skip the build with `--skip-build` to re-run reviews on existing code. Skip the Crossfire and Council with `--fast` for lower-stakes projects.
+Multi-phase protocol, all 9 universes, agents across all domains. Checkpoints after every phase so you can resume across sessions with `/assemble --resume`. Skip the build with `--skip-build` to re-run reviews on existing code. Skip the Crossfire and Council with `--fast` for lower-stakes projects.
 
 This is the nuclear option. Use it when quality is non-negotiable.
 
@@ -599,7 +605,7 @@ Flags: `--seal` (auto-confirm), `--open` (read most recent vault), `--list` (lis
 
 ### Flag System
 
-VoidForge flags are standardized across all 26 commands. Same flag = same meaning everywhere.
+VoidForge flags are standardized across all 30 commands. Same flag = same meaning everywhere.
 
 **Tier 1 — Universal:** `--resume` (resume from state), `--plan` (plan without executing), `--fast` (reduced review passes), `--dry-run` (preview without doing), `--status` (show state), `--blitz` (autonomous, no pauses)
 
@@ -798,7 +804,7 @@ If Phase 12 or a deploy script fails:
 | Deploy script hangs | Check SSH connectivity, verify key permissions (0600) |
 | Test runner not found | Phase 1 should set it up — re-run scaffold if missing |
 | Context fills mid-phase | Checkpoint to journal, new session, continue |
-| npm install fails on Windows | node-pty needs C++ tools. Use `--ignore-scripts` or `npx thevoidforge init --headless` |
+| npm install fails on Windows | node-pty needs C++ tools. Use `--ignore-scripts` or `npx voidforge-build init --headless` |
 
 ---
 

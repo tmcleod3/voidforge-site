@@ -151,7 +151,7 @@ When two agents disagree on a finding, run a structured debate instead of listin
 
 **Log the debate** as an ADR in `/docs/adrs/` with both positions, evidence, and the decision. This is better than a one-line finding because future developers can understand WHY the decision was made.
 
-**When to trigger:** When `/review`, `/qa`, or `/security` produces conflicting findings on the same code — e.g., Spock says "this is correct" and Kenobi says "this is a vulnerability." Don't debate on matters of fact (a missing import is a missing import). Debate on matters of judgment (is this pattern secure enough? is this abstraction worth the complexity?).
+**When to trigger:** When `/engage`, `/qa`, or `/sentinel` produces conflicting findings on the same code — e.g., Spock says "this is correct" and Kenobi says "this is a vulnerability." Don't debate on matters of fact (a missing import is a missing import). Debate on matters of judgment (is this pattern secure enough? is this abstraction worth the complexity?).
 
 ## Custom Sub-Agents
 
@@ -327,13 +327,13 @@ CONSTRAINTS: [list]
 | Architecture / Council | Position Statement: assessment, concerns, sign-off |
 | Build agents | Build Report: files created/modified, tests added, decisions made |
 
-### Concurrency Rules
+### Concurrency Rules (ADR-059)
 
-- **Max 3 concurrent agents** (hard cap — prevents context thrashing)
-- Batch into waves when >3 agents needed
-- **No two concurrent agents may write to the same file** — partition by domain or concern
-- Read-only agents can run in parallel without restriction
-- Partition strategies: by domain (frontend/backend), by concern (security/UX), or read-only
+- **Fan out the full roster in parallel for read-only analysis.** Opus 4.7's 1M context window handles 20+ concurrent findings tables without thrashing. Field report #270 confirmed 15+ parallel agents at 15-25% context usage.
+- **No two concurrent agents may write to the same file** — partition by domain/concern, or serialize writes.
+- **Fix/build agents:** batch into waves only when writes overlap. Independent files = parallel.
+- **Wait for ALL parallel agents before synthesizing** (field report #300).
+- Partition strategies: by domain (frontend/backend), by concern (security/UX), or read-only vs. write.
 
 ### Context Passing Between Phases
 
@@ -351,8 +351,8 @@ PLAN → LAUNCH → WAIT → TRIAGE → DECIDE → REPORT → NEXT
 
 | Command | Main Thread | Agents | Parallelism |
 |---|---|---|---|
-| `/review` | Partition files, triage findings | 2-3 review agents per round, fix agents | Domain-parallel reads, sequential fixes |
-| `/security` | Route findings, manage fixes | Kenobi (full audit), Maul (re-probe) | Sequential (Maul needs Kenobi's fixes) |
+| `/engage` | Partition files, triage findings | 2-3 review agents per round, fix agents | Domain-parallel reads, sequential fixes |
+| `/sentinel` | Route findings, manage fixes | Kenobi (full audit), Maul (re-probe) | Sequential (Maul needs Kenobi's fixes) |
 | `/qa` | Triage bugs, prioritize | Batman QA + Batman Test | Parallel (different focus) |
 | `/assemble` | Full pipeline orchestration | ALL phases dispatched | Wave-batched per phase |
 | `/gauntlet` | Round management | 5-8 agents per round | Waves of 3 |
@@ -372,3 +372,4 @@ Do NOT dispatch for: <3 files, <10 lines of analysis, single-file edits, git ope
 6. Don't use parallel agents for work that touches the same files — merge conflicts waste more time than sequential work.
 7. **Don't do inline analysis when an agent could do it.** Reading 50 files fills context with raw code instead of synthesized findings. Dispatch to an agent, get back a findings table. (Field report #270)
 8. **Don't let agents dispatch other agents.** The main thread is the hub. Agent-to-agent dispatch creates coordination chaos.
+9. **Don't implement while agents are running.** When agents are deployed in parallel, wait for ALL to return before beginning implementation. Synthesize all findings first, then implement in one batch. Starting early means you miss findings and do rework. (Field report #300)

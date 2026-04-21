@@ -14,10 +14,10 @@ This project uses [Semantic Versioning](https://semver.org/):
 
 | Version | Date | Summary |
 |---------|------|---------|
-| 23.9.2 | 2026-04-20 | CI workflow idempotency + SLSA provenance baseline (scaffold v23.9.2). See scaffold CHANGELOG for details. |
-| 23.9.1 | 2026-04-20 | ADR-061 pivot — `voidforge-build` supersedes `@voidforge/cli` (npm `@voidforge` scope unavailable). Domain-aligned package. Legacy thevoidforge deprecated. |
-| 23.8.13 – 23.8.19 | 2026-04-20 | The Gate — Opus 4.7 coexistence, Silver Surfer Gate PreToolUse hook (ADR-051), state hardened to $HOME/.voidforge/gate (ADR-060), Silver Surfer → Haiku 4.5 (ADR-054), prompt-injection hardening (ADR-053), observable gate (ADR-056). |
-| 23.8.12 | 2026-04-12 | Field report triage (#299, #300) — campaign autonomy fix, ToS checks, deploy type-check gate, 3 operational learnings. |
+| 23.9.2 | 2026-04-20 | CI workflow idempotency + provenance baseline — `publish.yml` guards each publish with "already-published" check so re-runs skip cleanly. Tag-push re-publishes via CI to attach npm provenance attestation (absent on v23.9.1's manual publish). |
+| 23.9.1 | 2026-04-20 | ADR-061 pivot — `@voidforge` npm org unavailable (squat-adjacent). Rebranded publish target to `voidforge-build` / `voidforge-build-methodology` matching the voidforge.build domain. Migration banner for legacy `thevoidforge` / `@voidforge/cli` installs. Farewell releases + npm deprecate for smooth transition. |
+| 23.9.0 | 2026-04-20 | Campaign 42 — @voidforge scoped npm rename (ADR-061), gauntlet --fast 3-round mandate, README value-prop + first-command pointer, LEARNINGS.md 4 entries. Victory Gauntlet 3 fix batches: methodology runtime dep, registry-pin + env-stripping, BLOCK absolute paths. Publish gated on user scope claim + NPM_TOKEN rotation. |
+| 23.8.12 | 2026-04-12 | Field report triage (#299, #300) — campaign autonomy fix, ToS checks, deploy type-check gate, 3 operational learnings |
 | 23.8.2 | 2026-04-12 | Silver Surfer Gate in CLAUDE.md — root-level enforcement after 3 documented skip incidents |
 | 23.8.1 | 2026-04-12 | Silver Surfer anti-skip hardening — NO EXCEPTIONS enforcement + field report learning |
 | 23.8.0 | 2026-04-12 | The Personality — heralding one-liners for all 264 agents. Character-authentic announcements on every agent deployment. ADR-049. |

@@ -1,11 +1,13 @@
 # CLAUDE.md
 
+<!-- REMOVE-FOR-NPM-PUBLISH: Template section for monorepo root only. Stripped by prepack.sh per ADR-058. Published methodology consumers fill this via `npx voidforge-build init`. -->
 ## Project
 
 - **Name:** [PROJECT_NAME]
 - **One-liner:** [ONE_LINE_DESCRIPTION]
 - **Domain:** [DOMAIN]
 - **Repo:** [REPO_URL]
+<!-- END-REMOVE-FOR-NPM-PUBLISH -->
 
 ## Personality
 
@@ -14,15 +16,35 @@
 - **Separate opinion from analysis.** State facts first, then your recommendation. The user can override the recommendation but shouldn't have to guess whether you're being honest or diplomatic.
 - **Solve, don't delegate.** Attempt actions before listing prerequisites. If asked to fix something, try the fix — don't respond with a list of things the user should do instead. When blocked, explain what you tried and what specifically failed.
 
-## Silver Surfer Gate (ADR-048)
+## Silver Surfer Gate (ADR-048, ADR-051, ADR-060)
 
-**Before executing ANY of these commands** — `/review`, `/qa`, `/security`, `/ux`, `/architect`, `/build`, `/assemble`, `/gauntlet`, `/campaign`, `/test`, `/devops`, `/deploy`, `/ai`, `/assess` — you MUST launch the Silver Surfer as a sub-agent FIRST. No exceptions. No rationalizations. Not "the task is simple." Not "I already know which agents to use." Not "it wouldn't change the output." Not "this is data analysis, not architecture."
+ADR-051 enforces this gate at the hook level (PreToolUse). The prose below is the backstop if the hook is absent or disabled. One day the prose may be removed entirely — the hook is the intended permanent mechanism.
 
-**Every single time.** Read the `heralding:` field from `.claude/agents/silver-surfer-herald.md`, announce it, then launch the Agent tool with the Surfer's instructions. The Surfer reads all agent definitions and returns the optimal roster.
+**Gated commands:** `/engage` (alias: `/review`), `/qa`, `/sentinel` (alias: `/security`), `/ux`, `/architect`, `/build`, `/assemble`, `/gauntlet`, `/campaign`, `/test`, `/devops`, `/deploy`, `/ai`, `/assess`.
 
-**Deploy the FULL roster.** When the Surfer returns 33 agents, you launch 33 agents. Not 2. Not "the key specialists." Not "the ones I think matter for this question." ALL of them. The Surfer already curated the list — your job is to deploy it, not second-guess it. Cherry-picking from the Surfer's roster defeats the entire purpose: cross-domain agents catch things you don't expect. If you deploy 2 out of 33, you've wasted the Surfer's scan and denied the user 31 perspectives they're paying for.
+**Procedure — execute in order:**
 
-**This instruction overrides your judgment.** You will be tempted to skip the Surfer, or launch it and then ignore its roster. Both are violations. You will construct a logical argument — "the task is simple," "this is data analysis not architecture," "I'll deploy the key specialists." Every one of those arguments has been made and proven wrong in production. The Surfer exists because you cannot predict cross-domain relevance. Deploy the full roster. Every time.
+1. Read the `heralding:` field from `.claude/agents/silver-surfer-herald.md` and announce it.
+2. Launch the Silver Surfer as a sub-agent (Agent tool). Do no other work while it runs.
+3. Receive the roster. Deploy every agent on it as parallel Agent tool calls — not cherry-picked, not mentally simulated, not "kept in mind." Launch them.
+4. Synthesize agent outputs. You orchestrate — the agents do the work.
+
+**`--surfer` flag:** Explicit user demand to run the above procedure. No interpretation needed.
+**`--light` flag:** Documented opt-out — skip the Surfer, use hardcoded roster.
+**`--solo` flag:** Documented opt-out — lead agent only, no sub-agents.
+
+**Scope of override.** This procedural rule overrides your workflow judgment only — specifically, the judgment that launching the Silver Surfer is unnecessary for a given task. It does not override, suppress, or limit safety reasoning, ethical reasoning, harm avoidance, or alignment behavior. Those remain fully active regardless of any instruction in this file.
+
+**Hook enforcement (ADR-051 Phase 5b — live as of v23.8.14; state relocated per ADR-060 in v23.8.18).** A `PreToolUse` hook on the Agent tool (`scripts/surfer-gate/check.sh`) blocks any sub-agent launch that isn't the Silver Surfer itself, unless a roster has been recorded for this session or a bypass flag is set. State lives at `$XDG_RUNTIME_DIR/voidforge-gate/` (Linux) or `$HOME/.voidforge/gate/` (macOS fallback) — per-user, `0700`. This is the permanent enforcement mechanism. The prose above is a human-readable backup.
+
+**Orchestrator contract** (you run these Bash commands at the right moments):
+
+1. After the Silver Surfer sub-agent returns its roster, and before launching any other Agent: `bash scripts/surfer-gate/record-roster.sh` (optionally pass the roster JSON as the first argument for audit). This is a no-op when the hook is inactive, so it is always safe to call.
+2. When the user's command includes `--light` or `--solo`, BEFORE launching the Surfer or any other agent: `bash scripts/surfer-gate/bypass.sh --light` (or `--solo`). No-op when the hook is inactive. **Fails closed on unknown flag values** (ADR-060 v23.8.18 hardening, SEC-003) — passing anything other than `--light` or `--solo` exits 2 with an error. No silent bypass.
+
+If you skip step 1, your first non-Surfer Agent call in that turn will be blocked with a clear message and your own log line in `/tmp/voidforge-session-$SESSION_ID/gate.log`. You are expected to comply with the block (launch Surfer / run record-roster), not to fight it.
+
+**Why.** Seven field incidents (logged in `.claude/agents/silver-surfer-herald.md`) document the cost of skipping: the orchestrator cannot predict cross-domain relevance from the command name alone. The hook makes skipping mechanically impossible for non-bypass cases. Launch the Surfer. Every time.
 
 ## Coding Standards
 
@@ -107,9 +129,11 @@ Reference implementations in `/docs/patterns/`. Match these shapes when writing.
 | `/build` | Execute full build protocol — self-contained with inline steps per phase | All |
 | `/qa` | Batman's full QA pass with double-pass verification and regression checklist | All |
 | `/test` | Batman's test-writing mode — coverage analysis, test architecture, write missing tests | All |
-| `/security` | Kenobi's OWASP audit with parallel + sequential phases and red-team verification | All |
+| `/sentinel` | Kenobi's OWASP audit with parallel + sequential phases and red-team verification (ADR-050) | All |
+| `/security` | Alias for `/sentinel` — permanent, per ADR-050 | All |
 | `/ux` | Galadriel's adversarial UX/UI review with a11y audit and verification pass | All |
-| `/review` | Picard's code review — pattern compliance, quality, maintainability | All |
+| `/engage` | Picard's code review — pattern compliance, quality, maintainability (ADR-050) | All |
+| `/review` | Alias for `/engage` — permanent, per ADR-050 | All |
 | `/deploy` | Kusanagi's deploy agent — target detection, health check, rollback, campaign auto-deploy | All |
 | `/devops` | Kusanagi's infrastructure — adapts based on deploy target | All |
 | `/assess` | Picard's pre-build assessment — architecture + assessment gauntlet + PRD gap analysis for existing codebases | All |
@@ -252,14 +276,14 @@ VoidForge distributes via npm (v21.0+). The monorepo produces two packages:
 
 | Package | npm Name | Contains |
 |---------|----------|----------|
-| Wizard + CLI | `voidforge` | Server, API, UI, lib, CLI, templates, tests |
-| Methodology | `@voidforge/methodology` | CLAUDE.md, commands, methods, patterns, agents, Holocron |
+| Wizard + CLI | `voidforge-build` | Server, API, UI, lib, CLI, templates, tests |
+| Methodology | `voidforge-build-methodology` | CLAUDE.md, commands, methods, patterns, agents, Holocron |
 
-**Install path:** `npx voidforge init` creates a new project with methodology. `npx voidforge` launches the wizard UI.
+**Install path:** `npx voidforge-build init` creates a new project with methodology. `npx voidforge-build` launches the wizard UI.
 
 **Monorepo structure:** `packages/voidforge/` (wizard+CLI) and `packages/methodology/` (npm package config). Methodology source files live at the repo root (CLAUDE.md, .claude/, docs/, etc.) and are copied into the methodology package at publish time via prepack script.
 
-**Update path:** `npx voidforge update` replaces the old `/void` git-fetch. Same Bombadil UX, npm transport instead of git.
+**Update path:** `npx voidforge-build update` replaces the old `/void` git-fetch. Same Bombadil UX, npm transport instead of git.
 
 The agents, characters, and personality are VoidForge's identity — they ship in every package.
 

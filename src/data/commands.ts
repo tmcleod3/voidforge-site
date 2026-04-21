@@ -108,6 +108,37 @@ export const commands: Command[] = [
     ],
   },
   {
+    slug: "sentinel",
+    tier: "all" as CommandTier,
+    name: "/sentinel",
+    lead: "Kenobi",
+    description:
+      "OWASP audit with parallel and sequential phases and red-team verification. Canonical name for the security command (ADR-050).",
+    usage: "/sentinel",
+    note: "Canonical for /security — the permanent alias `/security` still works.",
+    whatHappens: [
+      "Dispatch-first: Kenobi's team runs as parallel sub-agents for codebases >10 files",
+      "Load operational learnings in security, vendor, and API-behavior categories",
+      "Leia audits auth flows",
+      "Chewie scans dependencies",
+      "Rex validates all inputs",
+      "Ahsoka checks read-operation guards",
+      "Maul runs red-team penetration tests",
+      "Yoda, Windu, Padmé run sequential deep reviews",
+      "All findings are remediated and re-verified",
+    ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
+    ],
+  },
+  {
     slug: "security",
     tier: "all" as CommandTier,
     name: "/security",
@@ -154,6 +185,32 @@ export const commands: Command[] = [
       "Bilbo reviews microcopy and brand voice",
       "Legolas checks performance impact",
       "Gandalf probes edge cases and error states",
+    ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
+    ],
+  },
+  {
+    slug: "engage",
+    tier: "all" as CommandTier,
+    name: "/engage",
+    lead: "Picard",
+    description:
+      "Picard reads every line against the pattern library. Canonical name for the review command (ADR-050) — coexists with Claude Code's native /review skill.",
+    usage: "/engage",
+    note: "Canonical for /review — the permanent alias `/review` still works.",
+    whatHappens: [
+      "Picard reviews against architecture decisions (ADRs)",
+      "Pattern compliance checked against /docs/patterns/",
+      "Code quality and maintainability assessed",
+      "Findings prioritized and fixes recommended",
     ],
     arguments: [
       {

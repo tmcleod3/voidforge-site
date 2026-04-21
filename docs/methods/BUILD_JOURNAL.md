@@ -32,7 +32,36 @@ logs/
   handoffs.md                 ← Every agent-to-agent handoff with context
   errors.md                   ← Every significant error encountered and resolution
   agent-activity.jsonl        ← Live agent dispatch log (JSONL — powers Danger Room ticker)
+  surfer-gate-events.jsonl    ← Silver Surfer Gate events (JSONL) — written by PreToolUse hook and record-roster.sh per ADR-056. Cross-session, append-only.
 ```
+
+### Silver Surfer Gate Events (ADR-056)
+
+`logs/surfer-gate-events.jsonl` is a repo-persistent append-only log of every gate decision. The `PreToolUse` hook (`scripts/surfer-gate/check.sh`) writes one line per Agent tool call; `scripts/surfer-gate/record-roster.sh` writes one line when the orchestrator records the Surfer's roster.
+
+**Schema** (canonical source is ADR-056; keep in sync):
+
+```json
+// ALLOW / BLOCK — written by check.sh
+{"ts":"2026-04-20T20:00:00Z","session_id":"<uuid>","event":"ALLOW","subagent_type":"<name>","tool_name":"Agent","reason":"<human-readable>"}
+
+// ROSTER_RECEIVED — Shape A (jq present AND valid-JSON roster)
+{"ts":"...","session_id":"...","event":"ROSTER_RECEIVED","roster_parsed":true,"roster":{...},"roster_text":"{...}"}
+
+// ROSTER_RECEIVED — Shape B/C (jq unavailable OR non-JSON roster)
+{"ts":"...","session_id":"...","event":"ROSTER_RECEIVED","roster_parsed":false,"roster_text":"..."}
+```
+
+`event` values in use:
+- `ALLOW` — hook allowed the Agent call (self-launch, bypass, or roster present)
+- `BLOCK` — hook blocked the Agent call (no roster, no bypass, not Surfer)
+- `ROSTER_RECEIVED` — orchestrator recorded a roster via `record-roster.sh`
+
+**Discriminator:** `roster_parsed:true` → the `roster` field contains the structured JSON object. `roster_parsed:false` → read `roster_text` as an escape-encoded string (use `jq -r '.roster_text'` to decode).
+
+**Cherry-pick detection:** count `ROSTER_RECEIVED` entries minus distinct non-Surfer `subagent_type` values under `ALLOW` in the same session. Non-zero deltas indicate rosters that weren't fully deployed. See ADR-056 for the full jq query.
+
+A session-scoped copy also lives at `/tmp/voidforge-session-<session_id>/surfer-gate-events.jsonl` for per-session debugging alongside `gate.log`.
 
 ## Log Entry Format
 
