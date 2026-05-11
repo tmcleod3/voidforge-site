@@ -6,6 +6,44 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.14.2] - 2026-05-10
+
+### /engage code-review patch — closes 1 HIGH (CI silent-failure) + 4 MEDIUM symmetries
+
+Post-Victory `/engage` pass with a 6-agent lean roster (Picard, Spock, Seven, Data, Lang, Irulan) on the v2.13.0 → v2.14.1 delta. Found 1 HIGH correctness bug the Victory Gauntlet's broader rounds skipped + 4 MEDIUM data-shape asymmetries between sister files. Per "accuracy is everything," all addressed in this patch.
+
+### Fixed (HIGH)
+- **CI dead-export scan silently swallowed ts-prune crashes.** Seven OPT-002. Previous step ran `OUTPUT=$(npm run dead-exports --silent)` which terminates with `|| true`. If `ts-prune` itself crashed (missing binary, config error), `$OUTPUT` was empty and the step printed "No unexpected dead exports" without ever running. Fix: invoke `npx ts-prune` directly with `set -e` so a scanner crash fails the step; keep the regex filter inline; the `|| true` only fires for the grep terminal (correct: zero matches IS the success state). The npm `dead-exports` script stays as the dev-friendly version.
+
+### Fixed (MEDIUM — sister-file symmetries)
+- **`allGroupedSlugs` → `allGroupedCommandSlugs`** in `src/data/command-groups.ts`. Renamed for parallelism with `allGroupedPatternSlugs` in `src/data/pattern-groups.ts`. Spock #1 / Data DEBT-001. Hardens before a third sibling extraction (e.g., agent-groups) makes the asymmetry permanent. Single import site (`src/test/consistency.test.ts`) updated.
+- **Uniqueness test error messages now domain-explicit.** `src/test/consistency.test.ts` "command group ids are unique" test was reporting `Duplicate group ids: ...` while the pattern-side test correctly reported `Duplicate pattern group ids: ...`. Updated the command-side message to `Duplicate command group ids: ...` for symmetric failure clarity. Spock #2.
+- **`display.pages` dropped its `+` suffix.** `src/data/stats.ts:55`. The `+` implies "at least N" but the value is exact (verified by `find out -name '*.html' \| wc -l` and CI Verify-page-count step). Other display.* with `+` suffixes (`agents`, `subAgents`) are deliberately approximate; `pages` is not. Comment added explaining the convention. Spock #4.
+- **`totalPages` now has a consistency test.** `src/test/consistency.test.ts` Stats describe block. The other 3 manually-maintained scalars (`totalMethodDocs`, `totalADRs`, `totalScaffoldTests`) all had test guards; `totalPages` was added in v2.14.1 without one. New test: `totalPages >= 100` (matches CI's Verify-page-count floor). Spock #7.
+
+### Fixed (LOW — accuracy directive applied)
+- **`docs/adrs/ADR-022.md` §Costs was stale** ("Phase 2 work deferred until next sync"). Phase 2 #4, #5, #7 all shipped in v2.14.0 + v2.14.1; the deferral is no longer accurate. Picard's /engage finding. Updated to reflect what shipped.
+- **`docs/adrs/ADR-022.md` §Phase 1 #3** said "Lands in Site v2.14.0 alongside this revision" (past tense now); also updated to mention `totalPages` plausibility check shipped in v2.14.2.
+- **`CHANGELOG.md` v2.13.1 entry** said "accuracy first"; canonical phrase used everywhere else is "accuracy is everything." Lang's micro-precision finding. Aligned.
+- **DISCIPLINE pattern group color collision** with RECON OPS command group (both used `var(--vf-comic-red)`). Different pages, never side-by-side, but accidental. Lang's finding. DISCIPLINE → `var(--vf-forge-yellow)` for distinct identity.
+- **DISCIPLINE label** kept (Data DEBT-002 flagged it as a virtue rather than a domain). Inline comment added explaining the framing was intentional and "DOCS"/"PROCESS" were considered and rejected.
+
+### Test count
+- 76 → 77 (+1 totalPages plausibility test).
+
+### Deferred (NIT — out of /engage scope)
+- **Sister-file shape duplication** (pattern-groups.ts + command-groups.ts identical interface). Picard, Seven OPT-003, Data DEBT-005 all converged: defer until a third sister appears. Two-instance duplication is below the abstraction threshold.
+- **`framework: "typescript"` for `.md` reference patterns** (semantic type debt). Pre-existing — `combobox.tsx` and others have the same shape. Should be addressed by extending the `Framework` union with a `"reference"` or `"markdown"` member; out of scope here.
+- **`dead-exports` regex unreadable** — already filed as GAUNTLET-010 in the v2.14.1 debrief.
+- **CHANGELOG v2.14.0 records the wrong "153+ pages"** figure as historical text. Append-only convention; the v2.14.1 entry already documents the correction.
+
+### Operational notes
+- Tests 77/77. Typecheck clean. Dead-exports clean. Build clean.
+- Tag `site-v2.14.2`.
+- Vercel auto-deploy still broken; manual `vercel --prod --yes`.
+
+---
+
 ## [Site v2.14.1] - 2026-05-10
 
 ### Victory Gauntlet fix-first patch — closes 1 Critical + 2 High the v2.14.0 Gauntlet caught
@@ -100,7 +138,7 @@ Campaign B of the post-v2.13 cleanup. /architect --plan (9 agents) + /campaign -
 
 ### Latent-bug patch — Campaign A of post-v2.13 cleanup
 
-Campaign-A patch shipping the latent-bug findings the v2.13.0 /architect agent sweep surfaced. Pure fixes; no new tests, no ADR amendments (those are bundled into v2.14.0). Discovered + filed during /architect --plan and /campaign --plan plan-mode passes; ships now per "no pausing, accuracy first" directive.
+Campaign-A patch shipping the latent-bug findings the v2.13.0 /architect agent sweep surfaced. Pure fixes; no new tests, no ADR amendments (those are bundled into v2.14.0). Discovered + filed during /architect --plan and /campaign --plan plan-mode passes; ships now per the "no pausing, accuracy is everything" directive.
 
 ### Added
 - **`/sentinel` and `/engage` slugs in RECON OPS group** (`src/app/commands/page.tsx`). Both commands existed in `commands.ts` but had no group membership, so they never rendered as cards on `/commands` — the same invisibility class as the `/blueprint` bug. Discovered by Spock during the ADR-022 review wave: ADR-050 made these the canonical names, but the page was still rendering only their aliases (`/security`, `/review`).

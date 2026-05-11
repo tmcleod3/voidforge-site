@@ -6,7 +6,7 @@ import { commands } from "@/data/commands";
 import { leadAgents, universes, universeLabels } from "@/data/agents";
 import { searchIndex } from "@/data/search-index";
 import { stats } from "@/data/stats";
-import { commandGroups, allGroupedSlugs } from "@/data/command-groups";
+import { commandGroups, allGroupedCommandSlugs } from "@/data/command-groups";
 import { patternGroups, allGroupedPatternSlugs } from "@/data/pattern-groups";
 
 const ROOT = resolve(__dirname, "../..");
@@ -164,7 +164,7 @@ describe("Consistency — Command groups cover all commands (ADR-022 Phase 2, bi
   it("every command in commands.ts appears in at least one group's slugs", () => {
     for (const cmd of commands) {
       expect(
-        allGroupedSlugs.has(cmd.slug),
+        allGroupedCommandSlugs.has(cmd.slug),
         `Command /${cmd.slug} is in commands.ts but not in any group in src/data/command-groups.ts — its card will never render on /commands. Add it to the appropriate group.`
       ).toBe(true);
     }
@@ -172,7 +172,7 @@ describe("Consistency — Command groups cover all commands (ADR-022 Phase 2, bi
 
   it("every slug in command-groups.ts references a real command", () => {
     const commandSlugs = new Set(commands.map((c) => c.slug));
-    for (const slug of allGroupedSlugs) {
+    for (const slug of allGroupedCommandSlugs) {
       expect(
         commandSlugs.has(slug),
         `Group slug "${slug}" in src/data/command-groups.ts has no matching command in commands.ts — remove the stale slug.`
@@ -180,10 +180,10 @@ describe("Consistency — Command groups cover all commands (ADR-022 Phase 2, bi
     }
   });
 
-  it("group ids are unique", () => {
+  it("command group ids are unique", () => {
     const ids = commandGroups.map((g) => g.id);
     const unique = new Set(ids);
-    expect(unique.size, `Duplicate group ids: ${ids.join(", ")}`).toBe(ids.length);
+    expect(unique.size, `Duplicate command group ids: ${ids.join(", ")}`).toBe(ids.length);
   });
 });
 
@@ -216,6 +216,17 @@ describe("Consistency — stats.ts scalars (ADR-022 Phase 1)", () => {
       "totalScaffoldTests dropped below 1000 — check src/data/stats.ts after /void sync"
     ).toBeGreaterThanOrEqual(1000);
     expect(typeof stats.totalScaffoldTests).toBe("number");
+  });
+
+  it("totalPages is a plausible scalar (>= 100, never zero)", () => {
+    // The Verify-page-count CI step asserts the exact built page count
+    // matches what `find out -name '*.html'` returns. This unit-test guard
+    // catches accidental zeroing or under-floor values without rebuilding.
+    expect(
+      stats.totalPages,
+      "totalPages dropped below 100 — check src/data/stats.ts; the Verify-page-count CI step's floor is 100"
+    ).toBeGreaterThanOrEqual(100);
+    expect(typeof stats.totalPages).toBe("number");
   });
 });
 

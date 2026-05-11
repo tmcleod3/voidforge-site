@@ -51,6 +51,6 @@ export const commandGroups: CommandGroup[] = [
 ];
 
 /** Flat set of every slug across every group — used by completeness tests. */
-export const allGroupedSlugs = new Set<string>(
+export const allGroupedCommandSlugs = new Set<string>(
   commandGroups.flatMap((g) => g.slugs),
 );

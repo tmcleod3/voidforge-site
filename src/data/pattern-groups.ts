@@ -76,9 +76,17 @@ export const patternGroups: PatternGroup[] = [
   },
   {
     id: "discipline",
+    // The only group label that's a virtue rather than a domain — intentional.
+    // These patterns are methodology artifacts (markdown reference docs), not
+    // technology categories. Renaming to "DOCS" or "PROCESS" was considered
+    // and rejected: those imply documentation/process about something else;
+    // these patterns ARE the discipline. Keep the virtue framing.
     label: "DISCIPLINE",
     tagline: "Engineering discipline. The shapes that keep work shippable.",
-    color: "var(--vf-comic-red)",
+    // var(--vf-forge-yellow) — distinct from RECON OPS's --vf-comic-red on
+    // the /commands page. These are different pages, but using the same
+    // color across surfaces was unintentional collision (Lang found it).
+    color: "var(--vf-forge-yellow)",
     slugs: [
       // v23.11 additions — markdown reference patterns, not code:
       "adr-verification-gate", "refactor-extraction",

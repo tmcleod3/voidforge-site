@@ -36,7 +36,7 @@ Add a **Data Integrity Gate** to `src/test/` that fails CI when site data drifts
 
 1. **`consistency.test.ts`** — extend pattern-file enumeration to include `.md` files (the line containing the regex `/\.(tsx?|md)$/`), exclude `README.md` (the next line), and add the `.md` branch to the `existsSync` triple inside `every pattern in patterns.ts has a file in docs/patterns/`. The 8 new methodology patterns include 2 markdown reference docs (`adr-verification-gate.md`, `refactor-extraction.md`) that the previous filter silently dropped. Without this fix, the test passes a stale state. (v1.2: cite by anchor, not line — file shifts on every test addition.)
 2. **`stats.ts:37–41`** — add a `// Last verified: YYYY-MM-DD` comment per scalar that `/void` is required to update. Makes drift visible to reviewers even before a test catches it. (Quick win from Data's audit.)
-3. **Stats parity test (v1.1: promoted from Phase 2)** — `consistency.test.ts` asserts `stats.totalMethodDocs === fs.readdirSync('docs/methods').filter(f => f.endsWith('.md')).length`. For scalars whose source-of-truth doesn't live in this repo (`totalADRs`, `totalScaffoldTests`), assert plausibility lower bounds (`>= 60`, `>= 1000`) — guards against accidental zeroing during a sync without pretending we have local truth we don't. Specced by Spock in /campaign --plan. Lands in Site v2.14.0 alongside this revision.
+3. **Stats parity test (v1.1: promoted from Phase 2)** — `consistency.test.ts` asserts `stats.totalMethodDocs === fs.readdirSync('docs/methods').filter(f => f.endsWith('.md')).length`. For scalars whose source-of-truth doesn't live in this repo (`totalADRs`, `totalScaffoldTests`, `totalPages`), assert plausibility lower bounds (`>= 60`, `>= 1000`, `>= 100`) — guards against accidental zeroing during a sync without pretending we have local truth we don't. Specced by Spock in /campaign --plan. Shipped in Site v2.14.0; `totalPages` test added in Site v2.14.2 (Spock's /engage finding #7).
 
 ### Phase 2 — scoped for the same release (v1.1: moved up alongside Phase 1)
 
@@ -64,7 +64,7 @@ Add a **Data Integrity Gate** to `src/test/` that fails CI when site data drifts
 
 **Costs:**
 - One scalar-comment update per scalar per `/void` sync — explicit, ~30s of review time, not a recurring engineering cost.
-- Phase 2 work is ~2–3 hours of test authoring; deferred until next sync to avoid bloating this commit.
+- Phase 2 work shipped in Site v2.14.0 + v2.14.1 (~3 hours of test authoring across the campaign): stats parity, group-rendering completeness for both commands AND patterns, universe-label coherence, ts-prune backstop. The original v1.0 deferral plan ("next sync") was compressed into a single multi-release campaign once Picard's /architect --plan critique made the Phase reshuffle clear.
 - Phase 3 codegen is ~4–6 hours and requires methodology-repo cooperation for the JSON artifact; deferred until cross-repo coordination is in scope.
 
 **Doesn't address:**

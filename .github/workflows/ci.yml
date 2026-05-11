@@ -35,10 +35,20 @@ jobs:
         run: npm run test
 
       - name: Dead-export scan (ADR-022 Phase 2 backstop)
+        shell: bash
         run: |
-          OUTPUT=$(npm run dead-exports --silent)
+          set -e
+          # Run ts-prune directly (NOT via `npm run dead-exports`) so that
+          # a scanner crash fails the step. The npm script ends in `|| true`
+          # which is correct for dev (no dead exports => exit 0) but masks
+          # ts-prune-itself failing — exactly the bug Seven OPT-002 found.
+          RAW=$(npx --no-install ts-prune)
+          # Now filter known-OK patterns (Next.js framework defaults, etc.).
+          # The `|| true` here is correct: grep exits 1 when nothing matches,
+          # which IS the "no unexpected dead exports" success case.
+          OUTPUT=$(echo "$RAW" | grep -vE '\(used in module\)$|^\.next/|^next\.config\.ts:.*default$|^vitest\.config\.ts:.*default$|^mdx-components\.tsx:.*useMDXComponents$|^src/app/.*page\.tsx?:.*(default|metadata|generateStaticParams)$|^src/app/.*layout\.tsx?:.*(default|metadata)$|^src/app/error\.tsx:.*default$|^src/app/sitemap\.ts:.*(default|dynamic)$' || true)
           if [ -n "$OUTPUT" ]; then
-            echo "::error::Unexpected dead exports found. Filter is in package.json scripts.dead-exports — update KNOWN_OK patterns or remove the export."
+            echo "::error::Unexpected dead exports found. Update the filter in package.json scripts.dead-exports OR remove the export."
             echo "$OUTPUT"
             exit 1
           fi

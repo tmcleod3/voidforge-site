@@ -52,5 +52,7 @@ export const display = {
   commands: `${stats.totalCommands}`,
   subAgents: `${stats.totalSubAgents}+`,
   scaffoldTests: stats.totalScaffoldTests.toLocaleString(),
-  pages: `${stats.totalPages}+`,
+  // Exact count, asserted by Verify-page-count CI step + the consistency test below.
+  // No `+` suffix because the value is verified equal, not "at least."
+  pages: `${stats.totalPages}`,
 };
