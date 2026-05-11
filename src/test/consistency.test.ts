@@ -7,6 +7,7 @@ import { leadAgents, universes, universeLabels } from "@/data/agents";
 import { searchIndex } from "@/data/search-index";
 import { stats } from "@/data/stats";
 import { commandGroups, allGroupedSlugs } from "@/data/command-groups";
+import { patternGroups, allGroupedPatternSlugs } from "@/data/pattern-groups";
 
 const ROOT = resolve(__dirname, "../..");
 
@@ -129,6 +130,33 @@ describe("Consistency — Search index covers all pages", () => {
         `Missing search entry for hub: ${hub}`
       ).toBe(true);
     }
+  });
+});
+
+describe("Consistency — Pattern groups cover all patterns (ADR-022 Phase 2, bidirectional)", () => {
+  it("every pattern in patterns.ts appears in at least one group's slugs", () => {
+    for (const p of patterns) {
+      expect(
+        allGroupedPatternSlugs.has(p.slug),
+        `Pattern /patterns/${p.slug} is in patterns.ts but not in any group in src/data/pattern-groups.ts — its card will never render on /patterns. Add it to the appropriate group (web/mobile/game/systems/ai/discipline).`
+      ).toBe(true);
+    }
+  });
+
+  it("every slug in pattern-groups.ts references a real pattern", () => {
+    const patternSlugs = new Set(patterns.map((p) => p.slug));
+    for (const slug of allGroupedPatternSlugs) {
+      expect(
+        patternSlugs.has(slug),
+        `Group slug "${slug}" in src/data/pattern-groups.ts has no matching pattern in patterns.ts — remove the stale slug.`
+      ).toBe(true);
+    }
+  });
+
+  it("pattern group ids are unique", () => {
+    const ids = patternGroups.map((g) => g.id);
+    const unique = new Set(ids);
+    expect(unique.size, `Duplicate pattern group ids: ${ids.join(", ")}`).toBe(ids.length);
   });
 });
 

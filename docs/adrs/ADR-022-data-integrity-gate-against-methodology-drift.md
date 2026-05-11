@@ -1,12 +1,13 @@
 # ADR-022: Data Integrity Gate Against Methodology Drift
 
-## Status: Accepted (v1.1, amended 2026-05-10)
+## Status: Accepted (v1.2, amended 2026-05-10)
 
 ## Revisions
 
+- **v1.2 (2026-05-10, Site v2.14.0 fix-first)** — Final Victory Gauntlet on Site v2.14.0 found that v1.1 itself shipped wrong line citations (off by 1-2 because the consistency.test.ts file shifted when stats import was added). The exact failure mode the ADR exists to prevent. **v1.2 switches all line-number citations to stable string anchors.** Also documents Critical finding GAUNTLET-001: `/patterns` had the same invisibility bug class as `/commands`. Pattern-groups extraction shipped in the v2.14.0 fix-first commit alongside this revision.
 - **v1.1 (2026-05-10, Site v2.14.0)** — Plan-mode `/architect` review and 9-agent /campaign --plan synthesis surfaced three documentation defects and one architectural reordering. This revision applies all four corrections in place; the decision and intent are unchanged.
   - **Doc fix 1:** The verification command at the bottom of §Implementation-Scope was `grep "last verified" src/data/stats.ts` which returns zero matches because the file uses capital-L "Last verified". Picard flagged this as the exact failure mode the ADR was created to prevent. **Fixed**: command is now `grep -i "last verified"`.
-  - **Doc fix 2:** Phase 1 deliverable claim cited `consistency.test.ts:14` for the `.md` filter; the actual filter sits at lines 15 + 42. **Fixed** below.
+  - **Doc fix 2:** Phase 1 deliverable claim cited `consistency.test.ts:14` for the `.md` filter. **v1.2 correction:** the original v1.0 line citation was wrong, the v1.1 fix to "lines 15 + 42" was ALSO wrong (the actual filter sits at lines 17, 18, and 27 at HEAD), and v1.2 surfaced the meta-failure: line citations themselves drift. **v1.2 switches all `consistency.test.ts:NN` references in this ADR to stable string anchors** (e.g., `the line containing /\.(tsx?|md)$/`, `the line containing existsSync(...).md` ). Verification commands now grep for the anchors, not line numbers.
   - **Doc fix 3:** Cascade hygiene — ADR-022 references ADR-020 (count-hardening) as "not load-bearing enough" but never adds an explicit `Supersedes-in-part` link. Future readers pulling ADR-020 would treat it as canonical. **Fixed**: References section now declares the supersede-in-part relationship explicitly.
   - **Phase reshuffle:** Riker, Spock, Treebeard, and Feyd-Rautha all independently flagged that **Phase 2 #3 (stats parity test) should be Phase 1** — same shape as the existing test, ~6 lines of code, and the first concrete drift finding in the original incident. Deferring it to "next sync" is the exact failure mode ADR-020 produced. Feyd-Rautha additionally argued that **Phase 3 #7's *local-source* codegen** (reading `.claude/commands/*.md` and `.claude/agents/*.md` frontmatter) is not 4-6h cross-repo work — it's a `prebuild` script that could ship Phase 1/2. The cross-repo JSON artifact (Phase 3 #8) is the genuinely hard piece and stays deferred. **Effect of v1.1:** Phase 1 absorbed the stats parity test (B2 below); local-source codegen is now its own Phase 2 candidate; cross-repo JSON artifact stays Phase 3 with the deferred-indefinitely framing.
   - **Scope alignment with Faramir:** Phase 2 #6 (version-string scan) and Phase 3 #8 (cross-repo JSON artifact) are flagged as GOLD-PLATING per Faramir's judgment pass. They remain documented as Phase 3 deferred candidates but the ADR no longer treats them as scheduled work — explicit trigger conditions required before they become work items.
@@ -33,7 +34,7 @@ Add a **Data Integrity Gate** to `src/test/` that fails CI when site data drifts
 
 ### Phase 1 — landed in this commit (Site v2.13.0)
 
-1. **`consistency.test.ts`** — extend pattern-file enumeration at line 15 to include `.md` files (regex `/\.(tsx?|md)$/`) with `README.md` excluded at line 16, and add the `.md` branch to the `existsSync` triple at line 24. The 8 new methodology patterns include 2 markdown reference docs (`adr-verification-gate.md`, `refactor-extraction.md`) that the previous filter silently dropped. Without this fix, the test passes a stale state.
+1. **`consistency.test.ts`** — extend pattern-file enumeration to include `.md` files (the line containing the regex `/\.(tsx?|md)$/`), exclude `README.md` (the next line), and add the `.md` branch to the `existsSync` triple inside `every pattern in patterns.ts has a file in docs/patterns/`. The 8 new methodology patterns include 2 markdown reference docs (`adr-verification-gate.md`, `refactor-extraction.md`) that the previous filter silently dropped. Without this fix, the test passes a stale state. (v1.2: cite by anchor, not line — file shifts on every test addition.)
 2. **`stats.ts:37–41`** — add a `// Last verified: YYYY-MM-DD` comment per scalar that `/void` is required to update. Makes drift visible to reviewers even before a test catches it. (Quick win from Data's audit.)
 3. **Stats parity test (v1.1: promoted from Phase 2)** — `consistency.test.ts` asserts `stats.totalMethodDocs === fs.readdirSync('docs/methods').filter(f => f.endsWith('.md')).length`. For scalars whose source-of-truth doesn't live in this repo (`totalADRs`, `totalScaffoldTests`), assert plausibility lower bounds (`>= 60`, `>= 1000`) — guards against accidental zeroing during a sync without pretending we have local truth we don't. Specced by Spock in /campaign --plan. Lands in Site v2.14.0 alongside this revision.
 
@@ -78,15 +79,17 @@ Add a **Data Integrity Gate** to `src/test/` that fails CI when site data drifts
 
 ## Implementation Scope
 
-- **Reality anchor:** v1.0 documented Phase 1 (.md filter + dated comments) at HEAD plus deferred Phase 2/3. v1.1 expands the at-HEAD set to include the stats parity test, command-groups extraction + bidirectional test, universe-label coherence test, and ts-prune backstop — all shipped in Site v2.14.0.
-- **Deliverables (v1.1, all expected at HEAD after Site v2.14.0):**
-  - `src/test/consistency.test.ts` — `.md` filter extension at lines 15 + 16 (enumeration regex + README exclusion) and line 24 (existsSync `.md` branch). Existence-check: `grep -nE "\\.md|README\\.md" src/test/consistency.test.ts` returns the relevant lines.
-  - `src/data/stats.ts` — "Last verified" comments on lines 36, 38, 40 (note the capital L). Existence-check: `grep -i "last verified" src/data/stats.ts` returns 3 lines. (v1.0 used a case-sensitive grep here; this revision uses `-i` to actually find the comments as written.)
-  - `src/test/consistency.test.ts` — stats parity test (`totalMethodDocs ===` filesystem count, lower-bound plausibility for `totalADRs` and `totalScaffoldTests`).
-  - `src/data/command-groups.ts` — extracted groups[] array, imported by both `src/app/commands/page.tsx` and the new test.
-  - `src/test/consistency.test.ts` — bidirectional group-rendering completeness test.
-  - `src/test/consistency.test.ts` — bidirectional universe-label coherence test.
-  - `package.json` — `ts-prune` dev dependency + npm script. Existence-check: `grep ts-prune package.json` returns at least the script entry.
+- **Reality anchor:** v1.0 documented Phase 1 (.md filter + dated comments) at HEAD plus deferred Phase 2/3. v1.1 expanded the at-HEAD set with stats parity, command-groups extraction + test, universe-label coherence test, and ts-prune backstop. v1.2 (fix-first) adds pattern-groups extraction + bidirectional test (closing the GAUNTLET-001 Critical) and switches every line-number citation in this ADR to stable anchors.
+- **Deliverables (v1.2, all expected at HEAD after Site v2.14.0 fix-first commit). All existence-checks are anchor-based, NOT line-number-based:**
+  - `src/test/consistency.test.ts` — `.md` filter extension. Anchor-check: `grep -E '/\\\\.\\(tsx\\?\\|md\\)\\$/' src/test/consistency.test.ts` returns the enumeration regex; `grep '\"README.md\"' src/test/consistency.test.ts` returns the exclusion; `grep '\\${p.slug}.md' src/test/consistency.test.ts` returns the existsSync branch.
+  - `src/data/stats.ts` — "Last verified" comments. Anchor-check: `grep -i 'last verified' src/data/stats.ts` returns 3 lines (note the capital L; v1.0 used case-sensitive grep and got 0 hits).
+  - `src/test/consistency.test.ts` — stats parity test (`totalMethodDocs ===` filesystem count, lower-bound plausibility for `totalADRs` and `totalScaffoldTests`). Anchor-check: `grep 'totalMethodDocs matches' src/test/consistency.test.ts` returns the test name.
+  - `src/data/command-groups.ts` — extracted groups[] array, imported by both `src/app/commands/page.tsx` and the new test. Existence-check: `[ -f src/data/command-groups.ts ]`.
+  - `src/data/pattern-groups.ts` — extracted groups[] array (v1.2 addition), same shape as command-groups, imported by both `src/app/patterns/page.tsx` and the new test. Existence-check: `[ -f src/data/pattern-groups.ts ]`.
+  - `src/test/consistency.test.ts` — bidirectional group-rendering completeness tests for BOTH commands and patterns. Anchor-check: `grep 'Pattern groups cover all patterns' src/test/consistency.test.ts` returns the v1.2 test describe block.
+  - `src/test/consistency.test.ts` — bidirectional universe-label coherence test. Anchor-check: `grep 'Universe labels' src/test/consistency.test.ts` returns the test describe block.
+  - `package.json` — `ts-prune` dev dependency + `dead-exports` npm script. Existence-check: `grep dead-exports package.json` returns the script entry; `grep ts-prune package.json` returns the dev dep.
+  - `.github/workflows/ci.yml` — Dead-export scan CI step. Anchor-check: `grep 'Dead-export scan' .github/workflows/ci.yml` returns the step name.
 - **Verification gate:**
   - **Fixture:** the v23.9.2 → v23.11.1 sync that surfaced this drift, plus the latent-bug findings from the /architect agent sweep (sentinel/engage invisibility, dead exports, "Middle-earth" label drift).
   - **Can the gate FAIL under this fixture?** Yes, in all four bug classes:

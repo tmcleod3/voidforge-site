@@ -39,6 +39,8 @@ export const stats = {
   totalADRs: 69,
   /** Scaffold test count — updated on methodology sync. Last verified: 2026-04-20 (v23.9.0 release notes claimed 1,384) */
   totalScaffoldTests: 1384,
+  /** Total static HTML pages emitted by `next build`. Last verified: 2026-05-10 (Site v2.14.0 fix-first commit, `find out -name '*.html' | wc -l` = 149). The `verify-page-count` CI step in .github/workflows/ci.yml asserts >= 100; bump this scalar when the floor moves up materially. */
+  totalPages: 149,
 };
 
 /** Formatted strings for display — use in JSX where template literals are awkward */
@@ -50,4 +52,5 @@ export const display = {
   commands: `${stats.totalCommands}`,
   subAgents: `${stats.totalSubAgents}+`,
   scaffoldTests: stats.totalScaffoldTests.toLocaleString(),
+  pages: `${stats.totalPages}+`,
 };

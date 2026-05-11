@@ -104,7 +104,7 @@ export default function AboutPage() {
               This website is Phase 8 of its own build process. The PRD was
               written. <code className="text-[var(--vf-electric-blue)]">/campaign</code> was
               typed. The agents woke up. {stats.totalADRs} architecture decision
-              records. {stats.totalMethodDocs} method docs. And 153+ pages later,
+              records. {stats.totalMethodDocs} method docs. And {display.pages} pages later,
               you&apos;re reading the result.
             </p>
 

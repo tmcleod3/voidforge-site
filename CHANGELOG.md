@@ -6,6 +6,52 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.14.1] - 2026-05-10
+
+### Victory Gauntlet fix-first patch — closes 1 Critical + 2 High the v2.14.0 Gauntlet caught
+
+The Final Victory Gauntlet on Site v2.14.0 returned **FIX-FIRST, NOT VICTORY** with 1 Critical and 2 High findings. Per the operator's "accuracy is everything" directive, all three are addressed in this patch before claiming victory on the campaign. Each fix closes the entire bug class, not just the instance — applied learnings from v2.14.0's own ADR-022 v1.1 amendment philosophy.
+
+### Fixed (CRITICAL)
+- **GAUNTLET-001 — `/patterns` index missed 8 cards.** The 8 v23.10/v23.11 patterns shipped in v2.13.0 were in `src/data/patterns.ts` and had working detail pages (200 OK), but `src/app/patterns/page.tsx` had a hardcoded `groups[]` array with `slugs[]` that didn't include them — exactly the same invisibility class as the `/blueprint`, `/sentinel`, `/engage` bugs ADR-022 was created to prevent. The hero spotlight on the homepage actively links to `/patterns` to "See the new patterns" — and they weren't there.
+  - Extracted `groups[]` to `src/data/pattern-groups.ts` (mirror of `src/data/command-groups.ts` shape).
+  - Wired the 8 missing slugs into appropriate groups: `audit-log`, `deploy-preflight`, `multi-tenant-pool-bypass`, `multi-tenant-property-test` → SYSTEMS; `ai-prompt-safety`, `llm-state-dedup` → AI; `adr-verification-gate`, `refactor-extraction` → new DISCIPLINE group.
+  - Added bidirectional pattern-rendering completeness test (every pattern in `patterns.ts` has a slug in some group; every group slug references a real pattern; group ids unique).
+
+### Fixed (HIGH)
+- **GAUNTLET-002 — ADR-022 v1.1 line citations were themselves drifted.** v1.0 cited `consistency.test.ts:14`, v1.1 fixed to "lines 15 + 42", and Thanos found at HEAD the actual lines were 17, 18, 27 (file shifted when stats import was added). The ADR designed to catch drift was itself drifting in its own §Implementation-Scope. **v1.2 amendment switches every `consistency.test.ts:NN` and `stats.ts:NN` reference to stable string anchors** (regex matches, function names, test describe block names). Eliminates the citation-drift class permanently.
+- **GAUNTLET-003 — "153+ pages" claim was false.** The literal in `src/app/about/page.tsx:107` was bumped 141 → 153 in v2.14.0 without verification; actual `next build` produces 149 HTML files, sitemap has 147 URLs. Per "no stubs / accuracy is everything", added `stats.totalPages: 149` (manually-maintained scalar with a "Last verified" comment, same pattern as the other stats scalars) and `display.pages` formatted string. JSX now reads `{display.pages}` instead of a literal — no more drift.
+
+### Added
+- **`src/data/pattern-groups.ts`** — pattern-groups extracted, 6 groups (web/mobile/game/systems/ai/discipline). Single source of truth for the page render and the consistency tests.
+- **`src/data/stats.ts:totalPages`** — new scalar mirroring the build's HTML page count, with dated "Last verified" comment.
+- **`src/data/stats.ts:display.pages`** — formatted string for JSX use.
+- **3 new tests** in `src/test/consistency.test.ts` ("Pattern groups cover all patterns" describe block) — exact mirror of the command-groups bidirectional shape.
+
+### Changed
+- **ADR-022 v1.1 → v1.2** in place. Revisions block updated. All line-number citations replaced with anchor-based existence-check commands. Documents GAUNTLET-001 as the meta-finding (same bug class on a sibling page that the original ADR scope didn't generalize over).
+- **`src/app/patterns/page.tsx`** — imports `patternGroups as groups` from `@/data/pattern-groups`; the inline `groups[]` array literal is gone.
+- **`src/app/about/page.tsx`** — "153+ pages later" → `{display.pages} pages later`.
+
+### Test count
+- 73 → 76 (+3 pattern-groups tests). All passing.
+
+### Deferred to next campaign
+- **GAUNTLET-004** (data-to-data vs data-to-render): the bidirectional consistency test is structurally limited — it asserts page+test agree because they share a source. A JSDOM render test would close this entirely. Filed as next-campaign Medium.
+- **GAUNTLET-005** (`totalADRs` / `totalScaffoldTests` plausibility-only): cross-repo `methodology-counts.json` artifact is the proper fix; deferred indefinitely per ADR-022 v1.2.
+- **GAUNTLET-006** (`whileInView` prop test warning): pre-existing framer-motion testing-env noise; mock `motion.*` in `src/test/setup.ts`.
+- **GAUNTLET-007** (`consistency.test.ts` is at 222 lines): below the 300-line guard; revisit when it crosses 250.
+- **GAUNTLET-008** (data-integrity.test.ts `>=` floors stale): convert to exact equality or delete (covered by new bidirectional tests).
+- **GAUNTLET-009** (`.voidforge` not in `.vercelignore`): defense-in-depth; add explicit ignore.
+- **GAUNTLET-010** (dead-exports regex unreviewable): extract to `scripts/dead-exports.sh` with one allow-pattern per line.
+
+### Operational notes
+- Tests 76/76. Typecheck clean. Build clean. dead-exports clean.
+- Tag `site-v2.14.1`.
+- Vercel auto-deploy still broken; manual `vercel --prod --yes`.
+
+---
+
 ## [Site v2.14.0] - 2026-05-10
 
 ### The Data Integrity Gate — ADR-022 v1.1 + Phase 2 tests + Gauntlet-checkpoint Mediums

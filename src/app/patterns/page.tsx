@@ -3,44 +3,7 @@ import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { patterns } from "@/data/patterns";
-
-const groups = [
-  {
-    id: "web",
-    label: "WEB",
-    tagline: "The foundation. Every web app starts here.",
-    color: "var(--vf-electric-blue)",
-    slugs: ["api-route", "service", "component", "middleware", "error-handling", "job-queue", "multi-tenant", "sse-endpoint", "third-party-script", "combobox"],
-  },
-  {
-    id: "mobile",
-    label: "MOBILE",
-    tagline: "Take the forge mobile.",
-    color: "var(--vf-neon-green)",
-    slugs: ["mobile-screen", "mobile-service"],
-  },
-  {
-    id: "game",
-    label: "GAME",
-    tagline: "Real-time. Frame-perfect.",
-    color: "var(--vf-forge-orange)",
-    slugs: ["game-loop", "game-state", "game-entity"],
-  },
-  {
-    id: "systems",
-    label: "SYSTEMS",
-    tagline: "Infrastructure that runs itself.",
-    color: "var(--vf-deep-purple)",
-    slugs: ["ad-platform-adapter", "financial-transaction", "daemon-process", "revenue-source-adapter", "oauth-token-lifecycle", "outbound-rate-limiter", "database-migration", "data-pipeline", "backtest-engine", "execution-safety", "e2e-test", "browser-review", "stablecoin-adapter", "ad-billing-adapter", "funding-plan", "kongo-integration"],
-  },
-  {
-    id: "ai",
-    label: "AI",
-    tagline: "The intelligence layer.",
-    color: "var(--vf-foundation)",
-    slugs: ["ai-orchestrator", "ai-classifier", "ai-router", "prompt-template", "ai-eval", "ai-tool-schema"],
-  },
-];
+import { patternGroups as groups } from "@/data/pattern-groups";
 
 const multiFrameworkCount = patterns.filter((p) => p.frameworks.length > 1).length;
 
