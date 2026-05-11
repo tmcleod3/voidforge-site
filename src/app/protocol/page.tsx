@@ -92,6 +92,66 @@ export default function ProtocolPage() {
         </div>
       </section>
 
+      {/* THE GATE — post-v23.0 governance ADRs callout */}
+      <section className="px-4 pb-6">
+        <div className="mx-auto max-w-4xl">
+          <div className="comic-panel bg-[var(--vf-surface-raised)] p-6 border-l-4 border-[var(--vf-forge-orange)]">
+            <h2 className="font-[family-name:var(--font-bangers)] text-xl tracking-wider text-[var(--vf-forge-orange)] mb-3">
+              THE GATE
+            </h2>
+            <p className="text-sm text-[var(--vf-text-muted)] mb-3">
+              The protocol is now governed by a stack of mechanically-enforced
+              ADRs. Skipping the pre-scan is no longer an act of will — it is
+              physically blocked at the runtime boundary.
+            </p>
+            <ul className="text-xs text-[var(--vf-text-muted)] space-y-1.5 mb-3 list-none p-0">
+              <li>
+                <strong className="text-[var(--vf-electric-blue)]">ADR-048</strong> —{" "}
+                Silver Surfer pre-scan: Haiku selects the optimal roster
+                before every gated command, based on the actual code
+                changed in this session.
+              </li>
+              <li>
+                <strong className="text-[var(--vf-electric-blue)]">ADR-050</strong> —{" "}
+                Native Claude Code coexistence:{" "}
+                <code className="text-[var(--vf-electric-blue)]">/review</code> alias for{" "}
+                <code className="text-[var(--vf-electric-blue)]">/engage</code>,{" "}
+                <code className="text-[var(--vf-electric-blue)]">/security</code> alias for{" "}
+                <code className="text-[var(--vf-electric-blue)]">/sentinel</code>.
+              </li>
+              <li>
+                <strong className="text-[var(--vf-electric-blue)]">ADR-051</strong> —{" "}
+                Silver Surfer Gate hook: a PreToolUse hook on the Agent tool
+                blocks any non-Surfer sub-agent launch until a roster has
+                been recorded. Enforcement is mechanical, not prose-only.
+              </li>
+              <li>
+                <strong className="text-[var(--vf-electric-blue)]">ADR-060</strong> —{" "}
+                Gate state relocation: per-user state at{" "}
+                <code className="text-[var(--vf-electric-blue)]">$XDG_RUNTIME_DIR/voidforge-gate/</code>{" "}
+                (Linux) or{" "}
+                <code className="text-[var(--vf-electric-blue)]">$HOME/.voidforge/gate/</code>{" "}
+                (macOS), 0700. No more world-writable /tmp.
+              </li>
+              <li>
+                <strong className="text-[var(--vf-electric-blue)]">ADR-061</strong> —{" "}
+                npm rename to{" "}
+                <code className="text-[var(--vf-electric-blue)]">voidforge-build</code>{" "}
+                (the @voidforge org was unavailable). Bin name unchanged;
+                post-install UX identical.
+              </li>
+            </ul>
+            <p className="text-[10px] text-[var(--vf-text-muted)] italic">
+              The gate fails closed on unknown bypass flags — passing
+              anything other than{" "}
+              <code className="text-[var(--vf-electric-blue)]">--light</code> or{" "}
+              <code className="text-[var(--vf-electric-blue)]">--solo</code>{" "}
+              exits 2 with an error. No silent bypass. (SEC-003 hardening.)
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Operational Learnings callout */}
       <section className="px-4 pb-12">
         <div className="mx-auto max-w-4xl">

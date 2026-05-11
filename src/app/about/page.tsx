@@ -73,7 +73,8 @@ export default function AboutPage() {
               fictional universes — each now a persistent Claude Code subagent
               definition with model tiering and tool restrictions. The agents
               learned a 13-phase build protocol. {display.scaffoldTests} tests. 0 TypeScript errors.
-              37+ campaigns completed. And then Tom pointed the forge at itself
+              40+ campaigns completed. 24 field reports closed across two waves.
+              And then Tom pointed the forge at itself
               and said: <em>&ldquo;Build your own website.&rdquo;</em>
               You&apos;re reading the result.
             </p>

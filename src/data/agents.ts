@@ -38,7 +38,7 @@ export interface SubAgent {
 }
 
 export const universeLabels: Record<Universe, string> = {
-  tolkien: "Middle-earth",
+  tolkien: "Tolkien",
   marvel: "Marvel",
   dc: "DC",
   "star-wars": "Star Wars",

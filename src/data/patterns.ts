@@ -2353,6 +2353,596 @@ def kongo_webhook(request):
       },
     ],
   },
+  {
+    slug: "audit-log",
+    name: "audit-log.ts",
+    title: "Audit Log",
+    description: "System-event NULL trap resolution: schema relaxation vs sentinel + JSONB tag. Append-only invariants with hash-chained integrity.",
+    teaches:
+      "How to resolve the conflict between tenant-scoped audit tables and system-scope events without silent IntegrityErrors. The two valid patterns (drop NOT NULL or sentinel + tag) and the four integrity properties any audit pipeline must hold.",
+    whenToUse:
+      "Any time an audit_log or events table must record BOTH tenant-scoped actions AND system events. The trap: `org_id INTEGER NOT NULL DEFAULT 1` rejects explicit NULL inserts, so spec-vs-code drift silently loses rows.",
+    preview: `// Pattern 2: sentinel + JSONB tag\nawait writeSystemAudit(db, {\n  action: 'retention.sweep',\n  resource_type: 'job',\n  resource_id: jobId,\n  decisions: { reason: 'scheduled' },\n});`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "TypeScript",
+        language: "TypeScript",
+        code: `// Pattern 2: sentinel + tag (the cheap, reversible resolution)
+// Schema: org_id INTEGER NOT NULL DEFAULT 1, decisions JSONB
+// System events: org_id = 1 (sentinel) + decisions.system_event = true
+
+export type AuditEntry = {
+  org_id: number;
+  user_id: string | null;
+  action: string;
+  resource_type: string;
+  resource_id: string | null;
+  decisions: AuditDecisions;
+  occurred_at: Date;
+};
+
+export type AuditDecisions = {
+  system_event?: true;
+  reason?: string;
+  actor_role?: string;
+  [key: string]: unknown;
+};
+
+const SYSTEM_ORG_ID_PLACEHOLDER = 1; // Must match schema DEFAULT
+
+export async function writeAudit(
+  db: { execute: (sql: string, params: unknown[]) => Promise<void> },
+  entry: Omit<AuditEntry, 'occurred_at'>,
+): Promise<void> {
+  // Invariant: every system_event=true row uses the sentinel org_id.
+  if (entry.decisions.system_event && entry.org_id !== SYSTEM_ORG_ID_PLACEHOLDER) {
+    throw new Error(
+      \`audit-log invariant violated: system_event=true requires org_id=\${SYSTEM_ORG_ID_PLACEHOLDER}, got \${entry.org_id}\`,
+    );
+  }
+  await db.execute(
+    \`INSERT INTO audit_log (org_id, user_id, action, resource_type, resource_id, decisions, occurred_at)
+     VALUES ($1, $2, $3, $4, $5, $6, NOW())\`,
+    [entry.org_id, entry.user_id, entry.action, entry.resource_type, entry.resource_id, JSON.stringify(entry.decisions)],
+  );
+}
+
+// Convenience wrappers — make tenant vs system writes obvious at the callsite.
+export const writeSystemAudit = (db, entry) =>
+  writeAudit(db, { ...entry, org_id: SYSTEM_ORG_ID_PLACEHOLDER, user_id: null,
+    decisions: { ...entry.decisions, system_event: true } });
+
+export const writeTenantAudit = (db, entry) => writeAudit(db, entry);
+
+// ─── Integrity properties (assert in tests) ───
+// 1. NEVER try/except around audit writes. Audit-write failures ARE audit events.
+// 2. Audit writes share a transaction with the action they describe.
+// 3. Append-only at the app layer: REVOKE UPDATE, DELETE ON audit_log FROM <runtime_role>;
+// 4. Tests assert: system + tenant writes produce distinguishable rows.
+
+// Anti-pattern: org_id NOT NULL DEFAULT N + INSERT VALUES (NULL, ...) -> silent loss.
+// Source: field report #319 §6 (Union Station retention sweep, 100% audit loss for 17 days).`,
+      },
+    ],
+  },
+  {
+    slug: "ai-prompt-safety",
+    name: "ai-prompt-safety.ts",
+    title: "AI Prompt Safety",
+    description: "Type A (instructions to the model, statistical) vs Type B (constraints on the tool, enforced). The distinction that prevents prompt-injection-by-design.",
+    teaches:
+      "How to classify every safety mechanism in an LLM-as-decision-engine system. Type A controls reduce unsafe output rates on benign input but are defeated by adversarial input. Type B controls are mechanically enforced outside the model's reach.",
+    whenToUse:
+      "Every VoidForge project that uses an LLM (Claude, GPT, Gemini) to decide actions and invoke tools. Required reading before shipping any agent with destructive capabilities.",
+    preview: `const AUTHORITY: InstructionTextControl = {\n  type: 'instruction',\n  text: 'Only execute approved commands.',\n  defeatedBy: ['prompt injection', 'novel approval markers'],\n};\n\nconst APPROVED: AllowlistConstraint = {\n  type: 'constraint',\n  enforcement: 'allowlist',\n};`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "TypeScript",
+        language: "TypeScript",
+        code: `// ── Type A: Instructions to the model (statistical, NOT enforced) ──
+// Polite text in the prompt: "Only run approved commands."
+// Statistical compliance. Adversary-controllable. Defeated by prompt injection.
+
+export interface InstructionTextControl {
+  type: 'instruction'
+  text: string                  // The literal prompt text
+  statisticalRate?: number      // Optional: measured refusal rate on adversarial eval
+  assumes: string               // What this control assumes about input distribution
+  defeatedBy: string[]          // Known bypass categories
+}
+
+const authorityInstruction: InstructionTextControl = {
+  type: 'instruction',
+  text: 'Only execute commands explicitly listed in the APPROVED ACTIONS section.',
+  statisticalRate: 0.97,
+  assumes: 'Input is from a benign operator OR includes no prompt-injection vectors',
+  defeatedBy: [
+    'novel approval markers ("[OK]" instead of "[APPROVED]")',
+    'case-fold variants',
+    'authority-establishing prefixes',
+    'embedded instructions in command output the model reads back',
+  ],
+}
+
+// ── Type B: Constraints on the tool (mechanical, IS enforced) ──
+// 1. Deny-list / allow-list at the tool dispatcher
+// 2. Hash-bound approval (operator approves command C by hash; only matching hashes execute)
+// 3. Filesystem permissions (AUTHORITY.md is chmod 0444, root-owned; agent runs non-root)
+// 4. uid/gid isolation (dedicated unprivileged user, no privileged group membership)
+// 5. Environment scrubbing (strip dangerous env vars before tool exec)
+// 6. Syscall filters (seccomp / pledge — block whole syscall classes)
+
+export interface AllowlistConstraint {
+  type: 'constraint'
+  enforcement: 'allowlist' | 'hash-bound' | 'fs-perms' | 'uid-isolation' | 'seccomp'
+  description: string
+  bypassable?: false            // Type B = mechanically enforced; never bypassable
+}
+
+const approvedActionsList: AllowlistConstraint = {
+  type: 'constraint',
+  enforcement: 'allowlist',
+  description: 'Dispatcher checks command against static array before invocation. Model can ask anything; only allow-listed actions execute.',
+  bypassable: false,
+}
+
+// ── The Discipline ──
+// Every safety control in your agent must be classified. If a control is
+// labeled "enforced" but is actually Type A, you are shipping prompt-
+// injection-by-design.
+//
+// Source: field report #325 (threadplex-ops Victory Gauntlet) — all 6
+// Round 4 adversarial agents independently named: AUTHORITY.md was inlined
+// into the Claude prompt as instructions (Type A), not enforced as
+// constraints (Type B). The only programmatic boundary was the deny-list
+// in .claude/settings.json (Type B).`,
+      },
+    ],
+  },
+  {
+    slug: "llm-state-dedup",
+    name: "llm-state-dedup.ts",
+    title: "LLM State Dedup",
+    description: "LLM-emitted ids are display labels, not primary keys. Content-hash dedup with logical-key fallback for command-string drift.",
+    teaches:
+      "Why every LLM invocation is stateless from the model's perspective and IDs drift between cycles. How to key dedup on operative content (canonical command, request shape, recipient hash) instead of model-emitted ids.",
+    whenToUse:
+      "Any VoidForge project using an LLM as a decision engine that emits actionable items: approvals, tickets, queued operations, notifications. Required if hourly/scheduled runs share context across cycles.",
+    preview: `// LLM emitted id varies across cycles for the same operation\n// Dedup on content hash instead:\nconst key = shellCommandHash(proposal.command); // sha256 of canonical form\nif (seen.has(key)) skipApproval();`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "TypeScript",
+        language: "TypeScript",
+        code: `import { createHash } from 'node:crypto'
+
+// LLM-emitted identifiers drift across cycles. Two cycles asking the model
+// to propose the same fix produce DIFFERENT id strings for substantively
+// identical commands. Dedup keys must be derived from OPERATIVE CONTENT,
+// not from the LLM's id field.
+
+export interface ProposalDedupKey {
+  /** Content-hash of the operative payload — the actual dedup key. */
+  contentHash: string
+
+  /** Optional looser key for command-string drift collapse. */
+  logicalKey?: string
+
+  /** LLM-emitted id, retained as display label only. NEVER as primary key. */
+  displayId?: string
+}
+
+// Hash the canonical command string. Normalize whitespace and quoting so
+// cosmetically-different but semantically-identical commands collapse.
+export function shellCommandHash(command: string): string {
+  const canonical = command
+    .trim()
+    .replace(/\\s+/g, ' ')         // Collapse whitespace
+    .replace(/(['"])\\s+/g, '$1 ') // Normalize quote-adjacent spaces
+
+  return createHash('sha256').update(canonical).digest('hex').slice(0, 12)
+}
+
+// For HTTP request proposals: hash (method, path, sorted-body-keys). Sort
+// body keys so {a:1,b:2} and {b:2,a:1} hash identically.
+export function httpRequestHash(req: {
+  method: string
+  path: string
+  body?: Record<string, unknown>
+}): string {
+  const sortedBody = req.body
+    ? JSON.stringify(req.body, Object.keys(req.body).sort())
+    : ''
+  const canonical = \`\${req.method.toUpperCase()} \${req.path} \${sortedBody}\`
+  return createHash('sha256').update(canonical).digest('hex').slice(0, 12)
+}
+
+// Logical-key fallback — collapse syntactic variants of the same outcome.
+// docker stop X, docker compose stop X, docker rm -f X -> all map to ('stop','X')
+export function shellLogicalKey(command: string): string | undefined {
+  const m = command.match(/^docker(?:\\s+compose)?\\s+(stop|rm)\\b.*?(\\S+)\\s*$/)
+  if (!m) return undefined
+  return \`docker:\${m[1]}:\${m[2]}\`
+}
+
+// Source: field report #330 (threadplex-ops) — hourly run keyed dedup on
+// LLM-emitted id. Over 5 cycles of identical context, model emitted ids
+// a3f9c2, a3f7c2, a3f7b2, a3f9c1 — four Telegram approval cards for the
+// same operation. Zero collapse. Dedup key wrong by construction.`,
+      },
+    ],
+  },
+  {
+    slug: "deploy-preflight",
+    name: "deploy-preflight.ts",
+    title: "Deploy Preflight",
+    description: "Pre-deploy secret + sensitive-path scan. Catches credentials in env files, methodology paths reachable from CDN root, missing ignore patterns.",
+    teaches:
+      "How to scan the deploy artifact directory BEFORE upload. Forbidden filenames, forbidden content patterns, allowlist escape hatch, never auto-filter — a hit means the operator must investigate.",
+    whenToUse:
+      "Every deploy. Wired into .claude/commands/deploy.md Step 2.5. Catches the 32-day credential leak class and the methodology-exposure class.",
+    preview: `// CI step before wrangler/vercel/firebase:\n// - run: npx tsx docs/patterns/deploy-preflight.ts ./dist\n// Exits non-zero on any hit. Never auto-filters.`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "TypeScript",
+        language: "TypeScript",
+        code: `import { readdirSync, readFileSync } from 'node:fs';
+import { extname, join, relative, sep } from 'node:path';
+import { argv, env, exit } from 'node:process';
+
+const FORBIDDEN_NAME_PATTERNS = [
+  { id: 'env-file', test: (n: string) => /^\\.env(\\..+)?$/.test(n) && !/\\.(example|template|sample)$/.test(n) },
+  { id: 'pem-file', test: (n: string) => n.endsWith('.pem') },
+  { id: 'key-file', test: (n: string) => n.endsWith('.key') },
+  { id: 'ssh-private-key', test: (n: string) => /^id_(rsa|ed25519|ecdsa|dsa)(\\..+)?$/.test(n) && !n.endsWith('.pub') },
+  { id: 'methodology-claude', test: (_: string, rel: string) => rel.split(sep)[0] === '.claude' },
+  { id: 'methodology-docs-methods', test: (_: string, rel: string) => rel.startsWith(\`docs\${sep}methods\${sep}\`) },
+  { id: 'methodology-docs-patterns', test: (_: string, rel: string) => rel.startsWith(\`docs\${sep}patterns\${sep}\`) },
+  { id: 'methodology-holocron', test: (n: string) => n === 'HOLOCRON.md' },
+  { id: 'methodology-version', test: (n: string) => n === 'VERSION.md' },
+  { id: 'build-logs', test: (_: string, rel: string) => rel.split(sep)[0] === 'logs' },
+];
+
+const FORBIDDEN_CONTENT_PATTERNS = [
+  { id: 'aws-access-key', re: /\\bAKIA[0-9A-Z]{16}\\b/ },
+  { id: 'github-pat', re: /\\bgh[pousr]_[A-Za-z0-9]{36,}\\b/ },
+  { id: 'private-key-block', re: /-----BEGIN (?:RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY-----/ },
+];
+
+function* walk(root: string, current = root): Generator<string> {
+  for (const e of readdirSync(current, { withFileTypes: true })) {
+    if (e.isSymbolicLink()) continue;
+    const full = join(current, e.name);
+    if (e.isDirectory()) yield* walk(root, full);
+    else if (e.isFile()) yield full;
+  }
+}
+
+function scan(rootDir: string): number {
+  const allowlist = (env.DEPLOY_PREFLIGHT_ALLOW ?? '').split(',').map(s => s.trim()).filter(Boolean);
+  let hits = 0;
+  for (const path of walk(rootDir)) {
+    const rel = relative(rootDir, path);
+    if (allowlist.some(g => new RegExp(\`^\${g.replace(/\\*/g, '.*')}$\`).test(rel))) continue;
+    const base = rel.split(sep).pop()!;
+    for (const p of FORBIDDEN_NAME_PATTERNS) {
+      if (p.test(base, rel)) { console.error(\`HIT name=\${p.id} \${rel}\`); hits++; }
+    }
+    if (['.js','.ts','.json','.html','.md','.yml'].includes(extname(rel))) {
+      const text = readFileSync(path, 'utf8');
+      for (const p of FORBIDDEN_CONTENT_PATTERNS) {
+        if (p.re.test(text)) { console.error(\`HIT content=\${p.id} \${rel}\`); hits++; }
+      }
+    }
+  }
+  return hits;
+}
+
+const root = argv[2] ?? './dist';
+const hits = scan(root);
+if (hits > 0) { console.error(\`Preflight FAILED: \${hits} hits\`); exit(1); }
+console.log('Preflight OK');
+
+// Evidence: field reports #305 (32-day credential leak), #303 (methodology exposure).
+// Principles: scan the payload dir not the repo; never auto-filter; never print
+// secret content (paths + pattern ids only); allowlist escape hatch only.`,
+      },
+    ],
+  },
+  {
+    slug: "multi-tenant-pool-bypass",
+    name: "multi-tenant-pool-bypass.ts",
+    title: "Multi-Tenant Pool Bypass",
+    description: "ContextVar wrapper for cross-tenant lifespan/daemon code that runs outside the request lifecycle. Splits acquisition between tenant pool (RLS-enforced) and admin pool (cross-tenant).",
+    teaches:
+      "How to make pre-org-resolution and cross-tenant work mechanically explicit. Auth pre-resolution, system daemons, and admin endpoints need to bypass the tenant pool — the ContextVar makes the bypass legible and testable.",
+    whenToUse:
+      "Any multi-tenant system with FORCE RLS on a non-owner runtime role. The tenant pool callback sets `app.current_org_id`; pre-resolution code needs a different acquisition path or it crashes with policy violations.",
+    preview: `await preOrgResolutionScope(async () => {\n  const session = await db.query('SELECT org_id FROM sessions WHERE token = $1', [token]);\n  return withTenant(session.org_id, () => handler(session));\n});`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "TypeScript",
+        language: "TypeScript",
+        code: `import { AsyncLocalStorage } from 'node:async_hooks';
+import type { Pool, PoolClient } from 'pg';
+
+type TenantContext = {
+  org_id: number | null;       // null when in pre-resolution scope
+  pre_resolution: boolean;     // true ⇒ acquire from admin pool, not tenant pool
+};
+
+const tenantContext = new AsyncLocalStorage<TenantContext>();
+
+// ── Tenant scope (per-request, normal path) ──
+export async function withTenant<T>(
+  org_id: number,
+  fn: () => Promise<T>,
+): Promise<T> {
+  return tenantContext.run({ org_id, pre_resolution: false }, fn);
+}
+
+// ── Pre-org-resolution scope (cross-tenant or auth lookup) ──
+export async function preOrgResolutionScope<T>(fn: () => Promise<T>): Promise<T> {
+  return tenantContext.run({ org_id: null, pre_resolution: true }, fn);
+}
+
+declare const tenantPool: Pool;     // BYPASSRLS=f, RLS enforced
+declare const adminPool: Pool;      // BYPASSRLS=t, cross-tenant work
+
+export async function acquireConnection(): Promise<PoolClient> {
+  const ctx = tenantContext.getStore();
+  if (!ctx) {
+    throw new Error(
+      'acquireConnection called outside any tenant context. ' +
+      'Wrap caller with withTenant(orgId, ...) or preOrgResolutionScope(...).',
+    );
+  }
+  if (ctx.pre_resolution) {
+    return adminPool.connect();
+  }
+  if (ctx.org_id === null) {
+    throw new Error(
+      'Tenant context missing org_id outside pre_resolution scope. ' +
+      'This indicates a callsite that should have called preOrgResolutionScope().',
+    );
+  }
+  return tenantPool.connect();
+}
+
+// Daemon usage (cross-tenant retention sweep):
+//   await preOrgResolutionScope(async () => {
+//     const conn = await acquireConnection();   // ← admin pool
+//     await conn.query('DELETE FROM jobs WHERE completed_at < NOW() - INTERVAL ...');
+//   });
+//
+// Source: field report #316 §8 (Union Station, M-04c W2).`,
+      },
+    ],
+  },
+  {
+    slug: "multi-tenant-property-test",
+    name: "multi-tenant-property-test.ts",
+    title: "Multi-Tenant Property Test",
+    description: "Property-based isolation test: for any orgs A,B, A's writes never appear in B's reads. The test that survives every refactor.",
+    teaches:
+      "Why regression tests are insufficient for multi-tenant isolation (they lock known cases, not the property). How to generate random org pairs and write payloads to surface unknown cross-tenant leaks.",
+    whenToUse:
+      "Every project with org_id (or tenant_id, workspace_id) scoping. Run in CI on every PR. Caught 10 multi-tenant bugs in Caroline's first-user-test that prior gauntlets missed.",
+    preview: `test('writes by org A never appear in reads by org B', async () => {\n  await fc.assert(fc.asyncProperty(\n    fc.constantFrom(...readEndpoints),\n    randomPayload(),\n    async (endpoint, payload) => { /* leak check */ },\n  ));\n});`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "TypeScript",
+        language: "TypeScript",
+        code: `import { describe, test, beforeEach } from 'vitest';
+import fc from 'fast-check';
+
+// Harness contract — your project provides:
+declare const harness: {
+  createOrg(): Promise<{ id: number; apiKey: string; userId: string }>;
+  writeAsOrg(org: { apiKey: string }, endpoint: string, payload: unknown): Promise<{ id: string }>;
+  readAsOrg(org: { apiKey: string }, endpoint: string): Promise<Array<{ id: string }>>;
+  listAllReadEndpoints(): string[];
+  listAllWriteEndpoints(): string[];
+  resetDb(): Promise<void>;
+};
+
+describe('multi-tenant isolation property', () => {
+  beforeEach(async () => harness.resetDb());
+
+  test('writes by org A never appear in reads by org B', async () => {
+    await fc.assert(
+      fc.asyncProperty(
+        fc.constantFrom(...harness.listAllWriteEndpoints()),
+        randomPayload(),
+        async (writeEndpoint, payload) => {
+          const orgA = await harness.createOrg();
+          const orgB = await harness.createOrg();
+
+          // 1. Org A writes
+          const written = await harness.writeAsOrg(orgA, writeEndpoint, payload);
+
+          // 2. Every read endpoint, as Org B, must NOT contain the write
+          for (const readEndpoint of harness.listAllReadEndpoints()) {
+            const rowsB = await harness.readAsOrg(orgB, readEndpoint);
+            const leaked = rowsB.find(row => row.id === written.id);
+            if (leaked) {
+              throw new Error(
+                \`LEAK: \${writeEndpoint} write by org \${orgA.id} surfaced in \` +
+                \`\${readEndpoint} read by org \${orgB.id}.\`,
+              );
+            }
+          }
+        },
+      ),
+      { numRuns: 100, timeout: 60_000 },
+    );
+  });
+
+  // Companion: superuser/admin acquisition does NOT bypass per-org reads.
+  // Field report #318 §5: SUPERUSER + BYPASSRLS=t hides policy bugs.
+  // Test must run under a non-owner role.
+});
+
+declare function randomPayload(): fc.Arbitrary<unknown>;
+
+// Source: field report #315 M4 (Caroline first-user-test, 2026-03-31).
+// Caroline found 10 multi-tenant bugs prior gauntlets missed because
+// regression tests lock known cases; they don't test the underlying property.`,
+      },
+    ],
+  },
+  {
+    slug: "adr-verification-gate",
+    name: "adr-verification-gate.md",
+    title: "ADR Verification Gate",
+    description: "Fixture Bindability discipline. Every ADR's verification gate must include 'Can the gate FAIL under this fixture?' Refactor-correctness is not fix-correctness.",
+    teaches:
+      "Why a 'bit-identical' refactor proof is not the same as a fix-correctness proof. How to construct fixtures that can bind (would detect regression if the fix were incorrect). The decision tree for verification gates.",
+    whenToUse:
+      "Every ADR that ships with a verification gate. Pairs with /docs/methods/SYSTEMS_ARCHITECT.md §4.6 schema-vs-ADR cross-check and §4.7 implementation rehearsal.",
+    preview: `## Verification Gate\n\n**Fixture:** <data set or scenario>\n**Can the gate FAIL under this fixture?** <yes/no + algebraic rationale>\n**Fixture-bindability proof:** <one sentence>\n**Rehearsed at:** <commit-sha or "not yet">`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "Reference",
+        language: "Markdown",
+        code: `## Verification Gate (paste into every ADR)
+
+**Fixture:** <data set / scenario / runtime state used to exercise the gate>
+
+**Can the gate FAIL under this fixture?** <yes | no + algebraic/empirical rationale>
+  - If **no**: this is a refactor-correctness test, not a fix-correctness test.
+    Add a fixture where the fix CAN bind, OR downgrade the verification claim
+    to "preserves prior behavior" (a refactor proof, not a fix proof).
+
+**Fixture-bindability proof:** <one sentence showing the fixture would detect
+  regression if the fix were incorrect>
+
+**Rehearsed at:** <commit-sha or "not yet" — see SYSTEMS_ARCHITECT.md §4.7>
+
+**Implementation Scope (reality anchor):**
+  - Status: Proposed | Accepted | Deferred
+  - Deliverables exist at HEAD?
+    - <path/1> — <existence-check command + result>
+    - <path/2> — <existence-check command + result>
+  - If any deliverable is missing: status MUST be "Proposed," not "Accepted."
+
+**Sum-verification (if ADR contains numbered cohorts):**
+  - Headline claim: "<X total>"
+  - Independent sum of cohorts: <Y>
+  - Match? <yes | no + which is canonical>
+
+## Riker's Standing Question
+
+When reviewing any ADR with a Verification Gate, Riker asks:
+"Can this gate FAIL under the proposed fixture?"
+
+- Yes, with a clear failure path -> gate is sound; ADR may be Accepted.
+- No, the algebra forbids it -> gate is circular; require an additional
+  fix-correctness fixture or downgrade the claim.
+- Unsure -> spike a deliberate regression and observe whether the gate trips.
+
+## Anti-Patterns
+
+- "Bit-identical" proofs without fixture-bindability — preserves arithmetic, not fix correctness.
+- "Fully implemented in vX.Y" without a file-existence check — aspirational status.
+- HARD GATE pins with empty algebraic intersection — structurally infeasible; escalate.
+- Numbered breakdowns without independent sum — cascades into wasted reviewer cycles.
+- Single-form structural sentinels (matches only one syntactic shape).
+
+Source: field reports #313 (Fixture Bindability), #314 (HARD GATE feasibility),
+#318 (sum-verification), #316 (schema cross-check).`,
+      },
+    ],
+  },
+  {
+    slug: "refactor-extraction",
+    name: "refactor-extraction.md",
+    title: "Refactor Extraction (8-commit per-entity)",
+    description: "Per-entity large-refactor template with IDOR matrix discipline. The shape that keeps cross-tenant boundaries intact during code reshuffles.",
+    teaches:
+      "How to split a 1,000+ LOC router/service/handler file in N commits without losing review traction. Architecture-quick plan, entity inventory, per-commit IDOR matrix, final cleanup. Each commit independently shippable with green tests.",
+    whenToUse:
+      "Any time a router/service file >1,000 LOC needs splitting AND the project has an exit gate (max-LOC-per-file). Surfaces route-shadow bugs and IDOR gaps that single-commit refactors mask in diff noise.",
+    preview: `# Commit plan (one per entity + scaffold + cleanup)\n| # | Commit | Cumulative LOC |\n|---|--------|----------------|\n| 1 | scaffold | 1861 |\n| 2 | extract people | 1694 |\n| 8 | cleanup | 597 |`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "Reference",
+        language: "Markdown",
+        code: `# Refactor: <topic> — extraction plan
+# (write to logs/reviews/<topic>-architecture.md BEFORE any commit)
+
+## Current state
+- Source file: <path> at <LOC>
+- Exit gate: <LOC limit>
+- LOC delta needed: <gate - current>
+
+## Entity inventory
+| Entity | Endpoints | Estimated LOC delta |
+|---|---|---|
+| people | 7 | -167 |
+| companies | 10 | -345 |
+| | **Total** | **−1264** |
+
+## Commit plan
+| # | Commit | Adds | Removes | Cumulative LOC |
+|---|---|---|---|---|
+| 1 | scaffold (service base, error types, shared helpers) | services/_base.py | — | 1861 |
+| 2 | extract people | services/people_service.py | router code | 1694 |
+| 8 | cleanup (lift helpers, prune imports, lint) | — | router cleanup | 597 |
+
+## Function-signature contract (per service)
+- org_id: int (first), user_id: str (second)
+- Returns plain dict (no FastAPI Response wrappers)
+- Raises ApiError (no HTTPException — service knows nothing of HTTP)
+- No FastAPI imports in service modules
+
+## Per-commit shape
+1. Extract to services/<entity>_service.py — pure business logic, no FastAPI imports
+2. Rewrite router as thin wrappers: validate -> call service -> format response
+3. Add IDOR matrix tests for parametric AND fixed-suffix paths under same entity prefix
+4. Verify LOC trajectory: git diff --stat HEAD~1 -- routers/<file>.py monotonic decrease
+5. Run targeted pytest on touched files only — full suite is orchestrator's gate
+6. Commit with "Deviations from Contract" section per SUB_AGENTS.md
+
+## Final cleanup commit is load-bearing
+- Lift duplicated helpers that emerged across entities into a shared module
+- Prune unused imports in the router (extraction leaves orphans)
+- Add lint scaffold if missing (LOC limit, signature-contract assertion)
+- Verify no test files were dropped (mock paths often need updating)
+- Confirm exit gate met with documented headroom
+
+## What this pattern caught
+M-10 commit 5: IDOR matrix surfaced /people/{person_id} shadowing
+/people/batch-update. FastAPI dispatches first-matching-route; a parametric
+path declared first eats subsequent fixed-suffix paths. Fix: path-converter
+type hints ({person_id:int}). Bug unreachable in production for unknown
+duration; no unit test exercised it.
+
+## Anti-Patterns
+- Single-commit refactor for files >1,000 LOC — review fatigue, impossible to revert.
+- No architecture-quick — LOC trajectory drifts, extractions in dependency-violating order.
+- No IDOR matrix — refactoring multi-tenant code without cross-tenant denial tests
+  is rearranging the leak surface.
+- Mixing entity extractions in one commit — each commit must remain shippable
+  independently with green tests.
+
+## When NOT to use
+- File <~600 LOC — split in one commit; overhead not worth it.
+- File is genuinely cohesive (state machine, single algorithm, generated code).
+- Exit gate isn't binding — refactor is yak-shaving.
+
+Source: field report #320 §1. M-10 (Union Station): routers/crm.py
+1,861 -> 597 LOC across 8 commits, 0 regressions, +147 tests.`,
+      },
+    ],
+  },
 ];
 
 export function getPattern(slug: string): Pattern | undefined {

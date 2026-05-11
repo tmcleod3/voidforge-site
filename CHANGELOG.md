@@ -6,6 +6,34 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.13.0] - 2026-05-10
+
+### Field Report Reckoning — methodology resync v23.9.2 → v23.11.1
+
+Absorbs three upstream methodology releases: v23.10.0 (6 field reports closed, deploy preflight + cross-repo scalar sync), v23.11.0 (18 field reports closed across two waves, 9 new patterns including AI prompt safety + multi-tenant property tests + ADR fixture-bindability), and v23.11.1 (`/git` tag-by-default + `--npm` opt-in publish, closing the silent-release gap that stranded v23.10/v23.11 for a full cycle). Site data layer caught up to upstream truth; corrected drift uncovered by /architect agent sweep that the upstream brief had partially gotten wrong.
+
+### Added
+- **8 new pattern entries** in `src/data/patterns.ts`: `audit-log` (system-event NULL trap resolution), `ai-prompt-safety` (Type A vs Type B distinction), `llm-state-dedup` (LLM ids are display labels), `deploy-preflight` (pre-deploy secret + sensitive-path scan), `multi-tenant-pool-bypass` (pre-org-resolution ContextVar), `multi-tenant-property-test` (property-based isolation: A's writes never appear in B's reads), `adr-verification-gate` (Fixture Bindability discipline), `refactor-extraction` (8-commit per-entity template). Patterns count rises 37 → 45 to match disk.
+- **Combined v23.10.0–v23.11.1 release entry** in `src/data/releases.ts` titled "Field Report Reckoning" — covers all three upstream releases as a single narrative beat.
+- **THE GATE callout section** on `/protocol` between the v23.0 Materialization and LONG MEMORY callouts. Cites ADR-048 (Surfer pre-scan), ADR-050 (engage/sentinel aliases), ADR-051 (hook enforcement), ADR-060 (gate state path), ADR-061 (npm rename). Explains the SEC-003 fail-closed bypass discipline.
+- **`/blueprint` slug** wired into the STRIKE OPS group on `/commands` page. Entry already existed in `src/data/commands.ts:969`; the bug was the slug missing from the page's group filter so the card never rendered.
+
+### Changed
+- **`src/data/stats.ts`** — `totalMethodDocs: 29 → 30` (SPEC_HANDOFF.md added in v23.10), `totalADRs: 61 → 69` (upstream method docs reference ADR-069). Each scalar now carries a "last verified" date comment.
+- **`src/components/landing/hero.tsx`** — spotlight panel refreshed from "v23.9 — THE COVENANT" to "v23.11 — FIELD REPORT RECKONING". New copy emphasizes the 24 field reports closed and 9 new patterns; CTAs now link to `/patterns` and `/prophecy` instead of verify/migrate.
+- **`src/app/commands/page.tsx`** — Surfer footer copy updated from "Since v23.6, the Silver Surfer pre-scans..." to "Since v23.8 the Silver Surfer Gate is enforced by a PreToolUse hook" — reflects ADR-051 mechanical enforcement, not just pre-scanning.
+- **`src/app/about/page.tsx`** — "37+ campaigns completed" → "40+ campaigns completed. 24 field reports closed across two waves."
+- **`src/data/agents.ts:41`** — `tolkien: "Middle-earth"` → `tolkien: "Tolkien"` to match the source-of-truth label in the methodology team table.
+- **`src/data/search-index.ts:58`** — same rename: "Middle-earth Universe" → "Tolkien Universe" for search consistency.
+- **Methodology resync v23.9.2 → v23.11.1** via `/void` — 46 upstream files refreshed in one pass (9 new + 37 modified): `CLAUDE.md`, `VERSION.md`, `HOLOCRON.md`, 10 agent defs (bashir, coulson, irulan, kusanagi, leia, loki, picard, silver-surfer, sisko, thufir), 6 commands (architect, campaign, deploy, gauntlet, git, prd), 16 method docs, 2 modified patterns (ai-eval.ts gained CLAUDE_PROMPT_EVAL_CATEGORIES; middleware.ts gained hot-path logging gate).
+
+### Operational notes
+- **`npx voidforge-build update` is broken on projects without a `.voidforge` marker.** `findProjectRoot()` in the CLI's `dist/wizard/lib/marker.js` walks up looking for `.voidforge`. With `~/.voidforge/` existing as a global-state directory and no project marker, it walks all the way up to `$HOME` and writes 45 methodology files into `~/`. Recovered by copying directly from the npm cache (`~/.npm/_npx/<hash>/node_modules/voidforge-build/dist/`) into the project. Upstream needs a `statSync().isFile()` guard in marker.js. Workaround: drop a `.voidforge` marker file at the project root before next sync. See `logs/forge-sync.md` 2026-05-10 (second pass) entry.
+- **Site CHANGELOG.md was overwritten during the bulk copy** because the npm package CHANGELOG ships at the same path. Restored via `git checkout HEAD -- CHANGELOG.md`. The prior /void session's log already documents this Edge Case (CHANGELOG.md is project-owned, not methodology-owned, on this repo); the FORGE_KEEPER doc's shared-file listing is not authoritative for projects that repurpose the file.
+- **Vercel auto-deploy remains broken** on this repo (carryover from v2.12.0 per `docs/LEARNINGS.md`). After push, manual `vercel --prod --yes` is required. Do not assume green push = live.
+
+---
+
 ## [Site v2.12.0] - 2026-04-20
 
 ### The Gate — methodology resync v23.8.3 → v23.9.2 + /engage-review a11y pass

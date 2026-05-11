@@ -116,8 +116,10 @@ After every commit, Barton verifies:
 - [ ] `VERSION.md` history table has new row with correct date
 - [ ] `package.json` "version" field matches
 - [ ] `CHANGELOG.md` has `[X.Y.Z]` section with correct date
+- [ ] `git tag --list vX.Y.Z` returns the tag (unless `--no-tag`)
 - [ ] `git status` shows clean working tree
 - [ ] No untracked files that should have been included
+- [ ] If `--npm` was used: every published package returns the new version from `npm view <name> version`
 
 ## CLAUDE.md Command Table Integrity Check
 
@@ -135,6 +137,89 @@ When the user passes `--deploy` to `/git`, run `/deploy` automatically after the
 4. Log the deploy result in the commit's campaign-state entry
 
 This enables one-command commit-and-deploy for ad-hoc changes outside of campaigns.
+
+## `/git --npm` Flag
+
+When the user passes `--npm` to `/git`, run npm publish after the commit + tag + push succeeds. Publishing is irreversible (npm forbids re-using version numbers; unpublish blocked within 72h) — explicit opt-in is required.
+
+**Why this flag exists.** VoidForge distributes via npm. Before this flag existed, Coulson's workflow ended at `git push`, leaving every release stranded between GitHub and the registry. Field report: v23.10.0 and v23.11.0 were committed, tagged with version strings in `package.json`, and pushed to origin/main — but never published. Downstream consumers running `npx voidforge-build update` saw nothing new for two release cycles until the gap was caught manually. Tagging defaults to on (Step 4.5); npm publish is opt-in because broadcast actions deserve a deliberate trigger.
+
+**Procedure (Dockson handles the publish; Coulson orchestrates):**
+
+1. **Preflight.** `npm whoami` must succeed. Working tree must be clean. Tag must exist (Step 4.5 result).
+2. **Discover.** Enumerate publishable packages — root `package.json` and any workspace/`packages/*` packages that don't have `"private": true`. Skip any whose version field doesn't match the version just bumped.
+3. **Confirm.** Print the list (`name@version`) and registry, ask for go-ahead.
+4. **Order.** Resolve internal dependencies — if package B depends on package A inside the same monorepo, publish A first. For VoidForge: `voidforge-build-methodology` before `voidforge-build`.
+5. **Publish.** Run `npm publish` from each package's own directory. Capture the `+ name@version` line.
+6. **Verify.** `npm view <name> version` must return the new version for each published package. Retry once after 5s on lag.
+7. **Report.** Final summary line: which packages shipped, at what version, to which registry.
+
+**Hard rules:**
+
+- Never publish from a dirty working tree.
+- Never publish if `npm whoami` fails — surface the error and stop.
+- Never `--force` or `--ignore-scripts`. If `prepack` fails, the package is broken; fix it.
+- On `EPUBLISHCONFLICT` (version exists), stop. The user must bump and re-run; do not attempt to dist-tag around it.
+- Scoped/private packages are skipped silently unless the user explicitly names them.
+
+## Per-Commit CHANGELOG Discipline
+
+CHANGELOG drift accumulates silently when entries are deferred to session boundaries. By the time someone notices, the test count trajectory is wrong and the per-mission delta is unrecoverable from the diff alone.
+
+**Rule:** Commits that touch `src/**`, `docs/adrs/**`, or load-bearing method docs (`docs/methods/*.md`) MUST include a `CHANGELOG.md` entry as part of the staged paths. Coulson rejects commits matching those globs that omit `CHANGELOG.md`.
+
+**Exceptions** (no CHANGELOG entry needed):
+- Pure refactor / move with no behavior change (label the commit `chore:`)
+- Test-only changes that don't add a new test pattern
+- Documentation typo fixes
+- Files explicitly listed under `.changelog-exempt` if present
+
+**Enforcement check (Coulson runs before commit):**
+
+```bash
+if git diff --cached --name-only | grep -qE '^(src/|docs/adrs/|docs/methods/.*\.md$)'; then
+  git diff --cached --name-only | grep -q '^CHANGELOG\.md$' || {
+    echo "Commit touches src/adrs/methods but omits CHANGELOG.md"; exit 1
+  }
+fi
+```
+
+Field report #322 (barrierwatch): test count trajectory showed 1207 when reality was 1209+ after Fix Batch 1; CHANGELOG drift caught only by Round 3 Nightwing. Without that agent, the release would have shipped with a stale CHANGELOG.
+
+## Pre-Push Lint Sweep
+
+Project-specific lint gates (`scripts/check-*.sh`, `scripts/lint_*.py`, `bin/preflight`, etc.) are easy to forget without a checklist — and the cost is a hotfix loop where the first push fails CI on a contract gate that local development never exercised.
+
+**Rule:** Before `git push`, Coulson runs every executable under `scripts/check-*` (or framework equivalent — `scripts/lint_*`, `bin/preflight`, `make preflight`). If any returns non-zero, push is blocked until the finding is resolved (fix the code OR add an explicit `# <gate>-allowed` waiver with rationale).
+
+**Discovery shape:**
+
+```bash
+find scripts/ -maxdepth 2 -type f \( -name 'check-*' -o -name 'lint_*' \) -executable 2>/dev/null
+```
+
+For each script discovered, document its purpose + waiver convention in the project README or `docs/CONTRIBUTING.md`. Field report #324 (Union Station v7.8) documents 3 separate hotfix loops in a single session where the waiver convention (`# system-org-allowed` for source code, double-backticks for prose) existed but was not surfaced in any reviewer-readable checklist.
+
+**Methodology vs project tooling:** the SCRIPTS are project-specific; the DISCIPLINE (run all gates before push) is methodology. The orchestrator does not need to know what each script does — only that it exists and must pass.
+
+## Post-Amend SHA Pin
+
+`git commit --amend` rewrites the SHA but `logs/campaign-state.md` rows still reference the pre-amend SHA. Across a long campaign, these dangling references accumulate and break post-hoc audits (`git log --grep` against the recorded SHA returns nothing).
+
+**Rule:** After any `git commit --amend`, Coulson scans `logs/campaign-state.md` (and `logs/build-state.md`, `logs/gauntlet-state.md` if present) for SHA placeholders that may now be stale.
+
+**Detection pattern:**
+
+```bash
+# Find recorded SHAs that no longer exist in git
+grep -oE '\b[a-f0-9]{7,40}\b' logs/campaign-state.md 2>/dev/null | sort -u | while read sha; do
+  git cat-file -e "$sha^{commit}" 2>/dev/null || echo "STALE: $sha in campaign-state.md"
+done
+```
+
+**Resolution:** Replace the stale SHA with the post-amend SHA. Land both the amend and the state-file pin in one logical operation (squash if not yet pushed; new commit if already on remote).
+
+Field report #327 (Union Station v7.10 Phase C): every mission shipped as a `<mission> + <followup pin SHA>` pair because amends were routine and the state file always lagged by one SHA. The discipline ergonomically holds, but it's a known foot-gun — surface it explicitly so future operators don't rediscover it.
 
 ## Post-Push Deploy Check
 

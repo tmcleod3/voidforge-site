@@ -13,7 +13,7 @@ const groups = [
     label: "STRIKE OPS",
     tagline: "Type one command. Watch the forge ignite.",
     color: "var(--vf-forge-orange)",
-    slugs: ["build", "assemble", "campaign", "imagine", "prd"],
+    slugs: ["build", "assemble", "campaign", "imagine", "prd", "blueprint"],
   },
   {
     id: "growth",
@@ -130,8 +130,9 @@ export default function CommandsPage() {
             </span>
           </div>
           <p className="text-center text-[10px] text-[var(--vf-text-muted)]">
-            Since v23.6, the Silver Surfer pre-scans your code and selects the
-            optimal agent team automatically. Use{" "}
+            Since v23.8 the Silver Surfer Gate is enforced by a PreToolUse
+            hook — skipping the pre-scan is mechanically blocked, not just
+            asked-against. Use{" "}
             <code className="text-[var(--vf-electric-blue)]">--focus &quot;topic&quot;</code>{" "}
             to bias dispatch toward a domain. Opt out with{" "}
             <code className="text-[var(--vf-electric-blue)]">--light</code>,{" "}

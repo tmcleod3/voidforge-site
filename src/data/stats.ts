@@ -33,11 +33,11 @@ export const stats = {
   totalCommands: commands.length,
   /** Sub-agents only */
   totalSubAgents: subAgents.length,
-  /** Method documentation files (docs/methods/) — updated on methodology sync */
-  totalMethodDocs: 29,
-  /** Architecture Decision Records — updated on methodology sync */
-  totalADRs: 61,
-  /** Scaffold test count — updated on methodology sync */
+  /** Method documentation files (docs/methods/) — updated on methodology sync. Last verified: 2026-05-10 against v23.11.1 (docs/methods/ shipped 30 .md files including SPEC_HANDOFF.md) */
+  totalMethodDocs: 30,
+  /** Architecture Decision Records — updated on methodology sync. Last verified: 2026-05-10 against v23.11.1 (upstream method docs reference ADR-069; numbering not strictly sequential). */
+  totalADRs: 69,
+  /** Scaffold test count — updated on methodology sync. Last verified: 2026-04-20 (v23.9.0 release notes claimed 1,384) */
   totalScaffoldTests: 1384,
 };
 

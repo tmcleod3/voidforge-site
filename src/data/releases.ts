@@ -1447,6 +1447,21 @@ export const shipped: Release[] = [
       "Four operational learnings captured (LRN-1 to LRN-4): agent cache at session start, shell-escape at source not destination, sibling-doc drift, npm name parity with install instructions",
     ],
   },
+  {
+    version: "v23.10.0 – v23.11.1",
+    date: "2026-05-10",
+    title: "Field Report Reckoning",
+    headline: "24 field reports closed across two waves. 9 new patterns. Tag-by-default release discipline. The methodology absorbed every lesson.",
+    items: [
+      "v23.10.0 — Wave triage of 6 field reports (#303–#308): SPEC_HANDOFF.md formalizes cross-session implementation hand-off (verified-against-commit stamping, nav-order requirements). deploy-preflight.ts + post-deploy-probe.sh wired into /deploy Steps 2.5 + 4.5. New FORGE_KEEPER §Deployment Hygiene + §Cross-Repo Scalar Sync sections. New DEVOPS_ENGINEER §Deploy Surface Boundary (repo root ≠ deploy surface; per-platform enforcement table). Post-push live-URL fingerprint (broken auto-deploy detection). Methodology-exposure curl denylist. /campaign Step 0.5 TECH_DEBT SLA Audit (Critical+Immediate+LowEffort 48h SLA).",
+      "v23.11.0 — Two-wave triage of 18 field reports (#313–#320, #322–#330) with 9 new patterns landing alongside: adr-verification-gate.md (Fixture Bindability discipline), audit-log.ts (system-event NULL trap resolution), multi-tenant-property-test.ts (property-based isolation: A's writes never appear in B's reads), multi-tenant-pool-bypass.ts (pre_org_resolution_scope ContextVar), rls-test-fixture.py (db_as_app SAVEPOINT defeating the SUPERUSER + BYPASSRLS=t fixture trap), structural-sql-sentinel.py (adversarial-test discipline for SQL regex sentinels), refactor-extraction.md (8-commit per-entity large-refactor template), ai-prompt-safety.ts (Type A instructions vs Type B constraints), llm-state-dedup.ts (LLM-emitted ids are display labels, not primary keys).",
+      "Pattern extensions: ai-eval.ts gained CLAUDE_PROMPT_EVAL_CATEGORIES (prompt-structure invariants, sanitizer round-trip, refusal stability, JSON schema adherence, cost regression). middleware.ts gained a hot-path logging gate (fireOnce / shouldEmit token-bucket) preventing observability-pipeline DoS from naked logger.critical() per-request.",
+      "Method docs touched: SYSTEMS_ARCHITECT.md (Step 4.5 operator sign-off on invented constraints; Step 4.6 schema-vs-ADR cross-check; Step 4.7 implementation rehearsal for infra ADRs), SECURITY_AUDITOR.md (sanitizer bypass-class checklist, 7 named classes), CAMPAIGN.md (pause-bias anti-pattern in autonomous mode), GAUNTLET.md, AI_INTELLIGENCE.md, BACKEND_ENGINEER.md, BUILD_PROTOCOL.md, DEVOPS_ENGINEER.md, FORGE_KEEPER.md, PRD_GENERATOR.md, QA_ENGINEER.md, RELEASE_MANAGER.md, SUB_AGENTS.md, TESTING.md, TIME_VAULT.md, TROUBLESHOOTING.md.",
+      "Spec-adversary pass for non-trivial methodology ADRs — code-vs-ADR review confirms fidelity; spec-adversary review confirms correctness. Both run before implementation. Reference: ADR-069 false-positive in barrierwatch FWER caught only after production alert.",
+      "v23.11.1 — /git release-discipline patch. v23.10.0 and v23.11.0 reached origin/main with bumped versions but no git tags and no npm publish — the publish workflow fires on tag push, so both releases sat stranded for a full cycle. Coulson now tags by default (Step 4.5, --no-tag to skip) and exposes --npm for same-session manual publish (Step 7, opt-in, with preflight + dependency-ordered publish). Tag push in Step 6 is verified against git ls-remote --tags origin.",
+      "Operational learnings (10 entries closed): stat -f %m non-portability (LRN-5), npm ci lockfile drift (LRN-6), npm org vs scope availability (LRN-7), CI workspace-scoped test bypasses root pretest (LRN-8), spec-handoff pattern (LRN-9), marketing-site scalar count drift (LRN-10), plus 4 from v23.9.x.",
+    ],
+  },
 ];
 
 export const future: FutureRelease[] = [

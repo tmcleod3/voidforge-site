@@ -55,7 +55,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "Hari Seldon", description: "AI intelligence auditor — Foundation universe", path: "/agents/seldon", category: "Agents" },
   { title: "Gandalf", description: "Setup wizard — project scaffolding and initialization — Tolkien universe", path: "/agents/gandalf", category: "Agents" },
   { title: "Haku", description: "Deploy wizard — browser-based deploy and infrastructure provisioning — Anime universe", path: "/agents/haku", category: "Agents" },
-  { title: "Middle-earth Universe", description: "Frontend, UX, and forge agents: Galadriel, Bombadil, Celebrimbor, Elrond, Samwise, and more", path: "/agents/tolkien", category: "Agents" },
+  { title: "Tolkien Universe", description: "Frontend, UX, and forge agents: Galadriel, Bombadil, Celebrimbor, Elrond, Samwise, and more", path: "/agents/tolkien", category: "Agents" },
   { title: "Marvel Universe", description: "Backend, release, pipeline, and review agents: Stark, Coulson, Fury, Thanos, Banner, and more", path: "/agents/marvel", category: "Agents" },
   { title: "DC Universe", description: "QA and testing agents: Batman, Oracle, Red Hood, Nightwing, Deathstroke, and more", path: "/agents/dc", category: "Agents" },
   { title: "Star Wars Universe", description: "Security and audit agents: Kenobi, Leia, Maul, Yoda, Ahsoka, and more", path: "/agents/star-wars", category: "Agents" },
@@ -137,6 +137,14 @@ export const searchIndex: SearchEntry[] = [
   { title: "Funding Plan", description: "Treasury funding pipeline: state machine, policy engine, rebalancing", path: "/patterns/funding-plan", category: "Patterns" },
   { title: "Combobox", description: "Accessible combobox with value source management, keyboard nav, async search", path: "/patterns/combobox", category: "Patterns" },
   { title: "Kongo Integration", description: "Landing page engine: client, from-PRD generation, growth signal, webhook handlers", path: "/patterns/kongo-integration", category: "Patterns" },
+  { title: "Audit Log", description: "System-event NULL trap resolution: schema relaxation vs sentinel + JSONB tag, append-only invariants", path: "/patterns/audit-log", category: "Patterns" },
+  { title: "AI Prompt Safety", description: "Type A (instructions to model, statistical) vs Type B (constraints on tool, enforced) — the distinction that prevents prompt-injection-by-design", path: "/patterns/ai-prompt-safety", category: "Patterns" },
+  { title: "LLM State Dedup", description: "LLM-emitted ids are display labels, not primary keys — content-hash dedup with logical-key fallback", path: "/patterns/llm-state-dedup", category: "Patterns" },
+  { title: "Deploy Preflight", description: "Pre-deploy secret + sensitive-path scan — catches credentials, methodology paths reachable from CDN root", path: "/patterns/deploy-preflight", category: "Patterns" },
+  { title: "Multi-Tenant Pool Bypass", description: "ContextVar wrapper for cross-tenant lifespan/daemon code — splits acquisition between tenant pool (RLS) and admin pool", path: "/patterns/multi-tenant-pool-bypass", category: "Patterns" },
+  { title: "Multi-Tenant Property Test", description: "Property-based isolation: for any orgs A,B, A's writes never appear in B's reads — the test that survives every refactor", path: "/patterns/multi-tenant-property-test", category: "Patterns" },
+  { title: "ADR Verification Gate", description: "Fixture Bindability discipline — every ADR's gate must include 'Can the gate FAIL under this fixture?'", path: "/patterns/adr-verification-gate", category: "Patterns" },
+  { title: "Refactor Extraction", description: "8-commit per-entity large-refactor template with IDOR matrix discipline", path: "/patterns/refactor-extraction", category: "Patterns" },
 
   // Tutorials
   { title: "The Wizard Path", description: "Start from nothing — Gandalf walks you through everything", path: "/tutorial/wizard", category: "Tutorial" },

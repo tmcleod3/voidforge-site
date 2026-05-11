@@ -49,7 +49,7 @@ export function Hero() {
           . Ship to production.
         </motion.p>
 
-        {/* v23.9 Spotlight */}
+        {/* v23.11 Spotlight */}
         <motion.div
           className="mt-10 max-w-2xl mx-auto comic-panel bg-[var(--vf-surface-raised)] p-6 text-left"
           initial={shouldReduceMotion ? {} : { y: 30, opacity: 0 }}
@@ -57,35 +57,42 @@ export function Hero() {
           transition={{ delay: 0.7, duration: 0.5 }}
         >
           <p className="font-[family-name:var(--font-bangers)] text-lg sm:text-xl tracking-wider text-[var(--vf-forge-orange)] mb-2">
-            v23.9 &mdash; THE COVENANT
+            v23.11 &mdash; FIELD REPORT RECKONING
           </p>
           <p className="font-[family-name:var(--font-bangers)] text-xl sm:text-2xl md:text-3xl tracking-wider text-[var(--foreground)] leading-snug mb-3">
-            Domain-aligned. Signed. Irreversible.
+            Twenty-four reports closed. Nine new patterns. The forge listened.
           </p>
           <p className="text-sm sm:text-base text-[var(--vf-text-muted)]">
-            Published as{" "}
+            Two waves of triage absorbed every open field report from
+            production campaigns &mdash; multi-tenant isolation properties,
+            AI-execution agent safety, ADR fixture-bindability, deploy
+            preflight scans, the LLM state-dedup rule. New patterns landed
+            for{" "}
             <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
-              voidforge-build
-            </code>{" "}
-            to match this very domain. Every release now ships with an SLSA
-            provenance attestation signed in sigstore&rsquo;s transparency log
-            &mdash; cryptographic proof that what you install was built from
-            this repo by the real workflow. Opus 4.7 orchestrates, Haiku 4.5
-            dispatches, and the Silver Surfer Gate is enforced by hook, not
-            prose.
+              ai-prompt-safety
+            </code>
+            ,{" "}
+            <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
+              audit-log
+            </code>
+            ,{" "}
+            <code className="font-[family-name:var(--font-space-mono)] text-[var(--vf-electric-blue)]">
+              multi-tenant-property-test
+            </code>
+            , and six more. The methodology evolved by absorbing what hurt.
           </p>
           <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs sm:text-sm">
             <Link
-              href="/tutorial/verify"
+              href="/patterns"
               className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
             >
-              How to verify &rarr;
+              See the new patterns &rarr;
             </Link>
             <Link
-              href="/tutorial/migrate"
+              href="/prophecy"
               className="text-[var(--vf-electric-blue)] hover:text-[var(--vf-forge-orange)] underline rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--vf-forge-orange)]"
             >
-              Migrate from legacy packages &rarr;
+              Read the changelog &rarr;
             </Link>
           </div>
         </motion.div>
