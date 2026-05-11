@@ -27,6 +27,8 @@ export function Search() {
   const inputRef = useRef<HTMLInputElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
+  // Debounce timer for analytics — see handleSearch for rationale.
+  const analyticsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const router = useRouter();
 
   const closeViaKeyboard = useRef(false);
@@ -85,16 +87,42 @@ export function Search() {
     return () => document.removeEventListener("keydown", handleTab);
   }, [open]);
 
+  // Clear any pending analytics timer when the modal closes or the component unmounts.
+  useEffect(() => {
+    return () => {
+      if (analyticsTimerRef.current) {
+        clearTimeout(analyticsTimerRef.current);
+        analyticsTimerRef.current = null;
+      }
+    };
+  }, []);
+
   function handleSearch(value: string) {
     setQuery(value);
     setSelectedIndex(0);
     if (value.trim().length === 0) {
       setResults([]);
+      // Cancel pending analytics if user cleared the input before debounce fired.
+      if (analyticsTimerRef.current) {
+        clearTimeout(analyticsTimerRef.current);
+        analyticsTimerRef.current = null;
+      }
       return;
     }
     const allResults = fuse.search(value);
     setResults(allResults.slice(0, 10));
-    trackEvent("search_query", { query: value });
+
+    // Debounce the analytics event by 600ms so per-keystroke partial queries
+    // don't get exfiltrated to Plausible character by character. Qui-Gon
+    // surfaced this in /sentinel — a user searching for their own name or a
+    // sensitive command had every prefix transmitted as they typed. Now we
+    // only record the value the user actually stopped on. (Site v2.14.3
+    // fix-first.)
+    if (analyticsTimerRef.current) clearTimeout(analyticsTimerRef.current);
+    analyticsTimerRef.current = setTimeout(() => {
+      trackEvent("search_query", { query: value });
+      analyticsTimerRef.current = null;
+    }, 600);
   }
 
   function navigateTo(path: string) {

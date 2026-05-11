@@ -13,6 +13,8 @@ CHANGELOG.md
 VERSION.md
 ROADMAP.md
 TECH_DEBT.md
+SECURITY.md
+.voidforge
 
 # Build journal — local-only logs, never methodology
 logs/

@@ -1,5 +1,25 @@
 import { display } from "@/data/stats";
 
+/**
+ * Safely serialize JSON for embedding in a <script type="application/ld+json"> tag.
+ *
+ * `JSON.stringify` alone does NOT escape `<`, `>`, or `&` — which means a value
+ * containing `</script>` could break out of the script tag and enable XSS if
+ * any field is ever sourced from untrusted input. All current callers pass
+ * static data (display.* from stats.ts, hardcoded URLs), so the risk is
+ * theoretical today — but the cost of hardening is one regex replace and the
+ * pattern survives future data-source changes. Standard mitigation per OWASP
+ * + the Next.js JSON-LD documentation.
+ *
+ * Surfaced by Windu in /sentinel Phase 2 (Site v2.14.3 fix-first).
+ */
+function safeJsonLd(value: unknown): string {
+  return JSON.stringify(value)
+    .replace(/</g, "\\u003c")
+    .replace(/>/g, "\\u003e")
+    .replace(/&/g, "\\u0026");
+}
+
 export function JsonLd() {
   const websiteSchema = {
     "@context": "https://schema.org",
@@ -44,11 +64,11 @@ export function JsonLd() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(websiteSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }}
       />
     </>
   );

@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.14.3] - 2026-05-10
+
+### /sentinel security pass — 12-agent live audit
+
+Dedicated security review of https://voidforge.build by 12 parallel agents (Cassian, Leia, Chewie, Rex, Bo-Katan, Cara Dune, Maul live-exploit, Windu, Qui-Gon, Sabine, Anakin, Din Djarin). Five false positives ruled out (OpenAI key "exposed" — actually gitignored; REDIS_URL "Critical" — actually a string literal in pattern docs; `target="_blank"` rel missing — actually present on adjacent line in multiline JSX; `console.log` shipped to prod — actually inside template literal; "no CSP" — CSP is configured). Six true findings actioned in this patch + several documented as accepted risks in the new SECURITY.md.
+
+### Fixed (defense in depth — none currently exploitable, all hardening)
+- **Next.js + dependency security patches.** Bumped `next` floor from `^15.0.0` to `^15.5.18` (the `backport` tag — Next.js's explicit security-patched 15.x line). Addresses GHSA-q4gf-8mx6-v5v3 (DoS via Server Components — not exploitable here because static export has no runtime SSR) and the postcss XSS via unescaped `</style>` (not exploitable here because we don't process untrusted CSS). Documented in SECURITY.md.
+- **HSTS gained `preload`** in `vercel.json`. Eliminates the first-visit cleartext window once submitted to hstspreload.org.
+- **JSON-LD output now escapes `<`, `>`, `&`** in `src/components/json-ld.tsx`. Added `safeJsonLd` helper. Previous `JSON.stringify` alone would have allowed `</script>` breakout if a future data source ever included untrusted content. Surfaced by Windu.
+- **`NEXT_PUBLIC_PLAUSIBLE_HOST` now validated against an allowlist** in `src/components/analytics.tsx`. A compromised CI environment cannot redirect the analytics loader to an attacker-controlled domain via this env var alone — fail closed to the canonical default. Defense in depth alongside the CSP `script-src` allowlist. Surfaced by Din Djarin + Qui-Gon.
+- **Search analytics now debounced (600 ms).** Previous behaviour fired `trackEvent("search_query", ...)` on every keystroke, transmitting partial queries to Plausible character by character. A user searching for their own name or a sensitive command string had every prefix logged. Now we only record what the user actually stops on. Surfaced by Qui-Gon. Cleanup on unmount included.
+
+### Added
+- **`SECURITY.md`** at repo root — vulnerability reporting policy + threat model + defenses in place + accepted-risks register (CSP `unsafe-inline`, CORS wildcard, `x-vercel-id` region disclosure, `/github` redirect query passthrough, GitHub avatar img-src, postcss/Next DoS that don't apply to static export). Includes the recent audit history table.
+- **`SECURITY.md` and `.voidforge` added to `.vercelignore`** — defense in depth so neither is reachable from the CDN.
+
+### Verified clean
+- Live sourcemap probe: `/_next/static/chunks/*.js.map` returns 404. `out/` contains zero `.map` files. `next.config.ts` has no `productionBrowserSourceMaps: true`.
+- Bo-Katan methodology-path probe: 16/16 sensitive paths (HOLOCRON, CHANGELOG, VERSION, ROADMAP, TECH_DEBT, .claude/, docs/methods/, docs/patterns/, docs/adrs/, .voidforge, .env, .env.local, logs/, package.json, .gitignore, .git/config) all return 404.
+- Leia secrets scan: no AWS, GitHub PAT, OpenAI, Slack, or PRIVATE KEY patterns in the built `out/` tree. JSON-LD output contains no credentials or internal URLs. `git log --all -p -- '*.env*'` returns no historical commits.
+- Maul red-team: 26 live exploit attempts (admin path enumeration, query smuggling, XSS reflection, header injection, CDN cache poisoning, method enumeration, DNS takeover probes) — all blocked. One MEDIUM (query-param passthrough on /github) documented as accepted risk.
+
+### Test count
+- 77/77 (unchanged from v2.14.2).
+
+### Operational notes
+- Tag `site-v2.14.3`.
+- Vercel auto-deploy still broken; manual `vercel --prod --yes`.
+
+---
+
 ## [Site v2.14.2] - 2026-05-10
 
 ### /engage code-review patch — closes 1 HIGH (CI silent-failure) + 4 MEDIUM symmetries
