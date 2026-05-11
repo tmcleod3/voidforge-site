@@ -3,40 +3,10 @@ import Link from "next/link";
 import { PageHeader } from "@/components/page-header";
 import { SpeechBubble } from "@/components/speech-bubble";
 import { commands } from "@/data/commands";
+import { commandGroups as groups } from "@/data/command-groups";
 
 const forgeLabsGroup = new Set(["growth"]);
 const forgeLabsCards = new Set(["grow", "cultivation", "current", "treasury", "portfolio", "dangerroom"]);
-
-const groups = [
-  {
-    id: "strike",
-    label: "STRIKE OPS",
-    tagline: "Type one command. Watch the forge ignite.",
-    color: "var(--vf-forge-orange)",
-    slugs: ["build", "assemble", "campaign", "imagine", "prd", "blueprint"],
-  },
-  {
-    id: "growth",
-    label: "FIELD OPS",
-    tagline: "Build it. Then grow it.",
-    color: "var(--vf-neon-green)",
-    slugs: ["grow", "cultivation", "current", "treasury", "portfolio"],
-  },
-  {
-    id: "recon",
-    label: "RECON OPS",
-    tagline: "Trust nothing. Verify everything.",
-    color: "var(--vf-comic-red)",
-    slugs: ["qa", "test", "engage", "review", "ux", "sentinel", "security", "gauntlet", "assess", "ai"],
-  },
-  {
-    id: "base",
-    label: "BASE OPS",
-    tagline: "Run the forge. Sharpen the blade.",
-    color: "var(--vf-electric-blue)",
-    slugs: ["devops", "deploy", "architect", "git", "void", "vault", "thumper", "debrief", "dangerroom"],
-  },
-];
 
 const agentImages: Record<string, string> = {
   Galadriel: "/images/agents/galadriel.webp",

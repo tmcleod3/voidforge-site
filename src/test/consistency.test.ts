@@ -3,8 +3,10 @@ import { readdirSync, existsSync } from "fs";
 import { resolve } from "path";
 import { patterns } from "@/data/patterns";
 import { commands } from "@/data/commands";
-import { leadAgents, universes } from "@/data/agents";
+import { leadAgents, universes, universeLabels } from "@/data/agents";
 import { searchIndex } from "@/data/search-index";
+import { stats } from "@/data/stats";
+import { commandGroups, allGroupedSlugs } from "@/data/command-groups";
 
 const ROOT = resolve(__dirname, "../..");
 
@@ -125,6 +127,94 @@ describe("Consistency — Search index covers all pages", () => {
       expect(
         indexPaths.has(hub),
         `Missing search entry for hub: ${hub}`
+      ).toBe(true);
+    }
+  });
+});
+
+describe("Consistency — Command groups cover all commands (ADR-022 Phase 2, bidirectional)", () => {
+  it("every command in commands.ts appears in at least one group's slugs", () => {
+    for (const cmd of commands) {
+      expect(
+        allGroupedSlugs.has(cmd.slug),
+        `Command /${cmd.slug} is in commands.ts but not in any group in src/data/command-groups.ts — its card will never render on /commands. Add it to the appropriate group.`
+      ).toBe(true);
+    }
+  });
+
+  it("every slug in command-groups.ts references a real command", () => {
+    const commandSlugs = new Set(commands.map((c) => c.slug));
+    for (const slug of allGroupedSlugs) {
+      expect(
+        commandSlugs.has(slug),
+        `Group slug "${slug}" in src/data/command-groups.ts has no matching command in commands.ts — remove the stale slug.`
+      ).toBe(true);
+    }
+  });
+
+  it("group ids are unique", () => {
+    const ids = commandGroups.map((g) => g.id);
+    const unique = new Set(ids);
+    expect(unique.size, `Duplicate group ids: ${ids.join(", ")}`).toBe(ids.length);
+  });
+});
+
+describe("Consistency — stats.ts scalars (ADR-022 Phase 1)", () => {
+  it("totalMethodDocs matches docs/methods/*.md file count", () => {
+    const methodDir = resolve(ROOT, "docs/methods");
+    const actual = readdirSync(methodDir).filter((f) => f.endsWith(".md")).length;
+    expect(
+      stats.totalMethodDocs,
+      `stats.totalMethodDocs is ${stats.totalMethodDocs} but docs/methods/ has ${actual} .md files — bump the value in src/data/stats.ts`
+    ).toBe(actual);
+  });
+
+  it("totalADRs is a plausible scalar (>= 60, never zero)", () => {
+    // Cannot verify against local files — docs/adrs/ in this repo only contains
+    // site-scoped ADRs (~22); the scalar mirrors the upstream methodology scaffold.
+    // This test guards against accidental zeroing or reset during /void.
+    expect(
+      stats.totalADRs,
+      "totalADRs dropped below 60 — check src/data/stats.ts after /void sync"
+    ).toBeGreaterThanOrEqual(60);
+    expect(typeof stats.totalADRs).toBe("number");
+  });
+
+  it("totalScaffoldTests is a plausible scalar (>= 1000, never zero)", () => {
+    // Cannot verify against local source — scaffold tests don't run here.
+    // Guards against accidental zeroing. Last known value: 1,384 (v23.9.0).
+    expect(
+      stats.totalScaffoldTests,
+      "totalScaffoldTests dropped below 1000 — check src/data/stats.ts after /void sync"
+    ).toBeGreaterThanOrEqual(1000);
+    expect(typeof stats.totalScaffoldTests).toBe("number");
+  });
+});
+
+describe("Consistency — Universe labels ↔ search index (ADR-022 Phase 2, bidirectional)", () => {
+  const universeIndexEntries = searchIndex.filter((e) =>
+    e.title.endsWith(" Universe")
+  );
+
+  it("every Universe key in agents.ts has a matching search-index entry", () => {
+    const indexTitles = new Set(universeIndexEntries.map((e) => e.title));
+    for (const key of universes) {
+      const expected = `${universeLabels[key]} Universe`;
+      expect(
+        indexTitles.has(expected),
+        `Universe "${key}" → label "${universeLabels[key]}" → expected search-index title "${expected}" not found. Fix src/data/search-index.ts or src/data/agents.ts universeLabels.`
+      ).toBe(true);
+    }
+  });
+
+  it("every '<X> Universe' search-index entry references a known universe label", () => {
+    const knownLabels = new Set(
+      universes.map((k) => `${universeLabels[k]} Universe`)
+    );
+    for (const entry of universeIndexEntries) {
+      expect(
+        knownLabels.has(entry.title),
+        `Search-index entry "${entry.title}" has no matching Universe key in agents.ts — either rename it or add the universe key.`
       ).toBe(true);
     }
   });

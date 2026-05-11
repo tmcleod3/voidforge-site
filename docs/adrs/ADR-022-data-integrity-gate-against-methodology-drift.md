@@ -1,6 +1,15 @@
 # ADR-022: Data Integrity Gate Against Methodology Drift
 
-## Status: Accepted
+## Status: Accepted (v1.1, amended 2026-05-10)
+
+## Revisions
+
+- **v1.1 (2026-05-10, Site v2.14.0)** — Plan-mode `/architect` review and 9-agent /campaign --plan synthesis surfaced three documentation defects and one architectural reordering. This revision applies all four corrections in place; the decision and intent are unchanged.
+  - **Doc fix 1:** The verification command at the bottom of §Implementation-Scope was `grep "last verified" src/data/stats.ts` which returns zero matches because the file uses capital-L "Last verified". Picard flagged this as the exact failure mode the ADR was created to prevent. **Fixed**: command is now `grep -i "last verified"`.
+  - **Doc fix 2:** Phase 1 deliverable claim cited `consistency.test.ts:14` for the `.md` filter; the actual filter sits at lines 15 + 42. **Fixed** below.
+  - **Doc fix 3:** Cascade hygiene — ADR-022 references ADR-020 (count-hardening) as "not load-bearing enough" but never adds an explicit `Supersedes-in-part` link. Future readers pulling ADR-020 would treat it as canonical. **Fixed**: References section now declares the supersede-in-part relationship explicitly.
+  - **Phase reshuffle:** Riker, Spock, Treebeard, and Feyd-Rautha all independently flagged that **Phase 2 #3 (stats parity test) should be Phase 1** — same shape as the existing test, ~6 lines of code, and the first concrete drift finding in the original incident. Deferring it to "next sync" is the exact failure mode ADR-020 produced. Feyd-Rautha additionally argued that **Phase 3 #7's *local-source* codegen** (reading `.claude/commands/*.md` and `.claude/agents/*.md` frontmatter) is not 4-6h cross-repo work — it's a `prebuild` script that could ship Phase 1/2. The cross-repo JSON artifact (Phase 3 #8) is the genuinely hard piece and stays deferred. **Effect of v1.1:** Phase 1 absorbed the stats parity test (B2 below); local-source codegen is now its own Phase 2 candidate; cross-repo JSON artifact stays Phase 3 with the deferred-indefinitely framing.
+  - **Scope alignment with Faramir:** Phase 2 #6 (version-string scan) and Phase 3 #8 (cross-repo JSON artifact) are flagged as GOLD-PLATING per Faramir's judgment pass. They remain documented as Phase 3 deferred candidates but the ADR no longer treats them as scheduled work — explicit trigger conditions required before they become work items.
 
 ## Context
 
@@ -24,20 +33,21 @@ Add a **Data Integrity Gate** to `src/test/` that fails CI when site data drifts
 
 ### Phase 1 — landed in this commit (Site v2.13.0)
 
-1. **`consistency.test.ts:14`** — extend pattern-file enumeration to include `.md` files (with `README.md` excluded). The 8 new methodology patterns include 2 markdown reference docs (`adr-verification-gate.md`, `refactor-extraction.md`) that the previous filter silently dropped. Without this fix, the test passes a stale state.
-2. **`stats.ts:37–41`** — add a `// last verified: YYYY-MM-DD` comment per scalar that `/void` is required to update. Makes drift visible to reviewers even before a test catches it. (Quick win from Data's audit.)
+1. **`consistency.test.ts`** — extend pattern-file enumeration at line 15 to include `.md` files (regex `/\.(tsx?|md)$/`) with `README.md` excluded at line 16, and add the `.md` branch to the `existsSync` triple at line 24. The 8 new methodology patterns include 2 markdown reference docs (`adr-verification-gate.md`, `refactor-extraction.md`) that the previous filter silently dropped. Without this fix, the test passes a stale state.
+2. **`stats.ts:37–41`** — add a `// Last verified: YYYY-MM-DD` comment per scalar that `/void` is required to update. Makes drift visible to reviewers even before a test catches it. (Quick win from Data's audit.)
+3. **Stats parity test (v1.1: promoted from Phase 2)** — `consistency.test.ts` asserts `stats.totalMethodDocs === fs.readdirSync('docs/methods').filter(f => f.endsWith('.md')).length`. For scalars whose source-of-truth doesn't live in this repo (`totalADRs`, `totalScaffoldTests`), assert plausibility lower bounds (`>= 60`, `>= 1000`) — guards against accidental zeroing during a sync without pretending we have local truth we don't. Specced by Spock in /campaign --plan. Lands in Site v2.14.0 alongside this revision.
 
-### Phase 2 — scoped for the next sync (do NOT fix in this commit; documented as follow-up)
+### Phase 2 — scoped for the same release (v1.1: moved up alongside Phase 1)
 
-3. **Stats parity test**: assert `stats.totalMethodDocs === fs.readdirSync('docs/methods').filter(f => f.endsWith('.md')).length`. Same shape for ADRs once the scaffold-mirror question is resolved (see Phase 3).
-4. **Group-rendering completeness**: assert every command in `commands.ts` appears in at least one group's `slugs` array on `src/app/commands/page.tsx`. The `/blueprint` invisibility bug had no test gate.
-5. **Universe-label coherence**: assert `agents.ts:universeLabels[u]` and `search-index.ts` entries titled `"<X> Universe"` agree on the `<X>` string. The `Middle-earth` vs `Tolkien` drift had no link.
-6. **Methodology version-string scan**: enumerate hardcoded `v23.x` strings under `src/components/`, `src/app/`, and `src/data/`. Either flag them as historical (with a comment) or assert they're within N minor versions of `VERSION.md`. Eliminates the hero-spotlight class of drift.
+4. **Group-rendering completeness (refactor-then-test)**: extract the groups[] array from `src/app/commands/page.tsx` into `src/data/command-groups.ts` first, then assert bidirectionally that every command in `commands.ts` has a slug in some group AND every group slug references a real command. The `/blueprint` invisibility bug (and the `/sentinel`+`/engage` follow-on bugs discovered during the /architect --plan review wave) all share this class. Test specced by Spock; refactor specced by Feyd-Rautha and Picard.
+5. **Universe-label coherence (bidirectional)**: assert every `Universe` key in `agents.ts` has a matching `"<X> Universe"` entry in `search-index.ts` AND every `"<X> Universe"` entry references a known label. Spock's bidirectional shape — Faramir flagged this as the first scope expansion past the original incident, but it ships in the same release for cohesion.
+6. **Local-source codegen (v1.1: promoted from Phase 3)** — `prebuild` script reads `.claude/agents/*.md` frontmatter and emits a `subAgents[]` array. Bridge plan per Stark: site keeps `agent-overrides.ts` map for `role`/`universe` fields that don't exist in upstream frontmatter; once upstream methodology adds them, delete the overrides. Commands codegen stays deferred (no frontmatter exists in command md files; upstream RFC required). **STATUS: candidate for next release, not v2.14.0.** This Phase-2 work item is documented here but explicitly NOT in scope for v2.14.0 unless the upstream agent-frontmatter contract is settled first.
+7. **ts-prune backstop (v1.1: new in this revision)** — `npx ts-prune` integration via `npm run` script and CI step. Catches the dead-export class going forward (Feyd-Rautha's "close the class, not the instance" find: removing `display.methodDocs` + `display.adrs` was one-shot; without this backstop, the next dead export ships silently).
 
-### Phase 3 — long-term refactor (deferred — see also DEBT-001/002/003 from Data's audit)
+### Phase 3 — long-term (deferred indefinitely; explicit trigger required to re-open)
 
-7. **Codegen step in `prebuild`**: extend the existing `prebuild` script (`rm -rf .next`) to read `.claude/commands/*.md` frontmatter and emit `commands.ts`. Same shape for `.claude/agents/*.md` → `agents.ts` `subAgents` array. Lead-agent records keep editorial data hand-authored.
-8. **Cross-repo scalar artifact**: methodology repo's CI emits `methodology-counts.json` (totalMethodDocs, totalADRs, totalScaffoldTests with timestamps) at publish time. Site consumes it via `import` instead of maintaining manual scalars. Already noted as future work in `stats.ts:9–17` header comment; v23.10.0 added a "Cross-Repo Scalar Sync" section to `FORGE_KEEPER.md` describing this very target.
+8. **Cross-repo scalar artifact**: methodology repo's CI emits `methodology-counts.json` (totalMethodDocs, totalADRs, totalScaffoldTests with timestamps) at publish time. Site consumes it via `import` instead of maintaining manual scalars. **Faramir flagged as GOLD-PLATING for this site's update cadence (~monthly).** Re-open only if: (a) `/void` cadence becomes weekly or shorter, (b) drift incidents continue to occur after Phase 2 ships, or (c) operator explicitly requests cross-repo coordination work. Already noted as future work in `stats.ts:9–17` header comment; v23.10.0 added a "Cross-Repo Scalar Sync" section to `FORGE_KEEPER.md` describing this very target.
+9. **Methodology version-string scan** (was Phase 2 #6 in v1.0): enumerate hardcoded `v23.x` strings under `src/components/`, `src/app/`, and `src/data/`. **Faramir flagged as GOLD-PLATING — drop unless a stale version string causes an actual support issue.** Documented here for traceability; no scheduled work.
 
 ## Consequences
 
@@ -68,19 +78,28 @@ Add a **Data Integrity Gate** to `src/test/` that fails CI when site data drifts
 
 ## Implementation Scope
 
-- **Reality anchor:** This ADR documents work that exists at HEAD (Phase 1) plus a documented follow-up plan (Phases 2–3).
-- **Deliverables:**
-  - `src/test/consistency.test.ts` — `.md` filter extension at lines 14, 21–23 — `grep -n "f.endsWith\\|README\\.md" src/test/consistency.test.ts` returns the new lines. ✓
-  - `src/data/stats.ts` — "last verified" comments on lines 37–41 — `grep "last verified" src/data/stats.ts` returns 3 lines. ✓
+- **Reality anchor:** v1.0 documented Phase 1 (.md filter + dated comments) at HEAD plus deferred Phase 2/3. v1.1 expands the at-HEAD set to include the stats parity test, command-groups extraction + bidirectional test, universe-label coherence test, and ts-prune backstop — all shipped in Site v2.14.0.
+- **Deliverables (v1.1, all expected at HEAD after Site v2.14.0):**
+  - `src/test/consistency.test.ts` — `.md` filter extension at lines 15 + 16 (enumeration regex + README exclusion) and line 24 (existsSync `.md` branch). Existence-check: `grep -nE "\\.md|README\\.md" src/test/consistency.test.ts` returns the relevant lines.
+  - `src/data/stats.ts` — "Last verified" comments on lines 36, 38, 40 (note the capital L). Existence-check: `grep -i "last verified" src/data/stats.ts` returns 3 lines. (v1.0 used a case-sensitive grep here; this revision uses `-i` to actually find the comments as written.)
+  - `src/test/consistency.test.ts` — stats parity test (`totalMethodDocs ===` filesystem count, lower-bound plausibility for `totalADRs` and `totalScaffoldTests`).
+  - `src/data/command-groups.ts` — extracted groups[] array, imported by both `src/app/commands/page.tsx` and the new test.
+  - `src/test/consistency.test.ts` — bidirectional group-rendering completeness test.
+  - `src/test/consistency.test.ts` — bidirectional universe-label coherence test.
+  - `package.json` — `ts-prune` dev dependency + npm script. Existence-check: `grep ts-prune package.json` returns at least the script entry.
 - **Verification gate:**
-  - **Fixture:** the v23.9.2 → v23.11.1 sync that surfaced this drift.
-  - **Can the gate FAIL under this fixture?** Yes — before this commit, `npm test` passed despite 2 missing pattern entries (the `.md` patterns) and a stale `totalMethodDocs`. After this commit, adding a 9th methodology pattern as `.md` to disk without bumping `patterns.ts` produces a test failure (orphaned pattern file: `docs/patterns/<slug>.md — not in patterns.ts`).
-  - **Fixture-bindability proof:** if a future methodology sync adds `docs/patterns/<new>.md` and the site data file doesn't gain the entry, `consistency.test.ts > every file in docs/patterns/ has an entry in patterns.ts` fails with the file name in the assertion message. Reviewer immediately knows what to do.
-  - **Rehearsed at:** the consistency test was rehearsed during this commit — it correctly failed for `audit-log.ts`, `ai-prompt-safety.ts`, `deploy-preflight.ts`, `llm-state-dedup.ts`, `multi-tenant-pool-bypass.ts`, `multi-tenant-property-test.ts` BEFORE the patterns were added to `patterns.ts`, then passed after. The `.md` extension was rehearsed by initially extending only the file enumeration but not the `existsSync` check; the test correctly failed for `adr-verification-gate.md` and `refactor-extraction.md` until the `.md` clause was added to both sides.
+  - **Fixture:** the v23.9.2 → v23.11.1 sync that surfaced this drift, plus the latent-bug findings from the /architect agent sweep (sentinel/engage invisibility, dead exports, "Middle-earth" label drift).
+  - **Can the gate FAIL under this fixture?** Yes, in all four bug classes:
+    1. Adding a 9th methodology pattern as `.md` to disk without bumping `patterns.ts` → `consistency.test.ts > every file in docs/patterns/ has an entry in patterns.ts` fails.
+    2. Methodology sync that adds a new `docs/methods/*.md` without bumping `stats.totalMethodDocs` → `stats parity test` fails with the exact filesystem count.
+    3. Adding a new command to `commands.ts` without wiring its slug into `command-groups.ts` → `group-rendering completeness test (forward)` fails.
+    4. Renaming the Tolkien universe label in `agents.ts` without updating `search-index.ts` → `universe-label coherence test` fails in one of two directions.
+  - **Fixture-bindability proof:** each test produces a failure message that names the exact slug, scalar, command, or universe key that's drifted, so the reviewer can fix without grepping. Tests were rehearsed during Site v2.14.0 — see commit body of the v2.14.0 release for the per-test rehearsal record.
+  - **Rehearsed at:** `consistency.test.ts` `.md` filter — rehearsed during Site v2.13.0 commit `55a3c17` (correctly failed for `audit-log.ts`, `ai-prompt-safety.ts`, `deploy-preflight.ts`, `llm-state-dedup.ts`, `multi-tenant-pool-bypass.ts`, `multi-tenant-property-test.ts` before the patterns were added; `.md` clause rehearsed for `adr-verification-gate.md` and `refactor-extraction.md`). v1.1 additions rehearsed during Site v2.14.0 commit (see release notes for commit SHA).
 
 ## References
 
-- Field report context: this drift was identified mid-session during `/architect` after a `/void` sync. The 9-agent parallel analysis is recorded in this conversation's transcript and informs Phase 2/3 deferral choices.
+- Field report context: this drift was identified mid-session during `/architect` after a `/void` sync. The 9-agent parallel analysis is recorded in this conversation's transcript and informs Phase 2/3 deferral choices. v1.1 incorporates findings from a follow-on /architect --plan review (9 agents) and a /campaign --plan synthesis (14 agents).
 - Related upstream pattern: `docs/patterns/adr-verification-gate.md` (ships in v23.11.0) — the discipline this ADR's Verification Gate section follows.
-- Related tech-debt: this ADR partially addresses Data's DEBT-001 (manual scalars in stats.ts) and DEBT-005 (orphans in patterns.ts). Fully addressed by Phase 3.
-- Prior ADR: ADR-020 (count-hardening) covered an earlier round of this same class of drift — proof that the fix has not been load-bearing enough on its own.
+- Related tech-debt: this ADR addresses Data's DEBT-001 (manual scalars in stats.ts) via Phase 1 parity test; DEBT-005 (orphans in patterns.ts) via Phase 1 `.md` filter + ts-prune backstop. DEBT-002/003 (agents.ts / commands.ts manual mirror) partially addressed by Phase 2 #6 codegen candidate; full coverage only after upstream methodology adds command frontmatter.
+- **Supersedes-in-part: ADR-020 (count-hardening)** — ADR-020's `>=` lower-bound assertions were the original drift-detection mechanism. v1.0 of this ADR noted ADR-020 was "not load-bearing enough on its own"; v1.1 makes the relationship explicit. ADR-020 remains valid for its bookkeeping purpose, but the active drift gate is now this ADR's parity tests + ts-prune.

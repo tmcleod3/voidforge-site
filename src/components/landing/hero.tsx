@@ -60,7 +60,7 @@ export function Hero() {
             v23.11 &mdash; FIELD REPORT RECKONING
           </p>
           <p className="font-[family-name:var(--font-bangers)] text-xl sm:text-2xl md:text-3xl tracking-wider text-[var(--foreground)] leading-snug mb-3">
-            Twenty-four reports closed. Nine new patterns. The forge listened.
+            Twenty-three reports closed. Nine new patterns. The forge listened.
           </p>
           <p className="text-sm sm:text-base text-[var(--vf-text-muted)]">
             Two waves of triage absorbed every open field report from

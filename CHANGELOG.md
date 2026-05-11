@@ -6,6 +6,50 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.14.0] - 2026-05-10
+
+### The Data Integrity Gate — ADR-022 v1.1 + Phase 2 tests + Gauntlet-checkpoint Mediums
+
+Campaign B of the post-v2.13 cleanup. /architect --plan (9 agents) + /campaign --plan (14 agents) produced a coordinated critique of ADR-022 v1.0 and the next-campaign scope. This release lands all the resulting amendments and tests in one minor bump.
+
+### Added
+- **`src/data/command-groups.ts`** — extracted from `src/app/commands/page.tsx`. The page now imports `commandGroups` from this module; the consistency tests import it too. Single source of truth means a future "command exists in commands.ts but isn't in a render group" bug fails the test instead of shipping silently (the original `/blueprint`, `/sentinel`, `/engage` invisibility class).
+- **Stats parity test** in `src/test/consistency.test.ts` — asserts `stats.totalMethodDocs === fs.readdirSync('docs/methods').filter(f => f.endsWith('.md')).length`. Plausibility lower bounds (`>= 60` and `>= 1000`) for `totalADRs` and `totalScaffoldTests`, which mirror upstream-scaffold counts we can't verify locally — honest about the limitation, guards against accidental zeroing.
+- **Group-rendering completeness test (bidirectional)** in `src/test/consistency.test.ts` — every command in `commands.ts` appears in some group's `slugs`; every group slug references a real command. Plus group-id uniqueness assertion.
+- **Universe-label coherence test (bidirectional)** in `src/test/consistency.test.ts` — every `Universe` key in `agents.ts` has a matching `"<X> Universe"` entry in `search-index.ts`, and every such entry references a known label. Closes the "Middle-earth" vs "Tolkien" drift class.
+- **`ts-prune` dev dependency** + `npm run dead-exports` script with a regex filter for expected framework defaults (Next.js page/layout exports, vitest config defaults, mdx-components, sitemap dynamic, .next/ generated types). Closes the dead-export class (Feyd-Rautha's "fix the class, not the instance"). Wired into CI as a hard gate.
+- **ROADMAP catch-up** — v15 (The Covenant, Site v2.11.0), v16 (The Gate, Site v2.12.0), v17 (Field Report Reckoning, Site v2.13.0 + v2.13.1), v18 (Data Integrity Gate, Site v2.14.0). Fills the gap from v14 (2026-04-12) to today.
+
+### Changed
+- **ADR-022 v1.0 → v1.1** in place (Picard's call: errata-grade amendment, unshipped scope, no downstream cites). Three doc bugs fixed:
+  1. Verification command in §Implementation-Scope was `grep "last verified"`; file uses capital-L. Now `grep -i "last verified"` — actually finds the comments.
+  2. Phase 1 deliverable claim cited `consistency.test.ts:14` for the `.md` filter; actual filter lives at lines 15 + 42. Fixed.
+  3. ADR-020 (count-hardening) is now explicitly `Supersedes-in-part` linked. The original failure mode is documented.
+- **ADR-022 Phase reshuffle** per Riker + Spock + Treebeard + Feyd-Rautha convergent finding: stats parity test promoted from Phase 2 → Phase 1 (~6 LOC, was the first concrete drift finding). Local-source codegen promoted Phase 3 → Phase 2 candidate (it's a prebuild script reading local `.claude/` files, not 4-6h cross-repo work). Cross-repo JSON artifact (Phase 3 #8) reclassified as gold-plating per Faramir — explicit trigger condition required to re-open.
+- **Removed `BreadcrumbJsonLd`** from `src/components/json-ld.tsx` — surfaced as the one real dead export when `npm run dead-exports` was added.
+- **Gauntlet-checkpoint Mediums (folded in here)**:
+  - `src/app/about/page.tsx:107` — "141+ pages later" → "153+ pages later" (production build emits 153 routes).
+  - `src/data/releases.ts:1454`, `src/components/landing/hero.tsx:63`, `src/app/about/page.tsx:76` — "24 field reports closed" → "23" (sum of cited ranges #303-#308 + #313-#320 + #322-#330 = 6+8+9 = 23).
+
+### CI
+- New step `Dead-export scan (ADR-022 Phase 2 backstop)` in `.github/workflows/ci.yml` runs `npm run dead-exports` and fails the build if any unexpected dead export is found. Filter is in `package.json scripts.dead-exports`.
+
+### Test count
+- 65 → 73 (+8). All 73 passing.
+
+### Skipped from the campaign scope (documented as deferred)
+- **Local-source codegen** for `commands.ts` / `agents.ts` — Stark's analysis: command md files have no frontmatter (upstream RFC required); agents md files have frontmatter but lack `role`/`universe` fields (upstream PR or bridge override map required). Deferred until upstream cooperates.
+- **`/patterns` page size optimization** — Crusher reframed as a structural split (`patterns.ts` is 127KB, 74KB of which is full framework code bodies the index page imports but doesn't render). Not pagination. Deferred to a focused performance campaign.
+- **`gen-*.ts` script rename** — Faramir flagged as gold-plating; defer.
+- **GAUNTLET-003 (`totalScaffoldTests` re-verification)** — can't re-verify scaffold count without running upstream tests; bumping the "Last verified" date without verification would be a stub. Defer until next `/void` sync with actual upstream test-count data.
+
+### Operational notes
+- Tests 73/73. Typecheck clean. Build clean. Dead-exports clean.
+- Tag prefix kept: `site-v2.14.0`.
+- Vercel auto-deploy still broken; manual `vercel --prod --yes`.
+
+---
+
 ## [Site v2.13.1] - 2026-05-10
 
 ### Latent-bug patch — Campaign A of post-v2.13 cleanup

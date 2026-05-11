@@ -1,5 +1,65 @@
 # ROADMAP — VoidForge Marketing Site
 
+## v18 — The Data Integrity Gate (COMPLETE — 2026-05-10)
+
+ADR-022 v1.1 + Phase 2 tests. Bundled with Site v2.14.0 release. /architect --plan and /campaign --plan synthesis (23 total agent passes across two plan-mode commands) surfaced one architectural critique (Phase reshuffle), two latent bugs (sentinel/engage invisibility, dead exports), and three doc bugs in ADR-022 v1.0. All addressed.
+
+| Mission | Name | Status | Scope |
+|---------|------|--------|-------|
+| 1 | The Amendment | COMPLETE | ADR-022 v1.0 → v1.1: fix grep case sensitivity, fix line citations (14 → 15+42), add ADR-020 supersedes-in-part link, move stats parity from Phase 2 → Phase 1, promote local-source codegen Phase 3 → Phase 2, drop Phase 2 #6 version-string scan and Phase 3 #8 cross-repo artifact per Faramir |
+| 2 | The Stats Parity Test | COMPLETE | `consistency.test.ts` — `totalMethodDocs === fs.readdirSync('docs/methods').length`, `totalADRs >= 60` and `totalScaffoldTests >= 1000` plausibility lower bounds per Spock |
+| 3 | The Group Extraction | COMPLETE | Extract `groups[]` from `src/app/commands/page.tsx` → `src/data/command-groups.ts` (Feyd-Rautha's "read actual groups, not a mirror" critique), then bidirectional rendering completeness test |
+| 4 | The Universe Coherence | COMPLETE | Bidirectional universe-label test: every Universe key has matching search-index entry AND every "<X> Universe" entry references known label |
+| 5 | The ts-prune Backstop | COMPLETE | Filtered `dead-exports` npm script + CI gate (Feyd-Rautha's "close the class, not the instance"). Removed `BreadcrumbJsonLd` (the one real dead export it surfaced) |
+| 6 | The Chronicle | COMPLETE | ROADMAP catch-up v15-v18, CHANGELOG, version bump 2.13.1 → 2.14.0, tag site-v2.14.0, push, deploy, smoke, debrief |
+
+### Source
+/architect --plan 9-agent pass on ADR-022 + /campaign --plan 14-agent pass on next-campaign scope.
+
+### Key Decisions
+- **ADR-022 amended in place (v1.1)** rather than superseded by ADR-023 — unshipped scope, no downstream cites, errata-grade fix doesn't warrant a new ADR record (Picard).
+- **Local-source codegen for commands deferred** — no frontmatter exists in `.claude/commands/*.md`; upstream RFC required (Stark).
+- **Cross-repo JSON artifact (Phase 3 #8) reclassified as gold-plating** — site's monthly update cadence doesn't justify cross-repo coordination cost (Faramir).
+- **`.voidforge` marker file shipped in v2.13.1** to prevent `findProjectRoot()` bug recurrence (Feyd-Rautha's hidden blade; upstream issue #331).
+
+---
+
+## v17 — Field Report Reckoning (COMPLETE — 2026-05-10)
+
+Methodology resync v23.9.2 → v23.11.1 absorbing three upstream releases: v23.10.0 (6 field reports, deploy preflight + cross-repo scalar sync), v23.11.0 (18 field reports closed across two waves, 9 new patterns), v23.11.1 (/git tag-by-default + --npm opt-in publish, closed the silent-release gap). Site v2.13.0.
+
+### Headline shipped
+- 8 new pattern entries added to `src/data/patterns.ts` (audit-log, ai-prompt-safety, llm-state-dedup, deploy-preflight, multi-tenant-pool-bypass, multi-tenant-property-test, adr-verification-gate, refactor-extraction). Patterns count 37 → 45.
+- Combined v23.10.0–v23.11.1 release entry titled "Field Report Reckoning" in `releases.ts`.
+- "THE GATE" callout on `/protocol` page covering ADR-048/050/051/060/061 with SEC-003 fail-closed bypass discipline.
+- `/blueprint` slug wired into STRIKE OPS group on `/commands` page (entry existed in commands.ts:969 but never rendered).
+- ADR-022 (v1.0): Data Integrity Gate Against Methodology Drift. Phase 1 landed (.md filter + dated comments); Phase 2/3 documented as deferred follow-ups.
+
+### Latent-bug patch (Site v2.13.1)
+Same day. Campaign A of post-v2.13 cleanup. Surfaced by the /architect agent sweep that reviewed ADR-022:
+- `/sentinel` and `/engage` slugs wired into RECON OPS group (same invisibility class as /blueprint).
+- Dead exports `display.methodDocs` + `display.adrs` removed from stats.ts.
+- `.vercelignore` added — keep methodology files out of Vercel source upload.
+- `.voidforge` marker file added — prevents findProjectRoot bug (upstream issue tmcleod3/voidforge#331).
+- Vercel redirects 307 → 308 (permanent) for `/github` + both labs.voidforge.build rewrites.
+
+### Source
+Picard + 9 parallel agents on /architect during /void. Operational incident: `npx voidforge-build update` wrote 45 methodology files into `$HOME` because `findProjectRoot()` matched `~/.voidforge/` (the global-state directory). Recovered by copying from npm cache. Upstream issue filed.
+
+---
+
+## v16 — The Gate (COMPLETE — 2026-04-20)
+
+Methodology resync v23.8.3 → v23.9.2 + /engage-review a11y pass. Site v2.12.0. Materialized `/engage` (canonical for `/review`) and `/sentinel` (canonical for `/security`) per upstream ADR-050; both aliases remain permanent. 8-finding /assemble fix batch addressed cross-cutting issues from the resync + 3 Must-Fix items from Phase 1-5 /engage code review. Two project-scoped learnings filed: (1) Vercel auto-deploy is broken; manual `vercel --prod` required after every push, (2) this repo's `CHANGELOG.md` tracks site versions, not methodology — future `/void` syncs must exclude it.
+
+---
+
+## v15 — The Covenant (COMPLETE — 2026-04 to 2026-04-20)
+
+Site v2.11.0. Absorbed v23.8.13 "The Gate" (ADR-051 hook enforcement + ADR-060 gate state path) + v23.9 "The Covenant" (ADR-061 npm rename to voidforge-build, SLSA provenance). Site content sync only; the substantive methodology work was upstream. Established the `site-v2.x.x` git tag convention and the manual-`vercel --prod` workaround (auto-deploy Git Integration disconnected at this point).
+
+---
+
 ## v14 — The Personality Sync (COMPLETE — 2026-04-12)
 
 v23.8.0 methodology sync content pass. 5 missing release entries + hero spotlight + ADR count + version reference fix.
