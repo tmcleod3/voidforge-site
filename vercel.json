@@ -23,19 +23,19 @@
     {
       "source": "/github",
       "destination": "https://github.com/tmcleod3/voidforge",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/",
       "has": [{ "type": "host", "value": "labs.voidforge.build" }],
       "destination": "https://voidforge.build/forge-labs",
-      "permanent": false
+      "permanent": true
     },
     {
       "source": "/:path((?!forge-labs).*)",
       "has": [{ "type": "host", "value": "labs.voidforge.build" }],
       "destination": "https://voidforge.build/forge-labs",
-      "permanent": false
+      "permanent": true
     }
   ]
 }

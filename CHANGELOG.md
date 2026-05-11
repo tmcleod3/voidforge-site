@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.13.1] - 2026-05-10
+
+### Latent-bug patch — Campaign A of post-v2.13 cleanup
+
+Campaign-A patch shipping the latent-bug findings the v2.13.0 /architect agent sweep surfaced. Pure fixes; no new tests, no ADR amendments (those are bundled into v2.14.0). Discovered + filed during /architect --plan and /campaign --plan plan-mode passes; ships now per "no pausing, accuracy first" directive.
+
+### Added
+- **`/sentinel` and `/engage` slugs in RECON OPS group** (`src/app/commands/page.tsx`). Both commands existed in `commands.ts` but had no group membership, so they never rendered as cards on `/commands` — the same invisibility class as the `/blueprint` bug. Discovered by Spock during the ADR-022 review wave: ADR-050 made these the canonical names, but the page was still rendering only their aliases (`/security`, `/review`).
+- **`.vercelignore`** at repo root. Excludes `.claude/`, `docs/methods/`, `docs/patterns/`, `docs/adrs/`, `HOLOCRON.md`, `CHANGELOG.md`, `VERSION.md`, `ROADMAP.md`, `TECH_DEBT.md`, `logs/`. Methodology files are git-tracked but should not ship in the Vercel source upload — they don't reach the CDN, but they're visible to anyone with Vercel project access.
+- **`.voidforge` marker file** at repo root. Prevents `npx voidforge-build update` `findProjectRoot()` from walking up to `$HOME` and treating it as the project root (upstream issue tmcleod3/voidforge#331). Without this marker, the next `/void` could overwrite `~/CLAUDE.md` again.
+
+### Fixed
+- **Vercel redirects use 308 (permanent) instead of 307 (temporary)** in `vercel.json`. Affected: `/github` shortlink, both `labs.voidforge.build` rewrites. 307 was wasting crawl budget every visit and not passing link equity. Spike caught this during post-deploy verification.
+
+### Removed
+- **Dead exports `display.methodDocs` + `display.adrs`** from `src/data/stats.ts`. Vision found they were constructed but consumed by zero pages (the `/about` page renders the raw scalars `stats.totalMethodDocs` / `stats.totalADRs` directly, not the `display.*` formatted strings). Removing them eliminates the "shaped like the others, but actually unused" trap.
+- **Local `.DS_Store` artifacts** from `public/` and `public/images/`. These were never git-tracked (`.DS_Store` in `.gitignore`) and Vercel was not serving them (404), but the local files were noisy. Leia's preflight flagged "served publicly" — that part was incorrect; Vercel returns 404 for them. Cleaned anyway as hygiene.
+
+### Operational notes
+- Build: passing. Tests: 65/65. Site version: 2.13.1.
+- Tag prefix kept: `site-v2.13.1` per v2.13.0 precedent.
+- Vercel auto-deploy still broken; manual `vercel --prod --yes`.
+
+---
+
 ## [Site v2.13.0] - 2026-05-10
 
 ### Field Report Reckoning — methodology resync v23.9.2 → v23.11.1

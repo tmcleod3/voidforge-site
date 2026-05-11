@@ -1,0 +1,9 @@
+{
+  "name": "voidforge-marketing-site",
+  "type": "static-site",
+  "framework": "nextjs",
+  "createdAt": "2026-05-10",
+  "tier": "core",
+  "extensions": [],
+  "notes": "Project marker file. Prevents npx voidforge-build update findProjectRoot bug (issue tmcleod3/voidforge#331) — without this marker the CLI walks up to $HOME and treats it as the project root. Required until upstream ships statSync().isFile() guard."
+}

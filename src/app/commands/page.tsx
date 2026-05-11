@@ -27,7 +27,7 @@ const groups = [
     label: "RECON OPS",
     tagline: "Trust nothing. Verify everything.",
     color: "var(--vf-comic-red)",
-    slugs: ["qa", "test", "review", "ux", "security", "gauntlet", "assess", "ai"],
+    slugs: ["qa", "test", "engage", "review", "ux", "sentinel", "security", "gauntlet", "assess", "ai"],
   },
   {
     id: "base",

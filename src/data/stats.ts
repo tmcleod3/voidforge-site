@@ -49,7 +49,5 @@ export const display = {
   patterns: `${stats.totalPatterns}`,
   commands: `${stats.totalCommands}`,
   subAgents: `${stats.totalSubAgents}+`,
-  methodDocs: `${stats.totalMethodDocs}`,
-  adrs: `${stats.totalADRs}`,
   scaffoldTests: stats.totalScaffoldTests.toLocaleString(),
 };

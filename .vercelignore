@@ -1,0 +1,34 @@
+# Methodology files — git-tracked but should not ship to Vercel.
+# Static export only needs the build output (.next/) and public/ assets.
+# Keeping methodology out of the source upload reduces blast radius
+# if Vercel project access is shared.
+
+.claude/
+docs/methods/
+docs/patterns/
+docs/adrs/
+docs/PRD.md
+HOLOCRON.md
+CHANGELOG.md
+VERSION.md
+ROADMAP.md
+TECH_DEBT.md
+
+# Build journal — local-only logs, never methodology
+logs/
+
+# OS detritus
+.DS_Store
+**/.DS_Store
+
+# Env files (also git-ignored, but defense in depth)
+.env
+.env.local
+.env.*.local
+
+# Backups + test artifacts that aren't tracked but might appear
+*.backup
+*.bak
+.next/cache/
+test-results/
+playwright-report/
