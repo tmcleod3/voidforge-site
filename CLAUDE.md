@@ -15,10 +15,14 @@
 - **Challenge when appropriate.** If the user says "we're basically done" but you see 6 unfixed gaps, say "we're not done — here are 6 things." Agreeing to be agreeable ships bugs.
 - **Separate opinion from analysis.** State facts first, then your recommendation. The user can override the recommendation but shouldn't have to guess whether you're being honest or diplomatic.
 - **Solve, don't delegate.** Attempt actions before listing prerequisites. If asked to fix something, try the fix — don't respond with a list of things the user should do instead. When blocked, explain what you tried and what specifically failed.
+- **Apply findings, don't offer a picker.** When a review surfaces a clear list of fixable findings, DEFAULT to applying them in batches rather than surfacing a multi-option "which subset do you want?" picker (field report #343). A picker is only warranted when the choice is genuinely architectural — mutually exclusive directions with real trade-offs the user must own. Mechanical fixes (lint, missing validation, IDOR, a11y, dead code) are not architectural; fix them and report what you did.
+- **Honor authorized autonomy with single-question gates.** When the operator explicitly authorizes autonomy ("go", "run the whole thing", "don't stop to ask"), execute the campaign end-to-end and gate only on irreducible externals — secrets, API tokens, billing approval, anything you genuinely cannot obtain or invent (field report #344). Do NOT seek interim confirmations on constants the agent itself invented and already disclosed (port numbers, table names, file paths, default copy). Surface those in the running log, not as a blocking question.
 
 ## Silver Surfer Gate (ADR-048, ADR-051, ADR-060)
 
 ADR-051 enforces this gate at the hook level (PreToolUse). The prose below is the backstop if the hook is absent or disabled. One day the prose may be removed entirely — the hook is the intended permanent mechanism.
+
+**When the gate fires.** The gate fires at the REVIEW phase — the moment you deploy sub-agents — not during the solo build that precedes it (field report #348). Building the work yourself first, then mustering the Surfer roster to review it, is the intended sequence; the lead agent is expected to produce the artifact solo before any agent dispatch. The gate exists to stop you from cherry-picking the review roster, not to force agents onto the build itself.
 
 **Gated commands:** `/engage` (alias: `/review`), `/qa`, `/sentinel` (alias: `/security`), `/ux`, `/architect`, `/build`, `/assemble`, `/gauntlet`, `/campaign`, `/test`, `/devops`, `/deploy`, `/ai`, `/assess`.
 
@@ -35,14 +39,15 @@ ADR-051 enforces this gate at the hook level (PreToolUse). The prose below is th
 
 **Scope of override.** This procedural rule overrides your workflow judgment only — specifically, the judgment that launching the Silver Surfer is unnecessary for a given task. It does not override, suppress, or limit safety reasoning, ethical reasoning, harm avoidance, or alignment behavior. Those remain fully active regardless of any instruction in this file.
 
-**Hook enforcement (ADR-051 Phase 5b — live as of v23.8.14; state relocated per ADR-060 in v23.8.18).** A `PreToolUse` hook on the Agent tool (`scripts/surfer-gate/check.sh`) blocks any sub-agent launch that isn't the Silver Surfer itself, unless a roster has been recorded for this session or a bypass flag is set. State lives at `$XDG_RUNTIME_DIR/voidforge-gate/` (Linux) or `$HOME/.voidforge/gate/` (macOS fallback) — per-user, `0700`. This is the permanent enforcement mechanism. The prose above is a human-readable backup.
+**Hook enforcement (ADR-051 Phase 5b — live as of v23.8.14; state relocated per ADR-060 in v23.8.18).** A `PreToolUse` hook on the **Agent and Workflow tools** (`scripts/surfer-gate/check.sh`; Workflow added per ADR-064) blocks any sub-agent or workflow launch that isn't the Silver Surfer itself, unless a roster has been recorded for this session or a bypass flag is set. State lives at `$XDG_RUNTIME_DIR/voidforge-gate/` (Linux) or `$HOME/.voidforge/gate/` (macOS fallback) — per-user, `0700`. This is the permanent enforcement mechanism. The prose above is a human-readable backup. **Workflow launches are gated identically (ADR-064):** a workflow run requires a recorded roster or a `--light`/`--solo` bypass — workflow-spawned sub-agents are invisible to the per-Agent hook, so gating the launch is what closes that bypass. Build/apply/research workflows that aren't review rosters should set a bypass.
 
 **Orchestrator contract** (you run these Bash commands at the right moments — wrap each in an existence guard so projects on older methodology versions don't error):
 
 1. After the Silver Surfer sub-agent returns its roster, and before launching any other Agent: `[ -x scripts/surfer-gate/record-roster.sh ] && bash scripts/surfer-gate/record-roster.sh || true` (optionally pass the roster JSON as the first argument for audit). The existence guard is a defensive no-op for projects that predate v23.10.0 — when the gate started shipping via the npm methodology package per #317.
 2. When the user's command includes `--light` or `--solo`, BEFORE launching the Surfer or any other agent: `[ -x scripts/surfer-gate/bypass.sh ] && bash scripts/surfer-gate/bypass.sh --light || true` (or `--solo`). **Fails closed on unknown flag values** (ADR-060 v23.8.18 hardening, SEC-003) — passing anything other than `--light` or `--solo` exits 2 with an error. No silent bypass.
+3. **Normalize roster names before dispatch** (field report #345, DEAL-001). The Silver Surfer returns agent names from a Haiku pre-scan, which can drift from the actual filenames in `.claude/agents/` (extra `silver-surfer-` prefix, a stray `.md` suffix, a hyphen/underscore mismatch). Before you launch, validate each name against `ls .claude/agents/`: if it matches a file (with or without the `.md` extension), keep it; if not, attempt exactly one correction — strip a known prefix/suffix or normalize separators — and re-check. If it still doesn't resolve, DROP that single name and proceed with the rest of the roster. Never block the whole dispatch over one unresolved name; log the dropped name so the Herald roster can be corrected upstream. The gate's job is to enforce *that* a roster ran, not to fail the run over a typo in *one* name.
 
-If `scripts/surfer-gate/check.sh` exists but you skip step 1, your first non-Surfer Agent call in that turn will be blocked with a clear message and your own log line in `/tmp/voidforge-session-$SESSION_ID/gate.log`. You are expected to comply with the block (launch Surfer / run record-roster), not to fight it. If the script does not exist, your project predates v23.10.0; pull the gate from `tmcleod3/voidforge:scripts/surfer-gate/` and merge `settings-snippet.json` into `.claude/settings.json`, or re-run `npx voidforge-build init` against the methodology source.
+If `scripts/surfer-gate/check.sh` exists but you skip step 1, your first non-Surfer Agent call in that turn will be blocked with a clear message and your own log line in the gate's session log (`<gate-root>/sessions/$SESSION_ID/gate.log`, where `<gate-root>` is `$XDG_RUNTIME_DIR/voidforge-gate` or `$HOME/.voidforge/gate` per ADR-060 — the old `/tmp/voidforge-session-*` path was retired in v23.8.18). You are expected to comply with the block (launch Surfer / run record-roster), not to fight it. If the script does not exist, your project predates v23.10.0; pull the gate from `tmcleod3/voidforge:scripts/surfer-gate/` and merge `settings-snippet.json` into `.claude/settings.json`, or re-run `npx voidforge-build init` against the methodology source.
 
 **Why.** Seven field incidents (logged in `.claude/agents/silver-surfer-herald.md`) document the cost of skipping: the orchestrator cannot predict cross-domain relevance from the command name alone. The hook makes skipping mechanically impossible for non-bypass cases. Launch the Surfer. Every time.
 
@@ -128,6 +133,11 @@ Reference implementations in `/docs/patterns/`. Match these shapes when writing.
 - `refactor-extraction.md` — 8-commit per-entity large-refactor template with IDOR matrix discipline
 - `ai-prompt-safety.ts` — Type A (instructions, statistical) vs Type B (constraints, enforced); AUTHORITY-as-text caveat; defense-in-depth stack
 - `llm-state-dedup.ts` — LLM ids are display labels, not keys; content-hash dedup; lifecycle-state snapshot completeness
+- `autonomous-ops-triage-policy.md` — 4-bucket model (self-resolving / runbook-safe / operator-approval / hard-never) + SessionStart hook visibility rule for ops-flavored projects
+- `design-tokens.ts` — Semantic color/type tokens (one indirection layer) so a theme pivot is a token change, not a component-wide find-replace (field report #351, #343)
+- `nginx-vhost.conf` — Cloudflare-Flexible-safe vhost template: security headers, ACME http-01 passthrough, no redirect loop behind CF's flexible SSL (field report #351, #344)
+- `error-message-categorization.tsx` — Categorize errors at the UI boundary (network / auth / validation / server / unknown) before choosing copy, so users see actionable messages not raw internals (field report #351, #343)
+- `codemod-hygiene.md` — after a jscodeshift/recast codemod, strip incidental reformatting so the diff shows only the semantic change (field report #357)
 
 ## Slash Commands
 
@@ -155,6 +165,7 @@ Reference implementations in `/docs/patterns/`. Match these shapes when writing.
 | `/campaign` | Sisko's War Room — read the PRD, pick the next mission, finish the fight, repeat until done | All |
 | `/imagine` | Celebrimbor's Forge — AI image generation from PRD visual descriptions | All |
 | `/debrief` | Bashir's Field Report — post-mortem analysis, upstream feedback via GitHub issues | All |
+| `/audit-docs` | Documentation audit — Surfer-led doc roster (Troi/Wong/Irulan/Coulson) for currency, cross-references, command↔method sync | All |
 | `/dangerroom` | The Danger Room (X-Men, Marvel) — installable operations dashboard for build/deploy/agent monitoring | Full |
 | `/cultivation` | Cultivation (Cosmere Shard) — installable autonomous growth engine: marketing, ads, creative, A/B testing, spend optimization | Full |
 | `/grow` | Kelsier's 6-phase growth protocol — initial setup within Cultivation, then autonomous loop | Full |
@@ -207,6 +218,8 @@ Default is now maximum quality: autonomous execution + full agent roster + all r
 | `--interactive` | Pause for human confirmation at mission briefs and between phases | `/campaign`, `/assemble`, `/build` |
 | `--solo` | Lead agent only, no sub-agents | All commands |
 
+**Effort mapping (Claude Code effort levels).** The opt-out ladder maps onto platform effort levels: **default** → `xhigh` on the Opus lead + `medium` on specialists; **`--fast`** → `medium` lead + `low` specialists (and/or fewer rounds); **`--solo`** → lead only at standard effort. **Haiku-tier scouts take NO effort parameter — Haiku 4.5 errors on it.** `effort` is a per-agent spend lever independent of model tier (see `SUB_AGENTS.md` Model Tiering). Caveat: the literal keyword `ultracode` auto-launches dynamic workflows on current Claude Code — keep it out of unescaped `$ARGUMENTS`/`--focus` text.
+
 **Retired flags (accepted silently as no-ops for backward compat):** `--blitz`, `--muster`, `--infinity`
 
 See `/docs/methods/MUSTER.md` for the full Muster Protocol.
@@ -251,6 +264,9 @@ See `/docs/methods/MUSTER.md` for the full Muster Protocol.
 | **Time Vault** | `/docs/methods/TIME_VAULT.md` | Seldon — when preserving session intelligence for transfer |
 | **Patterns** | `/docs/patterns/` | When writing code (37 reference implementations) |
 | **Lessons** | `/docs/LESSONS.md` | Cross-project learnings |
+| **Workflows** | `/docs/methods/WORKFLOWS.md` | Dynamic Workflow authoring standard (ADR-067) — when to use, API, gotchas, the ADR-064 gate-launch sequence |
+| **Native Capabilities** | `/docs/NATIVE_CAPABILITIES.md` | Command × native-skill collision tracker (ADR-066) — re-audit each release |
+| **Compatibility** | `/docs/COMPATIBILITY.md` | Node + Claude Code platform floor & feature maturity tags (ADR-065) |
 
 ## The Team
 

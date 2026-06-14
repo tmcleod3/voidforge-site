@@ -181,6 +181,10 @@ This saves ~100K tokens on work that's far from execution. The full bridge crew 
 - Flag any dependency not updated in >12 months
 - If project hasn't been touched in >30 days, this check is mandatory before any build work
 
+### Dependency-Feasibility-First (framework/major-version migrations)
+
+Before branching for a deferred-major or framework migration (e.g. Next 14→16, React 18→19, a major ORM/auth bump), confirm an ECOSYSTEM-COMPATIBLE version of every framework-coupled dependency exists FIRST — before any code churn. Query peer-dependency metadata deterministically: `npm view <pkg>@<version-or-range> peerDependencies` and confirm the target framework version satisfies the peer range. If NO published version of a required peer (auth adapter, router plugin, ORM driver) supports the target framework, STOP and mark the migration UPSTREAM-BLOCKED — do not branch, do not codemod, do not partially migrate against a peer that cannot resolve. Evidence: field report #357 — `npm view next-auth@<v> peerDependencies` showed beta.30 was the first to add `^16.0.0`; this answered feasibility before any branch was cut.
+
 **Archer (Greenfield):** For new projects — proposes the initial directory structure, module boundaries, naming conventions, and bootstrap sequence. "Where no one has gone before."
 **Kim (API Design):** REST conventions, consistent error shapes, pagination patterns, versioning strategy, GraphQL schema design. API surface architect.
 **Pike (Bold Planning):** In `/campaign` — challenges Dax's mission ordering. "Should we attempt a harder mission first while context is fresh?" Bold decisions about sequencing.
@@ -210,6 +214,19 @@ When reviewing architecture, identify all endpoints/services that mutate the sam
 ## Security Tradeoff Register
 
 When architecture requires accepting a known security risk (e.g., iframe sandbox weakening for UX, storing tokens in memory for operational continuity), document it as an ADR with explicit risk acceptance. Include: the tradeoff made, what is gained, what attack surface is expanded, what mitigations are in place, and who accepted the risk. This prevents the same finding from appearing in every future audit and reduces Gauntlet noise. (Field report #102: preview iframe `allow-scripts + allow-same-origin` sandbox escape was a known tradeoff but was never documented — flagged in every security pass.)
+
+### Fix-Direction Reconciliation Against Doctrine
+
+For any access, permission, or contract fix, "verified" is not sufficient to make the fix actionable. A finding can be reproduced, root-caused, and confirmed by multiple agents and *still* carry a backwards fix — one that widens a permission, grants access to the wrong principal, or relaxes a contract the doctrine intends to tighten. Reproduction proves the behavior; it does not prove the fix moves in the correct direction. (Field report #349 F-2)
+
+Before any such fix is accepted, the architect MUST do two things explicitly:
+
+1. **Name the governing SSOT.** Identify the single source of truth that governs the access/permission/contract being changed — the permission matrix, the relevant ADR, or the published API contract. If no SSOT exists for the boundary being touched, that absence is itself a finding: the fix is unanchored and must wait until the doctrine is written.
+2. **Reconcile the fix DIRECTION against that SSOT.** State, in the fix record, whether the change *loosens* or *tightens* the boundary, and *who gains or loses access* as a result. Then compare that direction to what the named SSOT prescribes. If the fix loosens a permission the matrix says should be tightened (or grants a role access the ADR reserves for another), the fix is backwards — reject it and re-derive the correct change from doctrine, regardless of how well-verified the underlying finding is.
+
+The reconciliation belongs in the same record as the finding: *"SSOT: <permission-matrix row / ADR-NNN / contract endpoint>. Direction: <loosen|tighten>; <principal> gains/loses <access>. Doctrine prescribes: <tighten|loosen>. Reconciled: <match|MISMATCH — fix is backwards>."* A MISMATCH blocks the fix.
+
+This mirrors the engage.md Step 2 requirement that access/permission findings name their governing SSOT and reconcile fix direction before synthesis — Picard applies the same gate at the architecture layer so a backwards fix never reaches an ADR or an implementer. (Field report #349 F-2)
 
 ### Strategy Consolidation Check
 

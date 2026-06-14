@@ -45,7 +45,7 @@ The metaphor is precise. Psychohistory predicts outcomes from patterns, adapts w
 2. **Every AI call must have a fallback path.** The application must function when the model fails.
 3. **Token usage must be tracked and bounded.** Unbounded token spend is a billing incident.
 4. **Model selection must be justified.** "We used Opus because it's the best" is not a justification. Match capability to task.
-5. **Evaluation must exist before shipping.** If you can't measure whether the output is correct, you can't ship it.
+5. **Evaluation must exist before shipping.** If you can't measure whether the output is correct, you can't ship it. The eval is run by the agent in-session via the secret-injected runner (e.g. `npm run eval:op`) — never deferred as an "operator step" when the repo provides one (field report #359).
 6. **Safety review must happen before user-facing AI.** Prompt injection is the new SQL injection.
 7. **Observability is not optional.** You must be able to see what the AI decided and why.
 8. **Context windows are finite.** Design for it. Don't assume infinite context.
@@ -151,6 +151,39 @@ Run sequentially — each builds on findings from parallel phase:
 - Can you detect regression when prompts change?
 - Is there human-in-the-loop scoring for ambiguous cases?
 - Are quality metrics tracked over time? (Not just at launch)
+- Is there a LIVE eval layer that runs against the real model before launch? (Not just the sandbox layer)
+
+#### The LIVE eval layer is the pre-launch gate (field report #352, #4)
+
+Evals stratify into two layers, and they catch different bug classes:
+
+- **Deterministic / sandbox layer** — fast, hermetic, runs in CI with mocked or recorded model responses. Catches scoring-logic bugs, prompt-template-rendering bugs, and golden-dataset regressions. It **cannot** catch model-output-shape bugs, because the fixtures are shapes *you* authored — not shapes the live model actually emits.
+- **LIVE eval layer** — runs the real model against the golden dataset before launch. This is the pre-launch gate. It is the only layer that observes the model's *actual* output shape, and the only layer that can catch a contract drift between "the response shape we coded against" and "the response shape the model produces."
+
+Treat the LIVE layer as a mandatory gate, not an optional smoke test: a component cannot ship until its LIVE eval has run against the real model and passed. The sandbox layer gates *every commit*; the LIVE layer gates *every launch*.
+
+**The agent runs the LIVE eval in-session — it is not "owed to the operator" (field report #359).** A common false deferral: the author bumps an eval-tracked prompt and flags it as "needs the operator's Anthropic key before prod." That deferral is wrong when the repo ships a secret-injected eval runner. If the project exposes `npm run eval:op` (which wraps the eval in `op run --env-file=op/eval.env.op -- ...` so 1Password injects the key), the LIVE eval is RUNNABLE BY THE AGENT THIS SESSION — run it before declaring the prompt change done. A prompt change is not *done* until its LIVE eval has been run and is green; running it is the agent's job, not a handoff. The eval-prompts gate's own failure message must point at the op-injected runner (`npm run eval:op`), not a bare `npm run eval` that implies an operator-only step. Deferring the eval ships exactly the regression the gate exists to catch — field report #359 deferred it and would have shipped an `is_virtual` 1.00→0.00 regression that running it inline immediately caught.
+
+**Gotcha — normalize null-to-undefined before Zod `.optional()` (field report #352, #4).** A live model emits `null` (not omission) for an absent optional field — e.g. it returns `{ "category": "billing", "subcategory": null }` rather than dropping `subcategory`. Zod's `.optional()` accepts `undefined`, **not** `null`, so the valid response fails schema validation and your retry/fallback path fires on output that was actually fine. This is invisible in the sandbox layer because hand-authored fixtures usually omit the key instead of setting it to `null`. Normalize before validating:
+
+```ts
+// Strip nulls the model emits for absent optionals, so `.optional()` matches.
+function nullToUndefined<T>(obj: T): T {
+  if (obj === null) return undefined as unknown as T;
+  if (Array.isArray(obj)) return obj.map(nullToUndefined) as unknown as T;
+  if (typeof obj === "object") {
+    return Object.fromEntries(
+      Object.entries(obj as Record<string, unknown>).map(([k, v]) => [k, nullToUndefined(v)]),
+    ) as T;
+  }
+  return obj;
+}
+
+// Apply BEFORE Zod validation — never validate raw model output directly.
+const parsed = ResponseSchema.parse(nullToUndefined(JSON.parse(modelText)));
+```
+
+If a field is legitimately nullable (the model is *meant* to return `null` as a value), use `.nullish()` (accepts both `null` and `undefined`) on that specific field instead of blanket-stripping — but the default posture for absent optionals is normalize-then-`.optional()`.
 
 **Dors Venabili (Observability):** Visibility.
 - Can you see what the AI decided and why?
@@ -223,6 +256,8 @@ If issues found, return to Phase 3. Maximum 2 iterations.
 - [ ] Regression suite runs on prompt changes
 - [ ] Quality metrics tracked over time
 - [ ] Human review process for edge cases
+- [ ] LIVE eval layer runs against the real model and passes before launch (sandbox layer alone cannot catch model-output-shape bugs) (field report #352, #4)
+- [ ] Model output normalized null-to-undefined before Zod `.optional()` validation (field report #352, #4)
 
 ### AI Gate Bootstrapping (Cold-Start Problem)
 AI-gated approval systems have a cold-start problem: no historical outcomes -> gate rejects all requests -> no operations -> no outcomes. During the first N decisions (configurable, default 20), the gate should approve at reduced size (0.5-0.7x normal) to build a track record. The gate should never reject solely because "no historical data exists." Include explicit prompt guidance: "Lack of history is not a reason to reject — approve at reduced size to build the track record." (Field report #152)
@@ -275,7 +310,7 @@ When a project uses AI, the PRD frontmatter should include:
 ```yaml
 ai: yes                           # Activates Seldon's review
 ai_provider: "anthropic"          # anthropic | openai | local | multi
-ai_models: ["claude-sonnet-4-7"]  # Models used — update to current runtime model
+ai_models: ["claude-sonnet-4-6"]  # Models used — update to current runtime model
 ai_features: ["classification", "generation", "tool-use", "routing"]
 ```
 

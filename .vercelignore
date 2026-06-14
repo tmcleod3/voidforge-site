@@ -8,6 +8,9 @@ docs/methods/
 docs/patterns/
 docs/adrs/
 docs/PRD.md
+docs/NATIVE_CAPABILITIES.md
+docs/COMPATIBILITY.md
+scripts/surfer-gate/
 HOLOCRON.md
 CHANGELOG.md
 VERSION.md

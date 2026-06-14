@@ -65,6 +65,7 @@ Find, reproduce, and fix real bugs (not theoretical). Improve reliability, error
 10. Double-pass: find → fix → re-verify. Fix-induced regressions are the #1 source of shipped bugs.
 11. **Dispatch-first QA:** For codebases with >10 files to review, dispatch Batman's team as sub-agents per `SUB_AGENTS.md` "Parallel Agent Standard." Oracle + Red Hood in one agent, Alfred + Lucius in another. Main thread triages findings. (Field report #270)
 12. **Confidence scoring:** All findings include a confidence score (0-100). High confidence (90+) skips re-verification in Pass 2. Low confidence (<60) must be escalated to a second agent from a different universe before presenting — if the second agent disagrees, drop the finding. See GAUNTLET.md "Agent Confidence Scoring" for full ranges.
+13. **Tutorial smoke test for slash commands.** When the project ships tutorial or onboarding documentation (marketing site, README walkthrough, getting-started guide, etc.), Batman's QA pass must include a verification: every `/<command>` reference in tutorial-context content is preceded by — or accompanied by — explicit "inside Claude Code" framing (a `claude` launch block, a callout, or contextual prose). Run a grep-based smoke check: list every `/<command>` mention in tutorial files, then for each one confirm the launch context is present within 5 lines or in a callout block on the same page. Missing launch context = Critical bug. (Field report #260 — every reviewing agent assumed the convention was obvious because they already knew it; new users did not. Sister-rule lives in PRODUCT_DESIGN_FRONTEND.md Operating Rule #12.)
 
 ## Step 0 — Orient
 
@@ -260,6 +261,31 @@ Oracle scans for methods that return success without side effects — the most d
 
 Flag as **High severity**. In financial systems (trading, payments, billing), flag as **Critical**. (Field report #125: `ProtectionService._place_stop_loss()` returned `True` after logging but never called the exchange. `OrderService.cancel_order()` returned `True` without cancelling.)
 
+### Real-Output Self-Test for LLM / External-Output Systems (field report #358 #2)
+
+For any feature where the system consumes the output of an LLM or an external tool and then ACTS on it (applies an LLM-generated diff/edit, parses a model-authored JSON plan, executes a tool-returned command, validates a third-party payload), hand-authored fixtures are insufficient — they exercise only the shapes you imagined, which are exactly the shapes that already work. Mandate a **real-output self-test on seeded mutants**: seed a known defect (a real mutant), run the system end-to-end against the REAL external output (real LLM call, real tool response), and assert two properties — **does-it-fix** (the system resolves the seeded mutant) and **does-no-harm** (it does not corrupt unrelated state or pass when it should fail). **Heuristic: if every test of an integration boundary uses a fixture you authored, you have not tested the boundary — you have tested your own imagination of it.** Field report #358: M5–M9 unit tests fed the apply path hand-authored unified diffs that always `git apply`-ed cleanly; the first real-LLM self-test immediately surfaced that real Sonnet diffs do NOT apply (miscounted `@@` hunk headers, missing trailing newline → 'corrupt patch'). The fix was architectural (return exact `{old,new}` edits, generate the diff with `difflib`). Without a real-output self-test, this ships broken. Budget for flakiness: real-LLM tests hit rate limits — wrap each call in a bounded retry loop.
+
+### Failure Attribution (multi-file test runs)
+
+A test failure observed during a multi-file suite run is **NOT attributed to your change** until BOTH of these hold:
+
+1. **It reproduces with that file run in ISOLATION.** Re-run only the failing test file by itself (e.g., `pytest path/to/test_x.py`, `npm test -- path/to/x.test.ts`, `go test ./pkg/x`). If the failure vanishes when the file runs alone, it is a cross-file collision, not your regression.
+2. **It does NOT reproduce on clean HEAD.** `git stash` your working changes, re-run the same isolated file, and observe. If the failure is present on clean HEAD too, your change did not cause it. `git stash pop` to restore.
+
+Shared-DB and shared-fixture suites routinely produce cross-file collisions — duplicate-seed conflicts, ordering dependencies, leaked global state, autoincrement-id assumptions — that masquerade as regressions introduced by the change under review. Attributing one of these to your fix sends the QA pass down a false trail and can trigger a "revert the good fix" overcorrection. Run the isolation check and the clean-HEAD check before you write the bug down or blame the diff. (Field report #349 F-3)
+
+**Isolation-green is not deploy-green.** The two checks above clear a change of *blame* for a failure seen in the full run — they do NOT clear the change for deploy. Attribution runs the failing file in ISOLATION; a deploy gate runs the FULL suite. The asymmetry is the point: the very cross-file coupling that lets a collision masquerade as your regression also lets a *real* regression introduced by your change hide inside an *unrelated* test that only fails when the whole suite runs together (shared fixture your change now mutates, global state your change leaks, ordering your change perturbs). A targeted/isolation run of just the tests you touched can be all-green while the full suite is red on a file you never opened. Therefore: before declaring a change deploy-ready, run the FULL suite to green — never sign off on the strength of a targeted or isolation-only run. Isolation green proves "not my blame for *this* failure"; only full-suite green proves "safe to ship." (Field report #354 F3)
+
+### Planted-Bug Check — Gates Must Gate
+
+For every gate, threshold, or invariant a mission introduces (auth allowlist, eval scorer, rate cap, boot guard, validation boundary, feature flag), the review MUST confirm the gate actually gates: a deliberate inversion or revert of the gate's logic WOULD fail at least one test. Procedure — for each gate:
+
+1. Identify the line(s) that enforce the gate.
+2. Mentally (or, when cheap and reversible, actually) invert it — flip the comparison, negate the predicate, widen the allowlist, make the scorer return a constant pass, push the boundary off by one.
+3. Ask: does any existing test now go red? If yes, the gate is covered. If no test trips, the gate is **untested** — the finding is **High**, and the deliverable is the missing test that would have caught the inversion.
+
+A gate with no test that fails on its inversion is a **vacuous invariant**: it looks like protection but enforces nothing, because nothing observes whether it holds. Recurring vacuous-invariant anti-patterns (these surfaced **4x in a single session**): an eval scorer that always passes regardless of output; an auth allowlist with an inverted `!`-check that admits everyone; an off-by-one cap boundary that never actually caps; a truthy boot-guard that is always truthy and so never guards. Treat any newly-introduced gate as guilty until a failing-on-inversion test proves it innocent. (Field report #352 #1)
+
 ### Safety-Critical Return Value Verification
 
 For systems with safety-critical operations (stop-loss placement, circuit breakers, rollback triggers, payment captures, credential revocations): verify the return value of the safety operation BEFORE transitioning state. The pattern: `call safety operation → check return → only then transition`.
@@ -322,6 +348,10 @@ After unit test review, Batman verifies critical user journeys work in a real br
 After running E2E tests, if the project has a running server, Batman launches the review browser (per `browser-review.ts` pattern) and performs targeted forensic checks:
 
 0. **MANDATORY: Screenshot every page.** Before any forensic work, navigate to every primary route and take a screenshot. The agent MUST read each screenshot via the Read tool and inspect for: blank pages, error states, broken layouts, missing content. This is the "proof of life" gate — if a page is visibly broken, it's a finding before any deeper analysis begins.
+
+0a. **Screenshotting a surface gated behind a down worker pipeline (field report #359):** When a review/confirmation surface is normally produced by an async worker (extraction job, render queue) and that pipeline is down — so you cannot reach the surface through the happy path to satisfy the mandatory screenshot gate — do NOT skip the screenshot. SEED the surface directly: insert a draft row into the DB (or call the seed/fixture endpoint) and load it via the app's existing deep-link (`?draft=<id>` or equivalent). The render path runs with no worker. This lets the proof-of-life gate complete and produces a real screenshot of the surface the operator will see, even when the upstream pipeline is unavailable.
+
+0b. **Atomic-visual carve-out (field report #362):** For an ATOMIC visual change — a single component, a loader/spinner, an icon, or one isolated component state — a component-level RENDER-HARNESS screenshot satisfies the "verify visually" rule without standing up the full authed app + DB + server. Render the artifact in isolation (Storybook story, a throwaway harness page, or the component's own render entry), screenshot it, and Read it. This carve-out is scoped to atomic artifacts only; any change touching a full page, a multi-component flow, or routing still requires the standard full-app screenshot pass above.
 
 1. **Console error sweep:** Navigate to every primary route. Capture all `pageerror` and `console.error` events (filtered per `browser-review.ts` pattern). Each uncaught exception is an automatic **High** finding with the error message, stack trace, and URL.
 

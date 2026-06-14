@@ -39,7 +39,7 @@ export const commandGroups: CommandGroup[] = [
     label: "RECON OPS",
     tagline: "Trust nothing. Verify everything.",
     color: "var(--vf-comic-red)",
-    slugs: ["qa", "test", "engage", "review", "ux", "sentinel", "security", "gauntlet", "assess", "ai"],
+    slugs: ["qa", "test", "engage", "review", "ux", "sentinel", "security", "gauntlet", "assess", "ai", "audit-docs"],
   },
   {
     id: "base",

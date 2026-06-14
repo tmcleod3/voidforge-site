@@ -113,7 +113,7 @@ export const commands: Command[] = [
     name: "/sentinel",
     lead: "Kenobi",
     description:
-      "OWASP audit with parallel and sequential phases and red-team verification. Canonical name for the security command (ADR-050).",
+      "OWASP audit with parallel and sequential phases and red-team verification. Critical and High findings pass through a vote-based REFUTE Gate — cross-universe skeptics default to REFUTED and must confirm each finding in the actual code before a fix is spent, then re-rate its severity from the votes. Canonical name for the security command (ADR-050).",
     usage: "/sentinel",
     note: "Canonical for /security — the permanent alias `/security` still works.",
     whatHappens: [
@@ -203,7 +203,7 @@ export const commands: Command[] = [
     name: "/engage",
     lead: "Picard",
     description:
-      "Picard reads every line against the pattern library. Canonical name for the review command (ADR-050) — coexists with Claude Code's native /review skill.",
+      "Picard reads every line against the pattern library. Every Must Fix and Should Fix finding now passes through a vote-based REFUTE Gate — cross-universe skeptics default to REFUTED and must confirm it in the actual code before it reaches the fix batch. A --pre-deploy --diff mode scopes the review to the working-tree diff, auto-sizes the lens panel to the change, and makes the verify pass mandatory. Canonical name for the review command (ADR-050) — coexists with Claude Code's native /review skill.",
     usage: "/engage",
     note: "Canonical for /review — the permanent alias `/review` still works.",
     whatHappens: [
@@ -306,7 +306,8 @@ export const commands: Command[] = [
     tier: "all" as CommandTier,
     name: "/git",
     lead: "Coulson",
-    description: "Version bump, changelog, commit — full release management.",
+    description:
+      "Version bump, changelog, commit — full release management. Now with release discipline: the version tag is applied by default (a tagless release commit is invisible to release tooling), and npm publishing is gated behind an explicit --npm opt-in that only ships packages whose version matches the bump, in dependency order.",
     usage: "/git [--major | --minor | --patch] [--dry-run]",
     whatHappens: [
       "Coulson analyzes changes since last release",
@@ -381,7 +382,7 @@ export const commands: Command[] = [
     name: "/assemble",
     lead: "Fury",
     description:
-      "The full pipeline. Architect → Build → Triple Review → UX → Double Security → DevOps → QA → Test → Crossfire → Council. One command to rule them all.",
+      "The full pipeline. Architect → Build → Triple Review → UX → Double Security → DevOps → QA → Test → Crossfire → Council. The review-heavy fan-out phases now run as a dynamic Workflow (ADR-067) over the mission's working diff, keeping the 15+-agent fan-out out of the lead's context; the build phases stay prose orchestration. One command to rule them all.",
     usage: "/assemble [--skip-arch] [--skip-build] [--fast] [--resume]",
     whatHappens: [
       "All phases dispatch to sub-agents per Parallel Agent Standard — context stays at 15-25%",
@@ -643,7 +644,7 @@ export const commands: Command[] = [
     name: "/gauntlet",
     lead: "Thanos",
     description:
-      "The ultimate test. 5 rounds, 30+ agents across 9 universes, escalating from discovery to adversarial warfare. Review-only — no build. If your project survives the snap, it's ready for anything.",
+      "The ultimate test. 5 rounds, 30+ agents across 9 universes, escalating from discovery to adversarial warfare. Re-platformed onto a dynamic Workflow (ADR-067): discovery → JS dedupe → 3-lens adversarial REFUTE verify → crossfire → council, with the 60–80 agents' findings kept out of the lead's context. Review-only — no build. If your project survives the snap, it's ready for anything.",
     usage: "/gauntlet [--quick] [--security-only] [--ux-only] [--qa-only] [--resume] [--ux-extra]",
     whatHappens: [
       "All rounds dispatch to sub-agents (Parallel Agent Standard) — main thread triages, never reads source inline",
@@ -1004,6 +1005,49 @@ export const commands: Command[] = [
           "Plan the campaign without executing",
         effect:
           "Produces mission breakdown from validated PRD without building",
+      },
+    ],
+  },
+  {
+    slug: "audit-docs",
+    tier: "all" as CommandTier,
+    name: "/audit-docs",
+    lead: "Coulson",
+    description:
+      "A lean, code-free audit of the documentation corpus only. A Surfer-led doc roster — Troi, Wong, Irulan, Coulson — hunts four classes of defect: doc-currency drift, broken cross-references, command↔method desync, and version-SSOT inconsistency. Report-only — it reads no application source, runs no build, and writes no fixes.",
+    usage: "/audit-docs [--focus \"topic\"] [--light] [--solo]",
+    whatHappens: [
+      "Launch the Silver Surfer, then deploy the doc-only roster it returns (no code-review agents)",
+      "Scope the corpus — CLAUDE.md, README, Holocron, PRD, method docs, command specs, VERSION.md, ADR index",
+      "Wong audits doc-currency drift — every factual claim verified against the live artifact",
+      "Irulan walks every internal reference — file links, ADR numbers, table entries — and flags broken cross-references",
+      "Troi checks command↔method desync — each command's steps, flags, roster, and gating against its method doc",
+      "Coulson reconciles every version string against the single source of truth (the SSOT wins; downstream copies follow)",
+      "Conflicts resolved via the debate protocol — Troi arbitrates, no dual opinions left standing",
+      "Findings synthesized into one table with severity and confidence; report written to /logs/doc-audit.md",
+    ],
+    arguments: [
+      {
+        flag: "--focus",
+        type: "string",
+        valuePlaceholder: "topic",
+        description:
+          "Bias Herald agent selection toward a specific topic. Agents with relevant expertise are prioritized in dispatch.",
+        effect: "Herald dispatch favors agents matching the focus topic.",
+      },
+      {
+        flag: "--light",
+        type: "boolean",
+        description:
+          "Skip the Silver Surfer and use this command's hardcoded doc-only roster (Troi, Wong, Irulan, Coulson).",
+        effect: "Run the fixed doc roster without the Herald pre-scan.",
+      },
+      {
+        flag: "--solo",
+        type: "boolean",
+        description:
+          "Lead agent (Coulson) only, no sub-agents. A quick corpus spot-check.",
+        effect: "Run the lead alone, no roster.",
       },
     ],
   },

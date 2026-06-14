@@ -78,6 +78,8 @@ These are independent, read-only scans. Run in parallel using the Agent tool:
 
 **No credentials in git-tracked docs:** Never copy credentials from server-local files into git-tracked documentation. Reference the file location instead: 'Credentials are stored at /etc/app/.htpasswd' — not the actual password hash.
 
+**Git remote / VCS credential scan:** Embedding a token in an HTTPS remote (`https://user:TOKEN@github.com/...`) is plaintext in `.git/config` and prints on every `git remote -v` (into logs, CI output, screen-shares, pasted bug reports) — a surface outside the code/env scope above. Scan it: run `git remote -v` and `grep -E 'https://[^/@]+:[^@]+@' .git/config` (also catch `x-access-token:` and `oauth2:` variants). Flag any match as CRITICAL — a live credential is exposed. Remediation: rotate the token immediately, then strip it from the remote — `git remote set-url origin git@github.com:<owner>/<repo>.git` (SSH) or switch to a credential helper (`git config --global credential.helper`), never an inline-token HTTPS URL. (Field report #361: a downstream session printed a live GitHub PAT on the very first `git remote -v` — the token sat in plaintext in `.git/config` and no existing check surfaced it.)
+
 ### Crypto Randomness
 
 Verify all random value generation uses `crypto.getRandomValues()` (browser) or `crypto.randomBytes()` (Node.js). Flag `Math.random()` in any code that generates tokens, codes, identifiers, or secrets. `Math.random()` is predictable — an attacker can reconstruct the seed and predict future values. This is the most common security mistake in JavaScript codebases. (Field report #32: referral codes used Math.random() — caught by Gauntlet, not by build.)
@@ -263,6 +265,26 @@ For any system that sends URLs to users (transactional emails, SMS, push notific
 
 This is the outbound mirror of SSRF prevention: SSRF stops external URLs from reaching internal services, outbound URL safety stops internal URLs from reaching external users. (Field report #44: verification email sent with `localhost:5005` URL — worked on same machine, broke from any other device.)
 
+### Mandatory Adversarial Review: Untrusted-Data -> User-Facing-Sink (field report #359)
+
+The adversarial security review is NOT author-discretionary for a change that introduces a NEW path from untrusted data to a user-facing sink. It is REQUIRED before deploy whenever a change adds any of:
+- An extracted, user-supplied, or third-party URL embedded in a calendar event body, email, SMS, push, chat receipt (Telegram/Slack/Discord), webhook payload, or any rendered link a recipient can click.
+- Untrusted text (model-extracted fields, scraped/OCR'd content, user free-text) flowing into one of those sinks.
+- A new field copied verbatim from an untrusted source (e.g. a screenshot, an inbound webhook, an LLM extraction) that bypasses an existing security invariant (https-only link validation, allowlist, sanitizer).
+
+Why mandatory: the change category most likely to carry a security regression is precisely the one authors are tempted to ship on 'it's low-risk.' Field report #359: a new untrusted `conference_url` (copied from a screenshot) bypassed the codebase's https-only `safeHttpsLink` invariant and would have reached the Calendar event body + Telegram/Slack/email receipts as a clickable open-redirect 'Join' link — caught only because the author chose to run the review. Make the choice mechanical, not discretionary. Maul + Windu run the open-redirect / link-injection / sink-egress checks (see Outbound URL Safety, Proxy Route SSRF, Response Header Injection) against the new path before the deploy gate clears.
+
+### Enforcement-Layer Severity Rubric (field report #354 F2)
+
+Key a finding's severity to the **enforcement layer**, not the **symptom location**. The question that sets severity is not "where did I see the leak?" but **"where is this actually enforced?"** Before you assign P0/P1, trace the request to the layer that *decides* — the server-side authorization check, the database query scope, the policy engine — and confirm the gap exists *there*.
+
+- **Client-side affordance leak with intact server enforcement = UX-only (P2/P3), not a breach.** A hidden admin button that renders in the DOM, a disabled-but-present form field, an action the SPA shows but the API rejects with 403/404 — these are **render-then-403** patterns. The client showed something it shouldn't, but the actually-enforcing layer (the server) still says no. That is an information-disclosure or UX-polish finding, not a Critical. Rating a server-enforced client affordance leak as Critical is a false-positive that wastes a remediation slot and erodes trust in the report.
+- **A gap at the actually-enforcing layer = P0/P1.** If the server itself does not check ownership, the role gate is missing on the route, or the query has no `org_id` scope, the breach is real regardless of what the client renders. The symptom may surface in the UI, but the severity comes from the server hole.
+
+**Verification before scoring (always do this for any "exposed in the UI" finding):** reproduce the action against the API directly — `curl`/Postman with the victim's resource ID and the attacker's credentials, no browser. If the server returns 403/404/401 and writes nothing, the enforcing layer holds → downgrade to P2/P3 and note "server-enforced; client affordance leak only." If the server returns 200 + data or commits a write, the enforcing layer is breached → P0/P1. Never infer the server's behavior from the client's rendering.
+
+This is an explicit lens in **both** the audit (Phase 1/2: for every "this is visible/clickable" observation, ask "where is this actually enforced?" and probe that layer) and the re-verify pass (Phase 4: Maul must confirm a downgraded affordance-leak finding by hitting the API directly, not by re-checking the DOM). (#354 F2)
+
 ### Credentials Never in API Responses
 
 API responses must NEVER include credentials, tokens, or secrets — even in "admin-only" or "internal" endpoints. Grep for responses that include: `password`, `secret`, `token`, `api_key`, `private_key`, `credentials`. Common violations: user profile endpoints returning the password hash, API key management endpoints including the full key in GET responses (show only last 4 characters), internal debug endpoints returning environment variables. (Field report #66: API settings endpoint returned full MCP connection credentials in the response body.)
@@ -366,7 +388,7 @@ When fixing an auth, authorization, or validation check: trace ALL callers of th
 
 After remediations are applied:
 
-**Maul — Red Team Verification:** Re-probe all remediated vulnerabilities. Verify fixes hold under adversarial conditions. Check that fixes didn't introduce new attack vectors. Attempt to bypass the remediations.
+**Maul — Red Team Verification:** Re-probe all remediated vulnerabilities. Verify fixes hold under adversarial conditions. Check that fixes didn't introduce new attack vectors. Attempt to bypass the remediations. **Apply the enforcement-layer lens (#354 F2):** for any finding rated Critical/High off a UI-visible symptom, confirm severity by hitting the API directly — a finding that only reproduces in the DOM but returns 403/404 server-side is a server-enforced affordance leak (P2/P3), not the breach it was filed as. Re-score before sign-off.
 
 **Padmé — Functional Verification:** After Maul confirms security holds, Padmé verifies the primary user flow still works end-to-end. Open the app, complete the main task, verify output. This catches "secure but broken" regressions that pure security re-testing misses.
 

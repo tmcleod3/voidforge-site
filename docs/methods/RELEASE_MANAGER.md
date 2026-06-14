@@ -120,6 +120,12 @@ After every commit, Barton verifies:
 - [ ] `git status` shows clean working tree
 - [ ] No untracked files that should have been included
 - [ ] If `--npm` was used: every published package returns the new version from `npm view <name> version`
+- [ ] `ROADMAP.md` "Current:" line matches `VERSION.md` (added v23.11.3 — field-report #309 Fix 4 and v23.11.2 deploy synthesis both flagged drift; ROADMAP had been pinned ~24 versions back before this checklist line existed)
+- [ ] For monorepo CLI/methodology pairs: the CLI's `voidforge-build-methodology` dep range is `^<current-version>`, never `"*"` (ADR-062 — pin tightening shipped in v23.11.3 to close the silent-cross-major drift)
+- [ ] All CI checks are green on the release commit, OR a chronically-red check has a recorded disposition (see DEVOPS_ENGINEER.md "Chronically-Red Check Policy") — a check red across ≥2 releases must be fixed, converted to informational, or removed, never tolerated silently (field report #363 F4)
+- [ ] The tag-push publish workflow declares a dependency on the FULL validation suite (E2E + a11y), not only unit tests — via `needs:` or a same-SHA `workflow_run`. A publish gate that excludes E2E/a11y can ship a critical regression a green unit gate never sees (field report #363 F4)
+- [ ] **Platform floor unchanged since last release?** If a release newly depends on a Claude Code feature with a higher floor, flag it **breaking** and add a `⚠ raises Claude Code floor` CHANGELOG banner; confirm every newly-referenced platform feature is GA or explicitly Full-tier/opt-in (ADR-065, `docs/COMPATIBILITY.md`)
+- [ ] **Native-capability collision re-audit:** any new native bundled skill colliding with a VoidForge command has a recorded disposition, and every `.claude/commands/*.md` has a row in `docs/NATIVE_CAPABILITIES.md` (ADR-066)
 
 ## CLAUDE.md Command Table Integrity Check
 
@@ -162,6 +168,10 @@ When the user passes `--npm` to `/git`, run npm publish after the commit + tag +
 - On `EPUBLISHCONFLICT` (version exists), stop. The user must bump and re-run; do not attempt to dist-tag around it.
 - Scoped/private packages are skipped silently unless the user explicitly names them.
 
+**Troubleshooting `npm error E404` on publish (account/scope, NOT expiry).** When `npm publish` returns `404 Not Found - PUT https://registry.npmjs.org/<pkg> — '<pkg>@x.y.z' is not in this registry`, the package is **not** the problem — npm returns **404 instead of 403 on publish to avoid leaking package existence**, so E404 almost always means the credential lacks write access to *that package*: (a) the token belongs to an account that is not a maintainer (`npm owner ls <pkg>` shows who is), (b) a **granular** token wasn't scoped to the package or is read-only, or (c) wrong registry. Do NOT assume the token merely expired and rotate to another wrong-account token. Verify the token's account first: `printf '//registry.npmjs.org/:_authToken=%s\n' "$TOK" > /tmp/npmrc && npm whoami --userconfig /tmp/npmrc` — it must print a maintainer from `npm owner ls`. In CI (tag-push publish), the local `npm whoami` preflight does **not** run, so an E404 there points at the `NPM_TOKEN` secret's account/scope, not a local login. (Field incident: a v23.12.x publish failed E404 four times because the rotated token was minted from a non-owner npm account before the owner account was identified via `npm owner ls`.)
+
+**`latest` dist-tag ordering on a multi-version publish.** When two versioned tags are both unpublished (e.g. a failed earlier release plus the current one), publish them **sequentially, oldest first** — let `vX.Y.Z` finish before pushing/publishing `vX.Y.(Z+1)` — so `latest` lands on the newest semver. Pushing multiple tags at once races CI and `latest` can settle on whichever finished last; verify with `npm view <name> dist-tags` and repoint with `npm dist-tag add <name>@<newest> latest` if needed.
+
 ## Per-Commit CHANGELOG Discipline
 
 CHANGELOG drift accumulates silently when entries are deferred to session boundaries. By the time someone notices, the test count trajectory is wrong and the per-mission delta is unrecoverable from the diff alone.
@@ -200,6 +210,10 @@ find scripts/ -maxdepth 2 -type f \( -name 'check-*' -o -name 'lint_*' \) -execu
 
 For each script discovered, document its purpose + waiver convention in the project README or `docs/CONTRIBUTING.md`. Field report #324 (Union Station v7.8) documents 3 separate hotfix loops in a single session where the waiver convention (`# system-org-allowed` for source code, double-backticks for prose) existed but was not surfaced in any reviewer-readable checklist.
 
+**The sweep is in addition to, not a substitute for, the canonical test suite.** The `check-*`/`lint_*` glob above matches contract/lint gates, not test runners — it would not even match `scripts/surfer-gate/test.sh`. `npm test` (or `make test` / `pytest` / `cargo test`) MUST run and pass before any tag, separately from this sweep. A pushed tag arms an irreversible CI publish; a failing test caught locally costs zero, caught after push costs a patch release (field report #363 F1).
+
+**Pushing `.github/workflows/` changes needs the `gh` `workflow` scope.** A commit touching `.github/workflows/` is rejected on push unless the `gh` token carries the `workflow` OAuth scope (the default `gh auth login` doesn't request it). Verify with `gh auth status`; grant once with `gh auth refresh -s workflow` (field report #363 F5).
+
 **Methodology vs project tooling:** the SCRIPTS are project-specific; the DISCIPLINE (run all gates before push) is methodology. The orchestrator does not need to know what each script does — only that it exists and must pass.
 
 ## Post-Amend SHA Pin
@@ -228,3 +242,30 @@ After pushing to remote, if the project runs on a persistent server (PM2, system
 2. **If stale:** Prompt: "Server is running an older version. Rebuild and restart? [Y/n]"
 3. **In blitz mode:** Auto-rebuild if a deploy script or PM2 ecosystem config exists.
 4. Pushing code to GitHub is NOT deploying it. The server must be rebuilt and restarted for changes to take effect. (Field report #104: 22 commits pushed but PM2 was still running v3.8.1 while code was v3.10.0.)
+
+## No Auto-Rotting Production-Status Footer (field report #342 F-4)
+
+Do NOT add a "Production binary still vX.Y — vA, B, C await operator deploy" footer to the `PROJECT_VERSION.md` template (or any per-version block). The pattern is seductive — it reads as a helpful reminder when written — but it rots silently: it is accurate only at the instant of the version it was written under, and the *next* version bump leaves it pointing at a stale "still on vX.Y" claim that nobody re-reads. By the third release it actively lies about what production is running.
+
+**Rule:** Production-deploy status lives in exactly two places, both of which a release bump already touches:
+
+1. **The single source of truth**, if the project keeps one — `docs/_truth.yml` (or equivalent machine-readable status file). One canonical `production_version:` field, not a prose footer.
+2. **The topmost "Current" block** of `PROJECT_VERSION.md` — the line Coulson already rewrites every bump (Step 5 changes `**Current:** X.Y.Z`). Deploy state, if tracked here at all, belongs adjacent to that line so it is impossible to bump the version without confronting it.
+
+A per-version footer fails because it is *additive* — each bump appends a new one and leaves the old ones in place, so the file accumulates N footers of which N−1 are false. The Current block and the truth file are *overwritten* each bump, so they cannot drift. Coulson rejects any release diff that introduces an "await operator deploy" or "Production binary still" footer; route that information to the Current block instead.
+
+## Regenerating Generated CLAUDE.md Stack Blocks (field report #342 F-2)
+
+When a generated `CLAUDE.md` (or any generated doc) embeds a project stack/inventory block — framework, language, test count, package versions — do NOT leave a promissory placeholder marker (`<!-- stack block: fill me in -->`, `[STACK_TBD]`, etc.) that depends on a human remembering to update it. Placeholder markers rot the same way the footer in F-4 does: they survive review, ship, and then read as authoritative once the brackets are forgotten.
+
+**Pattern:** If the project keeps a machine-readable truth source — `docs/_truth.yml`, `package.json`, a manifest — a regeneration helper rewrites a **clearly-delimited generated block** in place from that source, so the block is reproducible and drift is impossible (re-run the helper, diff, commit). Wrap the block in explicit sentinels so the rewrite is surgical and the hand-written prose around it is never clobbered:
+
+```
+<!-- BEGIN GENERATED: stack (do not edit by hand — run scripts/regen-claude-md.sh) -->
+- **Framework:** Next.js 15.4
+- **Language:** TypeScript 5.6 (strict)
+- **Tests:** 1209 passing
+<!-- END GENERATED: stack -->
+```
+
+A working `scripts/regen-claude-md.sh` may ship alongside this discipline (reading `docs/_truth.yml` / `package.json` and rewriting only the text between the sentinels, leaving everything else byte-identical). If that script is absent, this section documents the intended pattern: the *generated* block is derived, never authored by hand, and never a placeholder. On every MINOR/MAJOR bump Coulson regenerates the block (or flags it for regeneration) rather than trusting that someone updated the prose by hand.

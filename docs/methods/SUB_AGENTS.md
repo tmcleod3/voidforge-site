@@ -115,6 +115,20 @@ This powers the Danger Room's live agent ticker. The wizard server watches this 
 
 This is **methodology-driven logging**, not hook-driven. Hooks cannot extract agent identity from tool input — the orchestrator must write the log entry explicitly. (Field report #128, architectural review)
 
+### Workflow-Tool Progress-Tree Labels
+
+When dispatching via the Workflow tool, set the agent **label** so the named character surfaces in the `/workflows` progress tree. Use the form `"<agent> · <key>"` (e.g., `"Picard · review:architecture"`, `"Kenobi · sentinel:auth"`, `"Galadriel · ux:a11y"`), or omit the label entirely so the underlying `agentType` surfaces on its own. If you instead pass only a dimension key like `review:architecture` as the label, that key OVERRIDES the agent identity and the tree shows the dimension instead of Picard/Kenobi/Galadriel — the roster becomes anonymous in the dashboard and the Danger Room ticker correlation breaks. Keep the character name as the leading token of every workflow label. (Field report #348 #2.)
+
+#### Workflow Scripts Receive `args` as a JSON String
+
+The Workflow tool delivers a script's structured `args` as a **JSON string**, not a parsed object/array — so `args.map(...)` (or any object access) throws `is not a function`/`undefined` before the script does any work. Defensively parse at the top of any script that receives structured args:
+
+```js
+const parsed = typeof args === 'string' ? JSON.parse(args) : args;
+```
+
+Do this once, up front, and use `parsed` thereafter. The `typeof` guard keeps the script correct whether the runtime hands it a string or an already-parsed value. (Field report #363 F5.)
+
 ## Delegation Template
 
 ```
@@ -262,6 +276,8 @@ Each file is a standalone subagent definition that Claude Code's native subagent
 
 Leads inherit the main session's model (Opus). Specialists run on Sonnet for cost efficiency without sacrificing analysis quality. Scouts run on Haiku for fast, cheap reconnaissance.
 
+**Effort tiering (per-agent spend lever).** Claude Code exposes an `effort:` level (`low`/`medium`/`high`/`xhigh`/`max`) that controls reasoning depth *independently* of the model tier. Apply by role: **Leads → `xhigh`** (the recommended start for agentic work on Opus 4.8); **Specialists → `medium`** (read-and-report review rarely needs full `high` spend across ~200 agents); **Scouts → OMIT** — **Haiku 4.5 does not support the effort parameter and errors if it is passed.** Haiku also has a **200K context ceiling (not 1M)**: the Surfer pre-scan and scout prompts must fit within it — read agent frontmatter (name/description/tags), not full bodies, on large rosters. **Verified + applied 2026-06-13:** the official sub-agents docs confirm `effort` is a supported frontmatter field; the fleet edit is live — all 20 leads carry `effort: xhigh`, all 201 Sonnet specialists `effort: medium`, the 43 Haiku scouts omit it (ADR-054). New agents should follow the same tiering.
+
 ### Tool Restrictions
 
 | Profile | Tools | Agents |
@@ -330,7 +346,47 @@ This pattern applies to:
 - Galadriel's UX (Samwise + Radagast re-verify)
 - Kenobi's Security (Maul re-probes remediations)
 
+#### Verify the FIX, not just the finding
+
+The adversarial-verify step has two distinct jobs, and orchestrators routinely collapse them into one:
+
+1. **Re-probe the fixed AREA** — after a fix lands, confirm the original finding is gone and no neighboring regression appeared. This is the Pass 2 above.
+2. **Interrogate the fix DESIGN** — before or as the fix lands, challenge the *proposed remediation itself* for NEW failure modes it introduces: wedge (a state that can never be exited inside the available budget), unbounded retry, infinite loop, orphaned record, double-send. This is NOT the same as re-probing the area; it scrutinizes the design of the change, not its installed effect.
+
+Job 2 is **especially mandatory when the fix adds a coordination primitive** — a sentinel, a lock, a retry-state record, a fence, a dedup marker — **without a corresponding liveness signal** (a guaranteed path that releases the primitive, an upper bound on retries, a reclaim window that is actually reachable). A coordination primitive with no liveness signal is a wedge waiting to happen: it makes the original bug rarer but converts it into a stuck state that is harder to diagnose.
+
+Motivating incidents:
+- **M5 mint-fence** (field report #348 #1 / #350 #4): the fix added a mint fence so a draft couldn't be re-minted concurrently, with a reclaim window to recover abandoned fences. But the reclaim window was set *longer than the retry budget* — so every retry exhausted before the window opened, and the reclaim path was algebraically unreachable inside the retry budget. Drafts wedged permanently in `FAILED`. The fix's own coordination primitive (the fence) had no reachable liveness path.
+- **M6 lifecycle-sweep** (field report #348 #1 / #350 #4): the fix swept lifecycle records on a schedule but compared against a stale `send_at` snapshot captured before the sweep, so a record whose `send_at` had advanced got swept AND re-sent — a double-send introduced by the remediation, not present in the original bug.
+
+Both would have been caught by an adversarial pass that asked "what new failure mode does THIS fix create?" rather than only "is the old finding gone?" When a fix introduces a sentinel/lock/retry-state, the verify dispatch brief MUST name the wedge/loop/orphan/double-send checklist explicitly and require the agent to trace the liveness path.
+
 **Important distinction:** The Agent tool enables **parallel analysis**, not parallel coding. Sub-agents return text findings — the lead agent then implements code changes sequentially. This is still faster than sequential analysis, but don't expect parallel file edits.
+
+### The Default Review Shape: Find → Cluster/Dedupe → 3-Lens Verify → Fix Only Survivors
+
+Every review command — `/engage`, `/sentinel`, `/gauntlet` — runs the same four-stage shape, not a flat "list findings then fix everything" pass. v23.12.0 added the refute-pass mechanics to `/gauntlet`; this is the generalized naming so the same discipline is the DEFAULT everywhere, not Gauntlet-only (field report #354 F1).
+
+1. **Find** — fan out the roster; each lens produces raw findings against the same diff (see Intentionally Overlapping Mandates).
+2. **Cluster/Dedupe** — collapse the raw findings into distinct claims. The same root cause flagged by Stark + Kenobi + Ahsoka is ONE claim with three votes, not three findings. LLM-assigned finding ids are display labels, not keys — dedupe on the claim, not the id.
+3. **3-Lens Verify** — every surviving claim is interrogated through three lenses before it earns a fix:
+   - **Correctness** — is the asserted behavior actually wrong? (the bug is real, the logic is genuinely broken)
+   - **Reachability** — can production actually hit this path? (not provably-dead-code, not behind a `DEV_ONLY` gate — see the WARN/cosmetic contract above)
+   - **Refutation** — assign a **skeptic agent whose explicit job is to REFUTE the finding and cast a confirm vote.** The skeptic is told to argue the finding is wrong/unreachable/already-handled and to vote CONFIRM only if it cannot. A claim that survives a reviewer instructed to kill it is a real claim. This is the defining element of the shape: not "does another lens agree?" but "does a lens TRYING to disprove it fail to?" A finding nobody was assigned to refute is unverified, regardless of how many agents independently raised it.
+4. **Fix Only Survivors** — only claims that pass all three lenses (correct AND reachable AND survive a confirm-vote refutation) enter the fix batch. Refuted claims are logged with the refutation rationale and dropped — never silently, so a future review doesn't re-raise them.
+
+The refutation lens is what separates this from the Intentionally Overlapping Mandates convergence rule: convergence asks independent agents to agree; refutation assigns one agent to disagree on purpose. Run both — convergence raises confidence on what's flagged, refutation removes false positives from the fix batch. (Field report #354 F1.)
+
+### The Pre-Deploy Review Gate (diff-scoped, right-sized)
+
+For the common case — a small incremental change about to deploy to a **live** environment — neither `/engage` (full code review) nor `/gauntlet` (30+ agents, comprehensive) is the right tool. The right-sized gate is a **diff-scoped Workflow of N domain lenses plus a MANDATORY adversarial-verify stage over the working diff**, run as the gate immediately before any deploy to live. Lighter than `/gauntlet`, tighter than a full `/engage` (field report #362 F1).
+
+- **Scope is the working diff, not the repo.** Every lens reviews `git diff` only — what is actually about to ship — not the whole tree.
+- **Scale N to the change size.** ~2 lenses for a copy/CSS tweak; 4–5 for a schema migration, an auth/security change, or a routing/classifier change. Pick the lenses by what the diff touches (Galadriel for UI, Stark for API, Kenobi for auth/validation, Spock for schema), same description-driven dispatch as elsewhere.
+- **The adversarial-verify stage is not optional.** After the lenses run, one pass interrogates the diff adversarially — the "Verify the FIX, not just the finding" discipline above (wedge/loop/orphan/double-send, TOCTOU, unvalidated input reaching a sink). This stage is included at every size, even the 2-lens tweak.
+- **It is the gate, not advice.** A blocking finding stops the deploy; deploy only after findings are resolved (then re-verify the resolution over the new diff).
+
+This is realized as the **`/engage --pre-deploy --diff` mode** (see `.claude/commands/engage.md`): review only the working-tree diff, auto-size the lens panel, always include the adversarial-verify pass. Use it on every incremental-change-to-live session — it caught a real defect on ~4 of 5 increments in the motivating session (duplicate-banner `replaceState` race, a WCAG-AA contrast failure, a set-default/hide TOCTOU, an unvalidated UUID that 500'd), none of which warranted a full Gauntlet. (Field report #362 F1.)
 
 ### Multi-Session Parallelism (Separate Terminals)
 
@@ -371,6 +427,18 @@ Proven in production: a full `/assemble --muster` (11 phases, 15+ agents) ran en
 | Make decisions at gates | Generate findings from raw code |
 | Track status, report to user | Do work an agent could do |
 | Git operations (commit, push) | Launch agent-to-agent dispatch |
+
+### Default to Fixing, Not to Asking Which to Fix
+
+When a review surfaces a clear list of fixable findings, the orchestrator's DEFAULT is to apply them in batches — not to surface a multi-option "which subset should I fix?" picker and wait. A list of well-scoped findings with obvious remediations is a work queue, not a decision fork. Presenting it back to the user as a menu of options offloads triage the orchestrator was dispatched to do, and stalls a batch that could already be landing.
+
+Apply the findings in batches (partition by domain/concern per the Concurrency Rules), verify after each batch, and report what was fixed. Only stop to ask when a choice is **genuinely architectural or irreversible** — e.g., two incompatible schema directions, a data migration that can't be rolled back, a dependency that changes the deploy target, or a trade-off the PRD is silent on (then follow Multi-agent conflict resolution). "Which of these 9 lint/logic findings should I fix?" is not such a choice; "should this be event-sourced or CRUD?" is. (Field report #343 F5.)
+
+### Use AskUserQuestion at Genuine Forks
+
+The flip side of the anti-picker rule: when the orchestrator hits a **genuine creative or scope fork** — 2-3 mutually-exclusive directions, none obviously dominant, where guessing wrong means rework — present them with `AskUserQuestion` and an option preview for each, rather than silently picking one or surfacing a single take-it-or-leave-it option. Give each option a short label and a one-line preview of what it commits to (the trade-off, the consequence, what it forecloses), so the user can decide in one read instead of an interview.
+
+Use it for: which of two layouts/IA directions, which scope to ship first when both are valid, an irreversible architectural split, a naming/contract convention that downstream agents will all inherit. Do NOT use it as a substitute for triage you should be doing yourself (see the anti-picker rule above), and do NOT pad it past 3 options — a fork with 6 options usually means the scope wasn't analyzed enough to narrow it. One option presented as a question ("shall I do X?") is also an anti-pattern: either it's the obvious default (just do it) or there's a real alternative (show both). (Field report #351 #5.)
 
 ### Standard Agent Brief
 
@@ -419,11 +487,29 @@ Field report #324 (Union Station v7.8 R2): three agents (Discovery + Stark + Ken
 
 ### Concurrency Rules (ADR-059)
 
-- **Fan out the full roster in parallel for read-only analysis.** Opus 4.7's 1M context window handles 20+ concurrent findings tables without thrashing. Field report #270 confirmed 15+ parallel agents at 15-25% context usage.
+- **Fan out the full roster in parallel for read-only analysis.** Opus 4.8's 1M context window handles 20+ concurrent findings tables without thrashing. Field report #270 confirmed 15+ parallel agents at 15-25% context usage.
 - **No two concurrent agents may write to the same file** — partition by domain/concern, or serialize writes.
 - **Fix/build agents:** batch into waves only when writes overlap. Independent files = parallel.
 - **Wait for ALL parallel agents before synthesizing** (field report #300).
 - Partition strategies: by domain (frontend/backend), by concern (security/UX), or read-only vs. write.
+
+### Directory / Migration Fan-Out: Glob the List, Sweep the Remainder
+
+When a wave fans out per-file or per-entity work across a directory or migration (one agent per file/module/route/migration), two rules are MANDATORY (field report #355 F2):
+
+1. **Derive the per-agent file list from a GLOB, never a hand-typed list.** Run `ls`/`Glob` (e.g., `Glob "src/routes/**/*.ts"`, `git ls-files 'migrations/*.sql'`) and partition the GLOB output into agent assignments. A hand-typed list silently drops the files the orchestrator forgot existed — and those are exactly the ones with the unmigrated legacy pattern, because they weren't top-of-mind. The glob is the source of truth for "what's in scope," not the orchestrator's memory of the tree.
+2. **Pair every fan-out with a post-fan-out completeness sweep before the wave is "done."** After all fan-out agents return, run ONE grep for the legacy pattern across the WHOLE target tree (not just the assigned files) — e.g., `grep -rn "oldApiCall(" src/` or `grep -rln "TODO: migrate" .`. A wave is not complete while that grep returns hits. The sweep catches: files the glob/partition missed, files created mid-wave by a parallel agent, and occurrences an agent declared done but left behind. Zero hits is the completion gate, not "all dispatched agents reported done."
+
+The failure mode this prevents: a fan-out reports "9/9 agents complete" while 3 files still carry the legacy pattern — because they were never in the hand-typed list, and nobody grepped the whole tree to confirm. "All my agents finished" is not "the migration is complete." The completeness sweep is the difference. (Field report #355 F2.)
+
+### Registry-Derived Fan-Out: Enumerate the Tuple Set, Diff the Result
+
+The glob-fan-out rule above covers waves where scope is a pattern you can grep (one agent per file matching `src/routes/**/*.ts`). It does NOT cover the other fan-out shape: an **apply wave driven by an accepted-fix registry**, where each unit of work is a `(fixId, targetFile)` tuple and there is no legacy pattern to grep — the target file may be a doc that has never carried the soon-to-be-added rule, so a residual `grep` returns nothing whether the fix landed or not. Two rules are MANDATORY here (field report #363 F3):
+
+1. **Derive the applier work-list from the authoritative accepted-fix registry of `(fixId, targetFile)` tuples — NEVER from memory.** Enumerate every accepted tuple programmatically (the triage verdict table, the issue's "Files That Should Change" rows, the registry the investigate phase produced) and partition *that* into agent assignments. A hand-built per-file list silently drops the tuple that wasn't top-of-mind — and that omitted target's fix simply never gets written. The registry is the source of truth for "what must change," not the orchestrator's recollection of the triage.
+2. **After appliers return, `git diff --name-only` and diff the touched files against the accepted `targetFile` set.** Any accepted `targetFile` that is NOT in the diff is an unapplied tuple → re-dispatch its applier or flag it. Completion = **"every accepted targetFile appears in the diff,"** not "all agents reported done." An agent reporting STATUS: Done is not evidence its file changed; the diff is.
+
+The failure mode this prevents: an apply fan-out reports every agent complete while one accepted `(fixId → targetFile)` mapping (e.g., `AI_INTELLIGENCE.md` as a target of a multi-file fix) was omitted from the hand-built work-list and never written. There is no legacy pattern to grep for it — the only proof is the diff coverage check. The earlier the diff-vs-registry assertion runs, the cheaper the catch; left to the pre-commit full-diff review gate, it surfaces but only after the wave declared itself finished. (Field report #363 F3.)
 
 ### Context Passing Between Phases
 

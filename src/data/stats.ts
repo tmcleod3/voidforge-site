@@ -33,14 +33,14 @@ export const stats = {
   totalCommands: commands.length,
   /** Sub-agents only */
   totalSubAgents: subAgents.length,
-  /** Method documentation files (docs/methods/) — updated on methodology sync. Last verified: 2026-05-10 against v23.11.1 (docs/methods/ shipped 30 .md files including SPEC_HANDOFF.md) */
-  totalMethodDocs: 30,
-  /** Architecture Decision Records — updated on methodology sync. Last verified: 2026-05-10 against v23.11.1 (upstream method docs reference ADR-069; numbering not strictly sequential). */
-  totalADRs: 69,
-  /** Scaffold test count — updated on methodology sync. Last verified: 2026-04-20 (v23.9.0 release notes claimed 1,384) */
-  totalScaffoldTests: 1384,
-  /** Total static HTML pages emitted by `next build`. Last verified: 2026-05-10 (Site v2.14.0 fix-first commit, `find out -name '*.html' | wc -l` = 149). The `verify-page-count` CI step in .github/workflows/ci.yml asserts >= 100; bump this scalar when the floor moves up materially. */
-  totalPages: 149,
+  /** Method documentation files (docs/methods/) — updated on methodology sync. Last verified: 2026-06-14 against v23.19.0 (docs/methods/*.md file count = 32) */
+  totalMethodDocs: 32,
+  /** Architecture Decision Records — updated on methodology sync. Last verified: 2026-06-14 against v23.19.0 — actual docs/adrs/*.md file count in voidforge/main = 67 (metric corrected from prior highest-referenced heuristic). */
+  totalADRs: 67,
+  /** Scaffold test count — updated on methodology sync. Last verified: 2026-06-14 against v23.19.0 (release notes: full suite 1390→1392) */
+  totalScaffoldTests: 1392,
+  /** Total static HTML pages emitted by `next build`. Last verified: 2026-06-14 (v23.19.0 methodology sync, `find out -name '*.html' | wc -l` = 158 — +9 from the new /commands/audit-docs page and 8 new /patterns/* pages: design-tokens, error-message-categorization, autonomous-ops-triage-policy, codemod-hygiene, nginx-vhost, post-deploy-probe, rls-test-fixture, structural-sql-sentinel). The `verify-page-count` CI step in .github/workflows/ci.yml asserts >= 100; bump this scalar when the floor moves up materially. */
+  totalPages: 158,
 };
 
 /** Formatted strings for display — use in JSX where template literals are awkward */

@@ -13,10 +13,11 @@ const ROOT = resolve(__dirname, "../..");
 
 describe("Consistency — Pattern files ↔ patterns.ts", () => {
   const patternDir = resolve(ROOT, "docs/patterns");
+  const patternExt = /\.(tsx?|md|py|conf|sh)$/;
   const patternFiles = readdirSync(patternDir)
-    .filter((f) => /\.(tsx?|md)$/.test(f))
+    .filter((f) => patternExt.test(f))
     .filter((f) => f !== "README.md")
-    .map((f) => f.replace(/\.(tsx?|md)$/, ""));
+    .map((f) => f.replace(patternExt, ""));
   const patternSlugs = new Set(patterns.map((p) => p.slug));
 
   it("every pattern in patterns.ts has a file in docs/patterns/", () => {
@@ -24,7 +25,10 @@ describe("Consistency — Pattern files ↔ patterns.ts", () => {
       const hasFile =
         existsSync(resolve(patternDir, `${p.slug}.ts`)) ||
         existsSync(resolve(patternDir, `${p.slug}.tsx`)) ||
-        existsSync(resolve(patternDir, `${p.slug}.md`));
+        existsSync(resolve(patternDir, `${p.slug}.md`)) ||
+        existsSync(resolve(patternDir, `${p.slug}.py`)) ||
+        existsSync(resolve(patternDir, `${p.slug}.conf`)) ||
+        existsSync(resolve(patternDir, `${p.slug}.sh`));
       expect(hasFile, `Missing file for pattern: ${p.slug}`).toBe(true);
     }
   });
@@ -33,7 +37,7 @@ describe("Consistency — Pattern files ↔ patterns.ts", () => {
     for (const file of patternFiles) {
       expect(
         patternSlugs.has(file),
-        `Orphaned pattern file: docs/patterns/${file}.{ts,tsx,md} — not in patterns.ts`
+        `Orphaned pattern file: docs/patterns/${file}.{ts,tsx,md,py,conf,sh} — not in patterns.ts`
       ).toBe(true);
     }
   });

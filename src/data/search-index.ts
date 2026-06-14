@@ -97,6 +97,7 @@ export const searchIndex: SearchEntry[] = [
   { title: "/ai", description: "Seldon's AI Intelligence Audit — model selection, prompts, tool-use, orchestration, safety, evals", path: "/commands/ai", category: "Commands" },
   { title: "/vault", description: "Seldon's Time Vault — distill session intelligence into portable briefing for session handoff", path: "/commands/vault", category: "Commands" },
   { title: "/blueprint", description: "The Blueprint Path — validate a pre-written PRD, discover docs, merge directives, provision, and start campaign", path: "/commands/blueprint", category: "Commands" },
+  { title: "/audit-docs", description: "Documentation Audit (Troi/Wong/Irulan/Coulson) — read-only doc-currency drift, broken cross-references, command↔method desync, and version-SSOT checks", path: "/commands/audit-docs", category: "Commands" },
 
   // Patterns
   { title: "Patterns", description: `${patterns.length} code patterns across 6 domains with framework implementations`, path: "/patterns", category: "Patterns" },
@@ -145,6 +146,14 @@ export const searchIndex: SearchEntry[] = [
   { title: "Multi-Tenant Property Test", description: "Property-based isolation: for any orgs A,B, A's writes never appear in B's reads — the test that survives every refactor", path: "/patterns/multi-tenant-property-test", category: "Patterns" },
   { title: "ADR Verification Gate", description: "Fixture Bindability discipline — every ADR's gate must include 'Can the gate FAIL under this fixture?'", path: "/patterns/adr-verification-gate", category: "Patterns" },
   { title: "Refactor Extraction", description: "8-commit per-entity large-refactor template with IDOR matrix discipline", path: "/patterns/refactor-extraction", category: "Patterns" },
+  { title: "Design Tokens", description: "Semantic color/type tokens with one indirection layer — a theme pivot is a token change, not a component-wide find-replace", path: "/patterns/design-tokens", category: "Patterns" },
+  { title: "Error Message Categorization", description: "Categorize errors at the UI boundary (network/auth/validation/server) before choosing copy, so users see actionable messages, not internals", path: "/patterns/error-message-categorization", category: "Patterns" },
+  { title: "Autonomous Ops Triage Policy", description: "4-bucket triage (self-resolving / runbook-safe / operator-approval / hard-never) plus a SessionStart visibility rule for ops projects", path: "/patterns/autonomous-ops-triage-policy", category: "Patterns" },
+  { title: "Codemod Hygiene", description: "After a jscodeshift/recast codemod, strip incidental reformatting so the diff shows only the semantic change", path: "/patterns/codemod-hygiene", category: "Patterns" },
+  { title: "Nginx Vhost (Cloudflare Flexible)", description: "Cloudflare-Flexible-safe nginx origin vhost: security headers, ACME http-01 passthrough, per-tenant logs, no redirect loop.", path: "/patterns/nginx-vhost", category: "Patterns" },
+  { title: "Post-Deploy Probe", description: "Bash script that probes a denylist of sensitive paths against the live deploy URL and fails the deploy on any 200.", path: "/patterns/post-deploy-probe", category: "Patterns" },
+  { title: "RLS Test Fixture (db_as_app SAVEPOINT)", description: "pytest fixture running RLS assertions under a NOSUPERUSER NOBYPASSRLS app role, defeating the Testcontainers SUPERUSER + BYPASSRLS=t fixture trap.", path: "/patterns/rls-test-fixture", category: "Patterns" },
+  { title: "Structural SQL Sentinel", description: "Adversarial-test discipline for SQL fail-open regex sentinels: commuted, cast, IS NULL, coalesce coverage plus bindability proof.", path: "/patterns/structural-sql-sentinel", category: "Patterns" },
 
   // Tutorials
   { title: "The Wizard Path", description: "Start from nothing — Gandalf walks you through everything", path: "/tutorial/wizard", category: "Tutorial" },

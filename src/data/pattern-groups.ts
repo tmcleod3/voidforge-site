@@ -30,6 +30,8 @@ export const patternGroups: PatternGroup[] = [
     slugs: [
       "api-route", "service", "component", "middleware", "error-handling",
       "job-queue", "multi-tenant", "sse-endpoint", "third-party-script", "combobox",
+      // v23.19 additions:
+      "design-tokens", "error-message-categorization",
     ],
   },
   {
@@ -60,6 +62,8 @@ export const patternGroups: PatternGroup[] = [
       // v23.10/v23.11 additions:
       "audit-log", "deploy-preflight",
       "multi-tenant-pool-bypass", "multi-tenant-property-test",
+      // v23.12/v23.19 additions — ops/config/python patterns:
+      "nginx-vhost", "post-deploy-probe", "rls-test-fixture", "structural-sql-sentinel",
     ],
   },
   {
@@ -90,6 +94,8 @@ export const patternGroups: PatternGroup[] = [
     slugs: [
       // v23.11 additions — markdown reference patterns, not code:
       "adr-verification-gate", "refactor-extraction",
+      // v23.19 additions — markdown reference patterns:
+      "autonomous-ops-triage-policy", "codemod-hygiene",
     ],
   },
 ];

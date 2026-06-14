@@ -6,6 +6,40 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.15.0] - 2026-06-14
+
+### Methodology sync v23.11.1 → v23.19.0 + site reconciliation
+
+Ran `/void` to sync the bundled VoidForge methodology up 8 minor versions (v23.11.1 → v23.19.0, 11 releases) via git transport — npm transport stays disabled on this project (the `findProjectRoot()` `$HOME`-write bug). Then reconciled the site's `src/data` display layer to match: the marketing site exists to represent the methodology accurately, so a sync without a data reconciliation ships a stale site. All 77 tests pass; build clean at 158 pages.
+
+### Added
+- **`/audit-docs` command** (Coulson-led, Surfer doc roster Troi/Wong/Irulan/Coulson) — a code-free documentation-currency audit. New command page + search entry. Commands now 31.
+- **8 new code patterns → 53 total.** TS/React/Markdown: `design-tokens`, `error-message-categorization`, `autonomous-ops-triage-policy`, `codemod-hygiene`. Ops/config/Python: `nginx-vhost`, `post-deploy-probe`, `rls-test-fixture`, `structural-sql-sentinel`.
+- **Non-TS pattern support.** The `Framework` type gained `bash` + `nginx` members and the patterns consistency test now recognizes `.py/.conf/.sh` files, so ops/config/Python patterns render instead of being silently excluded — the same "invisibility" class the consistency tests were built to catch.
+- **11 release entries** (v23.12.0 → v23.19.0) added to the releases timeline.
+- Synced methodology files: `.claude/workflows/` (ADR-067 — gauntlet + assemble-review), `docs/NATIVE_CAPABILITIES.md` (ADR-066), `docs/COMPATIBILITY.md` (ADR-065), `docs/methods/DOC_AUDIT.md` + `WORKFLOWS.md`, `scripts/surfer-gate/` (gate enforcement — inert here; no PreToolUse hook is wired in `.claude/settings.json`).
+
+### Changed
+- **Methodology synced to v23.19.0**: CLAUDE.md (ADR-064 Workflow gating, roster-name normalization, anti-picker + authorized-autonomy personality), HOLOCRON, 13 command specs, 222 agent definitions (v23.17.0 `effort:` frontmatter — 221/264 carry it: 20 leads xhigh + 201 specialists medium, 43 Haiku omit), 16 method docs, 19 patterns. Roster count stable at 264.
+- **5 command descriptions refreshed** for capabilities gained upstream: `/gauntlet` + `/assemble` (re-platformed onto dynamic Workflows, ADR-067), `/sentinel` + `/engage` (vote-based REFUTE gate; `/engage --pre-deploy --diff`), `/git` (release discipline).
+- **stats.ts scalars:** method docs 30→32, scaffold tests 1384→1392, pages 149→158.
+- `.vercelignore` extended to keep the new methodology files (`NATIVE_CAPABILITIES.md`, `COMPATIBILITY.md`, `scripts/surfer-gate/`) out of the public deploy.
+
+### Fixed
+- **`totalADRs` metric corrected 69 → 67** — switched from a "highest-referenced ADR number" heuristic (which over-counted) to the actual `docs/adrs/*.md` file count in voidforge/main.
+- **`/audit-docs` lead** set to a valid lead agent (Coulson) — `DOC_AUDIT.md` is "Surfer-led" with no single lead, and Troi is a sub-agent, which failed the data-integrity lead check.
+- **Pattern search coverage** — the new displayable patterns were added to the search index (a parallel-reconciliation gap caught by the consistency test).
+
+### Test count
+- 77/77 (unchanged — new patterns and commands are exercised by the existing dynamic consistency + data-integrity suites).
+
+### Operational notes
+- Tag `site-v2.15.0`.
+- `VERSION.md` tracks the **methodology** version (now 23.19.0), not the site version — site versions live here in CHANGELOG.md + `package.json`.
+- Vercel auto-deploy still broken; release with manual `vercel --prod --yes`.
+
+---
+
 ## [Site v2.14.3] - 2026-05-10
 
 ### /sentinel security pass — 12-agent live audit

@@ -30,6 +30,8 @@
 
 Adversarial UX/UI QA review. Identify usability issues, inconsistencies, broken states, accessibility gaps, responsiveness problems. Implement safely in small batches. No redesigning for fun.
 
+**Scope clarification — `/ux` is a UI/UX review verb, not a generic audit verb.** (Field report #342 F-3.) `/ux` reviews interface and experience: screens, flows, states, a11y, visual hierarchy, motion. **Documentation and content audits are out of `/ux`'s scope** — auditing prose, doc structure, broken links, stale instructions, or content accuracy is a different discipline with a different checklist. Route those to the doc-audit path (`/audit-docs`, see `DOC_AUDIT.md`), not here. `/ux` happens to be the most audit-shaped command in the roster, which tempts users to point every audit-flavored request at it; resist that. If a request is about *what the docs say* rather than *how the interface behaves*, hand off to the doc-audit path. (Tutorial/docs *surfaces* — the rendered page's usability, launch-context, prerequisite depth per Step 1.5 — remain in `/ux`'s scope; the *content audit* of those same docs does not.)
+
 ## When to Call Other Agents
 
 | Situation | Hand off to |
@@ -53,6 +55,7 @@ Adversarial UX/UI QA review. Identify usability issues, inconsistencies, broken 
 9. **Confidence scoring:** All findings include a confidence score (0-100). High confidence (90+) skips re-verification in Step 7.5. Low confidence (<60) must be escalated to a second agent from a different universe before presenting — if the second agent disagrees, drop the finding. See GAUNTLET.md "Agent Confidence Scoring" for full ranges.
 10. **Slash command prompt convention:** In documentation and tutorials, slash commands use `>` prefix (Claude Code prompt), not `$` (shell prompt). `$ /build` is wrong — it implies a shell command. `> /build` or just `/build` is correct. (Field report #298.)
 11. **No version qualifiers in tutorial prose:** Tutorial text states facts without version references. "VoidForge supports 263 agents" — not "Since v23.0, VoidForge supports 263 agents." Readers don't care when a feature shipped; version tags make tutorials feel like changelogs. Version history belongs in CHANGELOG.md. (Field report #298.)
+12. **Tutorial-context checklist for slash commands.** When tutorial or documentation content shows a slash command (`/build`, `/blueprint`, `/campaign`, etc.) in a terminal/code block, that block — or the surrounding prose — MUST establish that the command runs *inside Claude Code*, not at the user's shell prompt. First mention of any `/` command in a tutorial page requires either: (a) a preceding block showing `claude` (or the user's Claude Code launch command), or (b) an inline callout explaining the convention, or (c) the prose context "inside Claude Code". Standalone slash commands in tutorial content with no launch context are a UX defect — new users will type them at their shell prompt and get `command not found`. Galadriel's Step 1.5 Usability Review (and any UX pass over tutorial/docs surfaces) must flag missing launch context as Critical for first-touch user-facing content. (Field report #260 — 5-week-old documentation friction.)
 
 ## Step 0 — Orient
 
@@ -87,6 +90,8 @@ Trace the primary user flow step by step. This is a narrative walkthrough, not a
 
 1. Launch review browser via `browser-review.ts` pattern. Navigate to each primary route.
 2. **MANDATORY: Screenshot every page.** Save screenshots to temp directory. The agent MUST read each screenshot via the Read tool and visually analyze it for: layout integrity, content completeness, visual hierarchy, spacing consistency, state correctness. This is how Galadriel "sees" the product — without screenshots, the review is code-reading, not visual review. Take at desktop viewport (1440x900) for primary analysis.
+
+   **Atomic-visual carve-out:** For an atomic visual change — a single component, one icon, a loader, one state — a component-level **render-harness** screenshot (the component mounted in isolation, captured, and Read) satisfies the "verify visually" rule. It is a faster, equally-valid proof than standing up the full authed app, and avoids the auth + DB + server setup the full-page pass requires. Use it only for genuinely isolated visual artifacts; anything touching layout, navigation, or cross-component flow still gets the full-page screenshot pass. (Field report #362.)
 3. **Behavioral verification:** Click every button, link, tab on primary routes. After each click, verify something visible changed (DOM mutation, navigation, modal). Flag non-responsive interactive elements.
 4. **Form interaction:** Fill every form. Verify: focus rings visible on Tab, validation triggers on blur/submit, error messages appear next to correct fields, success state shows after valid submission.
 5. **Keyboard walkthrough:** Tab through each page. Verify: focus order matches visual order, no focus traps except intentional modals, Escape closes overlays.
@@ -161,11 +166,64 @@ Any fire-and-forget background operation (AI generation, file processing, deploy
 Before hiding, relocating, or collapsing a UI container (dropdown, panel, menu, toolbar), list ALL actions inside it — primary (viewing, selecting, navigating) AND secondary (creating, deleting, configuring, exporting). Verify every action remains reachable after the redesign. A "simplification" that hides a version picker also hides the "New Version" button inside it.
 (Field report #22: workspace redesign hid the version creation button that lived inside a dropdown.)
 
+## Step 1.8 — Reference Grounding (World-Scan) — Mandatory
+
+(Field reports #347, #2.)
+
+Before Galadriel generates any visual direction — palette, type system, layout language, signature interaction — she must ground the work in the real design world. This step is **mandatory** input to every downstream generation step. Skipping it produces the single most common visual failure mode in agent-generated UI.
+
+**The failure mode — committee-converges-on-the-mean.** When a committee of agents reasons about "what good design looks like" from training priors alone, every agent independently regresses toward the statistical center of its training distribution. The outputs agree with each other, feel internally consistent, and pass every internal review — yet land on the bland, averaged, instantly-recognizable look users now perceive as "AI slop." Consensus is not quality here; it is the symptom. The agents converged on the mean precisely *because* nothing pulled them off it. Internal agreement on visual direction, with no external reference, is a red flag, not a green light.
+
+**The remedy — fan out to the real world first.** Before any visual generation, web-capable agents (Arwen, Éowyn) fan out to:
+
+- **Award galleries:** Awwwards, FWA, CSSDA, Godly, Typewolf. These are curated, off-the-mean, and current.
+- **The live competitor set:** the actual sites of the product's named competitors and adjacent best-in-class products — not a description of them, the live pages.
+
+From that scan, extract **named** artifacts into a **reference dossier**:
+
+- Specific sites worth stealing a move from (named, with the move identified: "Linear's command-palette transition," "Stripe's gradient-on-scroll hero," not "a clean SaaS site").
+- Named typefaces and pairings actually in use (not "a modern sans").
+- Named interactions and motion patterns (the signature moment, the page transition, the hover behavior) worth adapting.
+
+**The dossier is required input downstream.** Every later generation step — Step 1.75 enchantment, Step 2 visual attack plan, any palette/type/layout proposal — must cite the dossier. A proposal with no reference anchor is unanchored from reality and is sent back. **Never generate visual direction from training priors alone.** The dossier is the gravity that pulls the work off the statistical mean.
+
+## Step 1.85 — Converging Creative Direction
+
+(Field reports #351, #2.)
+
+Reference grounding tells you where the real world is. These three disciplines keep your own output off the mean and make creative direction actually converge instead of looping.
+
+### Show, don't tell — prototype before you finalize
+
+Creative direction does not converge from prose, mockups, or description. It converges only when a **feel-able interactive prototype of the signature moment** ships to a review URL someone can open and touch. The signature moment — the hero reveal, the command palette, the card-to-detail transition, whatever carries the product's character — must run in a browser at a real URL before the direction is called final. Reading "a smooth 200ms ease-out reveal" tells you nothing; opening the URL and feeling it tells you everything. Until the signature moment is feel-able at a URL, treat the direction as a proposal, not a decision. This is the fastest known way to break the description-loop where reviewers keep agreeing on words that mean different things to each of them.
+
+### Token-scoped theming — pivots must be cheap
+
+Scope color and type to **semantic tokens** (`--color-surface`, `--color-accent`, `--text-heading`, `--text-body`) from the first component, never hardcoded values inside components. The test: a palette pivot or a type pivot must be a **token change, not a component rewrite**. If switching the accent color or swapping the heading typeface requires editing more than the token definitions, the theming is not token-scoped and the pivot is expensive — which means in practice the pivot won't happen, and the design freezes on its first guess. Cheap pivots are what let creative direction explore and actually converge instead of committing to the first idea by inertia. Celeborn (Step 2 design-system governance) enforces token usage; this step establishes *why* it is load-bearing for creative direction, not just consistency.
+
+### The de-AI checklist
+
+Screen all copy and visuals against the tells that mark generated work as generated. Each tell below is a flag, not an automatic ban — but every flagged instance must be a deliberate, justified choice, never a default the model reached for:
+
+**Copy tells:**
+- **Em-dashes** used as the default connective rhythm (the most reliable single tell). Vary the punctuation; not every clause break is an em-dash.
+- **Generic adjectives** — "seamless," "powerful," "robust," "intuitive," "elevate," "delightful," "effortless." Specific beats generic; show the thing instead of asserting it.
+
+**Visual tells:**
+- **Gradient-text** headings (the `bg-clip-text` rainbow/violet headline).
+- **Pill eyebrows** — the small rounded-full badge above every hero headline.
+- **Default Inter/Playfair pairing** — the reflexive "modern sans + elegant serif" combo. If the reference dossier (Step 1.8) didn't lead you there for a reason, don't reach for it by default.
+- **Cream-editorial-as-trope** — the warm off-white background + serif + wide margins "editorial" look applied to products it doesn't fit, because the model treats it as shorthand for "premium."
+
+A surface that trips three or more of these tells is presumed AI-slop and goes back for de-AI revision, anchored against the Step 1.8 reference dossier.
+
 ## Step 2 — UX/UI Attack Plan
 
 **Elrond:** IA, navigation, task flows, friction.
 **Arwen:** Spacing, typography, icons, button hierarchy, visual hierarchy.
 **Samwise:** Keyboard nav, focus rings, ARIA, contrast, reduced motion. **WCAG contrast verification:** For the project's primary text/background combinations, verify WCAG AA contrast ratio (4.5:1 for normal text, 3:1 for large text). Check: primary text on primary bg, muted text on primary bg, accent text on primary bg. Opacity modifiers (e.g., `text-emerald-200/50`) halve the effective contrast — always compute the final rendered color, not the base color. A systematic check during the initial color system design prevents dozens of instances across the codebase. (Field report #38: 46 failing-contrast instances across 13 files, systemic from day 1.)
+
+**Contrast findings must be cited and re-grepped (#355 F1).** Computing the final rendered color is necessary but not sufficient. A contrast finding is **inadmissible if uncited**: it MUST cite the *literal source hex* for BOTH foreground and background, each with the `file:line` where it is defined (`tailwind.config.ts`, `globals.css`, or the relevant theme file). Before rating any contrast issue Critical or High, **RE-GREP the actual class usage** in the codebase to confirm the foreground/background pairing actually co-occurs on a real element — a pairing that never renders together is not a finding. **Token NAMES are not proxies for VALUES.** Never infer contrast from semantic token names: a token called `paper` may resolve to near-black and one called `ink` to near-white. Read the value, not the name. (In #355 F1 a token-name swap — assuming `paper`/`ink` meant light/dark by their names — produced a false site-wide Critical that did not exist once the actual hex values were read.)
 ### Async Polling State Machine
 Any UI that polls for backend status changes must implement 4 states: **idle -> syncing -> success -> failure**. Never show "success" before the async confirmation resolves. Never show the old value alongside a "updated" banner. The polling result replaces the displayed value atomically — both change together or neither does. (Field report #149)
 
@@ -223,6 +281,8 @@ Click through every primary journey. Document friction, broken UI, missing state
 
 | ID | Title | Severity | Category | Location | Repro | Current | Expected | Recommendation | Files | Verified | Regression | Risk |
 |----|-------|----------|----------|----------|-------|---------|----------|----------------|-------|----------|-----------|------|
+
+**Severity must be enforcement-aware (#354 F2).** When a finding is a *client-side affordance or visibility leak* — a disabled-looking action that is still clickable, a hidden field present in the DOM, an admin control rendered to a non-admin — check whether the **server still enforces** the rule before rating it. If the backend rejects the action regardless of the client state, this is a **UX issue (P2/P3)**, not a security breach: the user-facing affordance is confusing or misleading, but no privilege is actually escalated. Only when the server fails to enforce does it cross into Kenobi's territory and escalate. Rate the UX defect, then hand the *enforcement* question to Security rather than inflating the UX severity. Cross-reference the SECURITY_AUDITOR enforcement-layer severity rubric (`SECURITY_AUDITOR.md`, Operating Rule 2 — "Severity = exploitability × impact"): a leak the server enforces has near-zero exploitability and so cannot be Critical on the security axis.
 
 ## Step 5 — Enhancement Specs (Before Coding)
 

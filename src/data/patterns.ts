@@ -2943,6 +2943,539 @@ Source: field report #320 §1. M-10 (Union Station): routers/crm.py
       },
     ],
   },
+  {
+    slug: "autonomous-ops-triage-policy",
+    name: "autonomous-ops-triage-policy.md",
+    title: "Autonomous Ops Triage Policy",
+    description: "4-bucket model (self-resolving / runbook-safe / operator-approval / hard-never) plus a SessionStart hook visibility rule for ops-flavored projects.",
+    teaches:
+      "How an assistant invoked autonomously decides whether to act, propose, or escalate without the operator present. Classify every proposed action into exactly one bucket, write the forbidden (Bucket D) list first, and echo SessionStart hook output so the operator has visual confirmation the policy is live.",
+    whenToUse:
+      "Ops-flavored projects — infrastructure repos, monitoring daemons, homelab automation, scheduled-task systems — where the assistant runs unattended. Not a replacement for /campaign or /build (human-paced), nor a tool-permissioning model (settings.json handles that).",
+    preview: `Is the action on the forbidden list (D)?  -> log + alert, STOP\nHas an approved runbook (B)?              -> execute runbook, log, STOP\nReversible + low blast + pre-authorized?  -> Bucket A: execute, log\notherwise                                 -> Bucket C: propose, wait`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "Reference",
+        language: "Markdown",
+        code: `# Autonomous Operations Triage Policy
+
+Classify every proposed autonomous action into exactly one bucket:
+
+| Bucket | Action | When | Operator Notification |
+|--------|--------|------|-----------------------|
+| A — Self-resolving | Auto-execute | Fully reversible, low blast radius, clear procedure, authorized in a durable instruction | None unless asked |
+| B — Runbook-safe | Follow runbook | Documented runbook, run successfully before, operator pre-approved | Summary at next session start |
+| C — Operator-approval | Propose + WAIT | Medium blast radius, irreversible side effects, OR runbook ambiguity | Active notification (Telegram / Slack / email) |
+| D — Hard-never | Log + escalate; NEVER attempt | On the forbidden list (prod rollback w/o ticket, secret rotation w/o quorum, destructive migration w/o approval) | High-priority alert |
+
+## Decision tree (each proposed action)
+
+Is the action on the forbidden list (D)?  -> log attempt, high-priority alert, STOP.
+Does it have an approved runbook (B)?      -> execute runbook, log with runbook ID, STOP.
+Reversible AND low blast AND pre-authorized (A)? -> execute, log, STOP.
+Otherwise                                  -> Bucket C: propose to operator, wait.
+
+## SessionStart hook + visibility rule
+
+Pair the policy with a SessionStart hook that injects current state and a policy
+reminder. Hook output is context-only — the assistant MUST echo the relevant
+portions back to the operator at session start, or there is no visual confirmation
+the hook fired (#337, #336 both documented hooks silently running with no visibility).
+
+## Logging format (JSON Lines, append-only)
+
+{ "timestamp": "...", "bucket": "A|B|C|D", "action": "...",
+  "decision": "executed|proposed|escalated|skipped", "rationale": "...",
+  "runbook_id": "RB-007 if applicable", "operator_notified": false,
+  "outcome": "success|failed|pending" }
+
+## Adoption checklist
+
+- Write the forbidden list (Bucket D) FIRST — concrete and exhaustive.
+- Document each runbook (Bucket B) with a fixed ID, expected outcome, rollback.
+- Set up the SessionStart hook + echo step.
+- Configure the operator-notification channel.
+- Establish the ops log path and rotation policy.
+
+Source: promoted by Wong from field reports #337, #336, #334 (v23.11.4).
+Pairs with daemon-process.ts, HEARTBEAT.md, FIELD_MEDIC.md.`,
+      },
+    ],
+  },
+  {
+    slug: "design-tokens",
+    name: "design-tokens.ts",
+    title: "Design Tokens",
+    description: "Semantic color/type tokens with one indirection layer, so a theme pivot is a token change, not a component-wide find-replace.",
+    teaches:
+      "How to scope all color and type to two layers: PRIMITIVES (the only place raw values live) and SEMANTIC roles that point at primitives. Components reference semantic tokens via CSS custom properties only — never hex or pixel literals — so a rebrand or dark theme becomes a single token edit.",
+    whenToUse:
+      "Any design system or app that will rebrand, add a dark theme, or pivot its palette/type scale. Pairs with component.tsx (components consume tokens) and combobox.tsx (a11y-critical surfaces). Add a lint guardrail forbidding raw hex/px in component source.",
+    preview: `const tokenColor = (role) => \`var(--vf-color-\${role.replace(/[.\\s]+/g, '-')})\`\n// component references SEMANTIC tokens only — never a hex, never a pixel literal\nstyle = { background: tokenColor('accent'), color: tokenColor('text.on-accent') }`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "TypeScript",
+        language: "TypeScript",
+        code: `// Layer 1: Primitives — the ONLY place raw values live. Named by what they
+// ARE (a swatch index, a scale step), never by what they're FOR.
+export const primitives = {
+  color: {
+    white: '#ffffff', black: '#0a0a0a',
+    gray50: '#f9fafb', gray200: '#e5e7eb', gray500: '#6b7280',
+    gray700: '#374151', gray900: '#111827',
+    indigo500: '#6366f1', indigo600: '#4f46e5', indigo700: '#4338ca',
+    red500: '#ef4444', red600: '#dc2626', green500: '#22c55e', amber500: '#f59e0b',
+  },
+  fontSize: { xs: '0.75rem', sm: '0.875rem', base: '1rem', lg: '1.125rem', xl: '1.5rem' },
+} as const;
+
+type PrimitiveColor = keyof typeof primitives.color;
+
+// Layer 2: Semantic tokens — a NAME FOR A ROLE that points at a primitive.
+// The shape is the contract: a theme override must provide EVERY role, so the
+// type system guarantees no role is left un-themed.
+export type SemanticColors = {
+  'bg.canvas': PrimitiveColor;
+  'bg.raised': PrimitiveColor;
+  'text.default': PrimitiveColor;
+  'text.muted': PrimitiveColor;
+  'text.on-accent': PrimitiveColor;
+  'border.subtle': PrimitiveColor;
+  accent: PrimitiveColor;
+  'accent.hover': PrimitiveColor;
+};
+
+export const lightTheme: SemanticColors = {
+  'bg.canvas': 'white', 'bg.raised': 'gray50',
+  'text.default': 'gray900', 'text.muted': 'gray500', 'text.on-accent': 'white',
+  'border.subtle': 'gray200', accent: 'indigo600', 'accent.hover': 'indigo700',
+};
+
+// A dark theme is just a different primitive mapping — no component touched.
+export const darkTheme: SemanticColors = {
+  ...lightTheme,
+  'bg.canvas': 'black', 'bg.raised': 'gray900', 'text.default': 'gray50',
+  'border.subtle': 'gray700', accent: 'indigo500', 'accent.hover': 'indigo600',
+};
+
+// Emit semantic tokens -> CSS custom properties keyed by data-theme. The
+// variable VALUE is the resolved primitive, so consumers never touch primitives.
+function cssVarName(role: string): string {
+  return \`--vf-color-\${role.replace(/[.\\s]+/g, '-')}\`; // 'accent.hover' -> '--vf-color-accent-hover'
+}
+
+export function tokensToCss(themes: {
+  default: SemanticColors;
+  overrides?: Record<string, SemanticColors>;
+}): string {
+  const block = (selector: string, t: SemanticColors): string => {
+    const body = Object.entries(t)
+      .map(([role, ref]) => \`  \${cssVarName(role)}: \${primitives.color[ref]};\`)
+      .join('\\n');
+    return \`\${selector} {\\n\${body}\\n}\`;
+  };
+  const parts = [block(':root', themes.default)];
+  for (const [name, theme] of Object.entries(themes.overrides ?? {})) {
+    parts.push(block(\`[data-theme="\${name}"]\`, theme));
+  }
+  return parts.join('\\n\\n');
+}
+
+// Consume: components reference SEMANTIC tokens via var(--vf-...), never a hex.
+// Swapping data-theme on any ancestor re-themes with zero component changes.
+const tokenColor = (role: keyof SemanticColors): string => \`var(\${cssVarName(role)})\`;
+//   background: tokenColor('bg.raised'); color: tokenColor('text.default');
+
+// Lint guardrail (field report #351): forbid raw hex/px in component source so
+// the indirection can't be bypassed. The token layer only pays off if
+// primitives can't leak past it. Source: field reports #351, #343.`,
+      },
+    ],
+  },
+  {
+    slug: "error-message-categorization",
+    name: "error-message-categorization.tsx",
+    title: "Error Message Categorization",
+    description: "Categorize errors at the UI boundary (network / auth / validation / server / quota / unknown) before choosing copy, so users see actionable messages, not raw internals.",
+    teaches:
+      "Why the copy you show must be a function of the error CATEGORY, never of where the catch happened. How to classify on two signals — HTTP status AND error shape (machine-readable code, Retry-After) — and map each category to honest, actionable copy. Unknown errors fall back to a safe generic category.",
+    whenToUse:
+      "Any UI that surfaces backend errors. Especially flows where a quota/billing failure could be miscategorized as the user's input fault — a 402 caught in an upload flow must not render 'try a different file'.",
+    preview: `export function classify(err: NormalizedError): ErrorCategory {\n  if (err.isNetworkError) return 'network'\n  if (QUOTA_CODES.has((err.code ?? '').toLowerCase())) return 'quota'\n  switch (err.status) { case 402: return 'quota'; case 401: return 'auth'; /* ... */ }\n}`,
+    frameworks: [
+      {
+        framework: "nextjs",
+        label: "React",
+        language: "TypeScript",
+        code: `'use client';
+
+// The exhaustive set of categories the UI knows how to talk about. Keep this
+// closed — the COPY map is keyed by this union, so a missing entry is a compile error.
+export type ErrorCategory =
+  | 'quota' | 'rate-limit' | 'timeout' | 'network'
+  | 'validation' | 'auth' | 'forbidden' | 'not-found' | 'server' | 'unknown';
+
+// Real catch blocks receive heterogeneous junk; normalize at the boundary.
+export interface NormalizedError {
+  status?: number;
+  code?: string;            // machine-readable code from the body ({ code: 'quota_exceeded' })
+  message?: string;         // last-resort signal, never copy
+  isNetworkError?: boolean;
+  isTimeout?: boolean;
+  fieldErrors?: Record<string, string[]>;
+}
+
+const QUOTA_CODES = new Set([
+  'quota_exceeded', 'insufficient_quota', 'plan_limit_reached',
+  'billing_quota_exceeded', 'usage_limit_exceeded', 'storage_quota_exceeded',
+]);
+const RATE_LIMIT_CODES = new Set(['rate_limited', 'rate_limit_exceeded', 'too_many_requests', 'throttled']);
+
+// Order matters: most specific, least-ambiguous signals first. This is what
+// stops a 402 quota error from being miscategorized as a generic 4xx validation
+// failure (#343 F8).
+export function classify(err: NormalizedError): ErrorCategory {
+  if (err.isNetworkError) return 'network';
+  if (err.isTimeout || err.status === 408) return 'timeout';
+
+  const code = (err.code ?? '').toLowerCase();
+  if (QUOTA_CODES.has(code)) return 'quota';
+  if (RATE_LIMIT_CODES.has(code)) return 'rate-limit';
+
+  switch (err.status) {
+    case 401: return 'auth';
+    case 402: return 'quota';        // Payment Required is a billing/quota signal, not validation
+    case 403: return 'forbidden';
+    case 404: return 'not-found';
+    case 422: return 'validation';
+    case 429: return 'rate-limit';
+    case 500: case 502: case 503: case 504: return 'server';
+    case 400:
+      return err.fieldErrors && Object.keys(err.fieldErrors).length > 0 ? 'validation' : 'unknown';
+  }
+  return 'unknown';
+}
+
+export interface ErrorCopy { title: string; body: string; action: string; retryable: boolean; }
+
+// Keyed by the full union, so dropping a category is a compile error. Each
+// category maps to honest, actionable copy — what happened + what to do.
+export const COPY: Record<ErrorCategory, ErrorCopy> = {
+  quota: { title: "You've hit your plan limit", body: 'Upgrade your plan or wait for usage to reset — re-trying will not help.', action: 'View plans', retryable: false },
+  'rate-limit': { title: 'Slow down a moment', body: "You're sending requests faster than we allow. Wait a few seconds.", action: 'Try again', retryable: true },
+  timeout: { title: 'That took too long', body: 'The request timed out. Your connection may be slow — try again.', action: 'Try again', retryable: true },
+  network: { title: "Can't reach the server", body: 'Check your internet connection and try again.', action: 'Try again', retryable: true },
+  validation: { title: 'Check your input', body: 'Fix the highlighted fields and resubmit.', action: 'Review fields', retryable: false },
+  auth: { title: 'Your session expired', body: 'You need to sign in again to continue.', action: 'Sign in', retryable: false },
+  forbidden: { title: "You don't have access", body: "Your account isn't permitted to do this.", action: 'Go back', retryable: false },
+  'not-found': { title: "We couldn't find that", body: 'The item no longer exists or was moved.', action: 'Go back', retryable: false },
+  server: { title: 'Something broke on our end', body: "This isn't your fault — we've been notified. Try again in a moment.", action: 'Try again', retryable: true },
+  unknown: { title: 'Something went wrong', body: 'If it keeps happening, contact support.', action: 'Try again', retryable: true },
+};
+
+// Source: field reports #351, #343 F8. An upload component caught a 402 quota
+// error and rendered "try a different file" because its only error branch was
+// shaped for validation. Categorize FIRST, then choose copy.`,
+      },
+    ],
+  },
+  {
+    slug: "codemod-hygiene",
+    name: "codemod-hygiene.md",
+    title: "Codemod Hygiene",
+    description: "After a jscodeshift/recast codemod, strip incidental reformatting so the diff shows only the semantic change.",
+    teaches:
+      "Why AST codemods built on recast preserve formatting for untouched nodes but RE-PRINT touched nodes — so any file with pre-existing format debt gets reformatted beyond the semantic change, inflating the diff and burying the real change. The procedure for separating semantic hunks from reformatting hunks.",
+    whenToUse:
+      "Any AST codemod run (jscodeshift, @next/codemod, react-codemod, or a hand-rolled recast transform) over a codebase with pre-existing format debt.",
+    preview: `# Hygiene procedure\n1. Run the codemod on a clean tree.\n2. Separate semantic hunks from reformatting hunks.\n3. Revert incidental hunks (git checkout -p), re-apply only the semantic change.\n4. OR run the formatter scoped to changed files BEFORE the codemod.`,
+    frameworks: [
+      {
+        framework: "typescript",
+        label: "Reference",
+        language: "Markdown",
+        code: `# Pattern: Codemod Hygiene (strip incidental reformatting)
+
+When to use: any AST codemod run (jscodeshift, @next/codemod, react-codemod, or
+a hand-rolled recast transform) over a codebase with pre-existing format debt.
+
+## The failure mode
+
+AST codemods built on recast preserve formatting for nodes they DON'T touch but
+RE-PRINT touched nodes from the AST — so any file with pre-existing format debt
+(irregular JSX wrapping, multi-line object style, mixed quotes) gets reformatted
+beyond the semantic change, inflating the diff and burying the real change.
+
+## Hygiene procedure
+
+1. Run the codemod on a clean tree.
+2. Review the diff and separate semantic hunks from reformatting hunks.
+3. For files where reformatting dominates, git checkout -p / revert the
+   incidental hunks and re-apply ONLY the semantic change by hand.
+4. OR run the project formatter (prettier / eslint --fix) scoped to changed
+   files BEFORE the codemod so the codemod's reprint matches existing style,
+   making the diff semantic-only.
+
+## The trade-off
+
+Option (4) is cleaner for well-formatted codebases; option (3) is right when
+format debt is intentional/unowned.
+
+Source: field report #357 §4.`,
+      },
+    ],
+  },
+  {
+    slug: "nginx-vhost",
+    name: "nginx-vhost.conf",
+    title: "Nginx Vhost",
+    description: "Cloudflare-Flexible-safe origin vhost: origin security header stack, ACME http-01 passthrough, per-tenant logs, and deliberately NO HTTP->HTTPS redirect to avoid the Flexible-SSL loop.",
+    teaches:
+      "Why an origin-level HTTP->HTTPS redirect causes ERR_TOO_MANY_REDIRECTS on a Cloudflare Flexible zone (the edge talks plain HTTP to the origin), so the redirect is omitted. Where http{}-only directives (limit_req_zone, the upgrade map) must live vs. where they apply, how to keep /.well-known/acme-challenge/ reachable on :80, and why the security headers go at the origin with `always` so the posture survives a removed Cloudflare rule.",
+    whenToUse:
+      "Cloudflare zone SSL mode = Flexible and the origin speaks HTTP only. Copy to /etc/nginx/sites-available/<tenant>.conf, replace @@SERVER_NAME@@/@@UPSTREAM@@/@@TENANT@@. Use a TLS-terminating vhost with the 301 instead when the zone is Full/Full-strict.",
+    preview: `# Cloudflare Flexible: edge does HTTPS, this hop is HTTP.
+# NO \`return 301 https://...\` here — it would loop.
+add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+location ^~ /.well-known/acme-challenge/ { root /var/www/acme; try_files $uri =404; }
+proxy_set_header X-Forwarded-Proto https;`,
+    frameworks: [
+      {
+        framework: "nginx",
+        label: "Nginx",
+        language: "nginx",
+        code: `upstream @@TENANT@@_origin {
+    server @@UPSTREAM@@;
+    keepalive 32;
+}
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name @@SERVER_NAME@@;
+
+    # Per-tenant logs so one tenant's traffic never contaminates another's trail.
+    access_log /var/log/nginx/@@TENANT@@.access.log combined;
+    error_log  /var/log/nginx/@@TENANT@@.error.log warn;
+
+    # ACME http-01: Let's Encrypt fetches this over plain HTTP on :80.
+    # MUST NOT be redirected or proxied, or issuance/renewal fails.
+    location ^~ /.well-known/acme-challenge/ {
+        default_type "text/plain";
+        root /var/www/acme;
+        try_files $uri =404;
+    }
+
+    # Security stack at the origin (\`always\` => emitted on 4xx/5xx too) so the
+    # posture survives even if a Cloudflare response-header rule is removed.
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Content-Security-Policy "frame-ancestors 'self'" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+    location / {
+        # DELIBERATELY no \`return 301 https://$host$request_uri;\` — on a
+        # Cloudflare Flexible zone the edge talks HTTP to origin, so an
+        # origin-level redirect loops (ERR_TOO_MANY_REDIRECTS).
+        limit_req zone=@@TENANT@@_perip burst=40 nodelay;  # zone declared at http{}
+        proxy_pass http://@@TENANT@@_origin;
+        proxy_http_version 1.1;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;          # public leg is HTTPS
+        proxy_set_header Upgrade    $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;   # http{}-scoped map
+    }
+
+    location = /healthz { access_log off; return 200 '{"status":"ok"}'; }
+}
+# Evidence: field report #344 F2 (redirect loop) and #344 F4a (header stack,
+# per-tenant logs, http{}-context-only limit_req_zone + upgrade map).`,
+      },
+    ],
+  },
+  {
+    slug: "post-deploy-probe",
+    name: "post-deploy-probe.sh",
+    title: "Post-Deploy Probe",
+    description: "Post-deploy health probe that asserts sensitive paths are NOT publicly served. Probes a denylist (.env, .git/config, methodology docs, SSH keys) against the live deploy URL and exits non-zero on any 200.",
+    teaches:
+      "How to verify the deploy surface AFTER upload, not just the artifact before it. Fixed denylist of leak-prone paths, an extensible env-var denylist, curl status probing with a 10s timeout, LEAK vs ok per-path output, a JSON summary line, and fail-the-deploy exit semantics — a single 200 means rollback.",
+    whenToUse:
+      "Every deploy, after the artifact is live. Wired into .claude/commands/deploy.md Step 4.5 as the runtime counterpart to deploy-preflight (which scans before upload). Catches the credential-leak and methodology-exposure classes that survive a clean artifact but get served by a misconfigured CDN root or routing rule.",
+    preview: `# DEPLOY_URL=https://example.com bash docs/patterns/post-deploy-probe.sh
+# Probes a denylist against the LIVE deploy. Exits non-zero on any 200.
+# LEAK  200  -> https://example.com/.env    ← rollback and fix the surface
+# ok    404  -> https://example.com/.git/config`,
+    frameworks: [
+      {
+        framework: "bash",
+        label: "Bash",
+        language: "bash",
+        code: `set -euo pipefail
+: "\${DEPLOY_URL:?DEPLOY_URL is required (e.g. https://example.com)}"
+DEPLOY_URL="\${DEPLOY_URL%/}"   # strip trailing slash for clean composition
+
+# Fixed denylist — mirrors Step 4.5 in .claude/commands/deploy.md.
+DENYLIST=(
+  "/.env" "/.env.production" "/.env.local"
+  "/.git/config" "/.git/HEAD"
+  "/.claude/agents/silver-surfer-herald.md"
+  "/docs/methods/FORGE_KEEPER.md"
+  "/HOLOCRON.md" "/CHANGELOG.md" "/VERSION.md"
+  "/package.json" "/tsconfig.json"
+  "/id_rsa" "/.ssh/id_rsa"
+)
+# Optional extensible denylist (newline-separated).
+if [[ -n "\${DEPLOY_PROBE_EXTRA:-}" ]]; then
+  while IFS= read -r extra; do
+    [[ -n "$extra" ]] && DENYLIST+=("$extra")
+  done <<< "$DEPLOY_PROBE_EXTRA"
+fi
+
+hits=0; checked=0
+for path in "\${DENYLIST[@]}"; do
+  checked=$((checked + 1))
+  url="\${DEPLOY_URL}\${path}"
+  status="$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 "$url" || echo "000")"
+  if [[ "$status" == "200" ]]; then
+    hits=$((hits + 1))
+    printf 'LEAK  %s  -> %s\\n' "$status" "$url" | tee -a "$TMP" >&2
+  else
+    printf 'ok    %s  -> %s\\n' "$status" "$url"
+  fi
+done
+
+printf '{"action":"post-deploy-probe","url":"%s","checked":%d,"hits":%d}\\n' \\
+  "$DEPLOY_URL" "$checked" "$hits"
+if (( hits > 0 )); then
+  echo "[post-deploy-probe] \${hits} sensitive path(s) publicly served. Rollback and fix deploy surface." >&2
+  exit 1
+fi
+echo "[post-deploy-probe] clean"
+
+# Evidence: field reports #305 (32-day credential leak), #303 (methodology exposure).`,
+      },
+    ],
+  },
+  {
+    slug: "rls-test-fixture",
+    name: "rls-test-fixture.py",
+    title: "RLS Test Fixture",
+    description: "The db_as_app SAVEPOINT fixture: run RLS-policy assertions under a NOSUPERUSER NOBYPASSRLS app role, not the Testcontainers SUPERUSER bootstrap role that silently bypasses FORCE RLS.",
+    teaches:
+      "Why RLS tests under the default test SUPERUSER (BYPASSRLS=t) pass even when the policy is deleted. How to provision a runtime-matching app role and wrap the shared db fixture in SAVEPOINT + SET LOCAL ROLE + ROLLBACK so policy assertions actually fire and connection state is restored on teardown.",
+    whenToUse:
+      "Every Python/asyncpg + pytest project with FORCE RLS. Use db_as_app for any test asserting a policy fires; reserve the plain db fixture for schema setup and admin-only ops. Ports to SQLAlchemy, psycopg, and Django ORM.",
+    preview: `@pytest_asyncio.fixture
+async def db_as_app(db):
+    await db.execute("SAVEPOINT rls_test")
+    try:
+        await db.execute(f"SET LOCAL ROLE {APP_ROLE_NAME}")
+        yield db
+    finally:
+        await db.execute("ROLLBACK TO SAVEPOINT rls_test")`,
+    frameworks: [
+      {
+        framework: "pytest",
+        label: "pytest",
+        language: "python",
+        code: `@pytest_asyncio.fixture
+async def db_as_app(db: asyncpg.Connection) -> AsyncIterator[asyncpg.Connection]:
+    """
+    Wrap the standard \`db\` fixture so RLS-sensitive tests run under the app
+    role (BYPASSRLS=f), not the SUPERUSER bootstrap role. State is restored
+    on teardown. Use the plain \`db\` fixture only for schema/admin operations.
+    """
+    await db.execute("SAVEPOINT rls_test")
+    try:
+        await db.execute(f"SET LOCAL ROLE {APP_ROLE_NAME}")
+        # If the test sets a tenant ContextVar, wire it through:
+        #   await db.execute("SELECT set_config('app.current_org_id', $1, true)", org_id)
+        yield db
+    finally:
+        await db.execute("ROLLBACK TO SAVEPOINT rls_test")
+
+# Provision the runtime non-owner role once per session. NOSUPERUSER and
+# NOBYPASSRLS are load-bearing — without them the fixture buys you nothing.
+async def provision_app_role(admin_conn: asyncpg.Connection) -> None:
+    await admin_conn.execute(f"""
+        DO $$
+        BEGIN
+            IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '{APP_ROLE_NAME}') THEN
+                CREATE ROLE {APP_ROLE_NAME}
+                    LOGIN NOSUPERUSER NOBYPASSRLS NOCREATEDB NOCREATEROLE
+                    PASSWORD 'test_app_password';
+                GRANT SELECT, INSERT, UPDATE, DELETE
+                    ON ALL TABLES IN SCHEMA public TO {APP_ROLE_NAME};
+            END IF;
+        END $$;
+    """)
+
+# Anti-patterns: using \`db\` for RLS assertions (SUPERUSER bypass = every test
+# passes); BYPASSRLS=t "for convenience"; SET ROLE without SAVEPOINT (test
+# pollution); skipping ROLLBACK in finally (pooled conn handed out as app role).
+# Source: field report #318 §5 — Cara Dune, Union Station M-05.`,
+      },
+    ],
+  },
+  {
+    slug: "structural-sql-sentinel",
+    name: "structural-sql-sentinel.py",
+    title: "Structural SQL Sentinel",
+    description: "Adversarial-test discipline for SQL-shape sentinels. A fail-open regex must match every commuted, cast, IS NULL, and coalesce variant — and prove it can fail.",
+    teaches:
+      "Why a single-form structural sentinel is a single point of failure. How to harden it with comprehensive alternation, positive controls, negative controls (to stop false-positive fatigue), and a fixture-bindability proof that a sentinel which algebraically cannot fail is a no-op.",
+    whenToUse:
+      "Any SQL-shape policing — fail-open detection in RLS policies, dangerous catalog reads, deprecated function calls, plaintext storage in encrypted columns. Pair a CI grep with a runtime assertion against pg_policies.qual.",
+    preview: String.raw`@pytest.mark.parametrize("form", POSITIVE_FORMS)
+def test_sentinel_catches_fail_open_form(form: str) -> None:
+    """Every known fail-open variant must trip the sentinel."""
+    assert policy_is_fail_open(form), \
+        f"SENTINEL GAP: form did not trip — '{form}'"`,
+    frameworks: [
+      {
+        framework: "pytest",
+        label: "pytest",
+        language: "python",
+        code: String.raw`import re
+import pytest
+
+# Comprehensive regex matching all known fail-open forms. Each
+# alternation is a CVE-class pattern that has bitten production at least once.
+FAIL_OPEN_RE = re.compile(
+    r"""
+    (
+        current_setting\([^)]*\)\s*=\s*''            |  # direct equality
+        ''\s*=\s*current_setting\([^)]*\)            |  # commuted (PG keeps operand order)
+        current_setting\([^)]*\)\s*::\s*\w+\s*=\s*'' |  # cast on the function call
+        current_setting\([^)]*\)\s*IS\s+NULL         |  # IS NULL (unset GUC = fail-open)
+        coalesce\(\s*current_setting\([^)]*\)\s*,\s*''\s*\)\s*=\s*''  # coalesce wrap
+    )
+    """,
+    re.IGNORECASE | re.VERBOSE,
+)
+
+def policy_is_fail_open(policy_qual: str) -> bool:
+    return bool(FAIL_OPEN_RE.search(policy_qual))
+
+# Fixture-bindability proof: a structural sentinel is meaningful only
+# if it can FAIL on a deliberate regression.
+def test_sentinel_can_bind() -> None:
+    deliberate_regression = "current_setting('x', true) = ''"
+    assert policy_is_fail_open(deliberate_regression), \
+        "BINDABILITY FAILURE: sentinel cannot fail under any input — it's a no-op"
+
+# Anti-patterns: LIKE '%...%' substring match (misses commuted/cast/IS NULL);
+# single regex variant w/o alternation; positive controls only (alert fatigue);
+# no bindability proof; CI grep with no database-side runtime mirror.
+# Source: field report #319 §3.`,
+      },
+    ],
+  },
 ];
 
 export function getPattern(slug: string): Pattern | undefined {

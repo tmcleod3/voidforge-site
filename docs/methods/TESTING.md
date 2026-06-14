@@ -274,9 +274,13 @@ See `/docs/patterns/e2e-test.ts` for the complete reference implementation:
 
 **Mock signature verification:** When mocking external dependencies, verify the mocked methods exist on the real class. A mock that defines `sendMessage()` when the real SDK uses `send_message()` creates false confidence — tests pass but the integration fails. Pattern: `expect(Object.keys(mock)).toEqual(expect.arrayContaining(Object.keys(realInstance)))`.
 
+**Author-fixture-only boundaries (LLM / external output):** If every test of an integration boundary feeds it a fixture you authored, you have not tested the boundary. Hand-authored inputs exercise only the shapes you imagined — and those already work. For any path that consumes LLM or external-tool output and acts on it (applies a model-generated diff, parses a model JSON plan, executes a tool-returned command), add at least one **real-output self-test on a seeded mutant** asserting does-it-fix and does-no-harm. (Field report #358: hand-authored diffs always git-applied; real Sonnet diffs did not — corrupt-patch bug invisible to every fixture test.) This complements, not contradicts, the existing "mock it, don't call it" rule below: that rule governs cheap deterministic dependencies; the seeded-mutant self-test governs the act-on-output integration boundary specifically.
+
 **No source-code string assertions:** Never assert on status code strings or error class names found in source code (`'403' in source`, `'HTTPException' in source`). These break on any refactor that changes error handling mechanics (e.g., `HTTPException(403)` → `Errors.forbidden()`). Test the actual HTTP response status and body instead. (Field report #227)
 
 **Error format migration checklist:** Before committing any change to error response shape (e.g., `{"detail": ...}` → `{"error": {"code", "message"}}`), grep test files for the old shape. Tests asserting `response["detail"]` will silently pass if the test never reaches the assertion (wrong status code) or will fail confusingly. Fix all test assertions to match the new shape in the same commit. (Field report #227)
+
+**Numeric constant migration checklist:** Before committing any change to a numeric constant that tests assert against (TTL, timeout, retry count, budget cap, rate limit), `git grep` the old literal value across the suite and fix every affected assertion — or extract the constant into a single shared definition both code and tests import — in the SAME commit. A test that ages a fixture relative to the old value still passes or fails, but for the wrong reason: it now asserts the wrong thing. This generalizes the error-shape rule above it from response *shape* to any *value* the tests encode. (Field report #363: `ROSTER_TTL_SECONDS` changed 600→3600 but `test.sh` kept aging a fixture to 61 min and asserting "stale" — fresh under the new TTL, so it passed for the wrong reason, then later failed.)
 
 **Standalone test app handler registration (FastAPI/Express):** When tests create their own application instance (`FastAPI()`, `express()`) for isolated testing, register all custom error handlers from the main app (`app.add_exception_handler(ApiError, api_error_handler)` or equivalent). Without this, custom error classes propagate as unhandled exceptions instead of structured JSON — tests pass for the wrong reason. (Field report #227)
 
@@ -355,6 +359,25 @@ Always use the test framework's shared database fixture (e.g., conftest `db` fix
 Do NOT create custom DDL in test files — it drifts from the real schema (missing NOT NULL constraints, columns added by later migrations, different defaults). If you need tables the shared fixture doesn't have, add them AFTER the fixture yields — don't replace it.
 
 Custom DDL causes test DB schema mismatches that require 2-3 fix-and-retry cycles per occurrence. (Field report #31)
+
+### Failure Attribution in Shared-State Suites
+
+When a test fails in a suite that shares mutable state across files (a shared test DB, module-level singletons, a global fixture, an ordering-sensitive runner), do NOT attribute a multi-file failure to your change until you have reproduced it in isolation. Shared state means a failure can surface in file B while the root cause lives in file A — or in test ordering itself, not in your edit at all. (Field report #349 F-3)
+
+**Procedure:**
+
+1. **Isolate the failing file.** Run only the failing test file (or the single test), so cross-file state pollution can't contribute. Use the framework's isolation/single-worker flag so the runner doesn't parallelize or randomize:
+
+   | Framework | Isolate single-worker / no parallelism | Disable random ordering |
+   |-----------|----------------------------------------|-------------------------|
+   | vitest | `vitest run --no-threads <file>` (or `--pool=forks --poolOptions.forks.singleFork`) | `--sequence.shuffle=false` |
+   | jest | `jest --runInBand <file>` | `--testSequencer` (default is deterministic) |
+   | pytest | `pytest <file>::<test>` | `pytest -p no:randomly` (disable pytest-randomly) |
+
+2. **Compare against clean HEAD.** Stash your change (`git stash`) and re-run the same isolated command on a clean tree. If it still fails on clean HEAD, the failure is pre-existing — not yours. Restore with `git stash pop` afterward.
+3. **Only after isolation + clean-HEAD comparison** attribute the failure to your change, and fix the actual cause rather than the symptom.
+
+This is the canonical rule in `/docs/methods/QA_ENGINEER.md` (Failure Attribution) — see it for the full decision tree. This section is the testing-runner-flag companion to it.
 
 ## Setup Checklist
 

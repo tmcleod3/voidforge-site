@@ -67,6 +67,24 @@ Examples that triggered this rule:
 
 Skip this step only when the ADR's scope is bounded by entity (one file, one table, one route group) — bounded ADRs don't need an audit because the count is visible in the scope itself.
 
+### Fan-out completeness (glob-derived lists + mandatory sweep)
+
+This is distinct from the plan-time audit grep above. The audit grep *counts* sites so the architect can *estimate* effort. Fan-out completeness governs *execution*: when a mission fans a directory-wide or migration-wide change across parallel agents, it ensures every file in scope is actually touched and nothing is silently dropped at the seams between agents (field report #355 F2).
+
+**Two rules, both mandatory:**
+
+1. **Derive per-agent file lists from a GLOB, never a hand-typed list.** When splitting a directory/migration fan-out across N agents, the source-of-truth file list MUST come from a glob expansion (`git ls-files 'src/widgets/**/*.ts'`, `find migrations -name '*.sql'`, `grep -rl '<legacy pattern>' <tree>`), then partitioned among agents — never a list typed from memory or eyeballed from a tree view. A hand-typed list is a fan-out's single biggest source of silent omission: the one file nobody remembered never gets an agent, compiles clean in isolation, and ships the legacy pattern. The glob is the manifest; agent assignments are slices of it.
+
+2. **Pair every fan-out with a post-fan-out completeness sweep BEFORE the wave is declared done.** After all fan-out agents return, re-run the legacy pattern across the *whole* target tree — not the per-agent slices, the entire tree — and assert zero residual hits (or a fully-justified allowlist):
+
+   ```bash
+   # The wave touched src/widgets/**; sweep the whole tree for the old pattern.
+   grep -rnE '<legacy pattern>' src/ | grep -v '<intentional-keep paths>'
+   # Must be empty (or every line individually justified) before the wave closes.
+   ```
+
+   The per-agent reviews each pass — every slice is internally consistent — yet the union can still miss a file that fell between two agents' globs, a file added after the manifest was captured, or a path one agent assumed another owned. The completeness sweep is the only check that sees the whole tree at once. A fan-out wave is NOT done until its sweep is green. (Field report #355 F2: a directory-wide migration declared complete on green per-agent reviews still shipped legacy-pattern residue because no sweep ran the old pattern across the full tree after the wave.)
+
 ### Closeout grep pinning
 
 When a `/campaign` closeout report cites a followup count or backlog size (e.g., "F-V710-ORG1-DEFAULTS — ~12 sites remaining" or "~21 cumulative followups"), the followup definition MUST embed the literal grep pattern + observed `n=N` at closeout HEAD. The next campaign's `/architect --plan` re-runs the same grep before accepting the count.
@@ -101,9 +119,10 @@ When the user passes `--plan [description]`, Sisko updates the plan instead of e
 1. Read the current PRD and ROADMAP.md
 2. Dax analyzes where the new idea fits — new feature (PRD), improvement (ROADMAP), or reprioritization
 3. Odo checks dependencies — does this depend on something not yet built?
-4. Present proposed changes for user review
-5. Write updates on confirmation
-6. Do NOT start building — planning only
+4. **Scope-adversary check for bug classes.** When the new idea is a bug fix OR documents a specific bug class, dispatch at least one verification agent (Riker, Feyd-Rautha, or Spock) with an explicit prompt: *"This mission fixes a [slug-array / render-time data / schema-constraint / IDOR / etc.] class. List all other surfaces in this codebase that this class touches but were NOT in the mission scope."* The plan must explicitly account for every class-instance found, or explicitly defer with rationale. (Field reports #332 + #338: voidforge-marketing-site planning missed `/patterns` because the bug was scoped to `/commands`; same class, both surfaces, only one fixed. Class-generalization is a briefing discipline that costs zero code and prevents whole categories of regressions.)
+5. Present proposed changes for user review
+6. Write updates on confirmation
+7. Do NOT start building — planning only
 
 This is how ideas get into the plan without breaking the execution flow. The user describes what they want in plain language; Dax figures out where it goes.
 
@@ -200,6 +219,7 @@ Dax reads the Prophets' plan:
    - **Vault-Available** — infrastructure items where credentials exist in `~/.voidforge/vault.enc` but haven't been injected into `.env`. When scanning `.env.example` against `.env`, check if missing vars are in the vault before marking BLOCKED. Vault-backed credentials can be auto-resolved by running `voidforge deploy`. (Field report #40: 5 items classified as BLOCKED for an entire 10-mission campaign when the vault had the credentials.)
    - **Content Audit** — verify marketing claims, feature descriptions, and documentation against the actual codebase. Run after major version changes when copy may have drifted from implementation. Maps to FIELD_MEDIC.md "Marketing drift" root cause. (Field report #243)
 7. Diff: PRD requirements vs. implemented features (structural AND semantic — not just "does the route exist?" but "does the component render what the PRD describes?")
+7a. **Premise verification (field report #360).** For any mission whose brief asserts a specific defect, gap, or cause — "endpoint X is missing," "flow Y has friction," "bug is in module Z" — confirm the stated problem IS the actual problem in the code BEFORE scoping the fix. Grep/read the named artifact and trace the real failure path. A brief's framing is a hypothesis, not a finding. Three failure modes to catch: (a) the thing said to be missing already exists and the real bug is elsewhere (a briefed "resend endpoint missing" was actually a session-gating deadlock — unverified users couldn't get a session to reach the resend button), (b) the mechanism is mis-stated, (c) the briefed "minor friction" is actually a CRITICAL dead-end. If the premise is wrong, re-scope the mission to the verified root cause and note the correction in the mission brief — do not build the briefed fix on an unverified premise.
 8. Produce: **The Prophecy Board** — ordered list of missions with scope, plus a separate list of BLOCKED items (assets, credentials, user decisions)
 8a. **Cross-mission data handoff check (Odo):** For any system that forms a closed loop (e.g., generate → track → analyze → feed back), identify every data handoff point between missions. Each handoff must be explicitly scoped in at least one mission: "Mission N produces X, Mission M consumes X via [mechanism]." If the loop spans 3+ missions, draw the handoff map. Unscoped handoffs become no-ops — the code on each side compiles and tests independently, but the data never flows between them. (Field report #265: seedPush extracted winning variant data but discarded it — the feedback loop was documented but not wired because the two ends were in separate missions with no explicit handoff.)
 9. **Cluster-mission recognition:** Before finalizing the board, Dax asks: "Are any of these missions cluster-natured?" A cluster-mission is a single-line entry that actually spans 4+ ADR sections, 4+ sub-components, or 4+ migration steps. Examples: M-51 cluster (per-org MCP topology) genuinely required 4 sub-missions per ADR-107 §c-§f; M-44 series required 5 sub-missions per ADR-117. Pretending a cluster is one mission produces 2-3× planning underestimates and forces mid-campaign restructuring. If a mission has 4+ named deliverables in different files/modules, split into sub-missions (M-51a/b/c/d) at plan time, not at execution time. (Field report #326: Sisko's original v7.10 slate was 9 missions; reality was 21 because cluster recognition was deferred.)
@@ -249,6 +269,7 @@ Before starting mission #1, Odo verifies:
 3. Are new integrations needed that require credentials?
 4. Are there blocking issues from previous missions?
 5. **Data model retrofit check:** If this campaign adds a new data model layer (e.g., ProjectVersion, WorkspaceScope), identify all existing endpoints that read/write the old model and flag them for review. Prior-campaign features that reference the old model directly will silently break or return stale data. (Field report #38: variant endpoint missed the version model because it was built in a prior campaign.)
+6. **Dependency-Feasibility-First (framework/major-version migrations):** For framework/major-version migration missions, run the Dependency-Feasibility-First gate (SYSTEMS_ARCHITECT.md) before plan finalization — if a required peer has no version supporting the target framework, the mission is BLOCKED upstream, not buildable. (Field report #357.)
 
 **BLOCKED Validation Rule:** Before declaring a mission BLOCKED, verify the block is real. If credentials exist in .env or vault, attempt the API call. "Needs dashboard access" is NOT a valid blocker if an API endpoint exists. "Needs developer account" is NOT valid if the API is publicly documented and callable with `node:https`. Try before blocking.
 
@@ -278,9 +299,16 @@ User confirms, redirects, or overrides. On confirm → Step 4.
 3. Fury runs the full pipeline (or `--fast` if user prefers). **Note:** `--fast` skips Crossfire + Council but NEVER skips `/sentinel` if the mission adds new endpoints, WebSocket handlers, or credential-handling code.
 3a. **Per-mission Kenobi quick-scan:** If the mission creates or modifies auth, crypto, HMAC, credential handling, or webhook verification code, run a focused Kenobi security scan within the mission — do not defer to the Victory Gauntlet. The reduced pipeline's single review round is calibrated for business logic, not security-sensitive code. Quick-scan scope: credential leakage, timing attacks, input validation, error message exposure. (Field report #265: webhook HMAC bypass, credential leakage in errors, and auth header override all shipped through the reduced pipeline and were only caught by the Victory Gauntlet.)
 4. Only checkpoint if `/context` shows actual usage above 85%. Do not preemptively suggest checkpoints.
+4a. **A per-wave staging deploy is a STATUS checkpoint — report and continue, never a decision-frame pause** (field report #355 F4). When a mission or fan-out wave pushes to staging mid-campaign, treat the deploy result exactly like a mission-complete status line: announce it ("M-7.4 deployed to staging, health check green — starting M-7.5") and proceed to the next wave. Do NOT frame the staging deploy as a gate, milestone, or "continue or pause?" question — the staging push is part of the autonomous flow, not a hand-back point. The only valid pauses remain the ones in the Pause-Bias Anti-Pattern list below (context >85%, BLOCKED item, un-auto-fixable Critical, user interrupt). This is the action-prose statement of that rule; the callout below is its rationale.
 5. On completion → Step 5
 
 **Post-infrastructure enforcement gate:** For infrastructure campaigns (deploy targets, CI/CD, monitoring, staging environments): after the infrastructure is provisioned, run `/architect --plan` to verify workflow enforcement gates exist — not just infrastructure existence. Infrastructure without process gates is incomplete.
+
+**Silver Surfer gate fires at the REVIEW phase, not the solo build.** Within a mission, the gate (ADR-051 PreToolUse hook on the Agent tool) engages when Fury deploys the review/audit roster as sub-agents — NOT during the orchestrator's solo build of the mission's code. Solo-build-before-review is intentional, not a skipped gate: parallel agents editing the same tightly-coupled engine files (game loop, state machine, shared service) would clobber each other's edits and produce merge garbage. So the orchestrator builds the changeset solo, THEN the Surfer-gated review roster reads it. If you find yourself mid-build asking "did a gate get skipped?", the answer is no — the gate has not fired yet because the review phase has not started. (Field report #348 #3: mid-build confusion over an un-fired gate that fires correctly at the review phase.)
+
+### Pre-Prod Verification: when there is no staging
+
+Verify-in-non-prod-before-prod is the default, not an absolute. When (a) no staging/preview environment exists, AND (b) the product is low-traffic or pre-real-users, AND (c) rollback is fast (single command, previous image/commit armed), prefer a canary deploy + verify-on-prod-with-rollback-armed over a contrived non-prod simulation. A localhost OAuth sim — throwaway redirect URI, prod creds injected, host-pin overridden — tests a fake environment, not the real one; for the no-staging + low-blast + fast-rollback case it is strictly worse than testing the real thing in the real place with rollback one command away. Do NOT mandate a localhost sim when canary+verify-on-prod is the higher-fidelity, lower-friction proxy. Reserve the non-prod requirement for products with real users where a bad prod request is itself the harm. (Field report #357 #2: operator pushed back on localhost theater for a live, pre-real-users product — correctly.)
 
 **Dispatch model (ADR-044):** Per-mission `/assemble` runs SHOULD dispatch phases to sub-agents per `SUB_AGENTS.md` "Parallel Agent Standard." Agents are launched as named subagent types defined in `.claude/agents/` with description-driven dispatch — Opus scans `git diff --stat` and matches changed files against agent descriptions to auto-select specialists. The campaign orchestrator (main thread) manages the mission sequence, inter-mission gates, and campaign state — it does NOT perform inline code analysis. Pass findings summaries between missions, not raw code. See `docs/AGENT_CLASSIFICATION.md` for the full agent manifest (see docs/AGENT_CLASSIFICATION.md). (Field report #270)
 
@@ -439,11 +467,26 @@ Even in `--fast` mode, each mission gets at least **1 review round** (not 3, but
 
 **UI→server route tracing (within review):** When a mission writes both UI code and server code, the review must trace every `fetch()` call in the UI to a registered server route. For each `fetch('/api/...')` in `.js`/`.ts` UI files, verify the path exists as an `addRoute()` call in the server. Missing routes produce silent 404s that are invisible in development. (Field report #50: UI button called `/api/server/restart` but no endpoint was created.)
 
+**Review the integrated changeset, not only the new files.** The per-mission review gate must read the full diff from the prior mission's HEAD (`git diff <prev-mission-sha>..HEAD`), not just the files this mission created. Reviewing only the new files misses pre-existing cross-cutting defects that the integration surfaces: a missing config entry the new code now depends on, a Dockerfile `COPY` that never included the directory this mission populated, a doc-vs-reality drift where the new wiring contradicts a README/PRD claim, a build/import that only breaks once the new module is referenced. The new files can each be clean in isolation while the integrated system is broken at the seams. The diff is the unit of review, not the file list. (Field report #346 #4.)
+
 ### One Mission, One Commit Anti-Pattern
 
 **Each mission gets its own commit.** Do NOT batch multiple missions into a single commit. The per-mission commit serves as evidence: the diff for Mission 3 should contain only Mission 3's deliverables. If the diff contains work from Missions 3-11 combined, the review is meaningless — you can't verify what changed for which mission.
 
 If a mission is small enough to merge with an adjacent one, that's fine — but explicitly acknowledge it: "Missions 3-4 combined (both methodology-only, same target file)." Never silently batch.
+
+### Execution-Time Cluster Sub-Split
+
+Plan-time cluster recognition (Step 1 #9, field report #326) splits a cluster-natured mission into sub-missions BEFORE the campaign starts, when Dax can see 4+ named deliverables on the board. But some clusters only reveal their seam at EXECUTION time: a mission spans a **foundation + N consumers** (a new schema/migration the rest of the mission builds on, a shared client/adapter, a base config, a core engine module) and the consumers cannot be safely reviewed until the foundation is real. Or a `RISK` item surfaces mid-mission demanding the foundation land and be verified BEFORE its consumers are wired.
+
+When that happens, split at execution time along the **foundation/consumers seam** — even though the mission was a single board entry:
+
+1. **Sub-mission A (foundation):** build the foundation alone. Its own review gate. Its own commit (`M-XX.a — <foundation>`).
+2. **Sub-mission B..N (consumers):** build the consumers against the now-verified foundation. Each gets its own review gate and its own commit (`M-XX.b`, `M-XX.c`, ...).
+
+Each sub-mission is a real mission for gate purposes: 1-round review minimum, per-mission commit (One Mission, One Commit still holds), and its slice recorded in campaign-state.md. The foundation's review can catch a contract defect (a column the consumers will read but the migration didn't add, an adapter method the consumers call but the foundation didn't expose) BEFORE the consumers are written against a broken base — instead of the Gauntlet catching it three missions later.
+
+**This complements, not duplicates, plan-time recognition (#326):** plan-time splits a cluster on the board before execution; execution-time sub-split triggers when a foundation/consumers seam (often a `RISK` item) emerges *during* a mission that looked atomic at plan time. If you notice the seam at plan time, split there; if it only surfaces under the build, split here. (Field report #346 #3.)
 
 ### Per-Mission Verification Agents
 
@@ -601,12 +644,22 @@ All PRD requirements are COMPLETE or explicitly BLOCKED:
 7. **PRD sync check:** Before declaring victory, compare PRD numeric claims (agent counts, feature counts, route counts, component counts) against the actual codebase for this campaign's domain. Stale PRD claims erode trust and compound across campaigns. (Field report #119)
 7a. **Tenant isolation completeness (conditional):** If the campaign touched auth, multi-tenant, or user-scoped data, grep ALL tables for `org_id` (or equivalent ownership column). Every table must be classified as either "tenant-scoped" (has org_id) or "global by design" (with documented justification). Tables without org_id and without justification are IDOR risks. This catches incomplete tenant migrations that survive per-phase sweeps — the per-phase check (BUILD_PROTOCOL Phase 4) only covers tables modified in that phase. (Field reports #229, #231)
 8. **Entity selector completeness** — for every user-facing selector (dropdown, combobox, autocomplete) that selects from a database-backed list: verify the selector can handle entities that don't exist yet. If a user can only pick from existing DB records, the feature is incomplete — the selector needs a creation flow or an external lookup fallback. Common examples: city selector (needs geocoding fallback), category picker (needs "Other" or custom entry), user selector (needs invite flow). (Field report #263: city selector only searched existing DB cities — users couldn't set homebase to any city not already in the database.)
+8b. **Doc-Currency Refresh mission (Coulson + Wong) — mandatory pre-SEAL sweep.** Before the final sign-off seals the version, run a dedicated cross-doc currency sweep. The Step 0 freshness check and the Step 6 #9 `build-state.md` update each cover ONE file at ONE moment; across rapid sealed versions the load-bearing docs rot collectively because no single mission owns their joint currency. This mission gives that sweep an owner. **Coulson** (release authority) drives version-line accuracy; **Wong** (lessons/changelog/PRD refresh) drives prose currency. Sweep and reconcile against the current `git log -1` + `package.json`/`pyproject.toml` version:
+   - **`CLAUDE.md`** — Project block, version references, command/agent counts, any "as of vX.Y.Z" claims
+   - **`MEMORY.md`** (auto-memory index, if present) — stale "next:" pointers, completed-work entries that still read as pending
+   - **`README.md`** — install/usage snippets, badge versions, feature lists that drifted from reality
+   - **`PROJECT_VERSION.md` Current line** (or `VERSION.md` "Current:" line) — must equal the version about to be sealed
+   - **`/logs/build-state.md`** — version, test counts, deployment state
+   - **`/logs/campaign-state.md`** — Prophecy Board statuses, final mission status
+   For each file, fix drift in place — never seal known drift. If a doc is already current, note "current at <SHA>" and move on (idempotent). **Opt-out: `--no-doc-refresh`** skips this mission for fast methodology-only or hotfix campaigns where the docs provably did not move; log the skip in campaign-state.md with a one-line reason. This complements (does not replace) the existing state-freshness checks. (Field report #342 F-1: load-bearing docs rotted across rapid sealed versions because the per-file freshness checks had no cross-doc owner.)
 9. **Victory Checklist** — ALL must be true before sign-off:
    - [ ] Gauntlet Council signed off (6/6 or all domains pass)
    - [ ] All BLOCKED items acknowledged by user
    - [ ] PRD claims verified against codebase
    - [ ] `/debrief --submit` filed (issue number recorded)
    - [ ] Campaign-state.md updated with final status
+   - [ ] Doc-Currency Refresh completed (or `--no-doc-refresh` skip logged with reason)
+   - [ ] **Production-config boot assertion passed** — a green sandbox suite is necessary but NOT sufficient. Boot the app under its real production config (production env vars / `NODE_ENV=production`, real adapter selection, production build artifact) and assert it reaches a ready state without a config/credential fault. Sandbox adapters can pass every test while the production path fails on a missing env var, a real-vs-sandbox adapter mismatch, or a build-only import error. Do not declare victory on sandbox-green alone. (Field report #350 #3: sandbox suite was fully green but the production-config boot path was never asserted before sign-off.)
 
 ### The Reckoning (Optional Pre-Launch Audit)
 

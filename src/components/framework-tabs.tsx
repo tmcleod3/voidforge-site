@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 import { trackEvent } from "@/components/analytics";
 import { CollapsibleCode } from "@/components/collapsible-code";
 
-export type Framework = "nextjs" | "express" | "django" | "rails" | "fastapi" | "react-native" | "typescript" | "playwright" | "pytest" | "selenium";
+export type Framework = "nextjs" | "express" | "django" | "rails" | "fastapi" | "react-native" | "typescript" | "playwright" | "pytest" | "selenium" | "bash" | "nginx";
 
 export interface FrameworkImplementation {
   framework: Framework;
@@ -19,7 +19,7 @@ interface FrameworkTabsProps {
   patternSlug: string;
 }
 
-const frameworkOrder: Framework[] = ["nextjs", "express", "django", "rails", "fastapi", "react-native", "typescript", "playwright", "pytest", "selenium"];
+const frameworkOrder: Framework[] = ["nextjs", "express", "django", "rails", "fastapi", "react-native", "typescript", "playwright", "pytest", "selenium", "bash", "nginx"];
 
 export function FrameworkTabs({
   implementations,

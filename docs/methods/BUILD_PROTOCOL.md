@@ -299,6 +299,8 @@ After running any build command (`build:workers`, `tsc --build`, webpack, etc.),
 8. Kenobi: Maul re-probes all remediated vulnerabilities, verifies fixes hold.
 9. If Pass 2 finds new issues, fix and re-verify until clean.
 
+**Isolation-green is NOT deploy-green (field report #354 F3).** Nightwing's full-suite re-run in Pass 2 is the deploy gate — not the targeted/isolation runs used while fixing. A fix can pass every targeted test, every isolation run, and every re-probe of the area it touched, yet still regress UNRELATED tests through environment coupling the isolation runs cannot see (shared fixtures, global state, test ordering, env vars, a mutated singleton, a migration side effect). Isolation runs validate the fix in a vacuum; only the FULL suite observes the coupling. So "every targeted run is green" is never a deploy signal — the gate is the whole suite passing, and you do not advance to Phase 12 on isolation-green alone.
+
 **Phase 12 — Kusanagi Deploys.**
 1. Execute `/docs/methods/DEVOPS_ENGINEER.md` full sequence
 2. Complete first-deploy pre-flight checklist (see `/devops` command)
@@ -453,3 +455,4 @@ Examples of batches that are too big:
 8. Test as you build. Write tests alongside features. Tests are a breaking gate.
 9. Skip what doesn't apply. Not every project needs every phase.
 10. Log everything. Decisions, test results, failures, handoffs. The journal is your memory.
+11. **Derived counts discipline.** Any user-facing numeric claim ("141+ pages", "Gated pages: 19", "6 missions completed", "1390 tests") must be derived from data the build can verify, never hardcoded. Either: (a) compute at build time from source truth (file counts, array lengths, manifest scans), or (b) explicitly mark the claim with `<!-- last-verified: YYYY-MM-DD -->` and add a maintenance task to `docs/methods/RELEASE_MANAGER.md` Verification Checklist. No unverified scalar claims ship in any release. This is the scalar equivalent of the No Stubs doctrine (CLAUDE.md Coding Standards). Three projects independently drifted the same class (#336 F6, #334 F6, #332 hidden #5) — the cost compounds because nobody knows which numbers are stale until somebody counts.
