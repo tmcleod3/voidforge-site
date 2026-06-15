@@ -20,6 +20,7 @@ const subAgentMap: Record<string, string> = {
   Gimli: "/images/agents/subs/gimli.webp",
   Eowyn: "/images/agents/subs/eowyn.webp",
   Steris: "/images/agents/subs/steris.webp",
+  "Silver Surfer": "/images/agents/subs/silver-surfer.webp",
 };
 
 /** All agent images — leads + sub-agents with portraits */

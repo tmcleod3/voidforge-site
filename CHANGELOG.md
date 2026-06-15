@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Site v2.15.1] - 2026-06-15
+
+### Added
+- **Silver Surfer avatar.** The Herald (agent #264 — the most-referenced sub-agent across the protocol page, commands page, tutorials, and feature cards) now has a portrait at `public/images/agents/subs/silver-surfer.webp`, wired into `subAgentMap` in `src/lib/agent-images.ts`. Previously `getAgentImage("Silver Surfer")` returned `undefined`, so it fell back to a plain colored dot in speech bubbles. Generated with the canonical comic `STYLE` prefix and downscaled to the 128×128 sub-agent spec.
+
+### Operational notes
+- Tag `site-v2.15.1`. Image generated via OpenAI **`gpt-image-1`** — `dall-e-3` has been retired (the old `scripts/generate-images.ts` targets it + the removed `style` param, so it's stale and needs a `gpt-image-1` update before the next batch gen).
+
+---
+
 ## [Site v2.15.0] - 2026-06-14
 
 ### Methodology sync v23.11.1 → v23.19.0 + site reconciliation
